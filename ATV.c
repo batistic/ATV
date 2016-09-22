@@ -195,15 +195,16 @@ int cadastrar()
     int pos,i,n,num_uniforme,j; // variaveis auxiliares
     int erro=1; // variavel para testar se um n. de uniforme ja foi cadastrado
     printf("\tCadastrar jogador.\n\n");
-    printf("1. Jogador.\t2. Goleiro.\n->");
-    while(pos!=1 && pos!=2){
+    printf("1. Jogador.\t2. Goleiro.\n->");//solicita que o usuário defina se é goleiro ou não
+    while(pos!=1 && pos!=2){//verifica se entrada é valida (apenas 1 e 2 permitidos)
         scanf("%d",&pos);
         if(pos!=1 && pos!=2)
             printf("Digite uma opcao valida ->");
     }
-    if(pos==1)
+    if(pos==1)//caso entrada seja 1) Jogador (que não goleiro)
     {
-        for(i=0;i<40;i++)
+        for(i=0;i<40;i++)//verifica uma posição livre no vetor de jogadores em ordem crescente
+                        // 0 para vazia, 1 para ocupada, se o valor do controle na posição i = 0, grava
         {
             if(elenco[i].controle==0)
             {
