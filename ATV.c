@@ -192,7 +192,7 @@ int main()
 int cadastrar()
 {
     system("cls");
-    int pos,i,n,num_uniforme; // variaveis auxiliares
+    int pos,i,n,num_uniforme,j; // variaveis auxiliares
     int erro=1; // variavel para testar se um n. de uniforme ja foi cadastrado
     printf("\tCadastrar jogador.\n\n");
     printf("1. Jogador.\t2. Goleiro.\n->");
@@ -229,16 +229,25 @@ int cadastrar()
             scanf("%d",&num_uniforme);
             for(i=0;i<40;i++)
             {
-                if(num_uniforme==elenco[i].uniforme || num_uniforme==goleiros[i].uniforme)
+                printf("for\n");
+                if(i<10)
+                {
+                    if(num_uniforme==goleiros[i].uniforme)
+                    {
+                        printf("Numero de uniforme ja cadastrado!\n");
+                    }
+                }
+                if(num_uniforme==elenco[i].uniforme)
                 {
                     printf("Numero de uniforme ja cadastrado!\n");
                 }
-                else
-                    if(i==40)
-                    {
-                        erro=0;
-                        elenco[n].uniforme=num_uniforme;
-                    }
+                printf("%d\n",i);
+                if(i==39)
+                {
+                    system("PAUSE");
+                    erro=0;
+                    elenco[n].uniforme=num_uniforme;
+                }
             }
         }
         printf("Insira as siglas das possiveis posicoes de atuacao (separadas por espaco):\n");
