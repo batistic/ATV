@@ -191,6 +191,7 @@ int cadastrar()
                 break;
             }
         }
+        elenco[n].controle=1;
         printf("Nome: ");
         setbuf(stdin, NULL);
         fgets(elenco[n].nome,100,stdin);
@@ -335,7 +336,25 @@ int estatisticas_grupo()
 
 int lista_jogadores()
 {
-
+    int n=0;
+    int i;
+    for(i=0;i<10;i++)
+    {
+        if(goleiros[i].controle==1)
+        {
+            printf("%d. %s\n",n,goleiros[i].nome);
+            n++;
+        }
+    }
+    for(i=0;i<40;i++)
+    {
+        if(elenco[i].controle==1)
+        {
+            printf("%d. %s\n",n,elenco[i].nome);
+            n++;
+        }
+    }
+    return 0;
 }
 
 /* Funcao que calcula a media (nao e' certeza ainda) */
