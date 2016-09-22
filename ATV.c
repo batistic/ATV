@@ -107,10 +107,12 @@ int main()
     for(i=0;i<40;i++)
     {
         elenco[i].controle=0;
+        elenco[i].uniforme=0;
     }
     for(i=0;i<10;i++)
     {
         goleiros[i].controle=0;
+        goleiros[i].uniforme=0;
     }
 
     do{
@@ -203,8 +205,22 @@ int cadastrar()
         scanf("%f",&elenco[n].peso);
         printf("Pe' forte (1. Direito / 2. Esquerdo / 3. Ambos): ");
         scanf("%d",&elenco[n].pe);
-        printf("Numero no uniforme: ");
-        scanf("%d",&elenco[n].uniforme);
+        int erro=1
+        do
+        {
+            printf("Numero no uniforme: ");
+            scanf("%d",&elenco[n].uniforme);
+            for(i=0;i<40;i++)
+            {
+                if(elenco[n].uniforme==elenco[i].uniforme || elenco[n].uniforme==goleiros[i].uniforme)
+                {
+                    printf("Numero de uniforme ja cadastrado!\n");
+                }
+                else
+                    if(i==40)
+                        erro=0;
+            }
+        }while(erro==1);
         printf("Insira as siglas das possiveis posicoes de atuacao (separadas por espaco):\n");
         printf("ZD: Zagueiro Direito,             ZE: Zagueiro Esquerdo,\n");
         printf("ZC: Zagueiro Central,             LDD: Lateral Direito Defensivo,\n");
@@ -301,7 +317,25 @@ int cadastrar()
 
 int editar()
 {
+    system("cls");
+    int i;
+    int num_uniforme=lista_jogadores();
+    for(i=0;i<40;i++)
+    {
+        if(num_uniforme==elenco[i].uniforme)
+        {
 
+        }
+    }
+    for(i=0;i<10;i++)
+    {
+        if(num_uniforme==goleiros[i].uniforme)
+        {
+
+        }
+    }
+    system("PAUSE");
+    return 0;
 }
 
 /* Funcao que insere as estatisticas de uma partida */
@@ -336,25 +370,25 @@ int estatisticas_grupo()
 
 int lista_jogadores()
 {
-    int n=0;
     int i;
     for(i=0;i<10;i++)
     {
         if(goleiros[i].controle==1)
         {
-            printf("%d. %s\n",n,goleiros[i].nome);
-            n++;
+            printf("%d. %s\n",goleiros[i].uniforme,goleiros[i].nome);
         }
     }
     for(i=0;i<40;i++)
     {
         if(elenco[i].controle==1)
         {
-            printf("%d. %s\n",n,elenco[i].nome);
-            n++;
+            printf("%d. %s\n",elenco[i].uniforme,elenco[i].nome);
         }
     }
-    return 0;
+    printf("-> ");
+    int num_uniforme;
+    scanf("%d",&num_uniforme);
+    return num_uniforme;
 }
 
 /* Funcao que calcula a media (nao e' certeza ainda) */
