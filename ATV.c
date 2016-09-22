@@ -18,6 +18,19 @@
 /*    Estrutura onde os dados de um jogador sao armazenados    */
 
 typedef struct {
+    int controle;
+    char adversario[100];
+    int gols_pro;
+    int gols_contra;
+    int saldo_gols;
+    int substituicoes;
+}partida;
+
+partida jogo[100];
+
+/*    Estrutura onde os dados de um jogador sao armazenados    */
+
+typedef struct {
     // Controle
     int controle;
     // Dados pessoais
@@ -104,6 +117,10 @@ int main()
     int comando;
 
     int i;
+    for(i=0;i<100;i++)
+    {
+        jogo[i].controle=0;
+    }
     for(i=0;i<40;i++)
     {
         elenco[i].controle=0;
@@ -481,11 +498,26 @@ int editar()
 int inserir_dados()
 {
     system("cls");
+    int n,i;
+    for(i=0;i<100;i++)
+    {
+        if(jogo[i].controle==0)
+        {
+            n=i;
+            break;
+        }
+    }
     printf("\tInserir estatisticas de uma partida.\n\n");
-    printf("Adversario: /\n");
-    printf("Gols feitos: /\n");
-    printf("Gols sofridos: /\n");
-    printf("Substituicoes feitas na partida: /\n");
+    printf("Adversario: ");
+    setbuf(stdin, NULL);
+    fgets(jogo[n].adversario,100,stdin);
+    printf("Gols feitos: ");
+    scanf("%d",&jogo[n].gols_pro);
+    printf("Gols sofridos: ");
+    scanf("%d",&jogo[n].gols_contra);
+    jogo[n].saldo_gols=jogo[n].gols_pro-jogo[n].gols_contra;
+    printf("Substituicoes feitas na partida: ");
+    scanf("%d",&jogo[n].substituicoes);
     printf("\nGoleiro\n");
     printf("  Nome: /\n");
     printf("  Defesas: /\n");
