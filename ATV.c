@@ -541,59 +541,49 @@ int inserir_dados()
     {
         printf("Insira o numero do uniforme do jogador: ");
         scanf("%d",&num_uniforme);
+        for(j=0;j<10;j++)
+        {
+            if(num_uniforme==goleiros[j].uniforme)
+            {
+                printf("  Nome: /\n");
+                printf("  Defesas: /\n");
+                printf("  Passes corretos: /\n");
+                printf("  Passes errados: /\n");
+                printf("  Gols sofridos: /\n");
+                printf("  Gols convertidos: /\n");
+                printf("  Faltas cometidas: /\n");
+                printf("  Faltas sofridas: /\n");
+                printf("  Impedimentos: /\n");
+                printf("  Assistencias (gol): /\n");
+                printf("  Assistencias (finalizacao): /\n");
+                printf("  Penaltis cometidos: /\n");
+                printf("  Penaltis sofridos: /\n");
+                printf("  Penaltis perdidos: /\n");
+            }
+        }
+        for(j=0;j<40;j++)
+        {
+            if(num_uniforme==elenco[j].uniforme)
+            {
+                printf("  Nome: /\n");
+                printf("  Sigla da posicao na partida: /\n");
+                printf("  Passes corretos: /\n");
+                printf("  Passes errados: /\n");
+                printf("  Finalizacoes corretas: /\n");
+                printf("  Finalizacoes erradas: /\n");
+                printf("  Desarmes: /\n");
+                printf("  Gols: /\n");
+                printf("  Faltas cometidas: /\n");
+                printf("  Faltas sofridas: /\n");
+                printf("  Impedimentos: /\n");
+                printf("  Assistencias (gol): /\n");
+                printf("  Assistencias (finalizacao): /\n");
+                printf("  Penaltis cometidos: /\n");
+                printf("  Penaltis sofridos: /\n");
+                printf("  Penaltis perdidos: /\n");
+            }
+        }
     }
-    /*
-    printf("\nGoleiro\n");
-    printf("  Nome: /\n");
-    printf("  Defesas: /\n");
-    printf("  Passes corretos: /\n");
-    printf("  Passes errados: /\n");
-    printf("  Gols sofridos: /\n");
-    printf("  Gols convertidos: /\n");
-    printf("  Faltas cometidas: /\n");
-    printf("  Faltas sofridas: /\n");
-    printf("  Impedimentos: /\n");
-    printf("  Assistencias (gol): /\n");
-    printf("  Assistencias (finalizacao): /\n");
-    printf("  Penaltis cometidos: /\n");
-    printf("  Penaltis sofridos: /\n");
-    printf("  Penaltis perdidos: /\n");
-    printf("\nJogador 1\n");
-    printf("  Nome: /\n");
-    printf("  Sigla da posicao na partida: /\n");
-    printf("  Passes corretos: /\n");
-    printf("  Passes errados: /\n");
-    printf("  Finalizacoes corretas: /\n");
-    printf("  Finalizacoes erradas: /\n");
-    printf("  Desarmes: /\n");
-    printf("  Gols: /\n");
-    printf("  Faltas cometidas: /\n");
-    printf("  Faltas sofridas: /\n");
-    printf("  Impedimentos: /\n");
-    printf("  Assistencias (gol): /\n");
-    printf("  Assistencias (finalizacao): /\n");
-    printf("  Penaltis cometidos: /\n");
-    printf("  Penaltis sofridos: /\n");
-    printf("  Penaltis perdidos: /\n");
-    printf("\n\t(...)\n");
-    printf("\nJogador N\n");
-    printf("  Nome: /\n");
-    printf("  Sigla da posicao na partida: /\n");
-    printf("  Passes corretos: /\n");
-    printf("  Passes errados: /\n");
-    printf("  Finalizacoes corretas: /\n");
-    printf("  Finalizacoes erradas: /\n");
-    printf("  Desarmes: /\n");
-    printf("  Gols: /\n");
-    printf("  Faltas cometidas: /\n");
-    printf("  Faltas sofridas: /\n");
-    printf("  Impedimentos: /\n");
-    printf("  Assistencias (gol): /\n");
-    printf("  Assistencias (finalizacao): /\n");
-    printf("  Penaltis cometidos: /\n");
-    printf("  Penaltis sofridos: /\n");
-    printf("  Penaltis perdidos: /\n");
-    */
     system("pause");
     return 0;
 }
