@@ -13,10 +13,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /*    Estrutura onde os dados de um jogador sao armazenados    */
 
 typedef struct {
+    // Controle
+    int controle;
     // Dados pessoais
     char nome[100]; int idade; float altura; float peso; int pe; int uniforme; int posicao[18];
     // Estatisticas em jogo
@@ -37,9 +40,13 @@ typedef struct {
     int penaltisP[100];       float media_penaltisP;
 }jogador;
 
+jogador elenco[40];
+
 /*    Estrutura onde os dados de um goleiro sao armazenados    */
 
 typedef struct {
+    // Controle
+    int controle;
     // Dados pessoais
     char nome[100]; int idade; float altura; float peso; int pe; int uniforme;
     // Estatisticas em jogo
@@ -59,6 +66,8 @@ typedef struct {
     int penaltisP[100];       float media_penaltisP;
 }goleiro;
 
+goleiro goleiros[10];
+
 /*    Prototipos das funcoes utilizadas    */
 
 int cadastrar();
@@ -66,10 +75,10 @@ int editar();
 int lista_jogadores();
 int estatisticas_jogador();
 int estatisticas_grupo();
-int inserir_estatisticas();
-int editar_estatisticas();
-float media(float, int);
-float pontuacao(char *);
+int inserir_dados();
+int editar_dados();
+float media();
+float pontuacao();
 int ranking();
 int melhor_escalacao();
 int grupo_notas();
@@ -94,14 +103,24 @@ int main()
 {
     int comando;
 
+    int i;
+    for(i=0;i<40;i++)
+    {
+        elenco[i].controle=0;
+    }
+    for(i=0;i<10;i++)
+    {
+        goleiros[i].controle=0;
+    }
+
     do{
         system("cls");
 
         printf("\tA.T.V.\n\n");
         printf("1. Cadastrar jogador.\n");
         printf("2. Editar dados de jogador.\n");
-        printf("3. Inserir estatisticas de uma partida.\n");
-        printf("4. Editar estatisticas de uma partida.\n");
+        printf("3. Inserir dados de uma partida.\n");
+        printf("4. Editar dados de uma partida.\n");
         printf("5. Ver estatisticas de um jogador.\n");
         printf("6. Ver estatisticas do grupo.\n");
         printf("0. Sair.\n");
@@ -119,11 +138,11 @@ int main()
                 break;
 
             case 3:
-                inserir_estatisticas();
+                inserir_dados();
                 break;
 
             case 4:
-                editar_estatisticas();
+                editar_dados();
                 break;
 
             case 5:
@@ -153,7 +172,128 @@ int main()
 
 int cadastrar()
 {
-
+    system("cls");
+    printf("\tCadastrar jogador.\n\n");
+    printf("1. Jogador.\t2. Goleiro.\n->");
+    int pos,i,n;
+    while(pos!=1 || pos!=2){
+        scanf("%d",&pos);
+        if(pos!=1 || pos!=2)
+            printf("Digite uma opcao valida ->");
+    }
+    if(pos==1)
+    {
+        for(i=0;i<40;i++)
+        {
+            if(elenco[i].controle==0)
+            {
+                n=i;
+                break;
+            }
+        }
+        printf("Nome: ");
+        setbuf(stdin, NULL);
+        fgets(elenco[n].nome,100,stdin);
+        printf("Idade: ");
+        scanf("%d",&elenco[n].idade);
+        printf("Altura: ");
+        scanf("%f",&elenco[n].altura);
+        printf("Peso: ");
+        scanf("%f",&elenco[n].peso);
+        printf("Pe' forte (1. Direito / 2. Esquerdo / 3. Ambos): ");
+        scanf("%d",&elenco[n].pe);
+        printf("Numero no uniforme: ");
+        scanf("%d",&elenco[n].uniforme);
+        printf("Insira as siglas das possiveis posicoes de atuacao (separadas por espaco):\n");
+        printf("ZD: Zagueiro Direito,             ZE: Zagueiro Esquerdo,\n");
+        printf("ZC: Zagueiro Central,             LDD: Lateral Direito Defensivo,\n");
+        printf("LED: Lateral Esquerdo Defensivo,  LDO: Lateral Direito Ofensivo,\n");
+        printf("LEO: Lateral Esquerdo Ofensivo,   PV: Primeiro Volante,\n");
+        printf("SV: Segundo Volante,              ARM: Armador,\n");
+        printf("MD: Meia Direita,                 ME: Meia Esquerda,\n");
+        printf("MA: Meia Atacante,                SA: Segundo Atacante,\n");
+        printf("PD: Ponta Direita,                PE: Ponta Esquerda,\n");
+        printf("CA: Centroavante.\n");
+        printf("-> ");
+        char ch;
+        int j=0;
+        i=0;
+        char p[4];
+        do
+        {
+            ch=getchar();
+            if(ch==' ' || ch=='\n')
+            {
+                p[i]='\0';
+                i=0;
+                if(strcmp(p,"ZD")==0)
+                    elenco[n].posicao[j]=1;
+                if(strcmp(p,"ZE")==0)
+                    elenco[n].posicao[j]=2;
+                if(strcmp(p,"ZC")==0)
+                    elenco[n].posicao[j]=3;
+                if(strcmp(p,"LDD")==0)
+                    elenco[n].posicao[j]=4;
+                if(strcmp(p,"LED")==0)
+                    elenco[n].posicao[j]=5;
+                if(strcmp(p,"LDO")==0)
+                    elenco[n].posicao[j]=6;
+                if(strcmp(p,"LEO")==0)
+                    elenco[n].posicao[j]=7;
+                if(strcmp(p,"PV")==0)
+                    elenco[n].posicao[j]=8;
+                if(strcmp(p,"SV")==0)
+                    elenco[n].posicao[j]=9;
+                if(strcmp(p,"ARM")==0)
+                    elenco[n].posicao[j]=10;
+                if(strcmp(p,"MD")==0)
+                    elenco[n].posicao[j]=11;
+                if(strcmp(p,"ME")==0)
+                    elenco[n].posicao[j]=12;
+                if(strcmp(p,"MA")==0)
+                    elenco[n].posicao[j]=13;
+                if(strcmp(p,"SE")==0)
+                    elenco[n].posicao[j]=14;
+                if(strcmp(p,"PD")==0)
+                    elenco[n].posicao[j]=15;
+                if(strcmp(p,"PE")==0)
+                    elenco[n].posicao[j]=16;
+                if(strcmp(p,"SA")==0)
+                    elenco[n].posicao[j]=17;
+                if(strcmp(p,"CA")==0)
+                    elenco[n].posicao[j]=18;
+                j++;
+            }
+            if(ch>64 && ch<91)
+            {
+                p[i]=ch;
+                i++;
+            }
+        }while(ch != '\n');
+    }
+    if(pos==2)
+    {
+        for(i=0;i<40;i++)
+        {
+            if(goleiros[i].controle==0)
+                break;
+        }
+        printf("Nome: ");
+        setbuf(stdin, NULL);
+        fgets(goleiros[n].nome,100,stdin);
+        printf("Idade: ");
+        scanf("%d",&goleiros[n].idade);
+        printf("Altura: ");
+        scanf("%f",&goleiros[n].altura);
+        printf("Peso: ");
+        scanf("%f",&goleiros[n].peso);
+        printf("Pe' forte (1. Direito / 2. Esquerdo / 3. Ambos): ");
+        scanf("%d",&goleiros[n].pe);
+        printf("Numero no uniforme: ");
+        scanf("%d",&goleiros[n].uniforme);
+    }
+    system("PAUSE");
+    return 0;
 }
 
 /* Funcao que edita o cadastro de um jogador */
@@ -165,14 +305,14 @@ int editar()
 
 /* Funcao que insere as estatisticas de uma partida */
 
-int inserir_estatisticas()
+int inserir_dados()
 {
 
 }
 
 /* Funcao que edita as estatisticas de uma partida */
 
-int editar_estatisticas()
+int editar_dados()
 {
 
 }
@@ -207,7 +347,7 @@ float media()
 
 /* Funcao que calcula a pontuacao de um jogador na partida */
 
-float pontuacao(char *nome)
+float pontuacao()
 {
 
 }
