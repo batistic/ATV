@@ -119,22 +119,22 @@ int main()
     int i;
     for(i=0;i<100;i++)
     {
-        jogo[i].controle=0;
+        jogo[i].controle=0; // zerando os controles dos jogos
     }
     for(i=0;i<40;i++)
     {
-        elenco[i].controle=0;
-        elenco[i].uniforme=0;
+        elenco[i].controle=0; // zerando os controles dos jogadores
+        elenco[i].uniforme=0; // zerando os uniformes dos jogadores
     }
     for(i=0;i<10;i++)
     {
-        goleiros[i].controle=0;
-        goleiros[i].uniforme=0;
+        goleiros[i].controle=0; // zerando os controles dos goleiros
+        goleiros[i].uniforme=0; // zerando os uniformes dos goleiros
     }
 
     do{
-        system("cls");
-
+        system("cls");  // limpando a tela
+        /* Menu de opções */
         printf("\tA.T.V.\n\n");
         printf("1. Cadastrar jogador.\n");
         printf("2. Editar dados de jogador.\n");
@@ -144,37 +144,37 @@ int main()
         printf("6. Ver estatisticas do grupo.\n");
         printf("0. Sair.\n");
         printf("-> ");
-        scanf("%d",&comando);
+        scanf("%d",&comando); // leitura da opção
 
         switch(comando)
         {
             case 1:
-                cadastrar();
+                cadastrar(); // entra na função que cadastra jogadores
                 break;
 
             case 2:
-                editar();
+                editar(); // entra na função que edita cadastro de jogadores
                 break;
 
             case 3:
-                inserir_dados();
+                inserir_dados(); // entra na função que cadastra insere dados de uma partida
                 break;
 
             case 4:
-                editar_dados();
+                editar_dados(); // entra na função que cadastra edita dados de uma partida
                 break;
 
             case 5:
-                estatisticas_jogador();
+                estatisticas_jogador(); // entra na função que exibe as estatisticas de um jogador
                 break;
 
             case 6:
-                estatisticas_grupo();
+                estatisticas_grupo(); // entra na função que exibe as estatisticas do grupo
                 break;
 
             case 0:
                 system("cls");
-                printf("\t\tAte logo!\n");
+                printf("\t\tAte logo!\n");  // sai do sistema
                 system("PAUSE");
                 break;
 
