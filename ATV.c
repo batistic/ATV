@@ -195,9 +195,9 @@ int cadastrar()
     printf("\tCadastrar jogador.\n\n");
     printf("1. Jogador.\t2. Goleiro.\n->");
     int pos,i,n,num_uniforme;
-    while(pos!=1 || pos!=2){
+    while(pos!=1 && pos!=2){
         scanf("%d",&pos);
-        if(pos!=1 || pos!=2)
+        if(pos!=1 && pos!=2)
             printf("Digite uma opcao valida ->");
     }
     if(pos==1)
@@ -518,6 +518,11 @@ int inserir_dados()
     jogo[n].saldo_gols=jogo[n].gols_pro-jogo[n].gols_contra;
     printf("Substituicoes feitas na partida: ");
     scanf("%d",&jogo[n].substituicoes);
+    for(i=0;i<11+jogo[n].substituicoes;i++)
+    {
+
+    }
+    /*
     printf("\nGoleiro\n");
     printf("  Nome: /\n");
     printf("  Defesas: /\n");
@@ -568,6 +573,7 @@ int inserir_dados()
     printf("  Penaltis cometidos: /\n");
     printf("  Penaltis sofridos: /\n");
     printf("  Penaltis perdidos: /\n");
+    */
     system("pause");
     return 0;
 }
