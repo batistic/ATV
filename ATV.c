@@ -109,32 +109,6 @@ int jogador_Def();//exibe as estatísticas de defesa do jogador
 int jogador_FeP();//exibe as estatísticas de faltas e pênaltis do jogador
 int jogador_Imp();//exibe as estatísticas de impedimentos do jogador
 int jogador_notas();//exibe as estatísticas de notas do jogador
-int cadastrar();
-int editar();
-int lista_jogadores();
-int estatisticas_jogador();
-int estatisticas_grupo();
-int inserir_dados();
-int editar_dados();
-float media();
-float pontuacao();
-int ranking();
-int melhor_escalacao();
-int grupo_notas();
-int grupo_GeF();
-int grupo_PeA();
-int grupo_Des();
-int grupo_Def();
-int grupo_FeP();
-int grupo_Imp();
-int jogador_dados();
-int jogador_GeF();
-int jogador_PeA();
-int jogador_Des();
-int jogador_Def();
-int jogador_FeP();
-int jogador_Imp();
-int jogador_notas();
 
 /* Funcao principal */
 
