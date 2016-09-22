@@ -322,7 +322,10 @@ int cadastrar()
         for(i=0;i<40;i++)
         {
             if(goleiros[i].controle==0)
+            {
+                n=i;
                 break;
+            }
         }
         printf("Nome: ");
         setbuf(stdin, NULL);
@@ -341,12 +344,19 @@ int cadastrar()
             scanf("%d",&num_uniforme);
             for(i=0;i<40;i++)
             {
-                if(num_uniforme==elenco[i].uniforme || num_uniforme==goleiros[i].uniforme)
+                if(i<10)
+                {
+                     if(num_uniforme==goleiros[i].uniforme)
+                     {
+                         printf("Numero de uniforme ja cadastrado!\n");
+                     }
+                }
+                if(num_uniforme==elenco[i].uniforme)
                 {
                     printf("Numero de uniforme ja cadastrado!\n");
                 }
                 else
-                    if(i==40)
+                    if(i==39)
                     {
                         erro=0;
                         goleiros[n].uniforme=num_uniforme;
@@ -381,7 +391,7 @@ int editar()
             printf("Pe' forte (1. Direito / 2. Esquerdo / 3. Ambos): ");
             scanf("%d",&elenco[n].pe);
             int erro=1;
-            do
+            while(erro==1)
             {
                 printf("Numero no uniforme: ");
                 scanf("%d",&num_uniforme);
@@ -393,19 +403,26 @@ int editar()
                 {
                     for(i=0;i<40;i++)
                     {
-                        if(num_uniforme==elenco[i].uniforme || num_uniforme==goleiros[i].uniforme)
+                        if(i<10)
+                        {
+                            if(num_uniforme==goleiros[i].uniforme)
+                            {
+                                printf("Numero de uniforme ja cadastrado!\n");
+                            }
+                        }
+                        if(num_uniforme==elenco[i].uniforme)
                         {
                             printf("Numero de uniforme ja cadastrado!\n");
                         }
                         else
-                            if(i==40)
+                            if(i==39)
                             {
                                 erro=0;
                                 elenco[n].uniforme=num_uniforme;
                             }
                     }
                 }
-            }while(erro==1);
+            }
             printf("Insira as siglas das possiveis posicoes de atuacao (separadas por espaco):\n");
             printf("ZD: Zagueiro Direito,             ZE: Zagueiro Esquerdo,\n");
             printf("ZC: Zagueiro Central,             LDD: Lateral Direito Defensivo,\n");
@@ -421,6 +438,7 @@ int editar()
             int j=0;
             i=0;
             char p[4];
+            setbuf(stdin, NULL);
             do
             {
                 ch=getchar();
