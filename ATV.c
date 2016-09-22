@@ -83,32 +83,32 @@ goleiro goleiros[10];
 
 /*    Prototipos das funcoes utilizadas    */
 
-int cadastrar();
-int editar();
-int lista_jogadores();
-int estatisticas_jogador();
-int estatisticas_grupo();
-int inserir_dados();
-int editar_dados();
-float media();
-float pontuacao();
-int ranking();
-int melhor_escalacao();
-int grupo_notas();
-int grupo_GeF();
-int grupo_PeA();
-int grupo_Des();
-int grupo_Def();
-int grupo_FeP();
-int grupo_Imp();
-int jogador_dados();
-int jogador_GeF();
-int jogador_PeA();
-int jogador_des();
-int jogador_def();
-int jogador_FeP();
-int jogador_imp();
-int jogador_notas();
+int cadastrar(); //cadastra um novo jogador
+int editar(); //edita o cadastro de um jogador
+int lista_jogadores(); //lista todos os jogadores do grupo
+int estatisticas_jogador(); //exibe as estatísticas de um jogador
+int estatisticas_grupo(); //exibe as estatisticas do grupo
+int inserir_dados(); //insere os dados de uma partida
+int editar_dados(); //edita os dados de uma partida que já ocorreu
+float media(); //calcula a media
+float pontuacao(); //calcula a pontuação do jogador na partida
+int ranking(); //exibe o ranking dos jogadores por um indicador
+int melhor_escalacao();//exibe a melhor escalação baseado nas melhores notas por posição
+int grupo_notas(); //exibe as estatísticas de nota do grupo
+int grupo_GeF(); //exibe as estatísticas de gol e finalização do grupo
+int grupo_PeA();//exibe as estatísticas de passes e assistências do grupo
+int grupo_Des();//exibe as estatísticas de desarme do grupo
+int grupo_Def();//exibe as estatísticas de defesa do grupo
+int grupo_FeP();//exibe as estatísticas de faltas e pênaltis do grupo
+int grupo_Imp();//exibe as estatísticas de impedimentos do grupo
+int jogador_dados();//mostra os dados gerais do jogador
+int jogador_GeF();//exibe as estatísticas de gol e finalização do jogador
+int jogador_PeA();//exibe as estatísticas de passes e assistências do jogador
+int jogador_des();//exibe as estatísticas de desarmes do jogador
+int jogador_def();//exibe as estatísticas de defesa do jogador
+int jogador_FeP();//exibe as estatísticas de faltas e pênaltis do jogador
+int jogador_imp();//exibe as estatísticas de impedimentos do jogador
+int jogador_notas();//exibe as estatísticas de notas do jogador
 
 /* Funcao principal */
 
