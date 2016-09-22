@@ -1,5 +1,5 @@
 /*
- *             TESTE DO VIJAY            A.T.V. - ASSISTENTE TECNICO VIRTUAL
+ *                  A.T.V. - ASSISTENTE TECNICO VIRTUAL
  *
  *    Software desenvolvido para auxiliar equipes tecnicas de times de futebol de campo
  *
@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*    Estrutura onde os dados de um jogador sao armazenados    */
+/*    Estrutura onde os dados de uma partida sao armazenados    */
 
 typedef struct {
     int controle;
@@ -26,7 +26,7 @@ typedef struct {
     int substituicoes;
 }partida;
 
-partida jogo[100];
+partida jogo[100]; // declarando um vetor que armazena 100 jogos
 
 /*    Estrutura onde os dados de um jogador sao armazenados    */
 
@@ -53,7 +53,7 @@ typedef struct {
     int penaltisP[100];       float media_penaltisP;
 }jogador;
 
-jogador elenco[40];
+jogador elenco[40]; // declarando um vetor que armazena 40 jogadores
 
 /*    Estrutura onde os dados de um goleiro sao armazenados    */
 
@@ -79,10 +79,11 @@ typedef struct {
     int penaltisP[100];       float media_penaltisP;
 }goleiro;
 
-goleiro goleiros[10];
+goleiro goleiros[10]; // declarando um vetor que armazena 10 goleiros
 
 /*    Prototipos das funcoes utilizadas    */
 
+<<<<<<< HEAD
 int cadastrar(); //cadastra um novo jogador
 int editar(); //edita o cadastro de um jogador
 int lista_jogadores(); //lista todos os jogadores do grupo
@@ -104,11 +105,39 @@ int grupo_Imp();//exibe as estatísticas de impedimentos do grupo
 int jogador_dados();//mostra os dados gerais do jogador
 int jogador_GeF();//exibe as estatísticas de gol e finalização do jogador
 int jogador_PeA();//exibe as estatísticas de passes e assistências do jogador
-int jogador_des();//exibe as estatísticas de desarmes do jogador
-int jogador_def();//exibe as estatísticas de defesa do jogador
+int jogador_Des();//exibe as estatísticas de desarmes do jogador
+int jogador_Def();//exibe as estatísticas de defesa do jogador
 int jogador_FeP();//exibe as estatísticas de faltas e pênaltis do jogador
-int jogador_imp();//exibe as estatísticas de impedimentos do jogador
+int jogador_Imp();//exibe as estatísticas de impedimentos do jogador
 int jogador_notas();//exibe as estatísticas de notas do jogador
+=======
+int cadastrar();
+int editar();
+int lista_jogadores();
+int estatisticas_jogador();
+int estatisticas_grupo();
+int inserir_dados();
+int editar_dados();
+float media();
+float pontuacao();
+int ranking();
+int melhor_escalacao();
+int grupo_notas();
+int grupo_GeF();
+int grupo_PeA();
+int grupo_Des();
+int grupo_Def();
+int grupo_FeP();
+int grupo_Imp();
+int jogador_dados();
+int jogador_GeF();
+int jogador_PeA();
+int jogador_Des();
+int jogador_Def();
+int jogador_FeP();
+int jogador_Imp();
+int jogador_notas();
+>>>>>>> origin/master
 
 /* Funcao principal */
 
@@ -192,10 +221,10 @@ int main()
 int cadastrar()
 {
     system("cls");
+    int pos,i,n,num_uniforme; // variaveis auxiliares
+    int erro=1; // variavel para testar se um n. de uniforme ja foi cadastrado
     printf("\tCadastrar jogador.\n\n");
     printf("1. Jogador.\t2. Goleiro.\n->");
-    int pos,i,n,num_uniforme;
-    int erro=1;
     while(pos!=1 && pos!=2){
         scanf("%d",&pos);
         if(pos!=1 && pos!=2)
@@ -541,64 +570,54 @@ int inserir_dados()
     {
         printf("Insira o numero do uniforme do jogador: ");
         scanf("%d",&num_uniforme);
+        for(j=0;j<10;j++)
+        {
+            if(num_uniforme==goleiros[j].uniforme)
+            {
+                printf("  Nome: /\n");
+                printf("  Defesas: /\n");
+                printf("  Passes corretos: /\n");
+                printf("  Passes errados: /\n");
+                printf("  Gols sofridos: /\n");
+                printf("  Gols convertidos: /\n");
+                printf("  Faltas cometidas: /\n");
+                printf("  Faltas sofridas: /\n");
+                printf("  Impedimentos: /\n");
+                printf("  Assistencias (gol): /\n");
+                printf("  Assistencias (finalizacao): /\n");
+                printf("  Penaltis cometidos: /\n");
+                printf("  Penaltis sofridos: /\n");
+                printf("  Penaltis perdidos: /\n");
+            }
+        }
+        for(j=0;j<40;j++)
+        {
+            if(num_uniforme==elenco[j].uniforme)
+            {
+                printf("  Nome: /\n");
+                printf("  Sigla da posicao na partida: /\n");
+                printf("  Passes corretos: /\n");
+                printf("  Passes errados: /\n");
+                printf("  Finalizacoes corretas: /\n");
+                printf("  Finalizacoes erradas: /\n");
+                printf("  Desarmes: /\n");
+                printf("  Gols: /\n");
+                printf("  Faltas cometidas: /\n");
+                printf("  Faltas sofridas: /\n");
+                printf("  Impedimentos: /\n");
+                printf("  Assistencias (gol): /\n");
+                printf("  Assistencias (finalizacao): /\n");
+                printf("  Penaltis cometidos: /\n");
+                printf("  Penaltis sofridos: /\n");
+                printf("  Penaltis perdidos: /\n");
+            }
+        }
     }
-    /*
-    printf("\nGoleiro\n");
-    printf("  Nome: /\n");
-    printf("  Defesas: /\n");
-    printf("  Passes corretos: /\n");
-    printf("  Passes errados: /\n");
-    printf("  Gols sofridos: /\n");
-    printf("  Gols convertidos: /\n");
-    printf("  Faltas cometidas: /\n");
-    printf("  Faltas sofridas: /\n");
-    printf("  Impedimentos: /\n");
-    printf("  Assistencias (gol): /\n");
-    printf("  Assistencias (finalizacao): /\n");
-    printf("  Penaltis cometidos: /\n");
-    printf("  Penaltis sofridos: /\n");
-    printf("  Penaltis perdidos: /\n");
-    printf("\nJogador 1\n");
-    printf("  Nome: /\n");
-    printf("  Sigla da posicao na partida: /\n");
-    printf("  Passes corretos: /\n");
-    printf("  Passes errados: /\n");
-    printf("  Finalizacoes corretas: /\n");
-    printf("  Finalizacoes erradas: /\n");
-    printf("  Desarmes: /\n");
-    printf("  Gols: /\n");
-    printf("  Faltas cometidas: /\n");
-    printf("  Faltas sofridas: /\n");
-    printf("  Impedimentos: /\n");
-    printf("  Assistencias (gol): /\n");
-    printf("  Assistencias (finalizacao): /\n");
-    printf("  Penaltis cometidos: /\n");
-    printf("  Penaltis sofridos: /\n");
-    printf("  Penaltis perdidos: /\n");
-    printf("\n\t(...)\n");
-    printf("\nJogador N\n");
-    printf("  Nome: /\n");
-    printf("  Sigla da posicao na partida: /\n");
-    printf("  Passes corretos: /\n");
-    printf("  Passes errados: /\n");
-    printf("  Finalizacoes corretas: /\n");
-    printf("  Finalizacoes erradas: /\n");
-    printf("  Desarmes: /\n");
-    printf("  Gols: /\n");
-    printf("  Faltas cometidas: /\n");
-    printf("  Faltas sofridas: /\n");
-    printf("  Impedimentos: /\n");
-    printf("  Assistencias (gol): /\n");
-    printf("  Assistencias (finalizacao): /\n");
-    printf("  Penaltis cometidos: /\n");
-    printf("  Penaltis sofridos: /\n");
-    printf("  Penaltis perdidos: /\n");
-    */
     system("pause");
     return 0;
 }
 
-/* Funcao que edita as estatisticas de uma partida */
+/* Funcao que edita os dados de uma partida */
 
 int editar_dados()
 {
@@ -693,9 +712,16 @@ int grupo_PeA()
 
 }
 
-/* Funcao que exibe as estatisticas de desarmes e defesas do grupo */
+/* Funcao que exibe as estatisticas de desarmes do grupo */
 
-int grupo_DeD()
+int grupo_Des()
+{
+
+}
+
+/* Funcao que exibe as estatisticas de defesas do grupo */
+
+int grupo_Def()
 {
 
 }
@@ -737,14 +763,14 @@ int jogador_PeA()
 
 /* Funcao que  exibe as estatisticas de desarmes de um jogador*/
 
-int jogador_des()
+int jogador_Des()
 {
 
 }
 
 /* Funcao que exibe as estatisticas de defesas de um jogador */
 
-int jogador_def()
+int jogador_Def()
 {
 
 }
@@ -758,7 +784,7 @@ int jogador_FeP()
 
 /* Funcao que exibe as estatisticas de impedimentos de um jogador */
 
-int jogador_imp()
+int jogador_Imp()
 {
 
 }
