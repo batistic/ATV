@@ -260,18 +260,19 @@ int cadastrar()
         printf("PD: Ponta Direita,                PE: Ponta Esquerda,\n");
         printf("CA: Centroavante.\n");
         printf("-> ");
-        char ch;
+        char ch; // variavel para fazer a leitura caractere por caractere
         int j=0;
-        i=0;
-        char p[4];
+        i=0;   // variaveis auxiliares
+        char p[4]; // string que serao armazenadas as posições do jogador
         setbuf(stdin, NULL);
         do
         {
-            ch=getchar();
-            if(ch==' ' || ch=='\n')
+            ch=getchar(); // lendo caractere por caractere
+            if(ch==' ' || ch=='\n') // quando o usuario digita espaço ou enter
             {
-                p[i]='\0';
+                p[i]='\0'; // tornando a ultima posição da string um caractere nulo
                 i=0;
+                // comparando a string com as posições possiveis, e armazenando por numeros
                 if(strcmp(p,"ZD")==0)
                     elenco[n].posicao[j]=1;
                 if(strcmp(p,"ZE")==0)
@@ -312,14 +313,15 @@ int cadastrar()
             }
             if(ch>64 && ch<91)
             {
-                p[i]=ch;
+                p[i]=ch; // caso seja uma letra maiucula, armazena o caractere na string p
                 i++;
             }
-        }while(ch != '\n');
+        }while(ch != '\n'); // caso o usuario de enter, o loop é encerrado
     }
-    if(pos==2)
+    if(pos==2)//caso entrada seja 2) Goleiro
     {
-        for(i=0;i<40;i++)
+        for(i=0;i<10;i++)//verifica uma posição livre no vetor de jogadores em ordem crescente
+                        // 0 para vazia, 1 para ocupada, se o valor do controle na posição i = 0, grava nesta posição
         {
             if(goleiros[i].controle==0)
             {
@@ -327,6 +329,8 @@ int cadastrar()
                 break;
             }
         }
+        goleiros[i].controle=1; // mostra que a posição tem um jogador cadastrado
+        //leitura de dados do jogador
         printf("Nome: ");
         setbuf(stdin, NULL);
         fgets(goleiros[n].nome,100,stdin);
@@ -338,25 +342,25 @@ int cadastrar()
         scanf("%f",&goleiros[n].peso);
         printf("Pe' forte (1. Direito / 2. Esquerdo / 3. Ambos): ");
         scanf("%d",&goleiros[n].pe);
-        while(erro==1)
+        while(erro==1)  // loop para verificar se o numero do uniforme já não pertence a outro jogador
         {
             printf("Numero no uniforme: ");
             scanf("%d",&num_uniforme);
-            for(i=0;i<40;i++)
+            for(i=0;i<40;i++)   // percorrendo todas as posições de jogador possíveis
             {
                 if(i<10)
                 {
-                     if(num_uniforme==goleiros[i].uniforme)
+                     if(num_uniforme==goleiros[i].uniforme)  // verifica se tem um goleiro com esse numero de uniforme
                      {
                          printf("Numero de uniforme ja cadastrado!\n");
                      }
                 }
-                if(num_uniforme==elenco[i].uniforme)
+                if(num_uniforme==elenco[i].uniforme)  // verifica se tem um jogador com esse numero de uniforme
                 {
                     printf("Numero de uniforme ja cadastrado!\n");
                 }
                 else
-                    if(i==39)
+                    if(i==39) // todas as posições percorridas, significa que ninguem tem o mesmo numero de uniforme
                     {
                         erro=0;
                         goleiros[n].uniforme=num_uniforme;
@@ -374,11 +378,12 @@ int editar()
 {
     system("cls");
     int n,i;
-    int num_uniforme=lista_jogadores();
-    for(n=0;n<40;n++)
+    int num_uniforme=lista_jogadores(); // chama a função que lista todos os jogadores e retorna o numero do uniforme do escolhido pelo usuario
+    for(n=0;n<40;n++) // percorrendo todas os jogadores possíveis
     {
-        if(num_uniforme==elenco[n].uniforme)
+        if(num_uniforme==elenco[n].uniforme)    // verifica a quem o numero de uniforme requerido pertence
         {
+            // reescreve os dados
             printf("Nome: ");
             setbuf(stdin, NULL);
             fgets(elenco[n].nome,100,stdin);
@@ -391,31 +396,31 @@ int editar()
             printf("Pe' forte (1. Direito / 2. Esquerdo / 3. Ambos): ");
             scanf("%d",&elenco[n].pe);
             int erro=1;
-            while(erro==1)
+            while(erro==1) // loop para verificar se o numero do uniforme já não pertence a outro jogador
             {
                 printf("Numero no uniforme: ");
                 scanf("%d",&num_uniforme);
-                if(num_uniforme==elenco[n].uniforme)
+                if(num_uniforme==elenco[n].uniforme) // verifica se o numero de uniforme foi alterado
                 {
-                    erro=0;
+                    erro=0; // caso não tenha sido alterado
                 }
                 else
                 {
-                    for(i=0;i<40;i++)
+                    for(i=0;i<40;i++) // percorrendo todas as posições de jogador possíveis
                     {
                         if(i<10)
                         {
-                            if(num_uniforme==goleiros[i].uniforme)
+                            if(num_uniforme==goleiros[i].uniforme)  // verifica se tem um goleiro com esse numero de uniforme
                             {
                                 printf("Numero de uniforme ja cadastrado!\n");
                             }
                         }
-                        if(num_uniforme==elenco[i].uniforme)
+                        if(num_uniforme==elenco[i].uniforme)  // verifica se tem um jogador com esse numero de uniforme
                         {
                             printf("Numero de uniforme ja cadastrado!\n");
                         }
                         else
-                            if(i==39)
+                            if(i==39) // todas as posições percorridas, significa que ninguem tem o mesmo numero de uniforme
                             {
                                 erro=0;
                                 elenco[n].uniforme=num_uniforme;
@@ -434,18 +439,19 @@ int editar()
             printf("PD: Ponta Direita,                PE: Ponta Esquerda,\n");
             printf("CA: Centroavante.\n");
             printf("-> ");
-            char ch;
+            char ch; // variavel para fazer a leitura caractere por caractere
             int j=0;
-            i=0;
-            char p[4];
+            i=0;   // variaveis auxiliares
+            char p[4]; // string que serao armazenadas as posições do jogador
             setbuf(stdin, NULL);
             do
             {
-                ch=getchar();
-                if(ch==' ' || ch=='\n')
+                ch=getchar(); // lendo caractere por caractere
+                if(ch==' ' || ch=='\n') // quando o usuario digita espaço ou enter
                 {
-                    p[i]='\0';
+                    p[i]='\0'; // tornando a ultima posição da string um caractere nulo
                     i=0;
+                    // comparando a string com as posições possiveis, e armazenando por numeros
                     if(strcmp(p,"ZD")==0)
                         elenco[n].posicao[j]=1;
                     if(strcmp(p,"ZE")==0)
@@ -486,16 +492,17 @@ int editar()
                 }
                 if(ch>64 && ch<91)
                 {
-                    p[i]=ch;
+                    p[i]=ch; // caso seja uma letra maiucula, armazena o caractere na string p
                     i++;
                 }
-            }while(ch != '\n');
+            }while(ch != '\n'); // caso o usuario digite enter, o loop é encerrado
             }
     }
-    for(n=0;n<10;n++)
+    for(n=0;n<10;n++) // percorrendo todos os goleiros possiveis
     {
-        if(num_uniforme==goleiros[n].uniforme)
+        if(num_uniforme==goleiros[n].uniforme) // verificando a quem pertence o uniforme requisitado
         {
+            // inserindo dados
             printf("Nome: ");
             setbuf(stdin, NULL);
             fgets(goleiros[n].nome,100,stdin);
@@ -508,24 +515,31 @@ int editar()
             printf("Pe' forte (1. Direito / 2. Esquerdo / 3. Ambos): ");
             scanf("%d",&goleiros[n].pe);
             int erro=1;
-            do
+            do // loop para verificar se o numero do uniforme já não pertence a outro jogador
             {
                 printf("Numero no uniforme: ");
                 scanf("%d",&num_uniforme);
-                if(num_uniforme==goleiros[n].uniforme)
+                if(num_uniforme==goleiros[n].uniforme) // verificando se o uniforme foi alterado
                 {
-                    erro=0;
+                    erro=0; // não foi alterado
                 }
                 else
                 {
-                    for(i=0;i<40;i++)
+                    for(i=0;i<40;i++) // percorrendo todos os jogadores possíveis
                     {
-                        if(num_uniforme==elenco[i].uniforme || num_uniforme==goleiros[i].uniforme)
+                        if(i<10)
+                        {
+                            if(num_uniforme==goleiros[i].uniforme)  // verifica se tem um goleiro com esse numero de uniforme
+                            {
+                                printf("Numero de uniforme ja cadastrado!\n");
+                            }
+                        }
+                        if(num_uniforme==elenco[i].uniforme)  // verifica se tem um jogador com esse numero de uniforme
                         {
                             printf("Numero de uniforme ja cadastrado!\n");
                         }
                         else
-                            if(i==40)
+                            if(i==39) // todas as posições percorridas, significa que ninguem tem o mesmo numero de uniforme
                             {
                                 erro=0;
                                 goleiros[n].uniforme=num_uniforme;
@@ -544,8 +558,8 @@ int editar()
 int inserir_dados()
 {
     system("cls");
-    int n,i,j,num_uniforme;
-    for(i=0;i<100;i++)
+    int n,i,j,num_uniforme; // variaveis auxiliares
+    for(i=0;i<100;i++) // percorre todos os jogos possiveis, para verificar um espaço vazio
     {
         if(jogo[i].controle==0)
         {
@@ -553,7 +567,8 @@ int inserir_dados()
             break;
         }
     }
-    printf("\tInserir estatisticas de uma partida.\n\n");
+    printf("\tInserir dados de uma partida.\n\n");
+    // inserindo dados
     printf("Adversario: ");
     setbuf(stdin, NULL);
     fgets(jogo[n].adversario,100,stdin);
@@ -564,13 +579,13 @@ int inserir_dados()
     jogo[n].saldo_gols=jogo[n].gols_pro-jogo[n].gols_contra;
     printf("Substituicoes feitas na partida: ");
     scanf("%d",&jogo[n].substituicoes);
-    for(i=0;i<11+jogo[n].substituicoes;i++)
+    for(i=0;i<11+jogo[n].substituicoes;i++) // loop que percorre todos os jogadores que jogaram a partida
     {
         printf("Insira o numero do uniforme do jogador: ");
         scanf("%d",&num_uniforme);
         for(j=0;j<10;j++)
         {
-            if(num_uniforme==goleiros[j].uniforme)
+            if(num_uniforme==goleiros[j].uniforme) // verifica se o numero do uniforme é de um goleiro, e de qual
             {
                 printf("  Nome: /\n");
                 printf("  Defesas: /\n");
@@ -590,7 +605,7 @@ int inserir_dados()
         }
         for(j=0;j<40;j++)
         {
-            if(num_uniforme==elenco[j].uniforme)
+            if(num_uniforme==elenco[j].uniforme) // verifica se o numero do uniforme é de um jogador, e de qual
             {
                 printf("  Nome: /\n");
                 printf("  Sigla da posicao na partida: /\n");
