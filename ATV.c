@@ -1,5 +1,5 @@
 /*
- *             TESTE DO VIJAY            A.T.V. - ASSISTENTE TECNICO VIRTUAL
+ *                  A.T.V. - ASSISTENTE TECNICO VIRTUAL
  *
  *    Software desenvolvido para auxiliar equipes tecnicas de times de futebol de campo
  *
@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*    Estrutura onde os dados de um jogador sao armazenados    */
+/*    Estrutura onde os dados de uma partida sao armazenados    */
 
 typedef struct {
     int controle;
@@ -26,7 +26,7 @@ typedef struct {
     int substituicoes;
 }partida;
 
-partida jogo[100];
+partida jogo[100]; // declarando um vetor que armazena 100 jogos
 
 /*    Estrutura onde os dados de um jogador sao armazenados    */
 
@@ -53,7 +53,7 @@ typedef struct {
     int penaltisP[100];       float media_penaltisP;
 }jogador;
 
-jogador elenco[40];
+jogador elenco[40]; // declarando um vetor que armazena 40 jogadores
 
 /*    Estrutura onde os dados de um goleiro sao armazenados    */
 
@@ -79,7 +79,7 @@ typedef struct {
     int penaltisP[100];       float media_penaltisP;
 }goleiro;
 
-goleiro goleiros[10];
+goleiro goleiros[10]; // declarando um vetor que armazena 10 goleiros
 
 /*    Prototipos das funcoes utilizadas    */
 
@@ -104,10 +104,10 @@ int grupo_Imp();
 int jogador_dados();
 int jogador_GeF();
 int jogador_PeA();
-int jogador_des();
-int jogador_def();
+int jogador_Des();
+int jogador_Def();
 int jogador_FeP();
-int jogador_imp();
+int jogador_Imp();
 int jogador_notas();
 
 /* Funcao principal */
@@ -192,10 +192,10 @@ int main()
 int cadastrar()
 {
     system("cls");
+    int pos,i,n,num_uniforme; // variaveis auxiliares
+    int erro=1; // variavel para testar se um n. de uniforme ja foi cadastrado
     printf("\tCadastrar jogador.\n\n");
     printf("1. Jogador.\t2. Goleiro.\n->");
-    int pos,i,n,num_uniforme;
-    int erro=1;
     while(pos!=1 && pos!=2){
         scanf("%d",&pos);
         if(pos!=1 && pos!=2)
@@ -588,7 +588,7 @@ int inserir_dados()
     return 0;
 }
 
-/* Funcao que edita as estatisticas de uma partida */
+/* Funcao que edita os dados de uma partida */
 
 int editar_dados()
 {
@@ -683,9 +683,16 @@ int grupo_PeA()
 
 }
 
-/* Funcao que exibe as estatisticas de desarmes e defesas do grupo */
+/* Funcao que exibe as estatisticas de desarmes do grupo */
 
-int grupo_DeD()
+int grupo_Des()
+{
+
+}
+
+/* Funcao que exibe as estatisticas de defesas do grupo */
+
+int grupo_Def()
 {
 
 }
@@ -727,14 +734,14 @@ int jogador_PeA()
 
 /* Funcao que  exibe as estatisticas de desarmes de um jogador*/
 
-int jogador_des()
+int jogador_Des()
 {
 
 }
 
 /* Funcao que exibe as estatisticas de defesas de um jogador */
 
-int jogador_def()
+int jogador_Def()
 {
 
 }
@@ -748,7 +755,7 @@ int jogador_FeP()
 
 /* Funcao que exibe as estatisticas de impedimentos de um jogador */
 
-int jogador_imp()
+int jogador_Imp()
 {
 
 }
