@@ -83,7 +83,6 @@ goleiro goleiros[10]; // declarando um vetor que armazena 10 goleiros
 
 /*    Prototipos das funcoes utilizadas    */
 
-<<<<<<< HEAD
 int cadastrar(); //cadastra um novo jogador
 int editar(); //edita o cadastro de um jogador
 int lista_jogadores(); //lista todos os jogadores do grupo
@@ -110,7 +109,6 @@ int jogador_Def();//exibe as estatísticas de defesa do jogador
 int jogador_FeP();//exibe as estatísticas de faltas e pênaltis do jogador
 int jogador_Imp();//exibe as estatísticas de impedimentos do jogador
 int jogador_notas();//exibe as estatísticas de notas do jogador
-=======
 int cadastrar();
 int editar();
 int lista_jogadores();
@@ -137,7 +135,6 @@ int jogador_Def();
 int jogador_FeP();
 int jogador_Imp();
 int jogador_notas();
->>>>>>> origin/master
 
 /* Funcao principal */
 
