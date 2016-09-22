@@ -476,11 +476,68 @@ int editar()
     return 0;
 }
 
-/* Funcao que insere as estatisticas de uma partida */
+/* Funcao que insere os dados de uma partida */
 
 int inserir_dados()
 {
-
+    system("cls");
+    printf("\tInserir estatisticas de uma partida.\n\n");
+    printf("Adversario: /\n");
+    printf("Gols feitos: /\n");
+    printf("Gols sofridos: /\n");
+    printf("Substituicoes feitas na partida: /\n");
+    printf("\nGoleiro\n");
+    printf("  Nome: /\n");
+    printf("  Defesas: /\n");
+    printf("  Passes corretos: /\n");
+    printf("  Passes errados: /\n");
+    printf("  Gols sofridos: /\n");
+    printf("  Gols convertidos: /\n");
+    printf("  Faltas cometidas: /\n");
+    printf("  Faltas sofridas: /\n");
+    printf("  Impedimentos: /\n");
+    printf("  Assistencias (gol): /\n");
+    printf("  Assistencias (finalizacao): /\n");
+    printf("  Penaltis cometidos: /\n");
+    printf("  Penaltis sofridos: /\n");
+    printf("  Penaltis perdidos: /\n");
+    printf("\nJogador 1\n");
+    printf("  Nome: /\n");
+    printf("  Sigla da posicao na partida: /\n");
+    printf("  Passes corretos: /\n");
+    printf("  Passes errados: /\n");
+    printf("  Finalizacoes corretas: /\n");
+    printf("  Finalizacoes erradas: /\n");
+    printf("  Desarmes: /\n");
+    printf("  Gols: /\n");
+    printf("  Faltas cometidas: /\n");
+    printf("  Faltas sofridas: /\n");
+    printf("  Impedimentos: /\n");
+    printf("  Assistencias (gol): /\n");
+    printf("  Assistencias (finalizacao): /\n");
+    printf("  Penaltis cometidos: /\n");
+    printf("  Penaltis sofridos: /\n");
+    printf("  Penaltis perdidos: /\n");
+    printf("\n\t(...)\n");
+    printf("\nJogador N\n");
+    printf("  Nome: /\n");
+    printf("  Sigla da posicao na partida: /\n");
+    printf("  Passes corretos: /\n");
+    printf("  Passes errados: /\n");
+    printf("  Finalizacoes corretas: /\n");
+    printf("  Finalizacoes erradas: /\n");
+    printf("  Desarmes: /\n");
+    printf("  Gols: /\n");
+    printf("  Faltas cometidas: /\n");
+    printf("  Faltas sofridas: /\n");
+    printf("  Impedimentos: /\n");
+    printf("  Assistencias (gol): /\n");
+    printf("  Assistencias (finalizacao): /\n");
+    printf("  Penaltis cometidos: /\n");
+    printf("  Penaltis sofridos: /\n");
+    printf("  Penaltis perdidos: /\n");
+    system("pause");
+    return 0;
 }
 
 /* Funcao que edita as estatisticas de uma partida */
