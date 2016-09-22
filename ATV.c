@@ -444,8 +444,32 @@ int editar()
             scanf("%f",&goleiros[n].peso);
             printf("Pe' forte (1. Direito / 2. Esquerdo / 3. Ambos): ");
             scanf("%d",&goleiros[n].pe);
-            printf("Numero no uniforme: ");
-            scanf("%d",&goleiros[n].uniforme);
+            int erro=1;
+            do
+            {
+                printf("Numero no uniforme: ");
+                scanf("%d",&num_uniforme);
+                if(num_uniforme==goleiros[n].uniforme)
+                {
+                    erro=0;
+                }
+                else
+                {
+                    for(i=0;i<40;i++)
+                    {
+                        if(num_uniforme==elenco[i].uniforme || num_uniforme==goleiros[i].uniforme)
+                        {
+                            printf("Numero de uniforme ja cadastrado!\n");
+                        }
+                        else
+                            if(i==40)
+                            {
+                                erro=0;
+                                goleiros[n].uniforme=num_uniforme;
+                            }
+                    }
+                }
+            }while(erro==1);
         }
     }
     system("PAUSE");
