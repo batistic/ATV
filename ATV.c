@@ -204,7 +204,7 @@ int cadastrar()
     if(pos==1)//caso entrada seja 1) Jogador (que não goleiro)
     {
         for(i=0;i<40;i++)//verifica uma posição livre no vetor de jogadores em ordem crescente
-                        // 0 para vazia, 1 para ocupada, se o valor do controle na posição i = 0, grava
+                        // 0 para vazia, 1 para ocupada, se o valor do controle na posição i = 0, grava nesta posição
         {
             if(elenco[i].controle==0)
             {
@@ -212,7 +212,8 @@ int cadastrar()
                 break;
             }
         }
-        elenco[n].controle=1;
+        elenco[n].controle=1; // mostra que a posição tem um jogador cadastrado
+        //leitura de dados do jogador
         printf("Nome: ");
         setbuf(stdin, NULL);
         fgets(elenco[n].nome,100,stdin);
@@ -224,28 +225,25 @@ int cadastrar()
         scanf("%f",&elenco[n].peso);
         printf("Pe' forte (1. Direito / 2. Esquerdo / 3. Ambos): ");
         scanf("%d",&elenco[n].pe);
-        while(erro==1)
+        while(erro==1)  // loop para verificar se o numero do uniforme já não pertence a outro jogador
         {
             printf("Numero no uniforme: ");
             scanf("%d",&num_uniforme);
-            for(i=0;i<40;i++)
+            for(i=0;i<40;i++)   // percorrendo todas as posições de jogador possíveis
             {
-                printf("for\n");
                 if(i<10)
                 {
-                    if(num_uniforme==goleiros[i].uniforme)
+                    if(num_uniforme==goleiros[i].uniforme)  // verifica se tem um goleiro com esse numero de uniforme
                     {
                         printf("Numero de uniforme ja cadastrado!\n");
                     }
                 }
-                if(num_uniforme==elenco[i].uniforme)
+                if(num_uniforme==elenco[i].uniforme)  // verifica se tem um jogador com esse numero de uniforme
                 {
                     printf("Numero de uniforme ja cadastrado!\n");
                 }
-                printf("%d\n",i);
-                if(i==39)
+                if(i==39) // todas as posições percorridas, significa que ninguem tem o mesmo numero de uniforme
                 {
-                    system("PAUSE");
                     erro=0;
                     elenco[n].uniforme=num_uniforme;
                 }
@@ -266,6 +264,7 @@ int cadastrar()
         int j=0;
         i=0;
         char p[4];
+        setbuf(stdin, NULL);
         do
         {
             ch=getchar();
