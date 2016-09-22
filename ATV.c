@@ -195,6 +195,7 @@ int cadastrar()
     printf("\tCadastrar jogador.\n\n");
     printf("1. Jogador.\t2. Goleiro.\n->");
     int pos,i,n,num_uniforme;
+    int erro=1;
     while(pos!=1 && pos!=2){
         scanf("%d",&pos);
         if(pos!=1 && pos!=2)
@@ -222,22 +223,24 @@ int cadastrar()
         scanf("%f",&elenco[n].peso);
         printf("Pe' forte (1. Direito / 2. Esquerdo / 3. Ambos): ");
         scanf("%d",&elenco[n].pe);
-        int erro=1;
-        do
+        while(erro==1)
         {
             printf("Numero no uniforme: ");
-            scanf("%d",&elenco[n].uniforme);
+            scanf("%d",&num_uniforme);
             for(i=0;i<40;i++)
             {
-                if(elenco[n].uniforme==elenco[i].uniforme || elenco[n].uniforme==goleiros[i].uniforme)
+                if(num_uniforme==elenco[i].uniforme || num_uniforme==goleiros[i].uniforme)
                 {
                     printf("Numero de uniforme ja cadastrado!\n");
                 }
                 else
                     if(i==40)
+                    {
                         erro=0;
+                        elenco[n].uniforme=num_uniforme;
+                    }
             }
-        }while(erro==1);
+        }
         printf("Insira as siglas das possiveis posicoes de atuacao (separadas por espaco):\n");
         printf("ZD: Zagueiro Direito,             ZE: Zagueiro Esquerdo,\n");
         printf("ZC: Zagueiro Central,             LDD: Lateral Direito Defensivo,\n");
@@ -323,8 +326,24 @@ int cadastrar()
         scanf("%f",&goleiros[n].peso);
         printf("Pe' forte (1. Direito / 2. Esquerdo / 3. Ambos): ");
         scanf("%d",&goleiros[n].pe);
-        printf("Numero no uniforme: ");
-        scanf("%d",&goleiros[n].uniforme);
+        while(erro==1)
+        {
+            printf("Numero no uniforme: ");
+            scanf("%d",&num_uniforme);
+            for(i=0;i<40;i++)
+            {
+                if(num_uniforme==elenco[i].uniforme || num_uniforme==goleiros[i].uniforme)
+                {
+                    printf("Numero de uniforme ja cadastrado!\n");
+                }
+                else
+                    if(i==40)
+                    {
+                        erro=0;
+                        goleiros[n].uniforme=num_uniforme;
+                    }
+            }
+        }
     }
     system("PAUSE");
     return 0;
@@ -498,7 +517,7 @@ int editar()
 int inserir_dados()
 {
     system("cls");
-    int n,i;
+    int n,i,j,num_uniforme;
     for(i=0;i<100;i++)
     {
         if(jogo[i].controle==0)
@@ -520,7 +539,8 @@ int inserir_dados()
     scanf("%d",&jogo[n].substituicoes);
     for(i=0;i<11+jogo[n].substituicoes;i++)
     {
-
+        printf("Insira o numero do uniforme do jogador: ");
+        scanf("%d",&num_uniforme);
     }
     /*
     printf("\nGoleiro\n");
