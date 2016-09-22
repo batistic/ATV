@@ -177,7 +177,7 @@ int cadastrar()
     system("cls");
     printf("\tCadastrar jogador.\n\n");
     printf("1. Jogador.\t2. Goleiro.\n->");
-    int pos,i,n;
+    int pos,i,n,num_uniforme;
     while(pos!=1 || pos!=2){
         scanf("%d",&pos);
         if(pos!=1 || pos!=2)
@@ -205,20 +205,30 @@ int cadastrar()
         scanf("%f",&elenco[n].peso);
         printf("Pe' forte (1. Direito / 2. Esquerdo / 3. Ambos): ");
         scanf("%d",&elenco[n].pe);
-        int erro=1
+        int erro=1;
         do
         {
             printf("Numero no uniforme: ");
-            scanf("%d",&elenco[n].uniforme);
-            for(i=0;i<40;i++)
+            scanf("%d",&num_uniforme);
+            if(num_uniforme==elenco[n].uniforme)
             {
-                if(elenco[n].uniforme==elenco[i].uniforme || elenco[n].uniforme==goleiros[i].uniforme)
+                erro=0;
+            }
+            else
+            {
+                for(i=0;i<40;i++)
                 {
-                    printf("Numero de uniforme ja cadastrado!\n");
+                    if(num_uniforme==elenco[i].uniforme || num_uniforme==goleiros[i].uniforme)
+                    {
+                        printf("Numero de uniforme ja cadastrado!\n");
+                    }
+                    else
+                        if(i==40)
+                        {
+                            erro=0;
+                            elenco[n].uniforme=num_uniforme;
+                        }
                 }
-                else
-                    if(i==40)
-                        erro=0;
             }
         }while(erro==1);
         printf("Insira as siglas das possiveis posicoes de atuacao (separadas por espaco):\n");
@@ -318,18 +328,110 @@ int cadastrar()
 int editar()
 {
     system("cls");
-    int i;
+    int n,i;
     int num_uniforme=lista_jogadores();
-    for(i=0;i<40;i++)
+    for(n=0;n<40;n++)
     {
-        if(num_uniforme==elenco[i].uniforme)
+        if(num_uniforme==elenco[n].uniforme)
         {
-
-        }
+            printf("Nome: ");
+            setbuf(stdin, NULL);
+            fgets(elenco[n].nome,100,stdin);
+            printf("Idade: ");
+            scanf("%d",&elenco[n].idade);
+            printf("Altura: ");
+            scanf("%f",&elenco[n].altura);
+            printf("Peso: ");
+            scanf("%f",&elenco[n].peso);
+            printf("Pe' forte (1. Direito / 2. Esquerdo / 3. Ambos): ");
+            scanf("%d",&elenco[n].pe);
+            int erro=1;
+            do
+            {
+                printf("Numero no uniforme: ");
+                scanf("%d",&elenco[n].uniforme);
+                for(i=0;i<40;i++)
+                {
+                    if(elenco[n].uniforme==elenco[i].uniforme || elenco[n].uniforme==goleiros[i].uniforme)
+                    {
+                        printf("Numero de uniforme ja cadastrado!\n");
+                    }
+                    else
+                        if(i==40)
+                            erro=0;
+                }
+            }while(erro==1);
+            printf("Insira as siglas das possiveis posicoes de atuacao (separadas por espaco):\n");
+            printf("ZD: Zagueiro Direito,             ZE: Zagueiro Esquerdo,\n");
+            printf("ZC: Zagueiro Central,             LDD: Lateral Direito Defensivo,\n");
+            printf("LED: Lateral Esquerdo Defensivo,  LDO: Lateral Direito Ofensivo,\n");
+            printf("LEO: Lateral Esquerdo Ofensivo,   PV: Primeiro Volante,\n");
+            printf("SV: Segundo Volante,              ARM: Armador,\n");
+            printf("MD: Meia Direita,                 ME: Meia Esquerda,\n");
+            printf("MA: Meia Atacante,                SA: Segundo Atacante,\n");
+            printf("PD: Ponta Direita,                PE: Ponta Esquerda,\n");
+            printf("CA: Centroavante.\n");
+            printf("-> ");
+            char ch;
+            int j=0;
+            i=0;
+            char p[4];
+            do
+            {
+                ch=getchar();
+                if(ch==' ' || ch=='\n')
+                {
+                    p[i]='\0';
+                    i=0;
+                    if(strcmp(p,"ZD")==0)
+                        elenco[n].posicao[j]=1;
+                    if(strcmp(p,"ZE")==0)
+                        elenco[n].posicao[j]=2;
+                    if(strcmp(p,"ZC")==0)
+                        elenco[n].posicao[j]=3;
+                    if(strcmp(p,"LDD")==0)
+                        elenco[n].posicao[j]=4;
+                    if(strcmp(p,"LED")==0)
+                        elenco[n].posicao[j]=5;
+                    if(strcmp(p,"LDO")==0)
+                        elenco[n].posicao[j]=6;
+                    if(strcmp(p,"LEO")==0)
+                        elenco[n].posicao[j]=7;
+                    if(strcmp(p,"PV")==0)
+                        elenco[n].posicao[j]=8;
+                    if(strcmp(p,"SV")==0)
+                        elenco[n].posicao[j]=9;
+                    if(strcmp(p,"ARM")==0)
+                        elenco[n].posicao[j]=10;
+                    if(strcmp(p,"MD")==0)
+                        elenco[n].posicao[j]=11;
+                    if(strcmp(p,"ME")==0)
+                        elenco[n].posicao[j]=12;
+                    if(strcmp(p,"MA")==0)
+                        elenco[n].posicao[j]=13;
+                    if(strcmp(p,"SE")==0)
+                        elenco[n].posicao[j]=14;
+                    if(strcmp(p,"PD")==0)
+                        elenco[n].posicao[j]=15;
+                    if(strcmp(p,"PE")==0)
+                        elenco[n].posicao[j]=16;
+                    if(strcmp(p,"SA")==0)
+                        elenco[n].posicao[j]=17;
+                    if(strcmp(p,"CA")==0)
+                        elenco[n].posicao[j]=18;
+                    j++;
+                }
+                if(ch>64 && ch<91)
+                {
+                    p[i]=ch;
+                    i++;
+                }
+            }while(ch != '\n');
+            }
     }
-    for(i=0;i<10;i++)
+    for(n=0;n<10;n++)
     {
-        if(num_uniforme==goleiros[i].uniforme)
+        if(num_uniforme==goleiros[n].uniforme)
         {
 
         }
