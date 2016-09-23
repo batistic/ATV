@@ -90,6 +90,7 @@ int cadastrar(); //cadastra um novo jogador
 int editar(); //edita o cadastro de um jogador
 int excluir(); // exclui o cadastro de um jogador
 int lista_jogadores(); //lista todos os jogadores do grupo
+int lista_jogos(); // lista todos os jogos ocorridos
 int estatisticas_jogador(); //exibe as estatísticas de um jogador
 int estatisticas_grupo(); //exibe as estatisticas do grupo
 int inserir_dados(); //insere os dados de uma partida
@@ -579,6 +580,7 @@ int excluir()
     {
         if(num_jogador==goleiros[i].uniforme)  // verifica se tem um goleiro com esse numero de uniforme, se sim, qual
         {
+            // zerando todos os dados do goleiro
             goleiros[i].controle=0;
             goleiros[i].uniforme=0;
             for(j=0;j<goleiros[i].jogos;j++)
@@ -632,6 +634,7 @@ int excluir()
     {
         if(num_jogador==elenco[i].uniforme)  // verifica se tem um jogador com esse numero de uniforme, se sim, qual
         {
+            // zerando todos os dados do jogador
             elenco[i].controle=0;
             elenco[i].uniforme=0;
             for(j=0;j<elenco[i].jogos;j++)
@@ -885,6 +888,24 @@ int lista_jogadores()
     int num_uniforme;
     scanf("%d",&num_uniforme);
     return num_uniforme;
+}
+
+/* Função que lista todos os jogos já ocorridos */
+
+int lista_jogos()
+{
+    int i,opc; // variaveis auxiliares
+    for(i=0;i<100;i++)
+    {
+        if(jogo[i].controle==1)
+        {
+            printf("%d.  %d x %d %s.\n",i+1,jogo[i].gols_pro,jogo[i].gols_contra,jogo[i].adversario); // imprimindo todas as opções de jogos
+        }
+    }
+    printf("-> ");
+    scanf("%d",&opc);
+
+    return opc-1; // retorna a posição do vetor jogo[] do jogo requerido
 }
 
 /* Funcao que calcula a media de um jogador (FUNÇÃO NÃO TESTADA - NÃO TESTAR)*/
