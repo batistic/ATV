@@ -88,6 +88,7 @@ goleiro goleiros[10]; // declarando um vetor que armazena 10 goleiros
 
 int cadastrar(); //cadastra um novo jogador
 int editar(); //edita o cadastro de um jogador
+int excluir(); // exclui o cadastro de um jogador
 int lista_jogadores(); //lista todos os jogadores do grupo
 int estatisticas_jogador(); //exibe as estatísticas de um jogador
 int estatisticas_grupo(); //exibe as estatisticas do grupo
@@ -143,10 +144,11 @@ int main()
         printf("\tA.T.V.\n\n");
         printf("1. Cadastrar jogador.\n");
         printf("2. Editar dados de jogador.\n");
-        printf("3. Inserir dados de uma partida.\n");
-        printf("4. Editar dados de uma partida.\n");
-        printf("5. Ver estatisticas de um jogador.\n");
-        printf("6. Ver estatisticas do grupo.\n");
+        printf("3. Excluir cadastro de um jogador.\n");
+        printf("4. Inserir dados de uma partida.\n");
+        printf("5. Editar dados de uma partida.\n");
+        printf("6. Ver estatisticas de um jogador.\n");
+        printf("7. Ver estatisticas do grupo.\n");
         printf("0. Sair.\n");
         printf("-> ");
         scanf("%d",&comando); // leitura da opção
@@ -162,18 +164,22 @@ int main()
                 break;
 
             case 3:
-                inserir_dados(); // entra na função que cadastra insere dados de uma partida
+                excluir(); // entra na função que exclui cadastro de jogaador
                 break;
 
             case 4:
-                editar_dados(); // entra na função que cadastra edita dados de uma partida
+                inserir_dados(); // entra na função que cadastra insere dados de uma partida
                 break;
 
             case 5:
-                estatisticas_jogador(); // entra na função que exibe as estatisticas de um jogador
+                editar_dados(); // entra na função que cadastra edita dados de uma partida
                 break;
 
             case 6:
+                estatisticas_jogador(); // entra na função que exibe as estatisticas de um jogador
+                break;
+
+            case 7:
                 estatisticas_grupo(); // entra na função que exibe as estatisticas do grupo
                 break;
 
@@ -501,6 +507,8 @@ int editar()
                     i++;
                 }
             }while(ch != '\n'); // caso o usuario digite enter, o loop é encerrado
+
+            break;
             }
     }
     for(n=0;n<10;n++) // percorrendo todos os goleiros possiveis
@@ -552,13 +560,140 @@ int editar()
                     }
                 }
             }while(erro==1);
+
+            break;
         }
     }
     system("PAUSE");
     return 0;
 }
 
-/* Funcao que insere os dados de uma partida */
+/* Função que exclui o cadastro de um jogador */
+
+int excluir()
+{
+    system("cls");
+    int num_jogador=lista_jogadores(); // pedindo ao usuário qual jogador (por uniforme) ele quer excluir
+    int i,j; // variaveis auxiliares
+    for(i=0;i<10;i++)
+    {
+        if(num_jogador==goleiros[i].uniforme)  // verifica se tem um goleiro com esse numero de uniforme, se sim, qual
+        {
+            goleiros[i].controle=0;
+            goleiros[i].uniforme=0;
+            for(j=0;j<goleiros[i].jogos;j++)
+                goleiros[i].passesC[j]=0;
+            for(j=0;j<goleiros[i].jogos;j++)
+                goleiros[i].passesE[j]=0;
+            for(j=0;j<goleiros[i].jogos;j++)
+                goleiros[i].golsC[j]=0;
+            for(j=0;j<goleiros[i].jogos;j++)
+                goleiros[i].golsS[j]=0;
+            for(j=0;j<goleiros[i].jogos;j++)
+                goleiros[i].defesas[j]=0;
+            for(j=0;j<goleiros[i].jogos;j++)
+                goleiros[i].imped[j]=0;
+            for(j=0;j<goleiros[i].jogos;j++)
+                goleiros[i].assistF[j]=0;
+            for(j=0;j<goleiros[i].jogos;j++)
+                goleiros[i].assistG[j]=0;
+            for(j=0;j<goleiros[i].jogos;j++)
+                goleiros[i].faltasC[j]=0;
+            for(j=0;j<goleiros[i].jogos;j++)
+                goleiros[i].faltasS[j]=0;
+            for(j=0;j<goleiros[i].jogos;j++)
+                goleiros[i].penaltisC[j]=0;
+            for(j=0;j<goleiros[i].jogos;j++)
+                goleiros[i].penaltisP[j]=0;
+            for(j=0;j<goleiros[i].jogos;j++)
+                goleiros[i].penaltisS[j]=0;
+            for(j=0;j<goleiros[i].jogos;j++)
+                goleiros[i].notas[j]=0;
+            goleiros[i].media_assistF=0;
+            goleiros[i].media_assistG=0;
+            goleiros[i].media_defesas=0;
+            goleiros[i].media_faltasC=0;
+            goleiros[i].media_faltasS=0;
+            goleiros[i].media_golsC=0;
+            goleiros[i].media_golsS=0;
+            goleiros[i].media_imped=0;
+            goleiros[i].media_notas=0;
+            goleiros[i].media_passesC=0;
+            goleiros[i].media_passesE=0;
+            goleiros[i].media_penaltisC=0;
+            goleiros[i].media_penaltisS=0;
+            goleiros[i].media_penaltisP=0;
+            goleiros[i].jogos=0;
+
+            break;
+        }
+    }
+    for(i=0;i<40;i++)
+    {
+        if(num_jogador==elenco[i].uniforme)  // verifica se tem um jogador com esse numero de uniforme, se sim, qual
+        {
+            elenco[i].controle=0;
+            elenco[i].uniforme=0;
+            for(j=0;j<elenco[i].jogos;j++)
+                elenco[i].passesC[j]=0;
+            for(j=0;j<elenco[i].jogos;j++)
+                elenco[i].passesE[j]=0;
+            for(j=0;j<elenco[i].jogos;j++)
+                elenco[i].gols[j]=0;
+            for(j=0;j<elenco[i].jogos;j++)
+                elenco[i].finalizacoesC[j]=0;
+            for(j=0;j<elenco[i].jogos;j++)
+                elenco[i].finalizacoesE[j]=0;
+            for(j=0;j<elenco[i].jogos;j++)
+                elenco[i].desarmes[j]=0;
+            for(j=0;j<elenco[i].jogos;j++)
+                elenco[i].imped[j]=0;
+            for(j=0;j<elenco[i].jogos;j++)
+                elenco[i].assistF[j]=0;
+            for(j=0;j<elenco[i].jogos;j++)
+                elenco[i].assistG[j]=0;
+            for(j=0;j<elenco[i].jogos;j++)
+                elenco[i].faltasC[j]=0;
+            for(j=0;j<elenco[i].jogos;j++)
+                elenco[i].faltasS[j]=0;
+            for(j=0;j<elenco[i].jogos;j++)
+                elenco[i].penaltisC[j]=0;
+            for(j=0;j<elenco[i].jogos;j++)
+                elenco[i].penaltisP[j]=0;
+            for(j=0;j<elenco[i].jogos;j++)
+                elenco[i].penaltisS[j]=0;
+            for(j=0;j<elenco[i].jogos;j++)
+                elenco[i].notas[j]=0;
+            for(j=0;j<elenco[i].jogos;j++)
+                elenco[i].pos[j]=0;
+            for(j=0;j<18;j++)
+                elenco[i].posicao[j]=0;
+            elenco[i].media_assistF=0;
+            elenco[i].media_assistG=0;
+            elenco[i].media_desarmes=0;
+            elenco[i].media_faltasC=0;
+            elenco[i].media_faltasS=0;
+            elenco[i].media_gols=0;
+            elenco[i].media_finalizacoesC=0;
+            elenco[i].media_finalizacoesE=0;
+            elenco[i].media_imped=0;
+            elenco[i].media_notas=0;
+            elenco[i].media_passesC=0;
+            elenco[i].media_passesE=0;
+            elenco[i].media_penaltisC=0;
+            elenco[i].media_penaltisS=0;
+            elenco[i].media_penaltisP=0;
+            elenco[i].pos_mais_usada=0;
+            elenco[i].jogos=0;
+
+            break;
+        }
+    }
+    system("PAUSE");
+    return 0;
+}
+
+/* Função que insere os dados de uma partida */
 
 int inserir_dados()
 {
@@ -620,6 +755,8 @@ int inserir_dados()
                 scanf("%d",&goleiros[j].penaltisS[n]);
                 printf("  Penaltis perdidos: ");
                 scanf("%d",&goleiros[j].penaltisP[n]);
+
+                break;
             }
         }
         char pos[4]; // variavel para armazenar a posicao jogada na partida
@@ -695,6 +832,8 @@ int inserir_dados()
                 scanf("%d",&elenco[j].penaltisS[n]);
                 printf("  Penaltis perdidos: ");
                 scanf("%d",&elenco[j].penaltisP[n]);
+
+                break;
             }
         }
     }
@@ -752,30 +891,36 @@ int lista_jogadores()
 
 float media_jogador(int *vet, int num_jogador)
 {
-    int i,j,soma;
-    float media;
+    int i,j,soma; // variaveis auxiliares
+    float media; // variavel para armazenar a media requerida
     for(i=0;i<10;i++)
     {
-        if(num_jogador==goleiros[i].uniforme)
+        if(num_jogador==goleiros[i].uniforme) // verificando se o uniforme do requerido pertence a um goleiro, e qual
         {
             for(j=0;j<goleiros[i].jogos;j++)
             {
-                soma+=vet[j];
+                soma+=vet[j]; // somando todos os dados pedidos
             }
-            media=(float)soma/elenco[i].jogos;
+            media=(float)soma/elenco[i].jogos; // calculando a media desses dados, por partida
+
+            break;
         }
     }
     for(i=0;i<40;i++)
     {
-        if(num_jogador==elenco[i].uniforme)
+        if(num_jogador==elenco[i].uniforme) // verificando se o uniforme do requerido pertence a um jogador, e qual
         {
             for(j=0;j<elenco[i].jogos;j++)
             {
-                soma+=vet[j];
+                soma+=vet[j]; // somando todos os dados pedidos
             }
             media=(float)soma/elenco[i].jogos;
+
+            break;
         }
     }
+
+    return media;
 }
 
 /* Funcao que calcula a pontuacao de um jogador na partida */
