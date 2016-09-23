@@ -91,7 +91,7 @@ int estatisticas_jogador(); //exibe as estatísticas de um jogador
 int estatisticas_grupo(); //exibe as estatisticas do grupo
 int inserir_dados(); //insere os dados de uma partida
 int editar_dados(); //edita os dados de uma partida que já ocorreu
-float media(); //calcula a media
+float media_jogador(int *vet); //calcula a media
 float pontuacao(); //calcula a pontuação do jogador na partida
 int ranking(); //exibe o ranking dos jogadores por um indicador
 int melhor_escalacao();//exibe a melhor escalação baseado nas melhores notas por posição
@@ -742,11 +742,35 @@ int lista_jogadores()
     return num_uniforme;
 }
 
-/* Funcao que calcula a media (nao e' certeza ainda) */
+/* Funcao que calcula a media de um jogador */
 
-float media()
+float media_jogador(int num_jogador)
 {
+    /*
+    int i,j,n=0,soma;
+    for(i=0;i<100;i++)
+    {
+        if(jogo[i].controle==1)
+            n++;
+    }
+    for(i=0;i<10;i++)
+    {
+        if(num_jogador==goleiros[i].uniforme)
+        {
+            for(j=0;j<100;j++)
+            {
+                if(goleiros[i].)
+            }
+        }
+    }
+    for(i=0;i<40;i++)
+    {
+        if(num_jogador==elenco[i].uniforme)
+        {
 
+        }
+    }
+    */
 }
 
 /* Funcao que calcula a pontuacao de um jogador na partida */
