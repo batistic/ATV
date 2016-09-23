@@ -52,6 +52,7 @@ typedef struct {
     int penaltisS[100];       float media_penaltisS;
     int penaltisP[100];       float media_penaltisP;
     int pos[100];             int pos_mais_usada;
+    int jogos;
 }jogador;
 
 jogador elenco[40]; // declarando um vetor que armazena 40 jogadores
@@ -78,6 +79,7 @@ typedef struct {
     int penaltisC[100];       float media_penaltisC;
     int penaltisS[100];       float media_penaltisS;
     int penaltisP[100];       float media_penaltisP;
+    int jogos;
 }goleiro;
 
 goleiro goleiros[10]; // declarando um vetor que armazena 10 goleiros
@@ -91,7 +93,7 @@ int estatisticas_jogador(); //exibe as estatísticas de um jogador
 int estatisticas_grupo(); //exibe as estatisticas do grupo
 int inserir_dados(); //insere os dados de uma partida
 int editar_dados(); //edita os dados de uma partida que já ocorreu
-float media_jogador(int *vet); //calcula a media
+float media_jogador(int *vet, int num_jogador); //calcula a media de um jogador
 float pontuacao(); //calcula a pontuação do jogador na partida
 int ranking(); //exibe o ranking dos jogadores por um indicador
 int melhor_escalacao();//exibe a melhor escalação baseado nas melhores notas por posição
@@ -126,11 +128,13 @@ int main()
     {
         elenco[i].controle=0; // zerando os controles dos jogadores
         elenco[i].uniforme=0; // zerando os uniformes dos jogadores
+        elenco[i].jogos=0; // zerando os jogos dos jogadores
     }
     for(i=0;i<10;i++)
     {
         goleiros[i].controle=0; // zerando os controles dos goleiros
         goleiros[i].uniforme=0; // zerando os uniformes dos goleiros
+        goleiros[i].jogos=0; // zerando os jogos dos goleiros
     }
 
     do{
@@ -588,6 +592,7 @@ int inserir_dados()
         {
             if(num_uniforme==goleiros[j].uniforme) // verifica se o numero do uniforme é de um goleiro, e de qual
             {
+                goleiros[j].jogos++;
                 printf("%s:\n",goleiros[j].nome[n]);
                 printf("  Defesas: ");
                 scanf("%d",&goleiros[j].defesas[n]);
@@ -622,6 +627,7 @@ int inserir_dados()
         {
             if(num_uniforme==elenco[j].uniforme) // verifica se o numero do uniforme é de um jogador, e de qual
             {
+                elenco[j].jogos++;
                 printf("%s:\n",elenco[j].nome);
                 printf("  Sigla da posicao inicial na partida: ");
                 scanf("%s",&pos);
@@ -742,35 +748,34 @@ int lista_jogadores()
     return num_uniforme;
 }
 
-/* Funcao que calcula a media de um jogador */
+/* Funcao que calcula a media de um jogador (FUNÇÃO NÃO TESTADA - NÃO TESTAR)*/
 
-float media_jogador(int num_jogador)
+float media_jogador(int *vet, int num_jogador)
 {
-    /*
-    int i,j,n=0,soma;
-    for(i=0;i<100;i++)
-    {
-        if(jogo[i].controle==1)
-            n++;
-    }
+    int i,j,soma;
+    float media;
     for(i=0;i<10;i++)
     {
         if(num_jogador==goleiros[i].uniforme)
         {
-            for(j=0;j<100;j++)
+            for(j=0;j<goleiros[i].jogos;j++)
             {
-                if(goleiros[i].)
+                soma+=vet[j];
             }
+            media=(float)soma/elenco[i].jogos;
         }
     }
     for(i=0;i<40;i++)
     {
         if(num_jogador==elenco[i].uniforme)
         {
-
+            for(j=0;j<elenco[i].jogos;j++)
+            {
+                soma+=vet[j];
+            }
+            media=(float)soma/elenco[i].jogos;
         }
     }
-    */
 }
 
 /* Funcao que calcula a pontuacao de um jogador na partida */
