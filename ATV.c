@@ -121,7 +121,7 @@ int main()
 {
     int comando;
 
-    int i;
+    int i,j;
     for(i=0;i<100;i++)
     {
         jogo[i].controle=0; // zerando os controles dos jogos
@@ -131,12 +131,16 @@ int main()
         elenco[i].controle=0; // zerando os controles dos jogadores
         elenco[i].uniforme=0; // zerando os uniformes dos jogadores
         elenco[i].jogos=0; // zerando os jogos dos jogadores
+        for(j=0;j<100;j++)
+            elenco[i].jogou[j]=0; // zerando os jogos dos jogadores
     }
     for(i=0;i<10;i++)
     {
         goleiros[i].controle=0; // zerando os controles dos goleiros
         goleiros[i].uniforme=0; // zerando os uniformes dos goleiros
         goleiros[i].jogos=0; // zerando os jogos dos goleiros
+        for(j=0;j<100;j++)
+            goleiros[i].jogou[j]=0; // zerando os jogos dos goleiros
     }
 
     do{
@@ -248,11 +252,13 @@ int cadastrar()
                     if(num_uniforme==goleiros[i].uniforme)  // verifica se tem um goleiro com esse numero de uniforme
                     {
                         printf("Numero de uniforme ja cadastrado!\n");
+                        break;
                     }
                 }
                 if(num_uniforme==elenco[i].uniforme)  // verifica se tem um jogador com esse numero de uniforme
                 {
                     printf("Numero de uniforme ja cadastrado!\n");
+                    break;
                 }
                 if(i==39) // todas as posições percorridas, significa que ninguem tem o mesmo numero de uniforme
                 {
@@ -390,7 +396,7 @@ int editar()
 {
     system("cls");
     printf("\tEditar cadastro de jogador.\n\n");
-    int n,i;
+    int n,i,encontrado=0; // variaveis auxiliares
     int num_uniforme=lista_jogadores(); // chama a função que lista todos os jogadores e retorna o numero do uniforme do escolhido pelo usuario
     for(n=0;n<40;n++) // percorrendo todas os jogadores possíveis
     {
@@ -510,11 +516,14 @@ int editar()
                 }
             }while(ch != '\n'); // caso o usuario digite enter, o loop é encerrado
 
+            encontrado++;
             break;
             }
     }
     for(n=0;n<10;n++) // percorrendo todos os goleiros possiveis
     {
+        if(encontrado==1)
+            break;
         if(num_uniforme==goleiros[n].uniforme) // verificando a quem pertence o uniforme requisitado
         {
             // inserindo dados
@@ -577,7 +586,7 @@ int excluir()
     system("cls");
     printf("\tExcluir cadastro de jogador.\n\n");
     int num_jogador=lista_jogadores(); // pedindo ao usuário qual jogador (por uniforme) ele quer excluir
-    int i,j; // variaveis auxiliares
+    int i,j,encontrado=0; // variaveis auxiliares
     for(i=0;i<10;i++)
     {
         if(num_jogador==goleiros[i].uniforme)  // verifica se tem um goleiro com esse numero de uniforme, se sim, qual
@@ -613,7 +622,7 @@ int excluir()
                 goleiros[i].penaltisS[j]=0;
             for(j=0;j<goleiros[i].jogos;j++)
                 goleiros[i].notas[j]=0;
-            for(j=0;j<goleiros[i].jogos;j++)
+            for(j=0;j<100;j++)
                 goleiros[i].jogou[j]=0;
             goleiros[i].media_assistF=0;
             goleiros[i].media_assistG=0;
@@ -631,11 +640,14 @@ int excluir()
             goleiros[i].media_penaltisP=0;
             goleiros[i].jogos=0;
 
+            encontrado++;
             break;
         }
     }
     for(i=0;i<40;i++)
     {
+        if(encontrado==1)
+            break;
         if(num_jogador==elenco[i].uniforme)  // verifica se tem um jogador com esse numero de uniforme, se sim, qual
         {
             // zerando todos os dados do jogador
@@ -675,7 +687,7 @@ int excluir()
                 elenco[i].pos[j]=0;
             for(j=0;j<18;j++)
                 elenco[i].posicao[j]=0;
-            for(j=0;j<elenco[i].jogos;j++)
+            for(j=0;j<100;j++)
                 elenco[i].jogou[j]=0;
             elenco[i].media_assistF=0;
             elenco[i].media_assistG=0;
@@ -737,6 +749,212 @@ int inserir_dados()
             if(num_uniforme==goleiros[j].uniforme) // verifica se o numero do uniforme é de um goleiro, e de qual
             {
                 goleiros[j].jogos++;
+                goleiros[j].jogou[n]=1;
+                printf("%s:\n",goleiros[j].nome[n]);
+                printf("  Defesas: ");
+                scanf("%d",&goleiros[j].defesas[n]);
+                goleiros[j].media_defesas=media_jogador(goleiros[j].defesas,goleiros[j].uniforme);
+                printf("  Passes corretos: ");
+                scanf("%d",&goleiros[j].passesC[n]);
+                goleiros[j].media_passesC=media_jogador(goleiros[j].passesC,goleiros[j].uniforme);
+                printf("  Passes errados: ");
+                scanf("%d",&goleiros[j].passesE[n]);
+                goleiros[j].media_passesE=media_jogador(goleiros[j].passesE,goleiros[j].uniforme);
+                printf("  Gols sofridos: ");
+                scanf("%d",&goleiros[j].golsS[n]);
+                goleiros[j].media_golsS=media_jogador(goleiros[j].golsS,goleiros[j].uniforme);
+                printf("  Gols convertidos: ");
+                scanf("%d",&goleiros[j].golsC[n]);
+                goleiros[j].media_golsC=media_jogador(goleiros[j].golsC,goleiros[j].uniforme);
+                printf("  Faltas cometidas: ");
+                scanf("%d",&goleiros[j].faltasC[n]);
+                goleiros[j].media_faltasC=media_jogador(goleiros[j].faltasC,goleiros[j].uniforme);
+                printf("  Faltas sofridas: ");
+                scanf("%d",&goleiros[j].faltasS[n]);
+                goleiros[j].media_faltasS=media_jogador(goleiros[j].faltasS,goleiros[j].uniforme);
+                printf("  Impedimentos: ");
+                scanf("%d",&goleiros[j].imped[n]);
+                goleiros[j].media_imped=media_jogador(goleiros[j].imped,goleiros[j].uniforme);
+                printf("  Assistencias (gol): ");
+                scanf("%d",&goleiros[j].assistG[n]);
+                goleiros[j].media_assistG=media_jogador(goleiros[j].assistG,goleiros[j].uniforme);
+                printf("  Assistencias (finalizacao): ");
+                scanf("%d",&goleiros[j].assistF[n]);
+                goleiros[j].media_assistF=media_jogador(goleiros[j].assistF,goleiros[j].uniforme);
+                printf("  Penaltis cometidos: ");
+                scanf("%d",&goleiros[j].penaltisC[n]);
+                goleiros[j].media_penaltisC=media_jogador(goleiros[j].penaltisC,goleiros[j].uniforme);
+                printf("  Penaltis sofridos: ");
+                scanf("%d",&goleiros[j].penaltisS[n]);
+                goleiros[j].media_penaltisS=media_jogador(goleiros[j].penaltisS,goleiros[j].uniforme);
+                printf("  Penaltis perdidos: ");
+                scanf("%d",&goleiros[j].penaltisP[n]);
+                goleiros[j].media_penaltisP=media_jogador(goleiros[j].penaltisP,goleiros[j].uniforme);
+            }
+        }
+        char pos[4]; // variavel para armazenar a posicao jogada na partida
+        for(j=0;j<40;j++)
+        {
+            if(num_uniforme==elenco[j].uniforme) // verifica se o numero do uniforme é de um jogador, e de qual
+            {
+                elenco[j].jogos++;
+                elenco[j].jogou[n]=1;
+                printf("%s:\n",elenco[j].nome);
+                printf("  Sigla da posicao inicial na partida: ");
+                scanf("%s",&pos);
+                if(strcmp(pos,"ZD")==0)
+                    elenco[j].posicao[n]=1;
+                if(strcmp(pos,"ZE")==0)
+                    elenco[j].posicao[n]=2;
+                if(strcmp(pos,"ZC")==0)
+                    elenco[j].posicao[n]=3;
+                if(strcmp(pos,"LDD")==0)
+                    elenco[j].posicao[n]=4;
+                if(strcmp(pos,"LED")==0)
+                    elenco[j].posicao[n]=5;
+                if(strcmp(pos,"LDO")==0)
+                    elenco[j].posicao[n]=6;
+                if(strcmp(pos,"LEO")==0)
+                    elenco[j].posicao[n]=7;
+                if(strcmp(pos,"PV")==0)
+                    elenco[j].posicao[n]=8;
+                if(strcmp(pos,"SV")==0)
+                    elenco[j].posicao[n]=9;
+                if(strcmp(pos,"ARM")==0)
+                    elenco[j].posicao[n]=10;
+                if(strcmp(pos,"MD")==0)
+                    elenco[j].posicao[n]=11;
+                if(strcmp(pos,"ME")==0)
+                    elenco[j].posicao[n]=12;
+                if(strcmp(pos,"MA")==0)
+                    elenco[j].posicao[n]=13;
+                if(strcmp(pos,"SE")==0)
+                    elenco[j].posicao[n]=14;
+                if(strcmp(pos,"PD")==0)
+                    elenco[j].posicao[n]=15;
+                if(strcmp(pos,"PE")==0)
+                    elenco[j].posicao[n]=16;
+                if(strcmp(pos,"SA")==0)
+                    elenco[j].posicao[n]=17;
+                if(strcmp(pos,"CA")==0)
+                    elenco[j].posicao[n]=18;
+                printf("  Passes corretos: ");
+                scanf("%d",&elenco[j].passesC[n]);
+                elenco[j].media_passesC=media_jogador(&elenco[j].passesC,elenco[j].uniforme);
+                printf("  Passes errados: ");
+                scanf("%d",&elenco[j].passesE[n]);
+                elenco[j].media_passesE=media_jogador(&elenco[j].passesE,elenco[j].uniforme);
+                printf("  Finalizacoes corretas: ");
+                scanf("%d",&elenco[j].finalizacoesC[n]);
+                elenco[j].media_finalizacoesC=media_jogador(&elenco[j].finalizacoesC,elenco[j].uniforme);
+                printf("  Finalizacoes erradas: ");
+                scanf("%d",&elenco[j].finalizacoesE[n]);
+                elenco[j].media_finalizacoesE=media_jogador(&elenco[j].finalizacoesE,elenco[j].uniforme);
+                printf("  Desarmes: ");
+                scanf("%d",&elenco[j].desarmes[n]);
+                elenco[j].media_desarmes=media_jogador(&elenco[j].desarmes,elenco[j].uniforme);
+                printf("  Gols: ");
+                scanf("%d",&elenco[j].gols[n]);
+                elenco[j].media_gols=media_jogador(&elenco[j].gols,elenco[j].uniforme);
+                printf("  Faltas cometidas: ");
+                scanf("%d",&elenco[j].faltasC[n]);
+                elenco[j].media_faltasC=media_jogador(&elenco[j].faltasC,elenco[j].uniforme);
+                printf("  Faltas sofridas: ");
+                scanf("%d",&elenco[j].faltasS[n]);
+                elenco[j].media_faltasS=media_jogador(&elenco[j].faltasS,elenco[j].uniforme);
+                printf("  Impedimentos: ");
+                scanf("%d",&elenco[j].imped[n]);
+                elenco[j].media_imped=media_jogador(&elenco[j].imped,elenco[j].uniforme);
+                printf("  Assistencias (gol): ");
+                scanf("%d",&elenco[j].assistG[n]);
+                elenco[j].media_assistG=media_jogador(&elenco[j].assistG,elenco[j].uniforme);
+                printf("  Assistencias (finalizacao): ");
+                scanf("%d",&elenco[j].assistF[n]);
+                elenco[j].media_assistF=media_jogador(&elenco[j].assistF,elenco[j].uniforme);
+                printf("  Penaltis cometidos: ");
+                scanf("%d",&elenco[j].penaltisC[n]);
+                elenco[j].media_penaltisC=media_jogador(&elenco[j].penaltisC,elenco[j].uniforme);
+                printf("  Penaltis sofridos: ");
+                scanf("%d",&elenco[j].penaltisS[n]);
+                elenco[j].media_penaltisS=media_jogador(&elenco[j].penaltisS,elenco[j].uniforme);
+                printf("  Penaltis perdidos: ");
+                scanf("%d",&elenco[j].penaltisP[n]);
+                elenco[j].media_penaltisP=media_jogador(&elenco[j].penaltisP,elenco[j].uniforme);
+            }
+        }
+    }
+    system("pause");
+    return 0;
+}
+
+/* Funcao que edita os dados de uma partida */
+
+int editar_dados()
+{
+    system("cls");
+    printf("\tEditar dados de uma partida.\n\n");
+    int n=lista_jogos();
+    int i,j,num_uniforme; // variaveis auxiliares
+    // zerando os dados da partida
+    for(i=0;i<10;i++)
+    {
+        goleiros[i].jogou[n]=0;
+        goleiros[i].passesC[n]=0;
+        goleiros[i].passesE[n]=0;
+        goleiros[i].golsC[n]=0;
+        goleiros[i].golsS[n]=0;
+        goleiros[i].defesas[n]=0;
+        goleiros[i].imped[n]=0;
+        goleiros[i].assistF[n]=0;
+        goleiros[i].assistG[n]=0;
+        goleiros[i].faltasC[n]=0;
+        goleiros[i].faltasS[n]=0;
+        goleiros[i].penaltisC[n]=0;
+        goleiros[i].penaltisP[n]=0;
+        goleiros[i].penaltisS[n]=0;
+        goleiros[i].notas[n]=0;
+    }
+    for(i=0;i<40;i++)
+    {
+        elenco[i].jogou[n]=0;
+        elenco[i].passesC[n]=0;
+        elenco[i].passesE[n]=0;
+        elenco[i].gols[n]=0;
+        elenco[i].finalizacoesC[n]=0;
+        elenco[i].finalizacoesE[n]=0;
+        elenco[i].desarmes[n]=0;
+        elenco[i].imped[n]=0;
+        elenco[i].assistF[n]=0;
+        elenco[i].assistG[n]=0;
+        elenco[i].faltasC[n]=0;
+        elenco[i].faltasS[n]=0;
+        elenco[i].penaltisC[n]=0;
+        elenco[i].penaltisP[n]=0;
+        elenco[i].penaltisS[n]=0;
+        elenco[i].notas[n]=0;
+        elenco[i].pos[n]=0;
+    }
+    // atualizando dados da partida
+    printf("Adversario: ");
+    setbuf(stdin, NULL);
+    fgets(jogo[n].adversario,100,stdin);
+    printf("Gols feitos: ");
+    scanf("%d",&jogo[n].gols_pro);
+    printf("Gols sofridos: ");
+    scanf("%d",&jogo[n].gols_contra);
+    jogo[n].saldo_gols=jogo[n].gols_pro-jogo[n].gols_contra;
+    printf("Substituicoes feitas na partida: ");
+    scanf("%d",&jogo[n].substituicoes);
+    for(i=0;i<11+jogo[n].substituicoes;i++) // loop que percorre todos os jogadores que jogaram a partida
+    {
+        printf("Insira o numero do uniforme do jogador: ");
+        scanf("%d",&num_uniforme);
+        for(j=0;j<10;j++)
+        {
+            if(num_uniforme==goleiros[j].uniforme) // verifica se o numero do uniforme é de um goleiro, e de qual
+            {
+                goleiros[j].jogos++;
+                goleiros[j].jogou[n]=1;
                 printf("%s:\n",goleiros[j].nome[n]);
                 printf("  Defesas: ");
                 scanf("%d",&goleiros[j].defesas[n]);
@@ -764,8 +982,6 @@ int inserir_dados()
                 scanf("%d",&goleiros[j].penaltisS[n]);
                 printf("  Penaltis perdidos: ");
                 scanf("%d",&goleiros[j].penaltisP[n]);
-
-                break;
             }
         }
         char pos[4]; // variavel para armazenar a posicao jogada na partida
@@ -842,22 +1058,9 @@ int inserir_dados()
                 scanf("%d",&elenco[j].penaltisS[n]);
                 printf("  Penaltis perdidos: ");
                 scanf("%d",&elenco[j].penaltisP[n]);
-
-                break;
             }
         }
     }
-    system("pause");
-    return 0;
-}
-
-/* Funcao que edita os dados de uma partida */
-
-int editar_dados()
-{
-    system("cls");
-    printf("\tEditar dados de uma partida.\n\n");
-    int n=lista_jogos();
     system("PAUSE");
     return 0;
 }
@@ -929,11 +1132,12 @@ float media_jogador(int *vet, int num_jogador)
     {
         if(num_jogador==goleiros[i].uniforme) // verificando se o uniforme do requerido pertence a um goleiro, e qual
         {
-            for(j=0;j<goleiros[i].jogos;j++)
+            for(j=0;j<100;j++)
             {
-                soma+=vet[j]; // somando todos os dados pedidos
+                if(goleiros[i].jogou[j]==1)
+                    soma+=vet[j]; // somando todos os dados pedidos
             }
-            media=(float)soma/elenco[i].jogos; // calculando a media desses dados, por partida
+            media=(float)soma/goleiros[i].jogos; // calculando a media desses dados, por partida
 
             break;
         }
@@ -944,8 +1148,8 @@ float media_jogador(int *vet, int num_jogador)
         {
             for(j=0;j<100;j++)
             {
-
-                soma+=vet[j]; // somando todos os dados pedidos
+                if(elenco[i].jogou[j]==1)
+                    soma+=vet[j]; // somando todos os dados pedidos
             }
             media=(float)soma/elenco[i].jogos;
 
