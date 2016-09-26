@@ -130,17 +130,51 @@ int main()
     {
         elenco[i].controle=0; // zerando os controles dos jogadores
         elenco[i].uniforme=0; // zerando os uniformes dos jogadores
-        elenco[i].jogos=0; // zerando os jogos dos jogadores
-        for(j=0;j<100;j++)
-            elenco[i].jogou[j]=0; // zerando os jogos dos jogadores
+        elenco[i].jogos=0;
+        for(j=0;j<100;j++) // zerando os jogos dos jogadores
+            elenco[i].jogou[j]=0;
+        for(j=0;j<18;j++)
+            elenco[i].posicao[j]=0; // zerando as posições dos jogadores
+        // zerando as medias dos jogadores
+        elenco[i].media_assistF=0;
+        elenco[i].media_assistG=0;
+        elenco[i].media_desarmes=0;
+        elenco[i].media_faltasC=0;
+        elenco[i].media_faltasS=0;
+        elenco[i].media_gols=0;
+        elenco[i].media_finalizacoesC=0;
+        elenco[i].media_finalizacoesE=0;
+        elenco[i].media_imped=0;
+        elenco[i].media_notas=0;
+        elenco[i].media_passesC=0;
+        elenco[i].media_passesE=0;
+        elenco[i].media_penaltisC=0;
+        elenco[i].media_penaltisS=0;
+        elenco[i].media_penaltisP=0;
+        elenco[i].pos_mais_usada=0;
     }
     for(i=0;i<10;i++)
     {
         goleiros[i].controle=0; // zerando os controles dos goleiros
         goleiros[i].uniforme=0; // zerando os uniformes dos goleiros
-        goleiros[i].jogos=0; // zerando os jogos dos goleiros
-        for(j=0;j<100;j++)
-            goleiros[i].jogou[j]=0; // zerando os jogos dos goleiros
+        goleiros[i].jogos=0;
+        for(j=0;j<100;j++) // zerando os jogos dos goleiros
+            goleiros[i].jogou[j]=0;
+        // zerando as medias dos goleiros
+        goleiros[i].media_assistF=0;
+        goleiros[i].media_assistG=0;
+        goleiros[i].media_defesas=0;
+        goleiros[i].media_faltasC=0;
+        goleiros[i].media_faltasS=0;
+        goleiros[i].media_golsC=0;
+        goleiros[i].media_golsS=0;
+        goleiros[i].media_imped=0;
+        goleiros[i].media_notas=0;
+        goleiros[i].media_passesC=0;
+        goleiros[i].media_passesE=0;
+        goleiros[i].media_penaltisC=0;
+        goleiros[i].media_penaltisS=0;
+        goleiros[i].media_penaltisP=0;
     }
 
     do{
@@ -594,34 +628,6 @@ int excluir()
             // zerando todos os dados do goleiro
             goleiros[i].controle=0;
             goleiros[i].uniforme=0;
-            for(j=0;j<goleiros[i].jogos;j++)
-                goleiros[i].passesC[j]=0;
-            for(j=0;j<goleiros[i].jogos;j++)
-                goleiros[i].passesE[j]=0;
-            for(j=0;j<goleiros[i].jogos;j++)
-                goleiros[i].golsC[j]=0;
-            for(j=0;j<goleiros[i].jogos;j++)
-                goleiros[i].golsS[j]=0;
-            for(j=0;j<goleiros[i].jogos;j++)
-                goleiros[i].defesas[j]=0;
-            for(j=0;j<goleiros[i].jogos;j++)
-                goleiros[i].imped[j]=0;
-            for(j=0;j<goleiros[i].jogos;j++)
-                goleiros[i].assistF[j]=0;
-            for(j=0;j<goleiros[i].jogos;j++)
-                goleiros[i].assistG[j]=0;
-            for(j=0;j<goleiros[i].jogos;j++)
-                goleiros[i].faltasC[j]=0;
-            for(j=0;j<goleiros[i].jogos;j++)
-                goleiros[i].faltasS[j]=0;
-            for(j=0;j<goleiros[i].jogos;j++)
-                goleiros[i].penaltisC[j]=0;
-            for(j=0;j<goleiros[i].jogos;j++)
-                goleiros[i].penaltisP[j]=0;
-            for(j=0;j<goleiros[i].jogos;j++)
-                goleiros[i].penaltisS[j]=0;
-            for(j=0;j<goleiros[i].jogos;j++)
-                goleiros[i].notas[j]=0;
             for(j=0;j<100;j++)
                 goleiros[i].jogou[j]=0;
             goleiros[i].media_assistF=0;
@@ -653,38 +659,6 @@ int excluir()
             // zerando todos os dados do jogador
             elenco[i].controle=0;
             elenco[i].uniforme=0;
-            for(j=0;j<elenco[i].jogos;j++)
-                elenco[i].passesC[j]=0;
-            for(j=0;j<elenco[i].jogos;j++)
-                elenco[i].passesE[j]=0;
-            for(j=0;j<elenco[i].jogos;j++)
-                elenco[i].gols[j]=0;
-            for(j=0;j<elenco[i].jogos;j++)
-                elenco[i].finalizacoesC[j]=0;
-            for(j=0;j<elenco[i].jogos;j++)
-                elenco[i].finalizacoesE[j]=0;
-            for(j=0;j<elenco[i].jogos;j++)
-                elenco[i].desarmes[j]=0;
-            for(j=0;j<elenco[i].jogos;j++)
-                elenco[i].imped[j]=0;
-            for(j=0;j<elenco[i].jogos;j++)
-                elenco[i].assistF[j]=0;
-            for(j=0;j<elenco[i].jogos;j++)
-                elenco[i].assistG[j]=0;
-            for(j=0;j<elenco[i].jogos;j++)
-                elenco[i].faltasC[j]=0;
-            for(j=0;j<elenco[i].jogos;j++)
-                elenco[i].faltasS[j]=0;
-            for(j=0;j<elenco[i].jogos;j++)
-                elenco[i].penaltisC[j]=0;
-            for(j=0;j<elenco[i].jogos;j++)
-                elenco[i].penaltisP[j]=0;
-            for(j=0;j<elenco[i].jogos;j++)
-                elenco[i].penaltisS[j]=0;
-            for(j=0;j<elenco[i].jogos;j++)
-                elenco[i].notas[j]=0;
-            for(j=0;j<elenco[i].jogos;j++)
-                elenco[i].pos[j]=0;
             for(j=0;j<18;j++)
                 elenco[i].posicao[j]=0;
             for(j=0;j<100;j++)
@@ -898,7 +872,24 @@ int editar_dados()
     // zerando os dados da partida
     for(i=0;i<10;i++)
     {
-        goleiros[i].jogou[n]=0;
+        if(goleiros[i].jogou[n]==1){
+            goleiros[i].jogos--;
+            goleiros[i].jogou[n]=0;
+            goleiros[i].media_defesas=media_jogador(goleiros[i].defesas,goleiros[i].uniforme);
+            goleiros[i].media_imped=media_jogador(goleiros[i].imped,goleiros[i].uniforme);
+            goleiros[i].media_assistF=media_jogador(goleiros[i].assistF,goleiros[i].uniforme);
+            goleiros[i].media_assistG=media_jogador(goleiros[i].assistG,goleiros[i].uniforme);
+            goleiros[i].media_passesC=media_jogador(goleiros[i].passesC,goleiros[i].uniforme);
+            goleiros[i].media_passesE=media_jogador(goleiros[i].passesE,goleiros[i].uniforme);
+            goleiros[i].media_golsC=media_jogador(goleiros[i].golsC,goleiros[i].uniforme);
+            goleiros[i].media_golsS=media_jogador(goleiros[i].golsS,goleiros[i].uniforme);
+            goleiros[i].media_faltasC=media_jogador(goleiros[i].faltasC,goleiros[i].uniforme);
+            goleiros[i].media_faltasS=media_jogador(goleiros[i].faltasS,goleiros[i].uniforme);
+            goleiros[i].media_penaltisC=media_jogador(goleiros[i].penaltisC,goleiros[i].uniforme);
+            goleiros[i].media_penaltisP=media_jogador(goleiros[i].penaltisP,goleiros[i].uniforme);
+            goleiros[i].media_penaltisS=media_jogador(goleiros[i].penaltisS,goleiros[i].uniforme);
+            goleiros[i].media_notas=media_jogador(goleiros[i].notas,goleiros[i].uniforme);
+        }
         goleiros[i].passesC[n]=0;
         goleiros[i].passesE[n]=0;
         goleiros[i].golsC[n]=0;
@@ -916,7 +907,25 @@ int editar_dados()
     }
     for(i=0;i<40;i++)
     {
-        elenco[i].jogou[n]=0;
+        if(elenco[i].jogou[n]==1){
+            elenco[i].jogos--;
+            elenco[i].jogou[n]=0;
+            elenco[i].media_passesC=media_jogador(elenco[i].passesC,elenco[i].uniforme);
+            elenco[i].media_passesE=media_jogador(elenco[i].passesE,elenco[i].uniforme);
+            elenco[i].media_gols=media_jogador(elenco[i].gols,elenco[i].uniforme);
+            elenco[i].media_finalizacoesC=media_jogador(elenco[i].finalizacoesC,elenco[i].uniforme);
+            elenco[i].media_finalizacoesE=media_jogador(elenco[i].finalizacoesE,elenco[i].uniforme);
+            elenco[i].media_desarmes=media_jogador(elenco[i].desarmes,elenco[i].uniforme);
+            elenco[i].media_imped=media_jogador(elenco[i].imped,elenco[i].uniforme);
+            elenco[i].media_assistF=media_jogador(elenco[i].assistF,elenco[i].uniforme);
+            elenco[i].media_assistG=media_jogador(elenco[i].assistG,elenco[i].uniforme);
+            elenco[i].media_faltasC=media_jogador(elenco[i].faltasC,elenco[i].uniforme);
+            elenco[i].media_faltasS=media_jogador(elenco[i].faltasS,elenco[i].uniforme);
+            elenco[i].media_penaltisC=media_jogador(elenco[i].penaltisC,elenco[i].uniforme);
+            elenco[i].media_penaltisP=media_jogador(elenco[i].penaltisP,elenco[i].uniforme);
+            elenco[i].media_penaltisS=media_jogador(elenco[i].penaltisS,elenco[i].uniforme);
+            elenco[i].media_notas=media_jogador(elenco[i].notas,elenco[i].uniforme);
+        }
         elenco[i].passesC[n]=0;
         elenco[i].passesE[n]=0;
         elenco[i].gols[n]=0;
