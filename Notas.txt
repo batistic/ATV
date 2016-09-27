@@ -1,0 +1,42 @@
+Indicadores com peso:
+	Passes corretos (%);                                  |  Passes corretos (%);
+	Chutes corretos (%);
+________________________________________________________________________________________
+
+Indicadores acrescidos:
+	Gols;
+	Gols contra;			|  Gols sofridos;                   	
+	Desarmes;			|  Defesas;
+	Perda de posse;  
+	Faltas cometidas;		
+	Faltas sofridas;		
+	Impedimentos;			
+	Assistencias (gol);		
+	Assistencias (finalização);	
+	Penaltis cometidos;		
+	Penaltis sofridos;		
+	Penaltis errados;		
+
+NOTA GENÉRICA: (3.25*PC + 3.25*CC) + 1(G) - 1(GC) + 0.1(D) - 0.1(PP) - 0.1(FC) + 0.1(FS) - 0.1(I) + 0.5(AG) + 0.1(AF) - 0.5(PC) + 0.5(PS) - 0.5(PE)
+
+GK:
+
+ZD, ZE, ZC, LDD, LED: 
+	(5.25*PC + 1.25*CC) + 1(G) - 1(GC) + 0.4(D) - 0.3(PP) - 0.2(FC) + 0.1(FS) - 0.1(I) + 0.5(AG) + 0.1(AF) - 0.5(PC) + 0.5(PS) - 0.5(PE)
+
+LDO, LEO, PV:
+	 (4.75*PC + 1.75*CC) + 1(G) - 1(GC) + 0.2(D) - 0.3(PP) - 0.1(FC) + 0.1(FS) - 0.1(I) + 0.55(AG) + 0.15(AF) - 0.5(PC) + 0.5(PS) - 0.5(PE)
+
+ARM, SV:
+	 (4.25*PC + 2.25*CC) + 1(G) - 1(GC) + 0.1(D) - 0.3(PP) - 0.1(FC) + 0.1(FS) - 0.1(I) + 0.6(AG) + 0.2(AF) - 0.5(PC) + 0.5(PS) - 0.5(PE)
+
+MD, ME, MA, PD, PE, SA:
+	 (2*PC + 4.5*CC) + 1(G) - 1(GC) + 0.1(D) - 0.2(PP) - 0.1(FC) + 0.2(FS) - 0.5(I) + 0.65(AG) + 0.25(AF) - 0.5(PC) + 0.6(PS) - 0.5(PE)
+
+CA:
+	 (1*PC + 5.5*CC) + 1(G) - 1(GC) + 0.1(D) - 0.1(PP) - 0.1(FC) + 0.3(FS) - 0.5(I) + 0.5(AG) + 0.1(AF) - 0.5(PC) + 0.7(PS) - 0.5(PE)
+
+
+
+
+
