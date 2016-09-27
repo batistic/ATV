@@ -958,6 +958,8 @@ int editar_dados()
     system("cls");
     printf("\tEditar dados de uma partida.\n\n");
     int n=lista_jogos();
+    if(n<0)
+        return 0;
     int i,j,num_uniforme; // variaveis auxiliares
     // zerando os dados da partida
     for(i=0;i<10;i++)
@@ -1389,6 +1391,7 @@ int lista_jogos()
             printf("%d.  %d x %d %s.\n",i+1,jogo[i].gols_pro,jogo[i].gols_contra,jogo[i].adversario); // imprimindo todas as opções de jogos
         }
     }
+    printf("0. Voltar.\n");
     printf("\n-> ");
     scanf("%d",&opc);
 
