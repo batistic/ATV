@@ -192,7 +192,7 @@ int main()
         printf("6. Ver estatisticas de um jogador.\n");
         printf("7. Ver estatisticas do grupo.\n");
         printf("0. Sair.\n");
-        printf("-> ");
+        printf("\n-> ");
         scanf("%d",&comando); // leitura da opção
 
         switch(comando)
@@ -227,7 +227,7 @@ int main()
 
             case 0:
                 system("cls");
-                printf("\t\tAte logo!\n");  // sai do sistema
+                printf("\t\tAte logo!\n\n");  // sai do sistema
                 system("PAUSE");
                 break;
 
@@ -248,7 +248,7 @@ int cadastrar()
     int pos,i,n,num_uniforme,j; // variaveis auxiliares
     int erro=1; // variavel para testar se um n. de uniforme ja foi cadastrado
     printf("\tCadastrar jogador.\n\n");
-    printf("1. Jogador.\t2. Goleiro.\n->");//solicita que o usuário defina se é goleiro ou não
+    printf("1. Jogador.\t2. Goleiro.\n\n-> ");//solicita que o usuário defina se é goleiro ou não
     while(pos!=1 && pos!=2){//verifica se entrada é valida (apenas 1 e 2 permitidos)
         scanf("%d",&pos);
         if(pos!=1 && pos!=2)
@@ -314,7 +314,7 @@ int cadastrar()
         printf("MA: Meia Atacante,                SA: Segundo Atacante,\n");
         printf("PD: Ponta Direita,                PE: Ponta Esquerda,\n");
         printf("CA: Centroavante.\n");
-        printf("-> ");
+        printf("\n-> ");
         char ch; // variavel para fazer a leitura caractere por caractere
         int j=0;
         i=0;   // variaveis auxiliares
@@ -423,6 +423,7 @@ int cadastrar()
             }
         }
     }
+    printf("\n");
     system("PAUSE");
     return 0;
 }
@@ -435,6 +436,8 @@ int editar()
     printf("\tEditar cadastro de jogador.\n\n");
     int n,i,encontrado=0; // variaveis auxiliares
     int num_uniforme=lista_jogadores(); // chama a função que lista todos os jogadores e retorna o numero do uniforme do escolhido pelo usuario
+    if(num_uniforme==0)
+        return 0;
     for(n=0;n<40;n++) // percorrendo todas os jogadores possíveis
     {
         if(num_uniforme==elenco[n].uniforme)    // verifica a quem o numero de uniforme requerido pertence
@@ -494,7 +497,7 @@ int editar()
             printf("MA: Meia Atacante,                SA: Segundo Atacante,\n");
             printf("PD: Ponta Direita,                PE: Ponta Esquerda,\n");
             printf("CA: Centroavante.\n");
-            printf("-> ");
+            printf("\n-> ");
             char ch; // variavel para fazer a leitura caractere por caractere
             int j=0;
             i=0;   // variaveis auxiliares
@@ -612,6 +615,7 @@ int editar()
             break;
         }
     }
+    printf("\n");
     system("PAUSE");
     return 0;
 }
@@ -622,11 +626,13 @@ int excluir()
 {
     system("cls");
     printf("\tExcluir cadastro de jogador.\n\n");
-    int num_jogador=lista_jogadores(); // pedindo ao usuário qual jogador (por uniforme) ele quer excluir
+    int num_uniforme=lista_jogadores(); // pedindo ao usuário qual jogador (por uniforme) ele quer excluir
+    if(num_uniforme==0)
+        return 0;
     int i,j,encontrado=0; // variaveis auxiliares
     for(i=0;i<10;i++)
     {
-        if(num_jogador==goleiros[i].uniforme)  // verifica se tem um goleiro com esse numero de uniforme, se sim, qual
+        if(num_uniforme==goleiros[i].uniforme)  // verifica se tem um goleiro com esse numero de uniforme, se sim, qual
         {
             // zerando todos os dados do goleiro
             goleiros[i].controle=0;
@@ -657,7 +663,7 @@ int excluir()
     {
         if(encontrado==1)
             break;
-        if(num_jogador==elenco[i].uniforme)  // verifica se tem um jogador com esse numero de uniforme, se sim, qual
+        if(num_uniforme==elenco[i].uniforme)  // verifica se tem um jogador com esse numero de uniforme, se sim, qual
         {
             // zerando todos os dados do jogador
             elenco[i].controle=0;
@@ -687,6 +693,7 @@ int excluir()
             break;
         }
     }
+    printf("\n");
     system("PAUSE");
     return 0;
 }
@@ -1073,6 +1080,7 @@ int editar_dados()
             }
         }
     }
+    printf("\n");
     system("PAUSE");
     return 0;
 }
@@ -1084,11 +1092,14 @@ int estatisticas_jogador()
     system("cls");
     printf("\tEstatisticas de um jogador.\n\n");
     int num_uniforme=lista_jogadores(); // pedindo para o usuario escolher um jogador para ver as estatisticas
+    if(num_uniforme==0)
+        return 0;
     int i,encontrado=0,opc; // variaveis auxiliares
     for(i=0;i<10;i++)
     {
         if(num_uniforme==goleiros[i].uniforme) // vendo se o jogador requerido é um goleiro e, se sim, qual
         {
+            system("cls");
             printf("\tEstatisticas do %s\n\n",goleiros[i].nome);
             // menu com as opções de estatísticas que podem ser exibidas do goleiro
             printf("1. Dados gerais.\n");
@@ -1099,7 +1110,7 @@ int estatisticas_jogador()
             printf("6. Impedimentos.\n");
             printf("7. Notas.\n");
             printf("0. Voltar.\n");
-            printf("-> ");
+            printf("\n-> ");
             scanf("%d",&opc);
 
             switch(opc)
@@ -1149,6 +1160,7 @@ int estatisticas_jogador()
             break;
         if(num_uniforme==elenco[i].uniforme) // vendo se o jogador requerido é um jogador e, se sim, qual
         {
+            system("cls");
             printf("\tEstatisticas do %s\n\n",elenco[i].nome);
             // menu com as opções de estatísticas que podem ser exibidas do jogador
             printf("1. Dados gerais.\n");
@@ -1159,7 +1171,7 @@ int estatisticas_jogador()
             printf("6. Impedimentos.\n");
             printf("7. Notas.\n");
             printf("0. Voltar.\n");
-            printf("-> ");
+            printf("\n-> ");
             scanf("%s",&opc);
 
             switch(opc)
@@ -1201,7 +1213,7 @@ int estatisticas_jogador()
             break;
         }
     }
-    system("PAUSE");
+
     return 0;
 }
 
@@ -1209,6 +1221,7 @@ int estatisticas_jogador()
 
 int estatisticas_grupo()
 {
+    system("cls");
     printf("\tEstatisticas do Grupo.\n\n");
     printf("1. Notas gerais.\n");
     printf("2. Melhor escalacao.\n");
@@ -1219,6 +1232,7 @@ int estatisticas_grupo()
     printf("7. Faltas e penaltis.\n");
     printf("8. Impedimentos.\n");
     printf("0. Voltar.\n");
+    printf("\n-> ");
     int opc;
     scanf("%d",&opc);
 
@@ -1256,6 +1270,7 @@ int estatisticas_grupo()
             return 0;
     }
 
+    return 0;
 }
 
 /* Funcao que lista todos os jogadores do grupo */
@@ -1277,7 +1292,8 @@ int lista_jogadores()
             printf("%d. %s\n",elenco[i].uniforme,elenco[i].nome);
         }
     }
-    printf("-> ");
+    printf("0. Voltar.\n");
+    printf("\n-> ");
     int num_uniforme;
     scanf("%d",&num_uniforme);
     return num_uniforme;
@@ -1295,7 +1311,7 @@ int lista_jogos()
             printf("%d.  %d x %d %s.\n",i+1,jogo[i].gols_pro,jogo[i].gols_contra,jogo[i].adversario); // imprimindo todas as opções de jogos
         }
     }
-    printf("-> ");
+    printf("\n-> ");
     scanf("%d",&opc);
 
     return opc-1; // retorna a posição do vetor jogo[] do jogo requerido
