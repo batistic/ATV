@@ -34,7 +34,7 @@ typedef struct {
     // Controle
     int controle;
     // Dados pessoais
-    char nome[100]; int idade; float altura; float peso; int pe; int uniforme; int posicao[18];
+    char nome[100]; int idade; float altura; float peso; int pe; int uniforme; int posicao[17];
     // Estatisticas em jogo
     float notas[100];         float media_notas;
     int passesC[100];         float media_passesC;
@@ -316,11 +316,145 @@ int cadastrar()
         printf("CA: Centroavante.\n");
         printf("\n-> ");
         char ch; // variavel para fazer a leitura caractere por caractere
-        int j=0;
-        i=0;   // variaveis auxiliares
-        char p[4]; // string que serao armazenadas as posições do jogador
+        i=0;   // zerando variavel auxiliar
+        //char p[4]; // string que serao armazenadas as posições do jogador
         setbuf(stdin, NULL);
         do
+        {
+            ch=getchar(); // lendo caractere por caractere
+            if(ch!=' ') // quando o usuario digita espaço ou enter
+            {
+                if(ch>64 && ch<91)
+                {
+                    if(ch=='Z')
+                    {
+                        ch=getchar();
+                        if(ch=='D')
+                        {
+                            elenco[n].posicao[i]=1;
+                            i++;
+                        }
+                        if(ch=='E')
+                        {
+                            elenco[n].posicao[i]=2;
+                            i++;
+                        }
+                        if(ch=='C')
+                        {
+                            elenco[n].posicao[i]=3;
+                            i++;
+                        }
+                    }
+                    if(ch=='L')
+                    {
+                        ch=getchar();
+                        if(ch=='D')
+                        {
+                            ch=getchar();
+                            if(ch=='D')
+                            {
+                                elenco[n].posicao[i]=4;
+                                i++;
+                            }
+                            if(ch=='O')
+                            {
+                                elenco[n].posicao[i]=6;
+                                i++;
+                            }
+                        }
+                        if(ch=='E')
+                        {
+                            ch=getchar();
+                            if(ch=='D')
+                            {
+                                elenco[n].posicao[i]=5;
+                                i++;
+                            }
+                            if(ch=='O')
+                            {
+                                elenco[n].posicao[i]=7;
+                                i++;
+                            }
+                        }
+                    }
+                    if(ch=='P')
+                    {
+                        ch=getchar();
+                        if(ch=='V')
+                        {
+                            elenco[n].posicao[i]=8;
+                            i++;
+                        }
+                        if(ch=='D')
+                        {
+                            elenco[n].posicao[i]=14;
+                            i++;
+                        }
+                        if(ch=='E')
+                        {
+                            elenco[n].posicao[i]=15;
+                            i++;
+                        }
+                    }
+                    if(ch=='S')
+                    {
+                        ch=getchar();
+                        if(ch=='V')
+                        {
+                            elenco[n].posicao[i]=9;
+                            i++;
+                        }
+                        if(ch=='A')
+                        {
+                            elenco[n].posicao[i]=16;
+                            i++;
+                        }
+                    }
+                    if(ch=='A')
+                    {
+                        ch=getchar();
+                        if(ch=='R')
+                        {
+                            ch=getchar();
+                            if(ch=='M')
+                            {
+                                elenco[n].posicao[i]=10;
+                                i++;
+                            }
+                        }
+                    }
+                    if(ch=='M')
+                    {
+                        ch=getchar();
+                        if(ch=='D')
+                        {
+                            elenco[n].posicao[i]=11;
+                            i++;
+                        }
+                        if(ch=='E')
+                        {
+                            elenco[n].posicao[i]=12;
+                            i++;
+                        }
+                        if(ch=='A')
+                        {
+                            elenco[n].posicao[i]=13;
+                            i++;
+                        }
+                    }
+                    if(ch=='C')
+                    {
+                        ch=getchar();
+                        if(ch=='A')
+                        {
+                            elenco[n].posicao[i]=17;
+                            i++;
+                        }
+                    }
+                }
+            }
+        }while(ch != '\n'); // caso o usuario de enter, o loop é encerrado
+        /*do
         {
             ch=getchar(); // lendo caractere por caractere
             if(ch==' ' || ch=='\n') // quando o usuario digita espaço ou enter
@@ -370,6 +504,7 @@ int cadastrar()
                 i++;
             }
         }while(ch != '\n'); // caso o usuario de enter, o loop é encerrado
+        */
     }
     if(pos==2)//caso entrada seja 2) Goleiro
     {
@@ -1164,7 +1299,7 @@ int estatisticas_jogador()
             printf("7. Notas.\n");
             printf("0. Voltar.\n");
             printf("\n-> ");
-            scanf("%s",&opc);
+            scanf("%d",&opc);
 
             switch(opc)
             {
@@ -1470,7 +1605,7 @@ int jogador_dados(int num_uniforme)
             printf("Posicao: goleiro.\n");
             printf("Jogos: %d.\nUniforme: %d.\n",goleiros[i].jogos,goleiros[i].uniforme);
             printf("Idade: %d anos.\n",goleiros[i].idade);
-            printf("Altura: %.2f metros.\tPeso: %.2f quilos.\n",goleiros[i].altura,goleiros[i].peso);
+            printf("Altura: %.2f metros.\nPeso: %.2f quilos.\n",goleiros[i].altura,goleiros[i].peso);
             if(goleiros[i].pe==1)
                 printf("Destro.\n");
             if(goleiros[i].pe==2)
@@ -1490,7 +1625,7 @@ int jogador_dados(int num_uniforme)
             int virgula=0;
             printf("\tDados gerais do %s\n\n",elenco[i].nome);
             printf("Posicoes jogadas:");
-            for(j=0;j<17;j++);
+            for(j=0;j<17;j++)
             {
                 if(elenco[i].posicao[j]==1){
                     if(virgula>0)
@@ -1594,8 +1729,8 @@ int jogador_dados(int num_uniforme)
                     printf(" centroavante");
                     virgula++;
                 }
-                printf(".\n");
             }
+            printf(".\n");
             printf("Jogos: %d.\nUniforme: %d.\n",elenco[i].jogos,elenco[i].uniforme);
             printf("Idade: %d anos.\n",elenco[i].idade);
             printf("Altura: %.2f metros.\tPeso: %.2f quilos.\n",elenco[i].altura,elenco[i].peso);
