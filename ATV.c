@@ -136,7 +136,7 @@ int main()
         elenco[i].jogos=0;
         for(j=0;j<100;j++) // zerando os jogos dos jogadores
             elenco[i].jogou[j]=0;
-        for(j=0;j<18;j++)
+        for(j=0;j<17;j++)
             elenco[i].posicao[j]=0; // zerando as posições dos jogadores
         // zerando as medias dos jogadores
         elenco[i].media_assistF=0;
@@ -354,16 +354,14 @@ int cadastrar()
                     elenco[n].posicao[j]=12;
                 if(strcmp(p,"MA")==0)
                     elenco[n].posicao[j]=13;
-                if(strcmp(p,"SE")==0)
-                    elenco[n].posicao[j]=14;
                 if(strcmp(p,"PD")==0)
-                    elenco[n].posicao[j]=15;
+                    elenco[n].posicao[j]=14;
                 if(strcmp(p,"PE")==0)
-                    elenco[n].posicao[j]=16;
+                    elenco[n].posicao[j]=15;
                 if(strcmp(p,"SA")==0)
-                    elenco[n].posicao[j]=17;
+                    elenco[n].posicao[j]=16;
                 if(strcmp(p,"CA")==0)
-                    elenco[n].posicao[j]=18;
+                    elenco[n].posicao[j]=17;
                 j++;
             }
             if(ch>64 && ch<91)
@@ -537,16 +535,14 @@ int editar()
                         elenco[n].posicao[j]=12;
                     if(strcmp(p,"MA")==0)
                         elenco[n].posicao[j]=13;
-                    if(strcmp(p,"SE")==0)
-                        elenco[n].posicao[j]=14;
                     if(strcmp(p,"PD")==0)
-                        elenco[n].posicao[j]=15;
+                        elenco[n].posicao[j]=14;
                     if(strcmp(p,"PE")==0)
-                        elenco[n].posicao[j]=16;
+                        elenco[n].posicao[j]=15;
                     if(strcmp(p,"SA")==0)
-                        elenco[n].posicao[j]=17;
+                        elenco[n].posicao[j]=16;
                     if(strcmp(p,"CA")==0)
-                        elenco[n].posicao[j]=18;
+                        elenco[n].posicao[j]=17;
                     j++;
                 }
                 if(ch>64 && ch<91)
@@ -668,7 +664,7 @@ int excluir()
             // zerando todos os dados do jogador
             elenco[i].controle=0;
             elenco[i].uniforme=0;
-            for(j=0;j<18;j++)
+            for(j=0;j<17;j++)
                 elenco[i].posicao[j]=0;
             for(j=0;j<100;j++)
                 elenco[i].jogou[j]=0;
@@ -812,16 +808,14 @@ int inserir_dados()
                     elenco[j].posicao[n]=12;
                 if(strcmp(pos,"MA")==0)
                     elenco[j].posicao[n]=13;
-                if(strcmp(pos,"SE")==0)
-                    elenco[j].posicao[n]=14;
                 if(strcmp(pos,"PD")==0)
-                    elenco[j].posicao[n]=15;
+                    elenco[j].posicao[n]=14;
                 if(strcmp(pos,"PE")==0)
-                    elenco[j].posicao[n]=16;
+                    elenco[j].posicao[n]=15;
                 if(strcmp(pos,"SA")==0)
-                    elenco[j].posicao[n]=17;
+                    elenco[j].posicao[n]=16;
                 if(strcmp(pos,"CA")==0)
-                    elenco[j].posicao[n]=18;
+                    elenco[j].posicao[n]=17;
                 printf("  Passes corretos: ");
                 scanf("%d",&elenco[j].passesC[n]);
                 elenco[j].media_passesC=media_jogador(elenco[j].passesC,elenco[j].uniforme);
@@ -1039,16 +1033,14 @@ int editar_dados()
                     elenco[j].posicao[n]=12;
                 if(strcmp(pos,"MA")==0)
                     elenco[j].posicao[n]=13;
-                if(strcmp(pos,"SE")==0)
-                    elenco[j].posicao[n]=14;
                 if(strcmp(pos,"PD")==0)
-                    elenco[j].posicao[n]=15;
+                    elenco[j].posicao[n]=14;
                 if(strcmp(pos,"PE")==0)
-                    elenco[j].posicao[n]=16;
+                    elenco[j].posicao[n]=15;
                 if(strcmp(pos,"SA")==0)
-                    elenco[j].posicao[n]=17;
+                    elenco[j].posicao[n]=16;
                 if(strcmp(pos,"CA")==0)
-                    elenco[j].posicao[n]=18;
+                    elenco[j].posicao[n]=17;
                 printf("  Passes corretos: ");
                 scanf("%d",&elenco[j].passesC[n]);
                 printf("  Passes errados: ");
@@ -1467,7 +1459,159 @@ int grupo_Imp()
 
 int jogador_dados(int num_uniforme)
 {
+    system("cls");
 
+    int i,j,encontrado=0;
+    for(i=0;i<10;i++)
+    {
+        if(num_uniforme==goleiros[i].uniforme)
+        {
+            printf("\tDados gerais do %s\n\n",goleiros[i].nome);
+            printf("Posicao: goleiro.\n");
+            printf("Jogos: %d.\nUniforme: %d.\n",goleiros[i].jogos,goleiros[i].uniforme);
+            printf("Idade: %d anos.\n",goleiros[i].idade);
+            printf("Altura: %.2f metros.\tPeso: %.2f quilos.\n",goleiros[i].altura,goleiros[i].peso);
+            if(goleiros[i].pe==1)
+                printf("Destro.\n");
+            if(goleiros[i].pe==2)
+                printf("Canhoto.\n");
+            if(goleiros[i].pe==3)
+                printf("Ambidestro.\n");
+            encontrado++;
+            break;
+        }
+    }
+    for(i=0;i<40;i++)
+    {
+        if(encontrado==1)
+            break;
+        if(num_uniforme==elenco[i].uniforme)
+        {
+            int virgula=0;
+            printf("\tDados gerais do %s\n\n",elenco[i].nome);
+            printf("Posicoes jogadas:");
+            for(j=0;j<17;j++);
+            {
+                if(elenco[i].posicao[j]==1){
+                    if(virgula>0)
+                        printf(",");
+                    printf(" zagueiro direito");
+                    virgula++;
+                }
+                if(elenco[i].posicao[j]==2){
+                    if(virgula>0)
+                        printf(",");
+                    printf(" zagueiro esquerdo");
+                    virgula++;
+                }
+                if(elenco[i].posicao[j]==3){
+                    if(virgula>0)
+                        printf(",");
+                    printf(" zagueiro central");
+                    virgula++;
+                }
+                if(elenco[i].posicao[j]==4){
+                    if(virgula>0)
+                        printf(",");
+                    printf(" lateral direito defensivo");
+                    virgula++;
+                }
+                if(elenco[i].posicao[j]==5){
+                    if(virgula>0)
+                        printf(",");
+                    printf(" lateral esquerdo defensivo");
+                    virgula++;
+                }
+                if(elenco[i].posicao[j]==6){
+                    if(virgula>0)
+                        printf(",");
+                    printf(" lateral direito ofensivo");
+                    virgula++;
+                }
+                if(elenco[i].posicao[j]==7){
+                    if(virgula>0)
+                        printf(",");
+                    printf(" lateral esquerdo ofensivo");
+                    virgula++;
+                }
+                if(elenco[i].posicao[j]==8){
+                    if(virgula>0)
+                        printf(",");
+                    printf(" primeiro volante");
+                    virgula++;
+                }
+                if(elenco[i].posicao[j]==9){
+                    if(virgula>0)
+                        printf(",");
+                    printf(" segundo volante");
+                    virgula++;
+                }
+                if(elenco[i].posicao[j]==10){
+                    if(virgula>0)
+                        printf(",");
+                    printf(" armador");
+                    virgula++;
+                }
+                if(elenco[i].posicao[j]==11){
+                    if(virgula>0)
+                        printf(",");
+                    printf(" meia direita");
+                    virgula++;
+                }
+                if(elenco[i].posicao[j]==12){
+                    if(virgula>0)
+                        printf(",");
+                    printf(" meia esquerda");
+                    virgula++;
+                }
+                if(elenco[i].posicao[j]==13){
+                    if(virgula>0)
+                        printf(",");
+                    printf(" meia atacante");
+                    virgula++;
+                }
+                if(elenco[i].posicao[j]==14){
+                    if(virgula>0)
+                        printf(",");
+                    printf(" ponta direita");
+                    virgula++;
+                }
+                if(elenco[i].posicao[j]==15){
+                    if(virgula>0)
+                        printf(",");
+                    printf(" ponta esquerda");
+                    virgula++;
+                }
+                if(elenco[i].posicao[j]==16){
+                    if(virgula>0)
+                        printf(",");
+                    printf(" segundo atacante");
+                    virgula++;
+                }
+                if(elenco[i].posicao[j]==17){
+                    if(virgula>0)
+                        printf(",");
+                    printf(" centroavante");
+                    virgula++;
+                }
+                printf(".\n");
+            }
+            printf("Jogos: %d.\nUniforme: %d.\n",elenco[i].jogos,elenco[i].uniforme);
+            printf("Idade: %d anos.\n",elenco[i].idade);
+            printf("Altura: %.2f metros.\tPeso: %.2f quilos.\n",elenco[i].altura,elenco[i].peso);
+            if(elenco[i].pe==1)
+                printf("Destro.\n");
+            if(elenco[i].pe==2)
+                printf("Canhoto.\n");
+            if(elenco[i].pe==3)
+                printf("Ambidestro.\n");
+            break;
+        }
+    }
+
+    printf("\n");
+    system("PAUSE");
+    return 0;
 }
 
 /* Funcao que exibe as estatisticas de gols e finalizacoes de um jogador */
