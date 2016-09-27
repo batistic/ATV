@@ -97,26 +97,27 @@ int inserir_dados(); //insere os dados de uma partida
 int editar_dados(); //edita os dados de uma partida que já ocorreu
 float media_jogador(int vet[], int num_jogador); //calcula a media de um jogador
 float media_jogadorN(int num_jogador); //calcula a media de notas de um jogador
-float pontuacao(); //calcula a pontuação do jogador na partida
-int ranking(); //exibe o ranking dos jogadores por um indicador
-int melhor_escalacao();//exibe a melhor escalação baseado nas melhores notas por posição
-int grupo_notas(); //exibe as estatísticas de nota do grupo
-int grupo_GeF(); //exibe as estatísticas de gol e finalização do grupo
-int grupo_PeA();//exibe as estatísticas de passes e assistências do grupo
-int grupo_Des();//exibe as estatísticas de desarme do grupo
-int grupo_Def();//exibe as estatísticas de defesa do grupo
-int grupo_FeP();//exibe as estatísticas de faltas e pênaltis do grupo
-int grupo_Imp();//exibe as estatísticas de impedimentos do grupo
+float pontuacao(); //calcula a pontuação do jogador na partida //todo
+int rankingI(int indicador); //exibe o ranking dos jogadores por um indicador //todo
+int rankingF(float indicador); //exibe o ranking dos jogadores por um indicador //todo
+int melhor_escalacao();//exibe a melhor escalação baseado nas melhores notas por posição //todo
+int grupo_notas(); //exibe as estatísticas de nota do grupo //todo
+int grupo_GeF(); //exibe as estatísticas de gol e finalização do grupo //todo
+int grupo_PeA();//exibe as estatísticas de passes e assistências do grupo //todo
+int grupo_Des();//exibe as estatísticas de desarme do grupo //todo
+int grupo_Def();//exibe as estatísticas de defesa do grupo //todo
+int grupo_FeP();//exibe as estatísticas de faltas e pênaltis do grupo //todo
+int grupo_Imp();//exibe as estatísticas de impedimentos do grupo //todo
 int jogador_dados(int num_uniforme);//mostra os dados gerais do jogador
-int jogador_GeF(int num_uniforme);//exibe as estatísticas de gol e finalização do jogador
-int goleiro_Gols(int num_uniforme);//exibe as estatísticas de gols sofridos e convertidos do goleiro
-int jogador_PeA(int num_uniforme);//exibe as estatísticas de passes e assistências do jogador
-int jogador_Des(int num_uniforme);//exibe as estatísticas de desarmes do jogador
-int jogador_Def(int num_uniforme);//exibe as estatísticas de defesa do jogador
-int jogador_FeP(int num_uniforme);//exibe as estatísticas de faltas e pênaltis do jogador
-int goleiro_FeP(int num_uniforme);//exibe as estatísticas de faltas e pênaltis do goleiro
-int jogador_Imp(int num_uniforme);//exibe as estatísticas de impedimentos do jogador
-int jogador_notas(int num_uniforme);//exibe as estatísticas de notas do jogador
+int jogador_GeF(int num_uniforme);//exibe as estatísticas de gol e finalização do jogador //todo
+int goleiro_Gols(int num_uniforme);//exibe as estatísticas de gols sofridos e convertidos do goleiro //todo
+int jogador_PeA(int num_uniforme);//exibe as estatísticas de passes e assistências do jogador //todo
+int jogador_Des(int num_uniforme);//exibe as estatísticas de desarmes do jogador //todo
+int jogador_Def(int num_uniforme);//exibe as estatísticas de defesa do jogador //todo
+int jogador_FeP(int num_uniforme);//exibe as estatísticas de faltas e pênaltis do jogador //todo
+int goleiro_FeP(int num_uniforme);//exibe as estatísticas de faltas e pênaltis do goleiro //todo
+int jogador_Imp(int num_uniforme);//exibe as estatísticas de impedimentos do jogador //todo
+int jogador_notas(int num_uniforme);//exibe as estatísticas de notas do jogador //todo
 
 /* Funcao principal */
 
@@ -248,12 +249,14 @@ int cadastrar()
     int pos,i,n,num_uniforme,j; // variaveis auxiliares
     int erro=1; // variavel para testar se um n. de uniforme ja foi cadastrado
     printf("\tCadastrar jogador.\n\n");
-    printf("1. Jogador.\t2. Goleiro.\n\n-> ");//solicita que o usuário defina se é goleiro ou não
-    while(pos!=1 && pos!=2){//verifica se entrada é valida (apenas 1 e 2 permitidos)
+    printf("1. Jogador.\t2. Goleiro.\n0. Voltar\n\n-> ");//solicita que o usuário defina se é goleiro ou não
+    while(pos!=1 && pos!=2 && pos!=0){//verifica se entrada é valida (apenas 1 e 2 permitidos)
         scanf("%d",&pos);
-        if(pos!=1 && pos!=2)
+        if(pos!=1 && pos!=2 && pos!=0)
             printf("Digite uma opcao valida ->");
     }
+    if(pos==0)
+        return 0;
     if(pos==1)//caso entrada seja 1) Jogador (que não goleiro)
     {
         for(i=0;i<40;i++)//verifica uma posição livre no vetor de jogadores em ordem crescente
@@ -317,7 +320,6 @@ int cadastrar()
         printf("\n-> ");
         char ch; // variavel para fazer a leitura caractere por caractere
         i=0;   // zerando variavel auxiliar
-        //char p[4]; // string que serao armazenadas as posições do jogador
         setbuf(stdin, NULL);
         do
         {
@@ -454,57 +456,6 @@ int cadastrar()
                 }
             }
         }while(ch != '\n'); // caso o usuario de enter, o loop é encerrado
-        /*do
-        {
-            ch=getchar(); // lendo caractere por caractere
-            if(ch==' ' || ch=='\n') // quando o usuario digita espaço ou enter
-            {
-                p[i]='\0'; // tornando a ultima posição da string um caractere nulo
-                i=0;
-                // comparando a string com as posições possiveis, e armazenando por numeros
-                if(strcmp(p,"ZD")==0)
-                    elenco[n].posicao[j]=1;
-                if(strcmp(p,"ZE")==0)
-                    elenco[n].posicao[j]=2;
-                if(strcmp(p,"ZC")==0)
-                    elenco[n].posicao[j]=3;
-                if(strcmp(p,"LDD")==0)
-                    elenco[n].posicao[j]=4;
-                if(strcmp(p,"LED")==0)
-                    elenco[n].posicao[j]=5;
-                if(strcmp(p,"LDO")==0)
-                    elenco[n].posicao[j]=6;
-                if(strcmp(p,"LEO")==0)
-                    elenco[n].posicao[j]=7;
-                if(strcmp(p,"PV")==0)
-                    elenco[n].posicao[j]=8;
-                if(strcmp(p,"SV")==0)
-                    elenco[n].posicao[j]=9;
-                if(strcmp(p,"ARM")==0)
-                    elenco[n].posicao[j]=10;
-                if(strcmp(p,"MD")==0)
-                    elenco[n].posicao[j]=11;
-                if(strcmp(p,"ME")==0)
-                    elenco[n].posicao[j]=12;
-                if(strcmp(p,"MA")==0)
-                    elenco[n].posicao[j]=13;
-                if(strcmp(p,"PD")==0)
-                    elenco[n].posicao[j]=14;
-                if(strcmp(p,"PE")==0)
-                    elenco[n].posicao[j]=15;
-                if(strcmp(p,"SA")==0)
-                    elenco[n].posicao[j]=16;
-                if(strcmp(p,"CA")==0)
-                    elenco[n].posicao[j]=17;
-                j++;
-            }
-            if(ch>64 && ch<91)
-            {
-                p[i]=ch; // caso seja uma letra maiucula, armazena o caractere na string p
-                i++;
-            }
-        }while(ch != '\n'); // caso o usuario de enter, o loop é encerrado
-        */
     }
     if(pos==2)//caso entrada seja 2) Goleiro
     {
@@ -1529,7 +1480,14 @@ float pontuacao()
 
 /* Funcao que exibe o ranking de jogadores sob um indicador */
 
-int ranking(int indicador)
+int rankingI(int indicador)
+{
+
+}
+
+/* Funcao que exibe o ranking de jogadores sob um indicador */
+
+int rankingF(float indicador)
 {
 
 }
@@ -1733,7 +1691,7 @@ int jogador_dados(int num_uniforme)
             printf(".\n");
             printf("Jogos: %d.\nUniforme: %d.\n",elenco[i].jogos,elenco[i].uniforme);
             printf("Idade: %d anos.\n",elenco[i].idade);
-            printf("Altura: %.2f metros.\tPeso: %.2f quilos.\n",elenco[i].altura,elenco[i].peso);
+            printf("Altura: %.2f metros.\nPeso: %.2f quilos.\n",elenco[i].altura,elenco[i].peso);
             if(elenco[i].pe==1)
                 printf("Destro.\n");
             if(elenco[i].pe==2)
