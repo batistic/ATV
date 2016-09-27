@@ -1209,6 +1209,52 @@ int estatisticas_jogador()
 
 int estatisticas_grupo()
 {
+    printf("\tEstatisticas do Grupo.\n\n");
+    printf("1. Notas gerais.\n");
+    printf("2. Melhor escalacao.\n");
+    printf("3. Gols e finalizacoes.\n");
+    printf("4. Passes e assistencias.\n");
+    printf("5. Desarmes.\n");
+    printf("6. Defesas.\n");
+    printf("7. Faltas e penaltis.\n");
+    printf("8. Impedimentos.\n");
+    printf("0. Voltar.\n");
+    int opc;
+    scanf("%d",&opc);
+
+    switch(opc)
+    {
+        case 1:
+            grupo_notas();
+            break;
+
+        case 2:
+            melhor_escalacao();
+            break;
+
+        case 3:
+            grupo_GeF();
+            break;
+
+        case 4:
+            grupo_PeA();
+            break;
+
+        case 5:
+            grupo_Des();
+            break;
+
+        case 6:
+            grupo_Def();
+            break;
+
+        case 7:
+            grupo_Imp();
+            break;
+
+        case 0:
+            return 0;
+    }
 
 }
 
@@ -1396,7 +1442,7 @@ int grupo_FeP()
 
 /* Funcao que exibe as estatisticas de impedimentos do grupo */
 
-int grupo_imp()
+int grupo_Imp()
 {
 
 }
