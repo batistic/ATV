@@ -1,0 +1,4 @@
+C:\Users\guilherme\Documents\GitHub\ATV\ATV.c: In function 'grupo_GeF':
+C:\Users\guilherme\Documents\GitHub\ATV\ATV.c:2152:1: error: expected declaration or statement at end of input
+ }
+ ^

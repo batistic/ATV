@@ -1829,6 +1829,7 @@ int i = 0, j = 0, m=0;
   maiorGol[m] = maisGols;
   m = m+1;
   }
+}
 /* Funcao que exibe as estatisticas de passes e assistencias do grupo */
 
 int grupo_PeA()
