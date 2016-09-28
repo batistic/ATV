@@ -1998,8 +1998,28 @@ int jogador_dados(int num_uniforme)
 int jogador_GeF(int num_uniforme)
 {
     system("cls");
-    int i;
+    int i,encontrado=0;
+    for(i=0;i<10;i++)
+    {
+        if(num_uniforme==goleiros[i].uniforme)
+        {
+            encontrado++;
+            printf("\tEstatisticas de gols e finalizacoes do %s\n\n",goleiros[i].nome);
 
+            break;
+        }
+    }
+    for(i=0;i<10;i++)
+    {
+        if(encontrado>0)
+            break;
+        if(num_uniforme==elenco[i].uniforme)
+        {
+            printf("\tEstatisticas de gols e finalizacoes do %s\n\n",elenco[i].nome);
+
+            break;
+        }
+    }
     system("PAUSE");
     return 0;
 }
