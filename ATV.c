@@ -2100,7 +2100,29 @@ int jogador_GeF(int num_uniforme)
 
 int goleiro_Gols(int num_uniforme)
 {
+    system("cls");
 
+    int i,j,k;
+    for(i=0;i<10;i++)
+    {
+        if(num_uniforme==goleiros[i].uniforme)
+        {
+            printf("\tEstatisticas de gols do goleiro %s\n\n", goleiros[i].nome);
+            printf("Gols na temporada: %d\n\n", goleiros[i].total_golsF);
+            printf("Gols por partida:\n\n");
+            for(j=0;j<100;j++)
+            {
+                if(jogo[j].controle==1)
+                {
+                    if(goleiros[i].jogou[j]==1)
+                    {
+                        printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                        for(k=0;k<goleiros[i].golsF[j];k++)
+                            printf("* ");
+                        printf("\n\n");
+                    }
+                }
+            }
 }
 
 /* Funcao que exibe as estatisticas de passes e assistencias de um jogador */
