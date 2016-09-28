@@ -1796,13 +1796,37 @@ int grupo_notas()
 
 int grupo_GeF()
 {
+int i = 0, j = 0, m=0;
+  for (i =0; i <40; i++){
 
+  if(elenco[i].controle == 1){
+    j = j +1;
+    }
+  }
+  while (m < j){
+  int maiorGol[j], maisGols = 0, ultimo = 1000, l =0;
+  for(l = 0; l < 50; l++){
+    if(elenco[l].controle==1){
+      if(elenco[l].total_gols > maisGols && elenco[l].total_gols < ultimo){
+        maisGols = elenco[i].total_gols;
+    }
+  }
 }
-
+  ultimo = maisGols;
+  maiorGol[m] = maisGols;
+  m = m+1;
+  }
 /* Funcao que exibe as estatisticas de passes e assistencias do grupo */
 
 int grupo_PeA()
 {
+
+
+}
+
+
+
+
 
 }
 
