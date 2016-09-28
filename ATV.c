@@ -37,23 +37,22 @@ typedef struct {
     char nome[100]; int idade; float altura; float peso; int pe; int uniforme; int posicao[17];
     // Estatisticas em jogo
     float notas[100];         float media_notas;
-    int passesC[100];         float media_passesC;
-    int passesE[100];         float media_passesE;
-    int finalizacoesC[100];   float media_finalizacoesC;
-    int finalizacoesE[100];   float media_finalizacoesE;
-    int desarmes[100];        float media_desarmes;
-    int perdas[100];          float media_perdas;
-    int gols[100];            float media_gols;
-    int golsC[100];           float media_golsC;
-    int faltasC[100];         float media_faltasC;
-    int faltasS[100];         float media_faltasS;
-    int imped[100];           float media_imped;
-    int assistG[100];         float media_assistG;
-    int assistF[100];         float media_assistF;
-    int penaltisC[100];       float media_penaltisC;
-    int penaltisS[100];       float media_penaltisS;
-    int penaltisP[100];       float media_penaltisP;
-    int penaltisD[100];       float media_penaltisD;
+    int passesC[100];         float media_passesC;          int total_passesC;
+    int passesE[100];         float media_passesE;          int total_passesE;
+    int finalizacoesC[100];   float media_finalizacoesC;    int total_finalizacoesC;
+    int finalizacoesE[100];   float media_finalizacoesE;    int total_finalizacoesE;
+    int desarmes[100];        float media_desarmes;         int total_desarmes;
+    int perdas[100];          float media_perdas;           int total_perdas;
+    int gols[100];            float media_gols;             int total_gols;
+    int golsC[100];           float media_golsC;            int total_golsC;
+    int faltasC[100];         float media_faltasC;          int total_faltasC;
+    int faltasS[100];         float media_faltasS;          int total_faltasS;
+    int imped[100];           float media_imped;            int total_imped;
+    int assistG[100];         float media_assistG;          int total_assistG;
+    int assistF[100];         float media_assistF;          int total_assistF;
+    int penaltisC[100];       float media_penaltisC;        int total_penaltisC;
+    int penaltisS[100];       float media_penaltisS;        int total_penaltisS;
+    int penaltisP[100];       float media_penaltisP;        int total_penaltisP;
     int pos[100];             int pos_mais_usada;
     int jogou[100];           int jogos;
 }jogador;
@@ -69,22 +68,22 @@ typedef struct {
     char nome[100]; int idade; float altura; float peso; int pe; int uniforme;
     // Estatisticas em jogo
     float notas[100];         float media_notas;
-    int passesC[100];         float media_passesC;
-    int passesE[100];         float media_passesE;
-    int defesas[100];         float media_defesas;
-    int perdas[100];          float media_perdas;
-    int golsS[100];           float media_golsS;
-    int golsC[100];           float media_golsC;
-    int golsF[100];           float media_golsF;
-    int faltasC[100];         float media_faltasC;
-    int faltasS[100];         float media_faltasS;
-    int imped[100];           float media_imped;
-    int assistG[100];         float media_assistG;
-    int assistF[100];         float media_assistF;
-    int penaltisC[100];       float media_penaltisC;
-    int penaltisS[100];       float media_penaltisS;
-    int penaltisD[100];       float media_penaltisD;
-    int penaltisP[100];       float media_penaltisP;
+    int passesC[100];         float media_passesC;          int total_passesC;
+    int passesE[100];         float media_passesE;          int total_passesE;
+    int defesas[100];         float media_defesas;          int total_defesas;
+    int perdas[100];          float media_perdas;           int total_perdas;
+    int golsS[100];           float media_golsS;            int total_golsS;
+    int golsC[100];           float media_golsC;            int total_golsC;
+    int golsF[100];           float media_golsF;            int total_golsF;
+    int faltasC[100];         float media_faltasC;          int total_faltasC;
+    int faltasS[100];         float media_faltasS;          int total_faltasS;
+    int imped[100];           float media_imped;            int total_imped;
+    int assistG[100];         float media_assistG;          int total_assistG;
+    int assistF[100];         float media_assistF;          int total_assistF;
+    int penaltisC[100];       float media_penaltisC;        int total_penaltisC;
+    int penaltisS[100];       float media_penaltisS;        int total_penaltisS;
+    int penaltisD[100];       float media_penaltisD;        int total_penaltisD;
+    int penaltisP[100];       float media_penaltisP;        int total_penaltisP;
     int jogou[100];           int jogos;
 }goleiro;
 
@@ -103,9 +102,9 @@ int inserir_dados(); //insere os dados de uma partida
 int editar_dados(); //edita os dados de uma partida que já ocorreu
 float media_jogador(int vet[], int num_jogador); //calcula a media de um jogador
 float media_jogadorN(int num_jogador); //calcula a media de notas de um jogador
-float pontuacao(); //calcula a pontuação do jogador na partida //todo
-int rankingI(int indicador); //exibe o ranking dos jogadores por um indicador //todo
-int rankingF(float indicador); //exibe o ranking dos jogadores por um indicador //todo
+float pontuacao(); //calcula a pontuação do jogador na partida
+int rankingI(int indicador); //exibe o ranking dos jogadores por um indicador //acredito que não será utilizada
+int rankingF(float indicador); //exibe o ranking dos jogadores por um indicador //acredito que não será utilizada
 int melhor_escalacao();//exibe a melhor escalação baseado nas melhores notas por posição //todo
 int grupo_notas(); //exibe as estatísticas de nota do grupo //todo
 int grupo_GeF(); //exibe as estatísticas de gol e finalização do grupo //todo
@@ -162,6 +161,22 @@ int main()
         elenco[i].media_penaltisC=0;
         elenco[i].media_penaltisS=0;
         elenco[i].media_penaltisP=0;
+        // zerando o total dos indicadores
+        elenco[i].total_assistF=0;
+        elenco[i].total_assistG=0;
+        elenco[i].total_desarmes=0;
+        elenco[i].total_faltasC=0;
+        elenco[i].total_faltasS=0;
+        elenco[i].total_gols=0;
+        elenco[i].total_golsC=0;
+        elenco[i].total_finalizacoesC=0;
+        elenco[i].total_finalizacoesE=0;
+        elenco[i].total_imped=0;
+        elenco[i].total_passesC=0;
+        elenco[i].total_passesE=0;
+        elenco[i].total_penaltisC=0;
+        elenco[i].total_penaltisS=0;
+        elenco[i].total_penaltisP=0;
         elenco[i].pos_mais_usada=0;
     }
     for(i=0;i<10;i++)
@@ -186,6 +201,22 @@ int main()
         goleiros[i].media_penaltisC=0;
         goleiros[i].media_penaltisS=0;
         goleiros[i].media_penaltisP=0;
+        goleiros[i].media_penaltisD=0;
+        // zerando o total dos indicadores
+        goleiros[i].total_assistF=0;
+        goleiros[i].total_assistG=0;
+        goleiros[i].total_defesas=0;
+        goleiros[i].total_faltasC=0;
+        goleiros[i].total_faltasS=0;
+        goleiros[i].total_golsC=0;
+        goleiros[i].total_golsS=0;
+        goleiros[i].total_imped=0;
+        goleiros[i].total_passesC=0;
+        goleiros[i].total_passesE=0;
+        goleiros[i].total_penaltisC=0;
+        goleiros[i].total_penaltisS=0;
+        goleiros[i].total_penaltisP=0;
+        goleiros[i].total_penaltisD=0;
     }
 
     do{
@@ -743,6 +774,20 @@ int excluir()
             goleiros[i].media_penaltisS=0;
             goleiros[i].media_penaltisD=0;
             goleiros[i].media_penaltisP=0;
+            goleiros[i].total_assistF=0;
+            goleiros[i].total_assistG=0;
+            goleiros[i].total_defesas=0;
+            goleiros[i].total_faltasC=0;
+            goleiros[i].total_faltasS=0;
+            goleiros[i].total_golsC=0;
+            goleiros[i].total_golsS=0;
+            goleiros[i].total_imped=0;
+            goleiros[i].total_passesC=0;
+            goleiros[i].total_passesE=0;
+            goleiros[i].total_penaltisC=0;
+            goleiros[i].total_penaltisS=0;
+            goleiros[i].total_penaltisD=0;
+            goleiros[i].total_penaltisP=0;
             goleiros[i].jogos=0;
 
             encontrado++;
@@ -777,6 +822,20 @@ int excluir()
             elenco[i].media_penaltisC=0;
             elenco[i].media_penaltisS=0;
             elenco[i].media_penaltisP=0;
+            elenco[i].total_assistF=0;
+            elenco[i].total_assistG=0;
+            elenco[i].total_desarmes=0;
+            elenco[i].total_faltasC=0;
+            elenco[i].total_faltasS=0;
+            elenco[i].total_gols=0;
+            elenco[i].total_finalizacoesC=0;
+            elenco[i].total_finalizacoesE=0;
+            elenco[i].total_imped=0;
+            elenco[i].total_passesC=0;
+            elenco[i].total_passesE=0;
+            elenco[i].total_penaltisC=0;
+            elenco[i].total_penaltisS=0;
+            elenco[i].total_penaltisP=0;
             elenco[i].pos_mais_usada=0;
             elenco[i].jogos=0;
 
@@ -828,48 +887,63 @@ int inserir_dados()
                 printf("  Defesas: ");
                 scanf("%d",&goleiros[j].defesas[n]);
                 goleiros[j].media_defesas=media_jogador(goleiros[j].defesas,goleiros[j].uniforme);
+                goleiros[j].total_defesas+=goleiros[j].defesas[n];
                 printf("  Passes corretos: ");
                 scanf("%d",&goleiros[j].passesC[n]);
                 goleiros[j].media_passesC=media_jogador(goleiros[j].passesC,goleiros[j].uniforme);
+                goleiros[j].total_passesC+=goleiros[j].passesC[n];
                 printf("  Passes errados: ");
                 scanf("%d",&goleiros[j].passesE[n]);
                 goleiros[j].media_passesE=media_jogador(goleiros[j].passesE,goleiros[j].uniforme);
+                goleiros[j].total_passesE+=goleiros[j].passesE[n];
                 printf("  Gols sofridos: ");
                 scanf("%d",&goleiros[j].golsS[n]);
                 goleiros[j].media_golsS=media_jogador(goleiros[j].golsS,goleiros[j].uniforme);
+                goleiros[j].total_golsS+=goleiros[j].golsS[n];
                 printf("  Gols convertidos: ");
                 scanf("%d",&goleiros[j].golsF[n]);
                 goleiros[j].media_golsF=media_jogador(goleiros[j].golsF,goleiros[j].uniforme);
+                goleiros[j].total_golsF+=goleiros[j].golsF[n];
                 printf("  Gols contra: ");
                 scanf("%d",&goleiros[j].golsC[n]);
                 goleiros[j].media_golsC=media_jogador(goleiros[j].golsC,goleiros[j].uniforme);
+                goleiros[j].total_golsC+=goleiros[j].golsC[n];
                 printf("  Faltas cometidas: ");
                 scanf("%d",&goleiros[j].faltasC[n]);
                 goleiros[j].media_faltasC=media_jogador(goleiros[j].faltasC,goleiros[j].uniforme);
+                goleiros[j].total_faltasC+=goleiros[j].faltasC[n];
                 printf("  Faltas sofridas: ");
                 scanf("%d",&goleiros[j].faltasS[n]);
                 goleiros[j].media_faltasS=media_jogador(goleiros[j].faltasS,goleiros[j].uniforme);
+                goleiros[j].total_faltasS+=goleiros[j].faltasS[n];
                 printf("  Impedimentos: ");
                 scanf("%d",&goleiros[j].imped[n]);
                 goleiros[j].media_imped=media_jogador(goleiros[j].imped,goleiros[j].uniforme);
+                goleiros[j].total_imped+=goleiros[j].imped[n];
                 printf("  Assistencias (gol): ");
                 scanf("%d",&goleiros[j].assistG[n]);
                 goleiros[j].media_assistG=media_jogador(goleiros[j].assistG,goleiros[j].uniforme);
+                goleiros[j].total_assistG+=goleiros[j].assistG[n];
                 printf("  Assistencias (finalizacao): ");
                 scanf("%d",&goleiros[j].assistF[n]);
                 goleiros[j].media_assistF=media_jogador(goleiros[j].assistF,goleiros[j].uniforme);
+                goleiros[j].total_assistF+=goleiros[j].assistF[n];
                 printf("  Penaltis cometidos: ");
                 scanf("%d",&goleiros[j].penaltisC[n]);
                 goleiros[j].media_penaltisC=media_jogador(goleiros[j].penaltisC,goleiros[j].uniforme);
+                goleiros[j].total_penaltisC+=goleiros[j].penaltisC[n];
                 printf("  Penaltis sofridos: ");
                 scanf("%d",&goleiros[j].penaltisS[n]);
                 goleiros[j].media_penaltisS=media_jogador(goleiros[j].penaltisS,goleiros[j].uniforme);
+                goleiros[j].total_penaltisS+=goleiros[j].penaltisS[n];
                 printf("  Penaltis defendidos: ");
                 scanf("%d",&goleiros[j].penaltisD[n]);
                 goleiros[j].media_penaltisD=media_jogador(goleiros[j].penaltisD,goleiros[j].uniforme);
+                goleiros[j].total_penaltisD+=goleiros[j].penaltisD[n];
                 printf("  Penaltis perdidos: ");
                 scanf("%d",&goleiros[j].penaltisP[n]);
                 goleiros[j].media_penaltisP=media_jogador(goleiros[j].penaltisP,goleiros[j].uniforme);
+                goleiros[j].total_penaltisP+=goleiros[j].penaltisP[n];
             }
         }
         char pos[4]; // variavel para armazenar a posicao jogada na partida
@@ -919,48 +993,63 @@ int inserir_dados()
                 printf("  Passes corretos: ");
                 scanf("%d",&elenco[j].passesC[n]);
                 elenco[j].media_passesC=media_jogador(elenco[j].passesC,elenco[j].uniforme);
+                elenco[j].total_passesC+=elenco[j].passesC[n];
                 printf("  Passes errados: ");
                 scanf("%d",&elenco[j].passesE[n]);
                 elenco[j].media_passesE=media_jogador(elenco[j].passesE,elenco[j].uniforme);
+                elenco[j].total_passesE+=elenco[j].passesE[n];
                 printf("  Finalizacoes corretas: ");
                 scanf("%d",&elenco[j].finalizacoesC[n]);
                 elenco[j].media_finalizacoesC=media_jogador(elenco[j].finalizacoesC,elenco[j].uniforme);
+                elenco[j].total_finalizacoesC+=elenco[j].finalizacoesC[n];
                 printf("  Finalizacoes erradas: ");
                 scanf("%d",&elenco[j].finalizacoesE[n]);
                 elenco[j].media_finalizacoesE=media_jogador(elenco[j].finalizacoesE,elenco[j].uniforme);
+                elenco[j].total_finalizacoesE+=elenco[j].finalizacoesE[n];
                 printf("  Desarmes: ");
                 scanf("%d",&elenco[j].desarmes[n]);
                 elenco[j].media_desarmes=media_jogador(elenco[j].desarmes,elenco[j].uniforme);
+                elenco[j].total_desarmes+=elenco[j].desarmes[n];
                 printf("  Gols: ");
                 scanf("%d",&elenco[j].gols[n]);
                 elenco[j].media_gols=media_jogador(elenco[j].gols,elenco[j].uniforme);
+                elenco[j].total_gols+=elenco[j].gols[n];
                 printf("  Gols contra: ");
                 scanf("%d",&elenco[j].golsC[n]);
                 elenco[j].media_golsC=media_jogador(elenco[j].golsC,elenco[j].uniforme);
+                elenco[j].total_golsC+=elenco[j].golsC[n];
                 printf("  Faltas cometidas: ");
                 scanf("%d",&elenco[j].faltasC[n]);
                 elenco[j].media_faltasC=media_jogador(elenco[j].faltasC,elenco[j].uniforme);
+                elenco[j].total_faltasC+=elenco[j].faltasC[n];
                 printf("  Faltas sofridas: ");
                 scanf("%d",&elenco[j].faltasS[n]);
                 elenco[j].media_faltasS=media_jogador(elenco[j].faltasS,elenco[j].uniforme);
+                elenco[j].total_faltasS+=elenco[j].faltasS[n];
                 printf("  Impedimentos: ");
                 scanf("%d",&elenco[j].imped[n]);
                 elenco[j].media_imped=media_jogador(elenco[j].imped,elenco[j].uniforme);
+                elenco[j].total_imped+=elenco[j].imped[n];
                 printf("  Assistencias (gol): ");
                 scanf("%d",&elenco[j].assistG[n]);
                 elenco[j].media_assistG=media_jogador(elenco[j].assistG,elenco[j].uniforme);
+                elenco[j].total_assistG+=elenco[j].assistG[n];
                 printf("  Assistencias (finalizacao): ");
                 scanf("%d",&elenco[j].assistF[n]);
                 elenco[j].media_assistF=media_jogador(elenco[j].assistF,elenco[j].uniforme);
+                elenco[j].total_assistF+=elenco[j].assistF[n];
                 printf("  Penaltis cometidos: ");
                 scanf("%d",&elenco[j].penaltisC[n]);
                 elenco[j].media_penaltisC=media_jogador(elenco[j].penaltisC,elenco[j].uniforme);
+                elenco[j].total_penaltisC+=elenco[j].penaltisC[n];
                 printf("  Penaltis sofridos: ");
                 scanf("%d",&elenco[j].penaltisS[n]);
                 elenco[j].media_penaltisS=media_jogador(elenco[j].penaltisS,elenco[j].uniforme);
+                elenco[j].total_penaltisS+=elenco[j].penaltisS[n];
                 printf("  Penaltis perdidos: ");
                 scanf("%d",&elenco[j].penaltisP[n]);
                 elenco[j].media_penaltisP=media_jogador(elenco[j].penaltisP,elenco[j].uniforme);
+                elenco[j].total_penaltisP+=elenco[j].penaltisP[n];
             }
         }
     }
@@ -985,19 +1074,33 @@ int editar_dados()
             goleiros[i].jogos--;
             goleiros[i].jogou[n]=0;
             goleiros[i].media_defesas=media_jogador(goleiros[i].defesas,goleiros[i].uniforme);
+            goleiros[i].total_defesas-=goleiros[i].defesas[n];
             goleiros[i].media_imped=media_jogador(goleiros[i].imped,goleiros[i].uniforme);
+            goleiros[i].total_imped-=goleiros[i].imped[n];
             goleiros[i].media_assistF=media_jogador(goleiros[i].assistF,goleiros[i].uniforme);
+            goleiros[i].total_assistF-=goleiros[i].assistF[n];
             goleiros[i].media_assistG=media_jogador(goleiros[i].assistG,goleiros[i].uniforme);
+            goleiros[i].total_assistG-=goleiros[i].assistG[n];
             goleiros[i].media_passesC=media_jogador(goleiros[i].passesC,goleiros[i].uniforme);
+            goleiros[i].total_passesC-=goleiros[i].passesC[n];
             goleiros[i].media_passesE=media_jogador(goleiros[i].passesE,goleiros[i].uniforme);
+            goleiros[i].total_passesE-=goleiros[i].passesE[n];
             goleiros[i].media_golsF=media_jogador(goleiros[i].golsF,goleiros[i].uniforme);
+            goleiros[i].total_golsF-=goleiros[i].golsF[n];
             goleiros[i].media_golsC=media_jogador(goleiros[i].golsC,goleiros[i].uniforme);
+            goleiros[i].total_golsC-=goleiros[i].golsC[n];
             goleiros[i].media_golsS=media_jogador(goleiros[i].golsS,goleiros[i].uniforme);
+            goleiros[i].total_golsS-=goleiros[i].golsS[n];
             goleiros[i].media_faltasC=media_jogador(goleiros[i].faltasC,goleiros[i].uniforme);
+            goleiros[i].total_faltasC-=goleiros[i].faltasC[n];
             goleiros[i].media_faltasS=media_jogador(goleiros[i].faltasS,goleiros[i].uniforme);
+            goleiros[i].total_faltasS-=goleiros[i].faltasS[n];
             goleiros[i].media_penaltisC=media_jogador(goleiros[i].penaltisC,goleiros[i].uniforme);
+            goleiros[i].total_penaltisC-=goleiros[i].penaltisC[n];
             goleiros[i].media_penaltisP=media_jogador(goleiros[i].penaltisP,goleiros[i].uniforme);
+            goleiros[i].total_penaltisP-=goleiros[i].penaltisP[n];
             goleiros[i].media_penaltisS=media_jogador(goleiros[i].penaltisS,goleiros[i].uniforme);
+            goleiros[i].total_penaltisS-=goleiros[i].penaltisS[n];
             goleiros[i].media_notas=media_jogadorN(goleiros[i].uniforme);
         }
         goleiros[i].passesC[n]=0;
@@ -1022,21 +1125,35 @@ int editar_dados()
             elenco[i].jogos--;
             elenco[i].jogou[n]=0;
             elenco[i].media_passesC=media_jogador(elenco[i].passesC,elenco[i].uniforme);
+            elenco[i].total_passesC-=elenco[i].passesC[n];
             elenco[i].media_passesE=media_jogador(elenco[i].passesE,elenco[i].uniforme);
+            elenco[i].total_passesE-=elenco[i].passesE[n];
             elenco[i].media_gols=media_jogador(elenco[i].gols,elenco[i].uniforme);
+            elenco[i].total_gols-=elenco[i].gols[n];
             elenco[i].media_golsC=media_jogador(elenco[i].golsC,elenco[i].uniforme);
+            elenco[i].total_golsC-=elenco[i].golsC[n];
             elenco[i].media_finalizacoesC=media_jogador(elenco[i].finalizacoesC,elenco[i].uniforme);
+            elenco[i].total_finalizacoesC-=elenco[i].finalizacoesC[n];
             elenco[i].media_finalizacoesE=media_jogador(elenco[i].finalizacoesE,elenco[i].uniforme);
+            elenco[i].total_finalizacoesE-=elenco[i].finalizacoesE[n];
             elenco[i].media_desarmes=media_jogador(elenco[i].desarmes,elenco[i].uniforme);
+            elenco[i].total_desarmes-=elenco[i].desarmes[n];
             elenco[i].media_imped=media_jogador(elenco[i].imped,elenco[i].uniforme);
+            elenco[i].total_imped-=elenco[i].imped[n];
             elenco[i].media_assistF=media_jogador(elenco[i].assistF,elenco[i].uniforme);
+            elenco[i].total_assistF-=elenco[i].assistF[n];
             elenco[i].media_assistG=media_jogador(elenco[i].assistG,elenco[i].uniforme);
+            elenco[i].total_assistG-=elenco[i].assistG[n];
             elenco[i].media_faltasC=media_jogador(elenco[i].faltasC,elenco[i].uniforme);
+            elenco[i].total_faltasC-=elenco[i].faltasC[n];
             elenco[i].media_faltasS=media_jogador(elenco[i].faltasS,elenco[i].uniforme);
+            elenco[i].total_faltasS-=elenco[i].faltasS[n];
             elenco[i].media_penaltisC=media_jogador(elenco[i].penaltisC,elenco[i].uniforme);
-            elenco[i].media_penaltisD=media_jogador(elenco[i].penaltisD,elenco[i].uniforme);
+            elenco[i].total_penaltisC-=elenco[i].penaltisC[n];
             elenco[i].media_penaltisP=media_jogador(elenco[i].penaltisP,elenco[i].uniforme);
+            elenco[i].total_penaltisP-=elenco[i].penaltisP[n];
             elenco[i].media_penaltisS=media_jogador(elenco[i].penaltisS,elenco[i].uniforme);
+            elenco[i].total_penaltisS-=elenco[i].penaltisS[n];
             elenco[i].media_notas=media_jogadorN(elenco[i].uniforme);
         }
         elenco[i].passesC[n]=0;
@@ -1052,7 +1169,6 @@ int editar_dados()
         elenco[i].faltasC[n]=0;
         elenco[i].faltasS[n]=0;
         elenco[i].penaltisC[n]=0;
-        elenco[i].penaltisD[n]=0;
         elenco[i].penaltisP[n]=0;
         elenco[i].penaltisS[n]=0;
         elenco[i].notas[n]=0;
@@ -1083,48 +1199,63 @@ int editar_dados()
                 printf("  Defesas: ");
                 scanf("%d",&goleiros[j].defesas[n]);
                 goleiros[j].media_defesas=media_jogador(goleiros[j].defesas,goleiros[j].uniforme);
+                goleiros[j].total_defesas+=goleiros[j].defesas[n];
                 printf("  Passes corretos: ");
                 scanf("%d",&goleiros[j].passesC[n]);
                 goleiros[j].media_passesC=media_jogador(goleiros[j].passesC,goleiros[j].uniforme);
+                goleiros[j].total_passesC+=goleiros[j].passesC[n];
                 printf("  Passes errados: ");
                 scanf("%d",&goleiros[j].passesE[n]);
                 goleiros[j].media_passesE=media_jogador(goleiros[j].passesE,goleiros[j].uniforme);
+                goleiros[j].total_passesE+=goleiros[j].passesE[n];
                 printf("  Gols sofridos: ");
                 scanf("%d",&goleiros[j].golsS[n]);
                 goleiros[j].media_golsS=media_jogador(goleiros[j].golsS,goleiros[j].uniforme);
+                goleiros[j].total_golsS+=goleiros[j].golsS[n];
                 printf("  Gols convertidos: ");
                 scanf("%d",&goleiros[j].golsF[n]);
                 goleiros[j].media_golsF=media_jogador(goleiros[j].golsF,goleiros[j].uniforme);
+                goleiros[j].total_golsF+=goleiros[j].golsF[n];
                 printf("  Gols contra: ");
                 scanf("%d",&goleiros[j].golsC[n]);
                 goleiros[j].media_golsC=media_jogador(goleiros[j].golsC,goleiros[j].uniforme);
+                goleiros[j].total_golsC+=goleiros[j].golsC[n];
                 printf("  Faltas cometidas: ");
                 scanf("%d",&goleiros[j].faltasC[n]);
                 goleiros[j].media_faltasC=media_jogador(goleiros[j].faltasC,goleiros[j].uniforme);
+                goleiros[j].total_faltasC+=goleiros[j].faltasC[n];
                 printf("  Faltas sofridas: ");
                 scanf("%d",&goleiros[j].faltasS[n]);
                 goleiros[j].media_faltasS=media_jogador(goleiros[j].faltasS,goleiros[j].uniforme);
+                goleiros[j].total_faltasS+=goleiros[j].faltasS[n];
                 printf("  Impedimentos: ");
                 scanf("%d",&goleiros[j].imped[n]);
                 goleiros[j].media_imped=media_jogador(goleiros[j].imped,goleiros[j].uniforme);
+                goleiros[j].total_imped+=goleiros[j].imped[n];
                 printf("  Assistencias (gol): ");
                 scanf("%d",&goleiros[j].assistG[n]);
                 goleiros[j].media_assistG=media_jogador(goleiros[j].assistG,goleiros[j].uniforme);
+                goleiros[j].total_assistG+=goleiros[j].assistG[n];
                 printf("  Assistencias (finalizacao): ");
                 scanf("%d",&goleiros[j].assistF[n]);
                 goleiros[j].media_assistF=media_jogador(goleiros[j].assistF,goleiros[j].uniforme);
+                goleiros[j].total_assistF+=goleiros[j].assistF[n];
                 printf("  Penaltis cometidos: ");
                 scanf("%d",&goleiros[j].penaltisC[n]);
                 goleiros[j].media_penaltisC=media_jogador(goleiros[j].penaltisC,goleiros[j].uniforme);
+                goleiros[j].total_penaltisC+=goleiros[j].penaltisC[n];
                 printf("  Penaltis sofridos: ");
                 scanf("%d",&goleiros[j].penaltisS[n]);
                 goleiros[j].media_penaltisS=media_jogador(goleiros[j].penaltisS,goleiros[j].uniforme);
+                goleiros[j].total_penaltisS+=goleiros[j].penaltisS[n];
                 printf("  Penaltis defendidos: ");
                 scanf("%d",&goleiros[j].penaltisD[n]);
                 goleiros[j].media_penaltisD=media_jogador(goleiros[j].penaltisD,goleiros[j].uniforme);
+                goleiros[j].total_penaltisD+=goleiros[j].penaltisD[n];
                 printf("  Penaltis perdidos: ");
                 scanf("%d",&goleiros[j].penaltisP[n]);
                 goleiros[j].media_penaltisP=media_jogador(goleiros[j].penaltisP,goleiros[j].uniforme);
+                goleiros[j].total_penaltisP+=goleiros[j].penaltisP[n];
             }
         }
         char pos[4]; // variavel para armazenar a posicao jogada na partida
@@ -1174,48 +1305,63 @@ int editar_dados()
                 printf("  Passes corretos: ");
                 scanf("%d",&elenco[j].passesC[n]);
                 elenco[j].media_passesC=media_jogador(elenco[j].passesC,elenco[j].uniforme);
+                elenco[j].total_passesC+=elenco[j].passesC[n];
                 printf("  Passes errados: ");
                 scanf("%d",&elenco[j].passesE[n]);
                 elenco[j].media_passesE=media_jogador(elenco[j].passesE,elenco[j].uniforme);
+                elenco[j].total_passesE+=elenco[j].passesE[n];
                 printf("  Finalizacoes corretas: ");
                 scanf("%d",&elenco[j].finalizacoesC[n]);
                 elenco[j].media_finalizacoesC=media_jogador(elenco[j].finalizacoesC,elenco[j].uniforme);
+                elenco[j].total_finalizacoesC+=elenco[j].finalizacoesC[n];
                 printf("  Finalizacoes erradas: ");
                 scanf("%d",&elenco[j].finalizacoesE[n]);
                 elenco[j].media_finalizacoesE=media_jogador(elenco[j].finalizacoesE,elenco[j].uniforme);
+                elenco[j].total_finalizacoesE+=elenco[j].finalizacoesE[n];
                 printf("  Desarmes: ");
                 scanf("%d",&elenco[j].desarmes[n]);
                 elenco[j].media_desarmes=media_jogador(elenco[j].desarmes,elenco[j].uniforme);
+                elenco[j].total_desarmes+=elenco[j].desarmes[n];
                 printf("  Gols: ");
                 scanf("%d",&elenco[j].gols[n]);
                 elenco[j].media_gols=media_jogador(elenco[j].gols,elenco[j].uniforme);
+                elenco[j].total_gols+=elenco[j].gols[n];
                 printf("  Gols contra: ");
                 scanf("%d",&elenco[j].golsC[n]);
                 elenco[j].media_golsC=media_jogador(elenco[j].golsC,elenco[j].uniforme);
+                elenco[j].total_golsC+=elenco[j].golsC[n];
                 printf("  Faltas cometidas: ");
                 scanf("%d",&elenco[j].faltasC[n]);
                 elenco[j].media_faltasC=media_jogador(elenco[j].faltasC,elenco[j].uniforme);
+                elenco[j].total_faltasC+=elenco[j].faltasC[n];
                 printf("  Faltas sofridas: ");
                 scanf("%d",&elenco[j].faltasS[n]);
                 elenco[j].media_faltasS=media_jogador(elenco[j].faltasS,elenco[j].uniforme);
+                elenco[j].total_faltasS+=elenco[j].faltasS[n];
                 printf("  Impedimentos: ");
                 scanf("%d",&elenco[j].imped[n]);
                 elenco[j].media_imped=media_jogador(elenco[j].imped,elenco[j].uniforme);
+                elenco[j].total_imped+=elenco[j].imped[n];
                 printf("  Assistencias (gol): ");
                 scanf("%d",&elenco[j].assistG[n]);
                 elenco[j].media_assistG=media_jogador(elenco[j].assistG,elenco[j].uniforme);
+                elenco[j].total_assistG+=elenco[j].assistG[n];
                 printf("  Assistencias (finalizacao): ");
                 scanf("%d",&elenco[j].assistF[n]);
                 elenco[j].media_assistF=media_jogador(elenco[j].assistF,elenco[j].uniforme);
+                elenco[j].total_assistF+=elenco[j].assistF[n];
                 printf("  Penaltis cometidos: ");
                 scanf("%d",&elenco[j].penaltisC[n]);
                 elenco[j].media_penaltisC=media_jogador(elenco[j].penaltisC,elenco[j].uniforme);
+                elenco[j].total_penaltisC+=elenco[j].penaltisC[n];
                 printf("  Penaltis sofridos: ");
                 scanf("%d",&elenco[j].penaltisS[n]);
                 elenco[j].media_penaltisS=media_jogador(elenco[j].penaltisS,elenco[j].uniforme);
+                elenco[j].total_penaltisS+=elenco[j].penaltisS[n];
                 printf("  Penaltis perdidos: ");
                 scanf("%d",&elenco[j].penaltisP[n]);
                 elenco[j].media_penaltisP=media_jogador(elenco[j].penaltisP,elenco[j].uniforme);
+                elenco[j].total_penaltisP+=elenco[j].penaltisP[n];
             }
         }
     }
@@ -1544,7 +1690,10 @@ float pontuacao(int num_uniforme, int n)
         // caso o jogador seja um goleiro
         if(num_uniforme==goleiros[i].uniforme)
         {
-            p=(6*(goleiros[i].passesC[n]/(goleiros[i].passesC[n]+goleiros[i].passesE[n])));
+            p=(5*(goleiros[i].passesC[n]/(goleiros[i].passesC[n]+goleiros[i].passesE[n])));
+            p+=(0.5*goleiros[i].defesas[n]);
+            if(goleiros[i].defesas[n]%5==0)
+                p+=(0.5*(goleiros[i].defesas[n]/5)); // ganha um bonus de meio ponto a cada 5 defesas feitas
             p+=(goleiros[i].golsF[n])-(goleiros[i].golsC[n])-(goleiros[i].golsS[n])-(0.5*goleiros[i].perdas[n]);
             p+=(0.3*goleiros[i].faltasS[n])-(0.1*goleiros[i].faltasC[n])-(0.1*goleiros[i].imped[n]);
             p+=(0.5*goleiros[i].assistG[n])+(0.1*goleiros[i].assistF[n])-(0.7*goleiros[i].penaltisC[n]);
