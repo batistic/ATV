@@ -20,6 +20,9 @@
 typedef struct {
     int controle;
     char adversario[100];
+    char sigla_adv[3];
+    int dia;
+    int mes;
     int gols_pro;
     int gols_contra;
     int saldo_gols;
@@ -118,7 +121,7 @@ int jogador_GeF(int num_uniforme);//exibe as estatísticas de gol e finalizaçã
 int goleiro_Gols(int num_uniforme);//exibe as estatísticas de gols sofridos e convertidos do goleiro //todo
 int jogador_PeA(int num_uniforme);//exibe as estatísticas de passes e assistências do jogador //todo
 int jogador_DeP(int num_uniforme);//exibe as estatísticas de desarmes e de perdas de posse de bola do jogador //todo
-int jogador_Def(int num_uniforme);//exibe as estatísticas de defesa do jogador //todo
+int jogador_DeG(int num_uniforme);//exibe as estatísticas de defesa do jogador //todo
 int jogador_FeP(int num_uniforme);//exibe as estatísticas de faltas e pênaltis do jogador //todo
 int goleiro_FeP(int num_uniforme);//exibe as estatísticas de faltas e pênaltis do goleiro //todo
 int jogador_Imp(int num_uniforme);//exibe as estatísticas de impedimentos do jogador //todo
@@ -863,9 +866,15 @@ int inserir_dados()
     }
     printf("\tInserir dados de uma partida.\n\n");
     // inserindo dados
+    printf("Mes do jogo: ");
+    scanf("%s",&jogo[n].mes);
+    printf("Dia do jogo: ");
+    scanf("%s",&jogo[n].dia);
     printf("Adversario: ");
     setbuf(stdin, NULL);
     fgets(jogo[n].adversario,100,stdin);
+    printf("Sigla do adversario (tres letras): ");
+    scanf("%s",&jogo[n].sigla_adv);
     printf("Gols feitos: ");
     scanf("%d",&jogo[n].gols_pro);
     printf("Gols sofridos: ");
@@ -1175,6 +1184,10 @@ int editar_dados()
         elenco[i].pos[n]=0;
     }
     // atualizando dados da partida
+    printf("Mes do jogo: ");
+    scanf("%s",&jogo[n].mes);
+    printf("Dia do jogo: ");
+    scanf("%s",&jogo[n].dia);
     printf("Adversario: ");
     setbuf(stdin, NULL);
     fgets(jogo[n].adversario,100,stdin);
@@ -1388,9 +1401,9 @@ int estatisticas_jogador()
             printf("\tEstatisticas do %s\n\n",goleiros[i].nome);
             // menu com as opções de estatísticas que podem ser exibidas do goleiro
             printf("1. Dados gerais.\n");
-            printf("2. Gols sofridos e convertidos.\n");
+            printf("2. Gols.\n");
             printf("3. Passes e assistencias.\n");
-            printf("4. Defesas.\n");
+            printf("4. Defesas e gols sofridos.\n");
             printf("5. Faltas e penaltis.\n");
             printf("6. Impedimentos.\n");
             printf("7. Notas.\n");
@@ -1405,7 +1418,7 @@ int estatisticas_jogador()
                     break;
 
                 case 2:
-                    goleiro_Gols(num_uniforme); // chama a função que mostra as estatisticas de gols sofridos e convertidos pelo goleiro
+                    goleiro_Gols(num_uniforme); // chama a função que mostra as estatisticas de gols do goleiro
                     break;
 
                 case 3:
@@ -1413,7 +1426,7 @@ int estatisticas_jogador()
                     break;
 
                 case 4:
-                    jogador_Def(num_uniforme); // chama a função que mostra as estatisticas de defesas do goleiro
+                    jogador_DeG(num_uniforme); // chama a função que mostra as estatisticas de defesas e gols sofridos do goleiro
                     break;
 
                 case 5:
@@ -2022,24 +2035,58 @@ int jogador_dados(int num_uniforme)
 int jogador_GeF(int num_uniforme)
 {
     system("cls");
-    int i,encontrado=0;
-    for(i=0;i<10;i++)
+    int i,j,k;
+    for(i=0;i<40;i++)
     {
-        if(num_uniforme==goleiros[i].uniforme)
-        {
-            encontrado++;
-            printf("\tEstatisticas de gols e finalizacoes do %s\n\n",goleiros[i].nome);
-
-            break;
-        }
-    }
-    for(i=0;i<10;i++)
-    {
-        if(encontrado>0)
-            break;
         if(num_uniforme==elenco[i].uniforme)
         {
             printf("\tEstatisticas de gols e finalizacoes do %s\n\n",elenco[i].nome);
+            printf("Gols na temporada: %d\n\n",elenco[i].total_gols);
+            printf("Gols por partida jogada:\n\n");
+            for(j=0;j<100;j++)
+            {
+                if(jogo[j].controle==1)
+                {
+                    if(elenco[i].jogou[j]==1)
+                    {
+                        printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                        for(k=0;k<elenco[i].gols[j];k++)
+                            printf("* ");
+                        printf("\n\n");
+                    }
+                }
+            }
+            printf("Finalizacoes corretas na temporada: %d\n\n",elenco[i].total_finalizacoesC);
+            printf("Finalizacoes corretas por partida jogada:\n\n");
+            for(j=0;j<100;j++)
+            {
+                if(jogo[j].controle==1)
+                {
+                    if(elenco[i].jogou[j]==1)
+                    {
+                        printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                        for(k=0;k<elenco[i].finalizacoesC[j];k++)
+                            printf("* ");
+                        printf("\n\n");
+                    }
+                }
+            }
+            printf("Finalizacoes erradas na temporada: %d\n\n",elenco[i].total_finalizacoesE);
+            printf("Finalizacoes erradas por partida jogada:\n\n");
+            for(j=0;j<100;j++)
+            {
+                if(jogo[j].controle==1)
+                {
+                    if(elenco[i].jogou[j]==1)
+                    {
+                        printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                        for(k=0;k<elenco[i].finalizacoesE[j];k++)
+                            printf("* ");
+                        printf("\n\n");
+                    }
+                }
+            }
+
 
             break;
         }
@@ -2071,7 +2118,7 @@ int jogador_DeP(int num_uniforme)
 
 /* Funcao que exibe as estatisticas de defesas de um jogador */
 
-int jogador_Def(int num_uniforme)
+int jogador_DeG(int num_uniforme)
 {
 
 }
