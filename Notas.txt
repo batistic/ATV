@@ -20,7 +20,8 @@ Indicadores acrescidos:
 NOTA GENÉRICA: (3.25*PC + 3.25*CC) + 1(G) - 1(GC) + 0.1(D) - 0.1(PP) - 0.1(FC) + 0.1(FS) - 0.1(I) + 0.5(AG) + 0.1(AF) - 0.5(PC) + 0.5(PS) - 0.5(PE)
 
 
-GK:  (6*PC) + 1(G) - 1(GC) - 1(GS) + 0.5(Def) - 0.5(PP) - 0.1(FC) + 0.3(FS) - 0.1(I) + 0.5(AG) + 0.1(AF) - 0.7(PC) + 0.5(PS) + 1(PD) - 0.5(PE)
+GK:  
+	(5*PC) + 1(G) - 1(GC) - 1(GS) + 0.5(Def) - 0.5(PP) - 0.1(FC) + 0.3(FS) - 0.1(I) + 0.5(AG) + 0.1(AF) - 0.7(PC) + 0.5(PS) + 1(PD) - 0.5(PE)
 
 ZD, ZE, ZC, LDD, LED: 
 	(5.25*PC + 1.25*CC) + 1(G) - 1(GC) + 0.4(D) - 0.3(PP) - 0.2(FC) + 0.1(FS) - 0.1(I) + 0.5(AG) + 0.1(AF) - 0.5(PC) + 0.5(PS) - 0.5(PE)
