@@ -1837,12 +1837,6 @@ int grupo_PeA()
 
 }
 
-
-
-
-
-}
-
 /* Funcao que exibe as estatisticas de desarmes e de perdas de posse de bola do grupo */
 
 int grupo_DeP()
@@ -2041,6 +2035,7 @@ int jogador_GeF(int num_uniforme)
         if(num_uniforme==elenco[i].uniforme)
         {
             printf("\tEstatisticas de gols e finalizacoes do %s\n\n",elenco[i].nome);
+
             printf("Gols na temporada: %d\n\n",elenco[i].total_gols);
             printf("Gols por partida jogada:\n\n");
             for(j=0;j<100;j++)
@@ -2056,6 +2051,7 @@ int jogador_GeF(int num_uniforme)
                     }
                 }
             }
+
             printf("Finalizacoes corretas na temporada: %d\n\n",elenco[i].total_finalizacoesC);
             printf("Finalizacoes corretas por partida jogada:\n\n");
             for(j=0;j<100;j++)
@@ -2071,6 +2067,7 @@ int jogador_GeF(int num_uniforme)
                     }
                 }
             }
+
             printf("Finalizacoes erradas na temporada: %d\n\n",elenco[i].total_finalizacoesE);
             printf("Finalizacoes erradas por partida jogada:\n\n");
             for(j=0;j<100;j++)
@@ -2086,6 +2083,9 @@ int jogador_GeF(int num_uniforme)
                     }
                 }
             }
+
+            printf("Aproveitamento de gols (gols por finalizacoes corretas): %.2f%%\n\n",elenco[i].total_gols/elenco[i].total_finalizacoesC);
+            printf("Aproveitamento de finalizacoes (finalizacoes corretas pelo total de finalizacoes): %.2f%%\n\n",elenco[i].total_finalizacoesC/(elenco[i].total_finalizacoesC+elenco[i].total_finalizacoesE));
 
 
             break;
