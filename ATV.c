@@ -894,7 +894,7 @@ int inserir_dados()
         {
             if(num_uniforme==goleiros[j].uniforme) // verifica se o numero do uniforme é de um goleiro, e de qual
             {
-                printf("Deseja inserir os dados do %s?\t1. Sim.\t2. Nao\n",goleiros[j].uniforme);
+                printf("Deseja inserir os dados do %s?\t1. Sim.\t2. Nao\n",goleiros[j].nome);
                 scanf("%d",&opc);
                 if(opc==2)
                 {
@@ -974,7 +974,7 @@ int inserir_dados()
         {
             if(num_uniforme==elenco[j].uniforme) // verifica se o numero do uniforme é de um jogador, e de qual
             {
-                printf("Deseja inserir os dados do %s?\t1. Sim.\t2. Nao\n",elenco[j].uniforme);
+                printf("Deseja inserir os dados do %s?\t1. Sim.\t2. Nao\n",elenco[j].nome);
                 scanf("%d",&opc);
                 if(opc==2)
                 {
@@ -1243,7 +1243,7 @@ int editar_dados()
         {
             if(num_uniforme==goleiros[j].uniforme) // verifica se o numero do uniforme é de um goleiro, e de qual
             {
-                printf("Deseja inserir os dados do %s?\t1. Sim.\t2. Nao\n",goleiros[j].uniforme);
+                printf("Deseja inserir os dados do %s?\t1. Sim.\t2. Nao\n",goleiros[j].nome);
                 scanf("%d",&opc);
                 if(opc==2)
                 {
@@ -1323,7 +1323,7 @@ int editar_dados()
         {
             if(num_uniforme==elenco[j].uniforme) // verifica se o numero do uniforme é de um jogador, e de qual
             {
-                printf("Deseja inserir os dados do %s?\t1. Sim.\t2. Nao\n",elenco[j].uniforme);
+                printf("Deseja inserir os dados do %s?\t1. Sim.\t2. Nao\n",elenco[j].nome);
                 scanf("%d",&opc);
                 if(opc==2)
                 {
@@ -1981,7 +1981,7 @@ int grupo_GeF()
   for(x = 0; x < k; x++){
     for(l = 0; l < 40; l++){
       if(rankUniforme[x] == elenco[l].uniforme){
-        printf("%s: %d\n",elenco[l].nome, rankFinalizacoes[x]);
+        printf("%s: Acertos: %d     Total: %d     Aproveitamento: %d%%\n",elenco[l].nome,rankFinalizacoes[x], elenco[l].total_finalizacoesC + elenco[l].total_finalizacoesE,100*(elenco[l].total_finalizacoesC)/(elenco[l].total_finalizacoesC + elenco[l].total_finalizacoesE));
         break;
       }
       }
