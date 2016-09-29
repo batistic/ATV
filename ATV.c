@@ -1836,6 +1836,11 @@ int i = 0, j = 0;
     j = j +1;
     }
   }
+  for(i = 0; i <10; i++){
+    if(goleiros[i].controle == 1){
+      j = j+1;
+    }
+  }
   /*criando um vetor (novoGols[]) apenas com os gols, este vetor é genérico e serve apenas para manipulação (terá seus valores
   alterados ao longo do código)*/
 int novoGols[j], l = 0, m = -1, novoUniforme[j];
@@ -1844,6 +1849,13 @@ int novoGols[j], l = 0, m = -1, novoUniforme[j];
       m++;
       novoGols[m] = elenco[l].total_gols;
       novoUniforme[m] = elenco[l].uniforme;
+    }
+  }
+  for(l = 0; l < 10; l++){
+    if(goleiros[l].controle == 1){
+      m++;
+      novoGols[m] = goleiros[l].total_gols;
+      novoUniforme = goleiros[l].uniforme;
     }
   }
   /*os valores obtidos em novoGols[] será agora ordenado de forma decrescente no vetor rankGols[]*/
@@ -1869,6 +1881,13 @@ int k = 0, maisGols = 0, guardaindice, rankGols[j], rankUniforme[j];
     for(l = 0; l < 40; l++){
       if(rankUniforme[x] == elenco[l].uniforme){
         printf("%s: %d\n",elenco[l].nome, rankGols[x]);
+        break;
+      }
+      if(l < 10){
+        if(rankUniforme[x] == goleiros[l].uniforme){
+          printf("%s: %d\n", goleiros[l].nome, rankGols[x]);
+          break;
+        }
       }
     }
   }
