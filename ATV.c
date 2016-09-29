@@ -864,12 +864,13 @@ int inserir_dados()
             break;
         }
     }
+    jogo[n].controle=1;
     printf("\tInserir dados de uma partida.\n\n");
     // inserindo dados
     printf("Mes do jogo: ");
-    scanf("%s",&jogo[n].mes);
+    scanf("%d",&jogo[n].mes);
     printf("Dia do jogo: ");
-    scanf("%s",&jogo[n].dia);
+    scanf("%d",&jogo[n].dia);
     printf("Adversario: ");
     setbuf(stdin, NULL);
     scanf("%[^\n]s",jogo[n].adversario);
@@ -1216,9 +1217,9 @@ int editar_dados()
     }
     // atualizando dados da partida
     printf("Mes do jogo: ");
-    scanf("%s",&jogo[n].mes);
+    scanf("%d",&jogo[n].mes);
     printf("Dia do jogo: ");
-    scanf("%s",&jogo[n].dia);
+    scanf("%d",&jogo[n].dia);
     printf("Adversario: ");
     setbuf(stdin, NULL);
     scanf("%[^\n]s",jogo[n].adversario);
@@ -1971,7 +1972,7 @@ int grupo_GeF()
   for(x = 0; x < k; x++){
     for(l = 0; l < 40; l++){
       if(rankUniforme[x] == elenco[l].uniforme){
-        printf("%s: Acertos: %d     Total: %d     Aproveitamento: %d%%\n",elenco[l].nome,rankFinalizacoes[x], elenco[l].total_finalizacoesC + elenco[l].total_finalizacoesE,100*(elenco[l].total_finalizacoesC)/(elenco[l].total_finalizacoesC + elenco[l].total_finalizacoesE));
+        printf("%s: Acertos: %d     Total: %d     Aproveitamento: %.2f%%\n",elenco[l].nome,rankFinalizacoes[x], elenco[l].total_finalizacoesC + elenco[l].total_finalizacoesE,100*((float)elenco[l].total_finalizacoesC)/((float)elenco[l].total_finalizacoesC + (float)elenco[l].total_finalizacoesE));
         break;
       }
       }
@@ -2189,9 +2190,9 @@ int jogador_GeF(int num_uniforme)
         {
             printf("\tEstatisticas de gols e finalizacoes do %s\n\n",elenco[i].nome);
 
-            printf("Gols na temporada: %d\n\n",elenco[i].total_gols);
-            printf("Media de gols por partida: %.2f\n\n",elenco[i].media_gols);
-            printf("Gols por partida jogada:\n\n");
+            printf("Gols na temporada: %d\n",elenco[i].total_gols);
+            printf("Media de gols por partida: %.2f\n",elenco[i].media_gols);
+            printf("Gols por partida:\n\n");
             for(j=0;j<100;j++)
             {
                 if(jogo[j].controle==1)
@@ -2206,8 +2207,9 @@ int jogador_GeF(int num_uniforme)
                 }
             }
 
-            printf("Finalizacoes corretas na temporada: %d\n\n",elenco[i].total_finalizacoesC);
-            printf("Finalizacoes corretas por partida jogada:\n\n");
+            printf("\nFinalizacoes corretas na temporada: %d\n",elenco[i].total_finalizacoesC);
+            printf("Media de finalizacoes corretas por partida: %.2f\n",elenco[i].media_finalizacoesC);
+            printf("Finalizacoes corretas por partida:\n\n");
             for(j=0;j<100;j++)
             {
                 if(jogo[j].controle==1)
@@ -2222,8 +2224,9 @@ int jogador_GeF(int num_uniforme)
                 }
             }
 
-            printf("Total de finalizacoes na temporada: %d\n\n",elenco[i].total_finalizacoesC+elenco[i].total_finalizacoesE);
-            printf("Total de finalizacoes por partida jogada:\n\n");
+            printf("\nTotal de finalizacoes na temporada: %d\n",elenco[i].total_finalizacoesC+elenco[i].total_finalizacoesE);
+            printf("Media de finalizacoes por partida: %.2f\n",elenco[i].media_finalizacoesC+elenco[i].total_finalizacoesE);
+            printf("Total de finalizacoes por partida:\n\n");
             for(j=0;j<100;j++)
             {
                 if(jogo[j].controle==1)
@@ -2238,8 +2241,8 @@ int jogador_GeF(int num_uniforme)
                 }
             }
 
-            printf("Aproveitamento de gols (gols por finalizacoes corretas): %.2f%%\n\n",100*(elenco[i].total_gols/elenco[i].total_finalizacoesC));
-            printf("Aproveitamento de finalizacoes (finalizacoes corretas pelo total de finalizacoes): %.2f%%\n\n",100*(elenco[i].total_finalizacoesC/(elenco[i].total_finalizacoesC+elenco[i].total_finalizacoesE)));
+            printf("\nAproveitamento de gols (gols por finalizacoes corretas): %.2f%%\n\n",(100*((float)elenco[i].total_gols/(float)elenco[i].total_finalizacoesC)));
+            printf("Aproveitamento de finalizacoes (finalizacoes corretas pelo total de finalizacoes): %.2f%%\n\n\n",(100*((float)elenco[i].total_finalizacoesC/((float)elenco[i].total_finalizacoesC+(float)elenco[i].total_finalizacoesE))));
 
 
             break;
@@ -2261,8 +2264,8 @@ int goleiro_Gols(int num_uniforme)
         if(num_uniforme==goleiros[i].uniforme)
         {
             printf("\tEstatisticas de gols do goleiro %s\n\n", goleiros[i].nome);
-            printf("Gols na temporada: %d\n\n", goleiros[i].total_golsF);
-            printf("Media de gols por partida: %.2f\n\n",goleiros[i].media_golsF);
+            printf("Gols na temporada: %d\n", goleiros[i].total_golsF);
+            printf("Media de gols por partida: %.2f\n",goleiros[i].media_golsF);
             printf("Gols por partida:\n\n");
             for(j=0;j<100;j++)
             {
@@ -2288,10 +2291,81 @@ int jogador_PeA(int num_uniforme)
     system("cls");
 
     int i,j,k;
+    for(i=0;i<10;i++){
+        if(num_uniforme==goleiros[i].uniforme){
+            printf("\tEstatisticas de passes e assistencia do jogador %s \n\n", goleiros[i].nome);
+            printf("Passes certos na temporada: %d\n", goleiros[i].total_passesC);
+            printf("Media de passes certos por partida: %.2f\n", goleiros[i].media_passesC);
+            printf("Passes certos por partida:\n\n");
+            for(j=0;j<100;j++)
+            {
+                if(jogo[j].controle==1)
+                {
+                    if(goleiros[i].jogou[j]==1)
+                    {
+                        printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                        for(k=0;k<goleiros[i].passesC[j];k++)
+                            printf("* ");
+                        printf("(%d)\n\n",goleiros[i].passesC[j]);
+                    }
+                }
+            }
+            printf("\nTotal de passes na temporada: %d\n", goleiros[i].total_passesC+goleiros[i].total_passesE);
+            printf("Media de passes totais por partida: %.2f\n",media_jogador(goleiros[i].total_passesC+goleiros[i].total_passesE, goleiros[i].uniforme));
+            printf("Total de passes por partida:\n\n");
+            for(j=0;j<100;j++)
+            {
+                if(jogo[j].controle==1)
+                {
+                    if(goleiros[i].jogou[j]==1)
+                    {
+                        printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                        for(k=0;k<goleiros[i].passesE[j]+goleiros[i].passesE[j];k++)
+                            printf("* ");
+                        printf("(%d)\n\n",goleiros[i].passesE[j]+goleiros[i].passesE[j]);
+                    }
+                }
+            }
+            printf("\nAssistencias para gols na temporada: %d\n", goleiros[i].total_assistG);
+            printf("Media de assistencias para gols por partida: %.2f\n", goleiros[i].media_assistG);
+            printf("Assistencias para gols por partida:\n\n");
+            for(j=0;j<100;j++)
+            {
+                if(jogo[j].controle==1)
+                {
+                    if(goleiros[i].jogou[j]==1)
+                    {
+                        printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                        for(k=0;k<goleiros[i].assistG[j];k++)
+                            printf("* ");
+                        printf("(%d)\n\n",goleiros[i].assistG[j]);
+                    }
+                }
+            }
+            printf("\nAssistencias para finalizacoes na temporada: %d\n", goleiros[i].total_assistF);
+            printf("Media de assistencias para finalizacoes por partida: %.2f\n", goleiros[i].media_assistF);
+            printf("Assistencias para finalizacoes por partida:\n\n");
+            for(j=0;j<100;j++)
+            {
+                if(jogo[j].controle==1)
+                {
+                    if(goleiros[i].jogou[j]==1)
+                    {
+                        printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                        for(k=0;k<goleiros[i].assistF[j];k++)
+                            printf("* ");
+                        printf("(%d)\n\n",goleiros[i].assistF[j]);
+                    }
+                }
+            }
+            printf("\nAproveitamento de passes (passes certos pelo total): %.2f%%\n\n",(100*((float)goleiros[i].total_passesC/((float)goleiros[i].total_passesC+(float)goleiros[i].total_passesE))));
+            printf("Aproveitamento de assistencias (assistencias para gol pelo total): %.2f%%\n\n\n",(100*((float)goleiros[i].total_assistG/((float)goleiros[i].total_assistG+(float)goleiros[i].total_assistF))));
+        }
+    }
     for(i=0;i<40;i++){
         if(num_uniforme==elenco[i].uniforme){
             printf("\tEstatisticas de passes e assistencia do jogador %s \n\n", elenco[i].nome);
-            printf("Passes certos na temporada: %d\n", elenco[i].total_passesC);
+            printf("\nPasses certos na temporada: %d\n", elenco[i].total_passesC);
             printf("Media de passes certos por partida: %.2f\n", elenco[i].media_passesC);
             printf("Passes certos por partida:\n\n");
             for(j=0;j<100;j++)
@@ -2307,7 +2381,7 @@ int jogador_PeA(int num_uniforme)
                     }
                 }
             }
-            printf("Total de passes na temporada: %d\n", elenco[i].total_passesC+elenco[i].total_passesE);
+            printf("\nTotal de passes na temporada: %d\n", elenco[i].total_passesC+elenco[i].total_passesE);
             printf("Media de passes totais por partida: %.2f\n",media_jogador(elenco[i].total_passesC+elenco[i].total_passesE, elenco[i].uniforme));
             printf("Total de passes por partida:\n\n");
             for(j=0;j<100;j++)
@@ -2323,9 +2397,9 @@ int jogador_PeA(int num_uniforme)
                     }
                 }
             }
-            printf("Total de assistencias para finalizacoes na temporada: %d\n", elenco[i].total_passesC+elenco[i].total_passesE);
-            printf("Media de assistencias para finalizacoes por partida: %.2f\n");
-            printf("Total de assistencias para finalizacoes por partida:\n\n");
+            printf("\nAssistencias para gols na temporada: %d\n", elenco[i].total_assistG);
+            printf("Media de assistencias para gols por partida: %.2f\n", elenco[i].media_assistG);
+            printf("Assistencias para gols por partida:\n\n");
             for(j=0;j<100;j++)
             {
                 if(jogo[j].controle==1)
@@ -2333,16 +2407,35 @@ int jogador_PeA(int num_uniforme)
                     if(elenco[i].jogou[j]==1)
                     {
                         printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
-                        for(k=0;k<elenco[i].passesE[j]+elenco[i].passesE[j];k++)
+                        for(k=0;k<elenco[i].assistG[j];k++)
                             printf("* ");
-                        printf("(%d)\n\n",elenco[i].passesE[j]+elenco[i].passesE[j]);
+                        printf("(%d)\n\n",elenco[i].assistG[j]);
                     }
                 }
             }
+            printf("\nAssistencias para finalizacoes na temporada: %d\n", elenco[i].total_assistF);
+            printf("Media de assistencias para finalizacoes por partida: %.2f\n", elenco[i].media_assistF);
+            printf("Assistencias para finalizacoes por partida:\n\n");
+            for(j=0;j<100;j++)
+            {
+                if(jogo[j].controle==1)
+                {
+                    if(elenco[i].jogou[j]==1)
+                    {
+                        printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                        for(k=0;k<elenco[i].assistF[j];k++)
+                            printf("* ");
+                        printf("(%d)\n\n",elenco[i].assistF[j]);
+                    }
+                }
+            }
+            printf("\nAproveitamento de passes (passes certos pelo total): %.2f%%\n\n",(100*((float)elenco[i].total_passesC/((float)elenco[i].total_passesC+(float)elenco[i].total_passesE))));
+            printf("Aproveitamento de assistencias (assistencias para gol pelo total): %.2f%%\n\n\n",(100*((float)elenco[i].total_assistG/((float)elenco[i].total_assistG+(float)elenco[i].total_assistF))));
         }
     }
 
     system("PAUSE");
+    return 0;
 }
 
 /* Funcao que  exibe as estatisticas de desarmes e de perdas de posse de bola de um jogador*/
