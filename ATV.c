@@ -2160,7 +2160,7 @@ int jogador_DeP(int num_uniforme)
 
 }
 
-/* Funcao que exibe as estatisticas de defesas de um jogador */
+/* Funcao que exibe as estatisticas de defesas e de gols de um goleiro */
 
 int jogador_DeG(int num_uniforme)
 {
