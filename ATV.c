@@ -885,12 +885,16 @@ int inserir_dados()
     //for(i=0;i<11+jogo[n].substituicoes;i++) // loop que percorre todos os jogadores que jogaram a partida
     for(i=0;i<3;i++)//apagar depois
     {
+        int encontrado=0;
         printf("Insira o numero do uniforme do jogador: ");
         scanf("%d",&num_uniforme);
         for(j=0;j<10;j++)
         {
+            if(encontrado>0)
+                break;
             if(num_uniforme==goleiros[j].uniforme) // verifica se o numero do uniforme é de um goleiro, e de qual
             {
+                encontrado++;
                 goleiros[j].jogos++;
                 goleiros[j].jogou[n]=1;
                 printf("Insira os dados do %s\n",goleiros[j].nome);
@@ -1211,12 +1215,16 @@ int editar_dados()
     scanf("%d",&jogo[n].substituicoes);
     for(i=0;i<11+jogo[n].substituicoes;i++) // loop que percorre todos os jogadores que jogaram a partida
     {
+        int encontrado=0;
         printf("Insira o numero do uniforme do jogador: ");
         scanf("%d",&num_uniforme);
         for(j=0;j<10;j++)
         {
+            if(encontrado>0)
+                break;
             if(num_uniforme==goleiros[j].uniforme) // verifica se o numero do uniforme é de um goleiro, e de qual
             {
+                encontrado++;
                 goleiros[j].jogos++;
                 goleiros[j].jogou[n]=1;
                 printf("Insira os dados do %s\n",goleiros[j].nome);
