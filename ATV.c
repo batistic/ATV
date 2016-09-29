@@ -1828,27 +1828,55 @@ int grupo_notas()
 
 int grupo_GeF()
 {
-int i = 0, j = 0, m=0;
+  /*obtendo a quantidade de jogadores que marcaram gols */
+int i = 0, j = 0;
   for (i =0; i <40; i++){
 
   if(elenco[i].controle == 1){
     j = j +1;
     }
   }
-  while (m < j){
-  int maiorGol[j], maisGols = 0, ultimo = 1000, l =0;
-  for(l = 0; l < 50; l++){
-    if(elenco[l].controle==1){
-      if(elenco[l].total_gols > maisGols && elenco[l].total_gols < ultimo){
-        maisGols = elenco[i].total_gols;
+  /*criando um vetor (novoGols[]) apenas com os gols, este vetor é genérico e serve apenas para manipulação (terá seus valores
+  alterados ao longo do código)*/
+int novoGols[j], l = 0, m = -1, novoUniforme[j];
+  for(l = 0; l < 40; l++){
+    if(elenco[l].controle == 1){
+      m++;
+      novoGols[m] = elenco[l].total_gols;
+      novoUniforme[m] = elenco[l].uniforme;
     }
   }
-}
-  ultimo = maisGols;
-  maiorGol[m] = maisGols;
-  m = m+1;
+  /*os valores obtidos em novoGols[] será agora ordenado de forma decrescente no vetor rankGols[]*/
+int k = 0, maisGols = 0, guardaindice, rankGols[j], rankUniforme[j];
+
+  while(k < j){
+    /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
+  for(l = 0; l <= m; l ++){
+    if(novoGols[l] > maisGols){
+      maisGols = novoGols[l];
+      guardaindice = l;
+    }
   }
+  /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
+  rankGols[k] = maisGols;
+  maisGols=0;
+  novoGols[guardaindice] = -1;
+  rankUniforme[k] = novoUniforme[l-1];
+  k++;
+  }
+  int x = 0;
+  for(x = 0; x < k; x++){
+    for(l = 0; l < 40; l++){
+      if(rankUniforme[x] == elenco[l].uniforme){
+        printf("%s: %d\n",elenco[l].nome, rankGols[x]);
+      }
+    }
+  }
+  system("pause");
+  return 0;
+
 }
+
 /* Funcao que exibe as estatisticas de passes e assistencias do grupo */
 
 int grupo_PeA()
