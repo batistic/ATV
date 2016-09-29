@@ -892,7 +892,7 @@ int inserir_dados()
             {
                 goleiros[j].jogos++;
                 goleiros[j].jogou[n]=1;
-                printf("Insira os dados do %s\n",goleiros[j].nome);
+                printf("%s:\n",goleiros[j].nome[n]);
                 printf("  Defesas: ");
                 scanf("%d",&goleiros[j].defesas[n]);
                 goleiros[j].media_defesas=media_jogador(goleiros[j].defesas,goleiros[j].uniforme);
@@ -953,8 +953,6 @@ int inserir_dados()
                 scanf("%d",&goleiros[j].penaltisP[n]);
                 goleiros[j].media_penaltisP=media_jogador(goleiros[j].penaltisP,goleiros[j].uniforme);
                 goleiros[j].total_penaltisP+=goleiros[j].penaltisP[n];
-
-                break;
             }
         }
         char pos[4]; // variavel para armazenar a posicao jogada na partida
@@ -964,7 +962,7 @@ int inserir_dados()
             {
                 elenco[j].jogos++;
                 elenco[j].jogou[n]=1;
-                printf("Insira os dados do %s\n",elenco[j].nome);
+                printf("%s:\n",elenco[j].nome);
                 printf("  Sigla da posicao inicial na partida: ");
                 scanf("%s",&pos);
                 if(strcmp(pos,"ZD")==0 || strcmp(pos,"zd")==0)
@@ -1061,16 +1059,8 @@ int inserir_dados()
                 scanf("%d",&elenco[j].penaltisP[n]);
                 elenco[j].media_penaltisP=media_jogador(elenco[j].penaltisP,elenco[j].uniforme);
                 elenco[j].total_penaltisP+=elenco[j].penaltisP[n];
-
-                break;
-            }
-            if(j==39)
-            {
-                printf("\tDigite o numero de um jogador cadastrado!\n");
-                i--;
             }
         }
-
     }
     system("PAUSE");
     return 0;
@@ -1218,7 +1208,7 @@ int editar_dados()
             {
                 goleiros[j].jogos++;
                 goleiros[j].jogou[n]=1;
-                printf("Insira os dados do %s\n",goleiros[j].nome);
+                printf("%s:\n",goleiros[j].nome[n]);
                 printf("  Defesas: ");
                 scanf("%d",&goleiros[j].defesas[n]);
                 goleiros[j].media_defesas=media_jogador(goleiros[j].defesas,goleiros[j].uniforme);
@@ -1279,8 +1269,6 @@ int editar_dados()
                 scanf("%d",&goleiros[j].penaltisP[n]);
                 goleiros[j].media_penaltisP=media_jogador(goleiros[j].penaltisP,goleiros[j].uniforme);
                 goleiros[j].total_penaltisP+=goleiros[j].penaltisP[n];
-
-                break;
             }
         }
         char pos[4]; // variavel para armazenar a posicao jogada na partida
@@ -1290,7 +1278,7 @@ int editar_dados()
             {
                 elenco[j].jogos++;
                 elenco[j].jogou[n]=1;
-                printf("Insira os dados do %s\n",elenco[j].nome);
+                printf("%s:\n",elenco[j].nome);
                 printf("  Sigla da posicao inicial na partida: ");
                 scanf("%s",&pos);
                 if(strcmp(pos,"ZD")==0 || strcmp(pos,"zd")==0)
@@ -1387,13 +1375,6 @@ int editar_dados()
                 scanf("%d",&elenco[j].penaltisP[n]);
                 elenco[j].media_penaltisP=media_jogador(elenco[j].penaltisP,elenco[j].uniforme);
                 elenco[j].total_penaltisP+=elenco[j].penaltisP[n];
-
-                break;
-            }
-            if(j==39)
-            {
-                printf("\tDigite o numero de um jogador cadastrado!\n");
-                i--;
             }
         }
     }
@@ -1838,15 +1819,16 @@ int i = 0, j = 0;
   }
   /*criando um vetor (novoGols[]) apenas com os gols, este vetor é genérico e serve apenas para manipulação (terá seus valores
   alterados ao longo do código)*/
-int novoGols[j], l = 0, m = -1;
+int novoGols[j], l = 0, m = -1, novoUniforme[j];
   for(l = 0; l < 40; l++){
     if(elenco[l].controle == 1){
       m++;
       novoGols[m] = elenco[l].total_gols;
+      novoUniforme[m] = elenco[l].uniforme;
     }
   }
   /*os valores obtidos em novoGols[] será agora ordenado de forma decrescente no vetor rankGols[]*/
-int k = 0, maisGols = 0, guardaindice, rankGols[j];
+int k = 0, maisGols = 0, guardaindice, rankGols[j], rankUniforme[j];
 
   while(k < j){
     /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
@@ -1860,23 +1842,20 @@ int k = 0, maisGols = 0, guardaindice, rankGols[j];
   rankGols[k] = maisGols;
   maisGols=0;
   novoGols[guardaindice] = -1;
+  rankUniforme[k] = novoUniforme[l-1];
   k++;
   }
-
-  /*while (m < j){
-  int novoGols[j], maiorGol[j], maisGols = 0, ultimo = 1000, l =0, m = 0;
-  for(l = 0; l < 50; l++){
-    if(elenco[l].controle==1){
-      if(elenco[l].total_gols > maisGols && elenco[l].total_gols < ultimo){
-        maisGols = elenco[i].total_gols;
+  int x = 0;
+  for(x = 0; x < k; x++){
+    for(l = 0; l < 40; l++){
+      if(rankUniforme[x] == elenco[l].uniforme){
+        printf("%s: %d\n",elenco[l].nome, rankGols[x]);
+      }
     }
   }
+  return 0;
 }
-  ultimo = maisGols;
-  maiorGol[m] = maisGols;
-  m = m+1;
-  }
-}*/
+
 /* Funcao que exibe as estatisticas de passes e assistencias do grupo */
 
 int grupo_PeA()
@@ -2147,31 +2126,7 @@ int jogador_GeF(int num_uniforme)
 
 int goleiro_Gols(int num_uniforme)
 {
-    system("cls");
 
-    int i,j,k;
-    for(i=0;i<10;i++)
-    {
-        if(num_uniforme==goleiros[i].uniforme)
-        {
-            printf("\tEstatisticas de gols do goleiro %s\n\n", goleiros[i].nome);
-            printf("Gols na temporada: %d\n\n", goleiros[i].total_golsF);
-            printf("Gols por partida:\n\n");
-            for(j=0;j<100;j++)
-            {
-                if(jogo[j].controle==1)
-                {
-                    if(goleiros[i].jogou[j]==1)
-                    {
-                        printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
-                        for(k=0;k<goleiros[i].golsF[j];k++)
-                            printf("* ");
-                        printf("\n\n");
-                    }
-                }
-            }
-}
-    }
 }
 
 /* Funcao que exibe as estatisticas de passes e assistencias de um jogador */
@@ -2188,7 +2143,7 @@ int jogador_DeP(int num_uniforme)
 
 }
 
-/* Funcao que exibe as estatisticas de defesas e de gols de um goleiro */
+/* Funcao que exibe as estatisticas de defesas de um jogador */
 
 int jogador_DeG(int num_uniforme)
 {
