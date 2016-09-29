@@ -1279,6 +1279,8 @@ int editar_dados()
                 scanf("%d",&goleiros[j].penaltisP[n]);
                 goleiros[j].media_penaltisP=media_jogador(goleiros[j].penaltisP,goleiros[j].uniforme);
                 goleiros[j].total_penaltisP+=goleiros[j].penaltisP[n];
+
+                break;
             }
         }
         char pos[4]; // variavel para armazenar a posicao jogada na partida
@@ -1385,6 +1387,13 @@ int editar_dados()
                 scanf("%d",&elenco[j].penaltisP[n]);
                 elenco[j].media_penaltisP=media_jogador(elenco[j].penaltisP,elenco[j].uniforme);
                 elenco[j].total_penaltisP+=elenco[j].penaltisP[n];
+
+                break;
+            }
+            if(j==39)
+            {
+                printf("\tDigite o numero de um jogador cadastrado!\n");
+                i--;
             }
         }
     }
