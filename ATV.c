@@ -313,7 +313,7 @@ int cadastrar()
         //leitura de dados do jogador
         printf("Nome: ");
         setbuf(stdin, NULL);
-        fgets(elenco[n].nome,100,stdin);
+        scanf("%[^\n]s",elenco[n].nome);
         printf("Idade: ");
         scanf("%d",&elenco[n].idade);
         printf("Altura: ");
@@ -513,7 +513,7 @@ int cadastrar()
         //leitura de dados do jogador
         printf("Nome: ");
         setbuf(stdin, NULL);
-        fgets(goleiros[n].nome,100,stdin);
+        scanf("%[^\n]s",goleiros[n].nome);
         printf("Idade: ");
         scanf("%d",&goleiros[n].idade);
         printf("Altura: ");
@@ -570,7 +570,7 @@ int editar()
             // reescreve os dados
             printf("Nome: ");
             setbuf(stdin, NULL);
-            fgets(elenco[n].nome,100,stdin);
+            scanf("%[^\n]s",elenco[n].nome);
             printf("Idade: ");
             scanf("%d",&elenco[n].idade);
             printf("Altura: ");
@@ -692,7 +692,7 @@ int editar()
             // inserindo dados
             printf("Nome: ");
             setbuf(stdin, NULL);
-            fgets(goleiros[n].nome,100,stdin);
+            scanf("%[^\n]s",goleiros[n].nome);
             printf("Idade: ");
             scanf("%d",&goleiros[n].idade);
             printf("Altura: ");
@@ -872,9 +872,9 @@ int inserir_dados()
     scanf("%s",&jogo[n].dia);
     printf("Adversario: ");
     setbuf(stdin, NULL);
-    fgets(jogo[n].adversario,100,stdin);
+    scanf("%[^\n]s",jogo[n].adversario);
     printf("Sigla do adversario (tres letras): ");
-    scanf("%s",&jogo[n].sigla_adv);
+    scanf("%s",jogo[n].sigla_adv);
     printf("Gols feitos: ");
     scanf("%d",&jogo[n].gols_pro);
     printf("Gols sofridos: ");
@@ -1200,7 +1200,7 @@ int editar_dados()
     scanf("%s",&jogo[n].dia);
     printf("Adversario: ");
     setbuf(stdin, NULL);
-    fgets(jogo[n].adversario,100,stdin);
+    scanf("%[^\n]s",jogo[n].adversario);
     printf("Gols feitos: ");
     scanf("%d",&jogo[n].gols_pro);
     printf("Gols sofridos: ");
