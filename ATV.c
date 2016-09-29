@@ -892,7 +892,7 @@ int inserir_dados()
             {
                 goleiros[j].jogos++;
                 goleiros[j].jogou[n]=1;
-                printf("%s:\n",goleiros[j].nome[n]);
+                printf("Insira os dados do %s\n",goleiros[j].nome);
                 printf("  Defesas: ");
                 scanf("%d",&goleiros[j].defesas[n]);
                 goleiros[j].media_defesas=media_jogador(goleiros[j].defesas,goleiros[j].uniforme);
@@ -962,7 +962,7 @@ int inserir_dados()
             {
                 elenco[j].jogos++;
                 elenco[j].jogou[n]=1;
-                printf("%s:\n",elenco[j].nome);
+                printf("Insira os dados do %s\n",elenco[j].nome);
                 printf("  Sigla da posicao inicial na partida: ");
                 scanf("%s",&pos);
                 if(strcmp(pos,"ZD")==0 || strcmp(pos,"zd")==0)
@@ -1208,7 +1208,7 @@ int editar_dados()
             {
                 goleiros[j].jogos++;
                 goleiros[j].jogou[n]=1;
-                printf("%s:\n",goleiros[j].nome[n]);
+                printf("Insira os dados do %s\n",goleiros[j].nome[n]);
                 printf("  Defesas: ");
                 scanf("%d",&goleiros[j].defesas[n]);
                 goleiros[j].media_defesas=media_jogador(goleiros[j].defesas,goleiros[j].uniforme);
@@ -1278,7 +1278,7 @@ int editar_dados()
             {
                 elenco[j].jogos++;
                 elenco[j].jogou[n]=1;
-                printf("%s:\n",elenco[j].nome);
+                printf("Insira os dados do %s\n",elenco[j].nome);
                 printf("  Sigla da posicao inicial na partida: ");
                 scanf("%s",&pos);
                 if(strcmp(pos,"ZD")==0 || strcmp(pos,"zd")==0)
@@ -2123,6 +2123,8 @@ int goleiro_Gols(int num_uniforme)
                     }
                 }
             }
+}
+    }
 }
 
 /* Funcao que exibe as estatisticas de passes e assistencias de um jogador */
