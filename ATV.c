@@ -1852,7 +1852,7 @@ int k = 0, maisGols = 0, guardaindice, rankGols[j], rankUniforme[j];
   while(k < j){
     /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
   for(l = 0; l <= m; l ++){
-    if(novoGols[l] > maisGols){
+    if(novoGols[l] >= maisGols){
       maisGols = novoGols[l];
       guardaindice = l;
     }
@@ -1861,7 +1861,7 @@ int k = 0, maisGols = 0, guardaindice, rankGols[j], rankUniforme[j];
   rankGols[k] = maisGols;
   maisGols=0;
   novoGols[guardaindice] = -1;
-  rankUniforme[k] = novoUniforme[l-1];
+  rankUniforme[k] = novoUniforme[guardaindice];
   k++;
   }
   int x = 0;
