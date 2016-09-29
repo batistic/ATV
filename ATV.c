@@ -1836,8 +1836,8 @@ int grupo_notas()
 
 int grupo_GeF()
 {
-    system("cls");
-    printf("\tEstatisticas de gols e finalizacoes do grupo\n\n");
+  system("cls");
+  printf("\tEstatisticas de gols e finalizacoes do grupo\n\n");
 
   /*                             G O L S                                          */
   /*obtendo a quantidade de jogadores que já jogaram */
