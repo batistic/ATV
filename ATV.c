@@ -2202,9 +2202,9 @@ int jogador_GeF(int num_uniforme)
                     if(elenco[i].jogou[j]==1)
                     {
                         printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
-                        for(k=0;k<(elenco[i].finalizacoesC[j]+elenco[i].total_finalizacoesE[j]);k++)
+                        for(k=0;k<(elenco[i].finalizacoesC[j]+elenco[i].finalizacoesE[j]);k++)
                             printf("* ");
-                        printf("(%d)\n\n",elenco[i].finalizacoesC[j]+elenco[i].total_finalizacoesE[j]);
+                        printf("(%d)\n\n",elenco[i].finalizacoesC[j]+elenco[i].finalizacoesE[j]);
                     }
                 }
             }
