@@ -855,7 +855,7 @@ int excluir()
 int inserir_dados()
 {
     system("cls");
-    int n,i,j,num_uniforme; // variaveis auxiliares
+    int n,i,j,num_uniforme,opc; // variaveis auxiliares
     for(i=0;i<100;i++) // percorre todos os jogos possiveis, para verificar um espaço vazio
     {
         if(jogo[i].controle==0)
@@ -883,15 +883,24 @@ int inserir_dados()
     printf("Substituicoes feitas na partida: ");
     scanf("%d",&jogo[n].substituicoes);
     //for(i=0;i<11+jogo[n].substituicoes;i++) // loop que percorre todos os jogadores que jogaram a partida
+    //apagar depois
     for(i=0;i<3;i++)//apagar depois
+    //apagar depois
     {
         int encontrado=0;
-        printf("Insira o numero do uniforme do jogador: ");
+        printf("\nPara inserir os dados de um jogador na partida, insira o numero de seu uniforme: ");
         scanf("%d",&num_uniforme);
         for(j=0;j<10;j++)
         {
             if(num_uniforme==goleiros[j].uniforme) // verifica se o numero do uniforme é de um goleiro, e de qual
             {
+                printf("Deseja inserir os dados do %s?\t1. Sim.\t2. Nao\n",goleiros[j].uniforme);
+                scanf("%d",&opc);
+                if(opc==2)
+                {
+                    i--;
+                    break;
+                }
                 encontrado++;
                 goleiros[j].jogos++;
                 goleiros[j].jogou[n]=1;
@@ -965,6 +974,13 @@ int inserir_dados()
         {
             if(num_uniforme==elenco[j].uniforme) // verifica se o numero do uniforme é de um jogador, e de qual
             {
+                printf("Deseja inserir os dados do %s?\t1. Sim.\t2. Nao\n",elenco[j].uniforme);
+                scanf("%d",&opc);
+                if(opc==2)
+                {
+                    i--;
+                    break;
+                }
                 encontrado++;
                 elenco[j].jogos++;
                 elenco[j].jogou[n]=1;
@@ -1076,6 +1092,7 @@ int inserir_dados()
         }
 
     }
+    printf("\n");
     system("PAUSE");
     return 0;
 }
@@ -1089,7 +1106,7 @@ int editar_dados()
     int n=lista_jogos();
     if(n<0)
         return 0;
-    int i,j,num_uniforme; // variaveis auxiliares
+    int i,j,num_uniforme,opc; // variaveis auxiliares
     // zerando os dados da partida
     for(i=0;i<10;i++)
     {
@@ -1205,6 +1222,8 @@ int editar_dados()
     printf("Adversario: ");
     setbuf(stdin, NULL);
     scanf("%[^\n]s",jogo[n].adversario);
+    printf("Sigla do adversario (tres letras): ");
+    scanf("%s",jogo[n].sigla_adv);
     printf("Gols feitos: ");
     scanf("%d",&jogo[n].gols_pro);
     printf("Gols sofridos: ");
@@ -1212,17 +1231,25 @@ int editar_dados()
     jogo[n].saldo_gols=jogo[n].gols_pro-jogo[n].gols_contra;
     printf("Substituicoes feitas na partida: ");
     scanf("%d",&jogo[n].substituicoes);
-    for(i=0;i<11+jogo[n].substituicoes;i++) // loop que percorre todos os jogadores que jogaram a partida
+    //for(i=0;i<11+jogo[n].substituicoes;i++) // loop que percorre todos os jogadores que jogaram a partida
+    //apagar depois
+    for(i=0;i<3;i++)//apagar depois
+    //apagar depois
     {
         int encontrado=0;
-        printf("Insira o numero do uniforme do jogador: ");
+        printf("\nPara inserir os dados de um jogador na partida, insira o numero de seu uniforme: ");
         scanf("%d",&num_uniforme);
         for(j=0;j<10;j++)
         {
-            if(encontrado>0)
-                break;
             if(num_uniforme==goleiros[j].uniforme) // verifica se o numero do uniforme é de um goleiro, e de qual
             {
+                printf("Deseja inserir os dados do %s?\t1. Sim.\t2. Nao\n",goleiros[j].uniforme);
+                scanf("%d",&opc);
+                if(opc==2)
+                {
+                    i--;
+                    break;
+                }
                 encontrado++;
                 goleiros[j].jogos++;
                 goleiros[j].jogou[n]=1;
@@ -1296,6 +1323,14 @@ int editar_dados()
         {
             if(num_uniforme==elenco[j].uniforme) // verifica se o numero do uniforme é de um jogador, e de qual
             {
+                printf("Deseja inserir os dados do %s?\t1. Sim.\t2. Nao\n",elenco[j].uniforme);
+                scanf("%d",&opc);
+                if(opc==2)
+                {
+                    i--;
+                    break;
+                }
+                encontrado++;
                 elenco[j].jogos++;
                 elenco[j].jogou[n]=1;
                 printf("Insira os dados do %s\n",elenco[j].nome);
@@ -1398,12 +1433,13 @@ int editar_dados()
 
                 break;
             }
-            if(j==39)
+            if(j==39 && encontrado==0)
             {
                 printf("\tDigite o numero de um jogador cadastrado!\n");
                 i--;
             }
         }
+
     }
     printf("\n");
     system("PAUSE");
