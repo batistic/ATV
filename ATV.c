@@ -2104,6 +2104,7 @@ int jogador_GeF(int num_uniforme)
             printf("\tEstatisticas de gols e finalizacoes do %s\n\n",elenco[i].nome);
 
             printf("Gols na temporada: %d\n\n",elenco[i].total_gols);
+            printf("Media de gols por partida: %.2f\n\n",elenco[i].media_gols);
             printf("Gols por partida jogada:\n\n");
             for(j=0;j<100;j++)
             {
@@ -2114,7 +2115,7 @@ int jogador_GeF(int num_uniforme)
                         printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
                         for(k=0;k<elenco[i].gols[j];k++)
                             printf("* ");
-                        printf("\n\n");
+                        printf("(%d)\n\n",elenco[i].gols[j]);
                     }
                 }
             }
@@ -2130,13 +2131,13 @@ int jogador_GeF(int num_uniforme)
                         printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
                         for(k=0;k<elenco[i].finalizacoesC[j];k++)
                             printf("* ");
-                        printf("\n\n");
+                        printf("(%d)\n\n",elenco[i].finalizacoesC[j]);
                     }
                 }
             }
 
-            printf("Finalizacoes erradas na temporada: %d\n\n",elenco[i].total_finalizacoesE);
-            printf("Finalizacoes erradas por partida jogada:\n\n");
+            printf("Total de finalizacoes na temporada: %d\n\n",elenco[i].total_finalizacoesC+elenco[i].total_finalizacoesE);
+            printf("Total de finalizacoes por partida jogada:\n\n");
             for(j=0;j<100;j++)
             {
                 if(jogo[j].controle==1)
@@ -2144,9 +2145,9 @@ int jogador_GeF(int num_uniforme)
                     if(elenco[i].jogou[j]==1)
                     {
                         printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
-                        for(k=0;k<elenco[i].finalizacoesE[j];k++)
+                        for(k=0;k<(elenco[i].finalizacoesC[j]+elenco[i].total_finalizacoesE[j]);k++)
                             printf("* ");
-                        printf("\n\n");
+                        printf("(%d)\n\n",elenco[i].finalizacoesC[j]+elenco[i].total_finalizacoesE[j]);
                     }
                 }
             }
@@ -2175,6 +2176,7 @@ int goleiro_Gols(int num_uniforme)
         {
             printf("\tEstatisticas de gols do goleiro %s\n\n", goleiros[i].nome);
             printf("Gols na temporada: %d\n\n", goleiros[i].total_golsF);
+            printf("Media de gols por partida: %.2f\n\n",goleiros[i].media_golsF);
             printf("Gols por partida:\n\n");
             for(j=0;j<100;j++)
             {
