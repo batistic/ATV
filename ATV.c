@@ -106,7 +106,7 @@ int inserir_dados(); //insere os dados de uma partida
 int editar_dados(); //edita os dados de uma partida que já ocorreu
 float media_jogador(int total, int num_jogador); //calcula a media de um jogador
 float media_jogadorN(int num_jogador); //calcula a media de notas de um jogador
-float pontuacao(); //calcula a pontuação do jogador na partida
+float pontuacao(int num_uniforme, int n); //calcula a pontuação do jogador na partida
 int rankingI(int indicador); //exibe o ranking dos jogadores por um indicador //acredito que não será utilizada
 int rankingF(float indicador); //exibe o ranking dos jogadores por um indicador //acredito que não será utilizada
 int melhor_escalacao();//exibe a melhor escalação baseado nas melhores notas por posição //todo
@@ -967,6 +967,8 @@ int inserir_dados()
                 goleiros[j].total_penaltisP+=goleiros[j].penaltisP[n];
                 goleiros[j].media_penaltisP=media_jogador(goleiros[j].total_penaltisP,goleiros[j].uniforme);
 
+                goleiros[j].notas[n]=pontuacao(goleiros[j].uniforme, n);
+
                 break;
             }
         }
@@ -1082,6 +1084,8 @@ int inserir_dados()
                 scanf("%d",&elenco[j].penaltisP[n]);
                 elenco[j].total_penaltisP+=elenco[j].penaltisP[n];
                 elenco[j].media_penaltisP=media_jogador(elenco[j].total_penaltisP,elenco[j].uniforme);
+
+                elenco[j].notas[n]=pontuacao(elenco[j].uniforme, n);
 
                 break;
             }
@@ -1316,6 +1320,8 @@ int editar_dados()
                 goleiros[j].total_penaltisP+=goleiros[j].penaltisP[n];
                 goleiros[j].media_penaltisP=media_jogador(goleiros[j].total_penaltisP,goleiros[j].uniforme);
 
+                goleiros[j].notas[n]=pontuacao(goleiros[j].uniforme, n);
+
                 break;
             }
         }
@@ -1431,6 +1437,8 @@ int editar_dados()
                 scanf("%d",&elenco[j].penaltisP[n]);
                 elenco[j].total_penaltisP+=elenco[j].penaltisP[n];
                 elenco[j].media_penaltisP=media_jogador(elenco[j].total_penaltisP,elenco[j].uniforme);
+
+                elenco[j].notas[n]=pontuacao(elenco[j].uniforme, n);
 
                 break;
             }
@@ -2324,9 +2332,9 @@ int jogador_PeA(int num_uniforme)
                     if(goleiros[i].jogou[j]==1)
                     {
                         printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
-                        for(k=0;k<goleiros[i].passesE[j]+goleiros[i].passesE[j];k++)
+                        for(k=0;k<goleiros[i].passesC[j]+goleiros[i].passesE[j];k++)
                             printf("* ");
-                        printf("(%d)\n\n",goleiros[i].passesE[j]+goleiros[i].passesE[j]);
+                        printf("(%d)\n\n",goleiros[i].passesC[j]+goleiros[i].passesE[j]);
                     }
                 }
             }
@@ -2395,9 +2403,9 @@ int jogador_PeA(int num_uniforme)
                     if(elenco[i].jogou[j]==1)
                     {
                         printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
-                        for(k=0;k<elenco[i].passesE[j]+elenco[i].passesE[j];k++)
+                        for(k=0;k<elenco[i].passesC[j]+elenco[i].passesE[j];k++)
                             printf("* ");
-                        printf("(%d)\n\n",elenco[i].passesE[j]+elenco[i].passesE[j]);
+                        printf("(%d)\n\n",elenco[i].passesC[j]+elenco[i].passesE[j]);
                     }
                 }
             }
@@ -2536,7 +2544,7 @@ int jogador_DeG(int num_uniforme)
                     }
                 }
             }
-            printf("\nAproveitamento de defesas (defesas pelo total de chutes recebidos): %.2f\n\n\n",100*((float)goleiros[i].total_defesas/((float)goleiros[i].total_defesas+(float)goleiros[i].total_golsS)));
+            printf("\nAproveitamento de defesas (defesas pelo total de chutes recebidos): %.2f%%\n\n\n",100*((float)goleiros[i].total_defesas/((float)goleiros[i].total_defesas+(float)goleiros[i].total_golsS)));
         }
     }
     system("PAUSE");
