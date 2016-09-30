@@ -1,3 +1,4 @@
+
 /*
  *                  A.T.V. - ASSISTENTE TECNICO VIRTUAL
  *
@@ -110,16 +111,16 @@ int rankingI(int indicador); //exibe o ranking dos jogadores por um indicador //
 int rankingF(float indicador); //exibe o ranking dos jogadores por um indicador //acredito que não será utilizada
 int melhor_escalacao();//exibe a melhor escalação baseado nas melhores notas por posição //todo
 int grupo_notas(); //exibe as estatísticas de nota do grupo //todo
-int grupo_GeF(); //exibe as estatísticas de gol e finalização do grupo //todo
+int grupo_GeF(); //exibe as estatísticas de gol e finalização do grupo //da pra melhorar
 int grupo_PeA();//exibe as estatísticas de passes e assistências do grupo //todo
 int grupo_DeP();//exibe as estatísticas de desarme e de perdas de posse de bola do grupo //todo
 int grupo_Def();//exibe as estatísticas de defesa do grupo //todo
 int grupo_FeP();//exibe as estatísticas de faltas e pênaltis do grupo //todo
 int grupo_Imp();//exibe as estatísticas de impedimentos do grupo //todo
 int jogador_dados(int num_uniforme);//mostra os dados gerais do jogador
-int jogador_GeF(int num_uniforme);//exibe as estatísticas de gol e finalização do jogador //todo
-int goleiro_Gols(int num_uniforme);//exibe as estatísticas de gols sofridos e convertidos do goleiro //todo
-int jogador_PeA(int num_uniforme);//exibe as estatísticas de passes e assistências do jogador //todo
+int jogador_GeF(int num_uniforme);//exibe as estatísticas de gol e finalização do jogador
+int goleiro_Gols(int num_uniforme);//exibe as estatísticas de gols sofridos e convertidos do goleiro
+int jogador_PeA(int num_uniforme);//exibe as estatísticas de passes e assistências do jogador
 int jogador_DeP(int num_uniforme);//exibe as estatísticas de desarmes e de perdas de posse de bola do jogador //todo
 int jogador_DeG(int num_uniforme);//exibe as estatísticas de defesa do jogador //todo
 int jogador_FeP(int num_uniforme);//exibe as estatísticas de faltas e pênaltis do jogador //todo
@@ -367,7 +368,7 @@ int cadastrar()
             ch=getchar(); // lendo caractere por caractere
             if(ch!=' ') // quando o usuario digita espaço ou enter
             {
-                if(ch>64 && ch<91)
+                if((ch>64 && ch<91) || (ch>96 && ch<123))
                 {
                     if(ch=='Z' || ch=='z')
                     {
