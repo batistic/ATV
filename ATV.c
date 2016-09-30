@@ -2823,7 +2823,7 @@ int jogador_Imp(int num_uniforme)
     {
         if(num_uniforme==elenco[i].uniforme)
         {
-            printf("\tEstatisticas de impedimentos do goleiro %s\n\n", elenco[i].nome);
+            printf("\tEstatisticas de impedimentos do %s\n\n", elenco[i].nome);
             printf("Impedimentos na temporada: %d\n", elenco[i].total_imped);
             printf("Media de impedimentos por partida: %.2f\n",elenco[i].media_imped);
             printf("Impedimentos por partida:\n\n");
@@ -2885,7 +2885,7 @@ int jogador_notas(int num_uniforme)
                     if(goleiros[i].jogou[j]==1)
                     {
                         printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
-                        for(k=0;k<goleiros[i].notas[j];k++)
+                        for(k=0;k<(int)goleiros[i].notas[j];k++)
                             printf("* ");
                         printf("(%.2f)\n\n\n",goleiros[i].notas[j]);
                     }
@@ -2898,7 +2898,7 @@ int jogador_notas(int num_uniforme)
     {
         if(num_uniforme==elenco[i].uniforme)
         {
-            printf("\tEstatisticas de notas do goleiro %s\n\n", elenco[i].nome);
+            printf("\tEstatisticas de notas do %s\n\n", elenco[i].nome);
             //printf("Impedimentos na temporada: %d\n", elenco[i].total_n);
             for(j=0;j<100;j++)
             {
@@ -2924,7 +2924,7 @@ int jogador_notas(int num_uniforme)
                     if(elenco[i].jogou[j]==1)
                     {
                         printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
-                        for(k=0;k<elenco[i].notas[j];k++)
+                        for(k=0;k<(int)elenco[i].notas[j];k++)
                             printf("* ");
                         printf("(%.2f)\n\n\n",elenco[i].notas[j]);
                     }
