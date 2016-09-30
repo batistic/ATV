@@ -1765,14 +1765,14 @@ float pontuacao(int num_uniforme, int n)
         // caso o jogador seja um goleiro
         if(num_uniforme==goleiros[i].uniforme)
         {
-            p=(5*(goleiros[i].passesC[n]/(goleiros[i].passesC[n]+goleiros[i].passesE[n])));
-            p+=(0.5*goleiros[i].defesas[n]);
+            p=(5*((float)goleiros[i].passesC[n]/((float)goleiros[i].passesC[n]+(float)goleiros[i].passesE[n])));
+            p+=(0.5*(float)goleiros[i].defesas[n]);
             if(goleiros[i].defesas[n]%5==0)
-                p+=(0.5*(goleiros[i].defesas[n]/5)); // ganha um bonus de meio ponto a cada 5 defesas feitas
-            p+=(goleiros[i].golsF[n])-(goleiros[i].golsC[n])-(goleiros[i].golsS[n])-(0.5*goleiros[i].perdas[n]);
-            p+=(0.3*goleiros[i].faltasS[n])-(0.1*goleiros[i].faltasC[n])-(0.1*goleiros[i].imped[n]);
-            p+=(0.5*goleiros[i].assistG[n])+(0.1*goleiros[i].assistF[n])-(0.7*goleiros[i].penaltisC[n]);
-            p+=(0.5*goleiros[i].penaltisS[n])+(goleiros[i].penaltisD[n])-(0.5*goleiros[i].penaltisP[n]);
+                p+=(0.5*((float)goleiros[i].defesas[n]/5)); // ganha um bonus de meio ponto a cada 5 defesas feitas
+            p+=((float)goleiros[i].golsF[n])-((float)goleiros[i].golsC[n])-((float)goleiros[i].golsS[n])-(0.5*(float)goleiros[i].perdas[n]);
+            p+=(0.3*(float)goleiros[i].faltasS[n])-(0.1*(float)goleiros[i].faltasC[n])-(0.1*(float)goleiros[i].imped[n]);
+            p+=(0.5*(float)goleiros[i].assistG[n])+(0.1*(float)goleiros[i].assistF[n])-(0.7*(float)goleiros[i].penaltisC[n]);
+            p+=(0.5*(float)goleiros[i].penaltisS[n])+((float)goleiros[i].penaltisD[n])-(0.5*(float)goleiros[i].penaltisP[n]);
         }
     }
     for(i=0;i<40;i++)
@@ -1782,56 +1782,55 @@ float pontuacao(int num_uniforme, int n)
             // caso o jogador tenha jogado como ZD, ZC, ZC, LDD ou LED
             if(elenco[i].pos[n]>=1 && elenco[i].pos[n]<=5)
             {
-                p=(5.25*(elenco[i].passesC[n]/(elenco[i].passesC[n]+elenco[i].passesE[n])));
-                p+=(1.25*(elenco[i].finalizacoesC[n]/(elenco[i].finalizacoesC[n]+elenco[i].finalizacoesE[n])));
-                p+=elenco[i].gols[n]-elenco[i].golsC[n]+(0.4*elenco[i].desarmes[n])-(0.3*elenco[i].perdas[n]);
-                p+=(0.1*elenco[i].faltasS[n])-(0.2*elenco[i].faltasC[n])-(0.1*elenco[i].imped[n]);
-                p+=(0.5*elenco[i].assistG[n])+(0.1*elenco[i].assistF[n]);
-                p+=(0.5*elenco[i].penaltisS[n])-(0.5*elenco[i].penaltisC[n])-(0.5*elenco[i].penaltisP[n]);
+                p=(5.25*((float)elenco[i].passesC[n]/((float)elenco[i].passesC[n]+(float)elenco[i].passesE[n])));
+                p+=(1.25*((float)elenco[i].finalizacoesC[n]/((float)elenco[i].finalizacoesC[n]+(float)elenco[i].finalizacoesE[n])));
+                p+=(float)elenco[i].gols[n]-(float)elenco[i].golsC[n]+(0.4*(float)elenco[i].desarmes[n])-(0.3*(float)elenco[i].perdas[n]);
+                p+=(0.1*(float)elenco[i].faltasS[n])-(0.2*(float)elenco[i].faltasC[n])-(0.1*(float)elenco[i].imped[n]);
+                p+=(0.5*(float)elenco[i].assistG[n])+(0.1*(float)elenco[i].assistF[n]);
+                p+=(0.5*(float)elenco[i].penaltisS[n])-(0.5*(float)elenco[i].penaltisC[n])-(0.5*(float)elenco[i].penaltisP[n]);
             }
             // caso o jogador tenha jogado como LDO, LEO ou PV
             if(elenco[i].pos[n]>=6 && elenco[i].pos[n]<=8)
             {
-                p=(4.75*(elenco[i].passesC[n]/(elenco[i].passesC[n]+elenco[i].passesE[n])));
-                p+=(1.75*(elenco[i].finalizacoesC[n]/(elenco[i].finalizacoesC[n]+elenco[i].finalizacoesE[n])));
-                p+=elenco[i].gols[n]-elenco[i].golsC[n]+(0.2*elenco[i].desarmes[n])-(0.3*elenco[i].perdas[n]);
-                p+=(0.1*elenco[i].faltasS[n])-(0.1*elenco[i].faltasC[n])-(0.1*elenco[i].imped[n]);
-                p+=(0.55*elenco[i].assistG[n])+(0.15*elenco[i].assistF[n]);
-                p+=(0.5*elenco[i].penaltisS[n])-(0.5*elenco[i].penaltisC[n])-(0.5*elenco[i].penaltisP[n]);
+                p=(4.75*((float)elenco[i].passesC[n]/((float)elenco[i].passesC[n]+(float)elenco[i].passesE[n])));
+                p+=(1.75*((float)elenco[i].finalizacoesC[n]/((float)elenco[i].finalizacoesC[n]+(float)elenco[i].finalizacoesE[n])));
+                p+=(float)elenco[i].gols[n]-(float)elenco[i].golsC[n]+(0.2*(float)elenco[i].desarmes[n])-(0.3*(float)elenco[i].perdas[n]);
+                p+=(0.1*(float)elenco[i].faltasS[n])-(0.1*(float)elenco[i].faltasC[n])-(0.1*(float)elenco[i].imped[n]);
+                p+=(0.55*(float)elenco[i].assistG[n])+(0.15*(float)elenco[i].assistF[n]);
+                p+=(0.5*(float)elenco[i].penaltisS[n])-(0.5*(float)elenco[i].penaltisC[n])-(0.5*(float)elenco[i].penaltisP[n]);
             }
             // caso o jogador tenha jogado como SV ou ARM
             if(elenco[i].pos[n]==9 || elenco[i].pos[n]==10)
             {
-                p=(4.25*(elenco[i].passesC[n]/(elenco[i].passesC[n]+elenco[i].passesE[n])));
-                p+=(2.25*(elenco[i].finalizacoesC[n]/(elenco[i].finalizacoesC[n]+elenco[i].finalizacoesE[n])));
-                p+=elenco[i].gols[n]-elenco[i].golsC[n]+(0.1*elenco[i].desarmes[n])-(0.3*elenco[i].perdas[n]);
-                p+=(0.1*elenco[i].faltasS[n])-(0.1*elenco[i].faltasC[n])-(0.1*elenco[i].imped[n]);
-                p+=(0.6*elenco[i].assistG[n])+(0.2*elenco[i].assistF[n]);
-                p+=(0.5*elenco[i].penaltisS[n])-(0.5*elenco[i].penaltisC[n])-(0.5*elenco[i].penaltisP[n]);
+                p=(4.25*((float)elenco[i].passesC[n]/((float)elenco[i].passesC[n]+(float)elenco[i].passesE[n])));
+                p+=(2.25*((float)elenco[i].finalizacoesC[n]/((float)elenco[i].finalizacoesC[n]+(float)elenco[i].finalizacoesE[n])));
+                p+=(float)elenco[i].gols[n]-(float)elenco[i].golsC[n]+(0.1*(float)elenco[i].desarmes[n])-(0.3*(float)elenco[i].perdas[n]);
+                p+=(0.1*(float)elenco[i].faltasS[n])-(0.1*(float)elenco[i].faltasC[n])-(0.1*(float)elenco[i].imped[n]);
+                p+=(0.6*(float)elenco[i].assistG[n])+(0.2*(float)elenco[i].assistF[n]);
+                p+=(0.5*(float)elenco[i].penaltisS[n])-(0.5*(float)elenco[i].penaltisC[n])-(0.5*(float)elenco[i].penaltisP[n]);
             }
             // caso o jogador tenha jogado como MD, ME, MA, PD, PE ou SA
             if(elenco[i].pos[n]>=11 && elenco[i].pos[n]<=16)
             {
-                p=(2*(elenco[i].passesC[n]/(elenco[i].passesC[n]+elenco[i].passesE[n])));
-                p+=(4.25*(elenco[i].finalizacoesC[n]/(elenco[i].finalizacoesC[n]+elenco[i].finalizacoesE[n])));
-                p+=elenco[i].gols[n]-elenco[i].golsC[n]+(0.1*elenco[i].desarmes[n])-(0.2*elenco[i].perdas[n]);
-                p+=(0.2*elenco[i].faltasS[n])-(0.1*elenco[i].faltasC[n])-(0.5*elenco[i].imped[n]);
-                p+=(0.65*elenco[i].assistG[n])+(0.25*elenco[i].assistF[n]);
-                p+=(0.5*elenco[i].penaltisS[n])-(0.6*elenco[i].penaltisC[n])-(0.5*elenco[i].penaltisP[n]);
+                p=(2*((float)elenco[i].passesC[n]/((float)elenco[i].passesC[n]+(float)elenco[i].passesE[n])));
+                p+=(4.25*((float)elenco[i].finalizacoesC[n]/((float)elenco[i].finalizacoesC[n]+(float)elenco[i].finalizacoesE[n])));
+                p+=(float)elenco[i].gols[n]-(float)elenco[i].golsC[n]+(0.1*(float)elenco[i].desarmes[n])-(0.2*(float)elenco[i].perdas[n]);
+                p+=(0.2*(float)elenco[i].faltasS[n])-(0.1*(float)elenco[i].faltasC[n])-(0.5*(float)elenco[i].imped[n]);
+                p+=(0.65*(float)elenco[i].assistG[n])+(0.25*(float)elenco[i].assistF[n]);
+                p+=(0.5*(float)elenco[i].penaltisS[n])-(0.6*(float)elenco[i].penaltisC[n])-(0.5*(float)elenco[i].penaltisP[n]);
             }
             // caso o jogador tenha jogado como CA
             if(elenco[i].pos[n]==17)
             {
-                p=(1*(elenco[i].passesC[n]/(elenco[i].passesC[n]+elenco[i].passesE[n])));
-                p+=(5.5*(elenco[i].finalizacoesC[n]/(elenco[i].finalizacoesC[n]+elenco[i].finalizacoesE[n])));
-                p+=elenco[i].gols[n]-elenco[i].golsC[n]+(0.1*elenco[i].desarmes[n])-(0.1*elenco[i].perdas[n]);
-                p+=(0.3*elenco[i].faltasS[n])-(0.1*elenco[i].faltasC[n])-(0.1*elenco[i].imped[n]);
-                p+=(0.5*elenco[i].assistG[n])+(0.1*elenco[i].assistF[n]);
-                p+=(0.5*elenco[i].penaltisS[n])-(0.7*elenco[i].penaltisC[n])-(0.5*elenco[i].penaltisP[n]);
+                p=(1*((float)elenco[i].passesC[n]/((float)elenco[i].passesC[n]+(float)elenco[i].passesE[n])));
+                p+=(5.5*((float)elenco[i].finalizacoesC[n]/((float)elenco[i].finalizacoesC[n]+(float)elenco[i].finalizacoesE[n])));
+                p+=(float)elenco[i].gols[n]-(float)elenco[i].golsC[n]+(0.1*(float)elenco[i].desarmes[n])-(0.1*(float)elenco[i].perdas[n]);
+                p+=(0.3*(float)elenco[i].faltasS[n])-(0.1*(float)elenco[i].faltasC[n])-(0.1*(float)elenco[i].imped[n]);
+                p+=(0.5*(float)elenco[i].assistG[n])+(0.1*(float)elenco[i].assistF[n]);
+                p+=(0.5*(float)elenco[i].penaltisS[n])-(0.7*(float)elenco[i].penaltisC[n])-(0.5*(float)elenco[i].penaltisP[n]);
             }
         }
     }
-
     return p;
 }
 
