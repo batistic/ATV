@@ -124,7 +124,6 @@ int jogador_PeA(int num_uniforme);//exibe as estatísticas de passes e assistên
 int jogador_DeP(int num_uniforme);//exibe as estatísticas de desarmes e de perdas de posse de bola do jogador //todo
 int jogador_DeG(int num_uniforme);//exibe as estatísticas de defesa do jogador //todo
 int jogador_FeP(int num_uniforme);//exibe as estatísticas de faltas e pênaltis do jogador //todo
-int goleiro_FeP(int num_uniforme);//exibe as estatísticas de faltas e pênaltis do goleiro //todo
 int jogador_Imp(int num_uniforme);//exibe as estatísticas de impedimentos do jogador //todo
 int jogador_notas(int num_uniforme);//exibe as estatísticas de notas do jogador //todo
 
@@ -673,7 +672,7 @@ int editar()
                         elenco[n].posicao[j]=17;
                     j++;
                 }
-                if(ch>64 && ch<91)
+                if((ch>64 && ch<91) || (ch>96 && ch<123))
                 {
                     p[i]=ch; // caso seja uma letra maiucula, armazena o caractere na string p
                     i++;
@@ -1495,7 +1494,7 @@ int estatisticas_jogador()
                     break;
 
                 case 5:
-                    goleiro_FeP(num_uniforme); // chama a função que mostra as estatisticas de faltas e penaltis do goleiro
+                    jogador_FeP(num_uniforme); // chama a função que mostra as estatisticas de faltas e penaltis do goleiro
                     break;
 
                 case 6:
@@ -2277,12 +2276,14 @@ int goleiro_Gols(int num_uniforme)
                         printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
                         for(k=0;k<goleiros[i].golsF[j];k++)
                             printf("* ");
-                        printf("(%d)\n\n",goleiros[i].golsF);
+                        printf("(%d)\n\n\n",goleiros[i].golsF[j]);
                     }
                 }
             }
-}
+        }
     }
+    system("PAUSE");
+    return 0;
 }
 
 /* Funcao que exibe as estatisticas de passes e assistencias de um jogador */
@@ -2292,9 +2293,11 @@ int jogador_PeA(int num_uniforme)
     system("cls");
 
     int i,j,k;
-    for(i=0;i<10;i++){
-        if(num_uniforme==goleiros[i].uniforme){
-            printf("\tEstatisticas de passes e assistencia do jogador %s \n\n", goleiros[i].nome);
+    for(i=0;i<10;i++)
+    {
+        if(num_uniforme==goleiros[i].uniforme)
+        {
+            printf("\tEstatisticas de passes e assistencias do %s\n\n", goleiros[i].nome);
             printf("Passes certos na temporada: %d\n", goleiros[i].total_passesC);
             printf("Media de passes certos por partida: %.2f\n", goleiros[i].media_passesC);
             printf("Passes certos por partida:\n\n");
@@ -2365,7 +2368,7 @@ int jogador_PeA(int num_uniforme)
     }
     for(i=0;i<40;i++){
         if(num_uniforme==elenco[i].uniforme){
-            printf("\tEstatisticas de passes e assistencia do jogador %s \n\n", elenco[i].nome);
+            printf("\tEstatisticas de passes e assistencia do %s\n\n", elenco[i].nome);
             printf("\nPasses certos na temporada: %d\n", elenco[i].total_passesC);
             printf("Media de passes certos por partida: %.2f\n", elenco[i].media_passesC);
             printf("Passes certos por partida:\n\n");
@@ -2443,41 +2446,485 @@ int jogador_PeA(int num_uniforme)
 
 int jogador_DeP(int num_uniforme)
 {
+    system("cls");
 
+    int i,j,k;
+    for(i=0;i<40;i++)
+    {
+        if(num_uniforme==elenco[i].uniforme)
+        {
+            printf("\tEstatisticas de desarmes e perdas de posse do %s\n\n", elenco[i].nome);
+            printf("Desarmes na temporada: %d\n", elenco[i].total_desarmes);
+            printf("Media de desarmes por partida: %.2f\n",elenco[i].media_desarmes);
+            printf("Desarmes por partida:\n\n");
+            for(j=0;j<100;j++)
+            {
+                if(jogo[j].controle==1)
+                {
+                    if(elenco[i].jogou[j]==1)
+                    {
+                        printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                        for(k=0;k<elenco[i].desarmes[j];k++)
+                            printf("* ");
+                        printf("(%d)\n\n",elenco[i].desarmes[j]);
+                    }
+                }
+            }
+            printf("\nPerdas de posse na temporada: %d\n", elenco[i].total_perdas);
+            printf("Media de perdas de posse por partida: %.2f\n",elenco[i].media_perdas);
+            printf("Perdas de posse por partida:\n\n");
+            for(j=0;j<100;j++)
+            {
+                if(jogo[j].controle==1)
+                {
+                    if(elenco[i].jogou[j]==1)
+                    {
+                        printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                        for(k=0;k<elenco[i].perdas[j];k++)
+                            printf("* ");
+                        printf("(%d)\n\n\n",elenco[i].perdas[j]);
+                    }
+                }
+            }
+        }
+    }
+    system("PAUSE");
+    return 0;
 }
 
-/* Funcao que exibe as estatisticas de defesas e de gols de um goleiro */
+/* Funcao que exibe as estatisticas de defesas e de gols sofridos de um goleiro */
 
 int jogador_DeG(int num_uniforme)
 {
+    system("cls");
 
+    int i,j,k;
+    for(i=0;i<10;i++)
+    {
+        if(num_uniforme==goleiros[i].uniforme)
+        {
+            printf("\tEstatisticas de defesas e gols sofridos do goleiro %s\n\n", goleiros[i].nome);
+            printf("Defesas na temporada: %d\n", goleiros[i].total_defesas);
+            printf("Media de defesas por partida: %.2f\n",goleiros[i].media_defesas);
+            printf("Defesas por partida:\n\n");
+            for(j=0;j<100;j++)
+            {
+                if(jogo[j].controle==1)
+                {
+                    if(goleiros[i].jogou[j]==1)
+                    {
+                        printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                        for(k=0;k<goleiros[i].defesas[j];k++)
+                            printf("* ");
+                        printf("(%d)\n\n",goleiros[i].defesas[j]);
+                    }
+                }
+            }
+            printf("\nGols sofridos na temporada: %d\n", goleiros[i].total_golsS);
+            printf("Media de gols sofridos por partida: %.2f\n",goleiros[i].media_golsS);
+            printf("Gols sofridos por partida:\n\n");
+            for(j=0;j<100;j++)
+            {
+                if(jogo[j].controle==1)
+                {
+                    if(goleiros[i].jogou[j]==1)
+                    {
+                        printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                        for(k=0;k<goleiros[i].golsS[j];k++)
+                            printf("* ");
+                        printf("(%d)\n\n",goleiros[i].golsS[j]);
+                    }
+                }
+            }
+            printf("\nAproveitamento de defesas (defesas pelo total de chutes recebidos): %.2f\n\n\n",100*((float)goleiros[i].total_defesas/((float)goleiros[i].total_defesas+(float)goleiros[i].total_golsS)));
+        }
+    }
+    system("PAUSE");
+    return 0;
 }
 
 /* Funcao que exibe as estatisticas de faltas e penaltis de um jogador */
 
 int jogador_FeP(int num_uniforme)
 {
+    system("cls");
 
-}
+    int i,j,k;
+    for(i=0;i<10;i++)
+    {
+        if(num_uniforme==goleiros[i].uniforme)
+        {
+            printf("\tEstatisticas de faltas e penaltis do %s\n\n", goleiros[i].nome);
+            printf("Faltas cometidas na temporada: %d\n", goleiros[i].total_faltasC);
+            printf("Media de faltas cometidas por partida: %.2f\n", goleiros[i].media_faltasC);
+            printf("Faltas cometidas por partida:\n\n");
+            for(j=0;j<100;j++)
+            {
+                if(jogo[j].controle==1)
+                {
+                    if(goleiros[i].jogou[j]==1)
+                    {
+                        printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                        for(k=0;k<goleiros[i].faltasC[j];k++)
+                            printf("* ");
+                        printf("(%d)\n\n",goleiros[i].faltasC[j]);
+                    }
+                }
+            }
+            printf("\nFaltas sofridas na temporada: %d\n", goleiros[i].total_faltasS);
+            printf("Media de faltas sofridas por partida: %.2f\n",goleiros[i].media_faltasS);
+            printf("Faltas sofridas por partida:\n\n");
+            for(j=0;j<100;j++)
+            {
+                if(jogo[j].controle==1)
+                {
+                    if(goleiros[i].jogou[j]==1)
+                    {
+                        printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                        for(k=0;k<goleiros[i].faltasS[j];k++)
+                            printf("* ");
+                        printf("(%d)\n\n",goleiros[i].faltasS[j]);
+                    }
+                }
+            }
+            printf("\nPenaltis cometidos na temporada: %d\n", goleiros[i].total_penaltisC);
+            if(goleiros[i].total_penaltisC>0)
+            {
+                printf("Media de penaltis cometidos por partida: %.2f\n", goleiros[i].media_penaltisC);
+                printf("Penaltis cometidos por partida:\n\n");
+                for(j=0;j<100;j++)
+                {
+                    if(jogo[j].controle==1)
+                    {
+                        if(goleiros[i].jogou[j]==1)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                            for(k=0;k<goleiros[i].penaltisC[j];k++)
+                                printf("* ");
+                            printf("(%d)\n\n",goleiros[i].penaltisC[j]);
+                        }
+                    }
+                }
+            }
+            if(goleiros[i].total_penaltisC==0)
+                printf("\n");
+            printf("\nPenaltis sofridos na temporada: %d\n", goleiros[i].total_penaltisS);
+            if(goleiros[i].total_penaltisS>0)
+            {
+                printf("Media de penaltis sofridos por partida: %.2f\n", goleiros[i].media_penaltisS);
+                printf("Penaltis sofridos por partida:\n\n");
+                for(j=0;j<100;j++)
+                {
+                    if(jogo[j].controle==1)
+                    {
+                        if(goleiros[i].jogou[j]==1)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                            for(k=0;k<goleiros[i].penaltisS[j];k++)
+                                printf("* ");
+                            printf("(%d)\n\n",goleiros[i].penaltisS[j]);
+                        }
+                    }
+                }
+            }
+            if(goleiros[i].total_penaltisS==0)
+                printf("\n");
+            printf("\nPenaltis defendidos na temporada: %d\n", goleiros[i].total_penaltisD);
+            if(goleiros[i].total_penaltisD>0)
+            {
+                printf("Media de penaltis defendidos por partida: %.2f\n", goleiros[i].media_penaltisD);
+                printf("Penaltis defendidos por partida:\n\n");
+                for(j=0;j<100;j++)
+                {
+                    if(jogo[j].controle==1)
+                    {
+                        if(goleiros[i].jogou[j]==1)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                            for(k=0;k<goleiros[i].penaltisD[j];k++)
+                                printf("* ");
+                            printf("(%d)\n\n",goleiros[i].penaltisD[j]);
+                        }
+                    }
+                }
+            }
+            if(goleiros[i].total_penaltisD==0)
+                printf("\n");
+            printf("\nPenaltis perdidos na temporada: %d\n", goleiros[i].total_penaltisP);
+            if(goleiros[i].total_penaltisP>0)
+            {
+                printf("Media de penaltis perdidos por partida: %.2f\n", goleiros[i].media_penaltisP);
+                printf("Penaltis perdidos por partida:\n\n");
+                for(j=0;j<100;j++)
+                {
+                    if(jogo[j].controle==1)
+                    {
+                        if(goleiros[i].jogou[j]==1)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                            for(k=0;k<goleiros[i].penaltisP[j];k++)
+                                printf("* ");
+                            printf("(%d)\n\n\n",goleiros[i].penaltisP[j]);
+                        }
+                    }
+                }
+            }
+            if(goleiros[i].total_penaltisP==0)
+                printf("\n\n");
+        }
+    }
+    for(i=0;i<40;i++)
+    {
+        if(num_uniforme==elenco[i].uniforme)
+        {
+            printf("\tEstatisticas de faltas e penaltis do %s\n\n", elenco[i].nome);
+            printf("Faltas cometidas na temporada: %d\n", elenco[i].total_faltasC);
+            printf("Media de faltas cometidas por partida: %.2f\n", elenco[i].media_faltasC);
+            printf("Faltas cometidas por partida:\n\n");
+            for(j=0;j<100;j++)
+            {
+                if(jogo[j].controle==1)
+                {
+                    if(elenco[i].jogou[j]==1)
+                    {
+                        printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                        for(k=0;k<elenco[i].faltasC[j];k++)
+                            printf("* ");
+                        printf("(%d)\n\n",elenco[i].faltasC[j]);
+                    }
+                }
+            }
+            printf("\nFaltas sofridas na temporada: %d\n", elenco[i].total_faltasS);
+            printf("Media de faltas sofridas por partida: %.2f\n",elenco[i].media_faltasS);
+            printf("Faltas sofridas por partida:\n\n");
+            for(j=0;j<100;j++)
+            {
+                if(jogo[j].controle==1)
+                {
+                    if(elenco[i].jogou[j]==1)
+                    {
+                        printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                        for(k=0;k<elenco[i].faltasS[j];k++)
+                            printf("* ");
+                        printf("(%d)\n\n",elenco[i].faltasS[j]);
+                    }
+                }
+            }
+            printf("\nPenaltis cometidos na temporada: %d\n", elenco[i].total_penaltisC);
+            if(elenco[i].total_penaltisC>0)
+            {
+                printf("Media de penaltis cometidos por partida: %.2f\n", elenco[i].media_penaltisC);
+                printf("Penaltis cometidos por partida:\n\n");
+                for(j=0;j<100;j++)
+                {
+                    if(jogo[j].controle==1)
+                    {
+                        if(elenco[i].jogou[j]==1)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                            for(k=0;k<elenco[i].penaltisC[j];k++)
+                                printf("* ");
+                            printf("(%d)\n\n",elenco[i].penaltisC[j]);
+                        }
+                    }
+                }
+            }
+            if(elenco[i].total_penaltisC==0)
+                printf("\n");
+            printf("\nPenaltis sofridos na temporada: %d\n", elenco[i].total_penaltisS);
+            if(elenco[i].total_penaltisS>0)
+            {
+                printf("Media de penaltis sofridos por partida: %.2f\n", elenco[i].media_penaltisS);
+                printf("Penaltis sofridos por partida:\n\n");
+                for(j=0;j<100;j++)
+                {
+                    if(jogo[j].controle==1)
+                    {
+                        if(elenco[i].jogou[j]==1)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                            for(k=0;k<elenco[i].penaltisS[j];k++)
+                                printf("* ");
+                            printf("(%d)\n\n",elenco[i].penaltisS[j]);
+                        }
+                    }
+                }
+            }
+            if(elenco[i].total_penaltisS==0)
+                printf("\n");
+            printf("\nPenaltis perdidos na temporada: %d\n", elenco[i].total_penaltisP);
+            if(elenco[i].total_penaltisP>0)
+            {
+                printf("Media de penaltis perdidos por partida: %.2f\n", elenco[i].media_penaltisP);
+                printf("Penaltis perdidos por partida:\n\n");
+                for(j=0;j<100;j++)
+                {
+                    if(jogo[j].controle==1)
+                    {
+                        if(elenco[i].jogou[j]==1)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                            for(k=0;k<elenco[i].penaltisP[j];k++)
+                                printf("* ");
+                            printf("(%d)\n\n\n",elenco[i].penaltisP[j]);
+                        }
+                    }
+                }
+            }
+            if(elenco[i].total_penaltisP==0)
+                printf("\n\n");
+        }
+    }
 
-/* Funcao que exibe as estatisticas de faltas e penaltis de um goleiro */
-
-int goleiro_FeP(int num_uniforme)
-{
-
+    system("PAUSE");
+    return 0;
 }
 
 /* Funcao que exibe as estatisticas de impedimentos de um jogador */
 
 int jogador_Imp(int num_uniforme)
 {
+    system("cls");
 
+    int i,j,k;
+    for(i=0;i<10;i++)
+    {
+        if(num_uniforme==goleiros[i].uniforme)
+        {
+            printf("\tEstatisticas de impedimentos do goleiro %s\n\n", goleiros[i].nome);
+            printf("Impedimentos na temporada: %d\n", goleiros[i].total_imped);
+            printf("Media de impedimentos por partida: %.2f\n",goleiros[i].media_imped);
+            printf("Impedimentos por partida:\n\n");
+            for(j=0;j<100;j++)
+            {
+                if(jogo[j].controle==1)
+                {
+                    if(goleiros[i].jogou[j]==1)
+                    {
+                        printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                        for(k=0;k<goleiros[i].imped[j];k++)
+                            printf("* ");
+                        printf("(%d)\n\n\n",goleiros[i].imped[j]);
+                    }
+                }
+            }
+        }
+    }
+
+    for(i=0;i<40;i++)
+    {
+        if(num_uniforme==elenco[i].uniforme)
+        {
+            printf("\tEstatisticas de impedimentos do goleiro %s\n\n", elenco[i].nome);
+            printf("Impedimentos na temporada: %d\n", elenco[i].total_imped);
+            printf("Media de impedimentos por partida: %.2f\n",elenco[i].media_imped);
+            printf("Impedimentos por partida:\n\n");
+            for(j=0;j<100;j++)
+            {
+                if(jogo[j].controle==1)
+                {
+                    if(elenco[i].jogou[j]==1)
+                    {
+                        printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                        for(k=0;k<elenco[i].imped[j];k++)
+                            printf("* ");
+                        printf("(%d)\n\n\n",elenco[i].imped[j]);
+                    }
+                }
+            }
+        }
+    }
+
+    system("PAUSE");
+    return 0;
 }
 
 /* Funcao que exibe as estatisticas de notas de um jogador */
 
 int jogador_notas(int num_uniforme)
 {
+    system("cls");
 
+    int i,j,k,jogoMaiorNota;
+    float maiorNota=0;
+    for(i=0;i<10;i++)
+    {
+        if(num_uniforme==goleiros[i].uniforme)
+        {
+            printf("\tEstatisticas de notas do goleiro %s\n\n", goleiros[i].nome);
+            //printf("Impedimentos na temporada: %d\n", goleiros[i].total_n);
+            for(j=0;j<100;j++)
+            {
+                if(jogo[j].controle==1)
+                {
+                    if(goleiros[i].jogou[j]==1)
+                    {
+                        if(goleiros[i].notas[j]>maiorNota)
+                        {
+                            maiorNota=goleiros[i].notas[j];
+                            jogoMaiorNota=j;
+                        }
+                    }
+                }
+            }
+            printf("Maior nota na temporada: %.2f (%d/%d. %d x %d %s)\n",maiorNota,jogo[jogoMaiorNota].dia,jogo[jogoMaiorNota].mes,jogo[jogoMaiorNota].gols_pro,jogo[jogoMaiorNota].gols_contra,jogo[jogoMaiorNota].sigla_adv);
+            printf("Media de nota por partida: %.2f\n",goleiros[i].media_notas);
+            printf("Nota por partida:\n\n");
+            for(j=0;j<100;j++)
+            {
+                if(jogo[j].controle==1)
+                {
+                    if(goleiros[i].jogou[j]==1)
+                    {
+                        printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                        for(k=0;k<goleiros[i].notas[j];k++)
+                            printf("* ");
+                        printf("(%.2f)\n\n\n",goleiros[i].notas[j]);
+                    }
+                }
+            }
+        }
+    }
+
+    for(i=0;i<40;i++)
+    {
+        if(num_uniforme==elenco[i].uniforme)
+        {
+            printf("\tEstatisticas de notas do goleiro %s\n\n", elenco[i].nome);
+            //printf("Impedimentos na temporada: %d\n", elenco[i].total_n);
+            for(j=0;j<100;j++)
+            {
+                if(jogo[j].controle==1)
+                {
+                    if(elenco[i].jogou[j]==1)
+                    {
+                        if(elenco[i].notas[j]>maiorNota)
+                        {
+                            maiorNota=elenco[i].notas[j];
+                            jogoMaiorNota=j;
+                        }
+                    }
+                }
+            }
+            printf("Maior nota na temporada: %.2f (%d/%d. %d x %d %s)\n",maiorNota,jogo[jogoMaiorNota].dia,jogo[jogoMaiorNota].mes,jogo[jogoMaiorNota].gols_pro,jogo[jogoMaiorNota].gols_contra,jogo[jogoMaiorNota].sigla_adv);
+            printf("Media de nota por partida: %.2f\n",elenco[i].media_notas);
+            printf("Nota por partida:\n\n");
+            for(j=0;j<100;j++)
+            {
+                if(jogo[j].controle==1)
+                {
+                    if(elenco[i].jogou[j]==1)
+                    {
+                        printf("%d/%d. %d x %d %s: ",jogo[j].dia,jogo[j].mes,jogo[j].gols_pro,jogo[j].gols_contra,jogo[j].sigla_adv);
+                        for(k=0;k<elenco[i].notas[j];k++)
+                            printf("* ");
+                        printf("(%.2f)\n\n\n",elenco[i].notas[j]);
+                    }
+                }
+            }
+        }
+    }
+
+    system("PAUSE");
+    return 0;
 }
-//
