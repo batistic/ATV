@@ -106,8 +106,8 @@ int editar_dados(); //edita os dados de uma partida que já ocorreu
 float media_jogador(int total, int num_jogador); //calcula a media de um jogador
 float media_jogadorN(int num_jogador); //calcula a media de notas de um jogador
 float pontuacao(int num_uniforme, int n); //calcula a pontuação do jogador na partida
-int rankingI(int indicador); //exibe o ranking dos jogadores por um indicador //acredito que não será utilizada
-int rankingF(float indicador); //exibe o ranking dos jogadores por um indicador //acredito que não será utilizada
+//int rankingI(int indicador); //exibe o ranking dos jogadores por um indicador //acredito que não será utilizada
+//int rankingF(float indicador); //exibe o ranking dos jogadores por um indicador //acredito que não será utilizada
 int melhor_escalacao();//exibe a melhor escalação baseado nas melhores notas por posição //todo
 int grupo_notas(); //exibe as estatísticas de nota do grupo //todo
 int grupo_GeF(); //exibe as estatísticas de gol e finalização do grupo //da pra melhorar
@@ -120,11 +120,11 @@ int jogador_dados(int num_uniforme);//mostra os dados gerais do jogador
 int jogador_GeF(int num_uniforme);//exibe as estatísticas de gol e finalização do jogador
 int goleiro_Gols(int num_uniforme);//exibe as estatísticas de gols sofridos e convertidos do goleiro
 int jogador_PeA(int num_uniforme);//exibe as estatísticas de passes e assistências do jogador
-int jogador_DeP(int num_uniforme);//exibe as estatísticas de desarmes e de perdas de posse de bola do jogador //todo
-int jogador_DeG(int num_uniforme);//exibe as estatísticas de defesa do jogador //todo
-int jogador_FeP(int num_uniforme);//exibe as estatísticas de faltas e pênaltis do jogador //todo
-int jogador_Imp(int num_uniforme);//exibe as estatísticas de impedimentos do jogador //todo
-int jogador_notas(int num_uniforme);//exibe as estatísticas de notas do jogador //todo
+int jogador_DeP(int num_uniforme);//exibe as estatísticas de desarmes e de perdas de posse de bola do jogador
+int jogador_DeG(int num_uniforme);//exibe as estatísticas de defesa do jogador
+int jogador_FeP(int num_uniforme);//exibe as estatísticas de faltas e pênaltis do jogador
+int jogador_Imp(int num_uniforme);//exibe as estatísticas de impedimentos do jogador
+int jogador_notas(int num_uniforme);//exibe as estatísticas de notas do jogador
 
 /* Funcao principal */
 
@@ -1885,7 +1885,15 @@ int rankingF(float indicador)
 
 int melhor_escalacao()
 {
+    system("cls");
 
+    float maiorMedia=0;
+    int id,formacao;
+
+    // testando todas as formaçoes (5-4-1) (5-3-2) (5-2-3) (4-5-1) (4-(1-2-1)-2) (4-(3-1)-2) (4-(2-2)-2) (4-(2-1)-3) (4-(1-2)-3) (3-5-2) (3-4-3)
+
+    system("pause");
+    return 0;
 }
 
 /* Funcao que exibe as estatisticas de notas do grupo */
