@@ -1888,9 +1888,56 @@ int melhor_escalacao()
     system("cls");
 
     float maiorMedia=0;
-    int id,formacao;
+    int i,time[10],formacao[3];
 
-    // testando todas as formaçoes (5-4-1) (5-3-2) (5-2-3) (4-5-1) (4-(1-2-1)-2) (4-(3-1)-2) (4-(2-2)-2) (4-(2-1)-3) (4-(1-2)-3) (3-5-2) (3-4-3)
+    // calculando o melhor goleiro
+    int melhor_goleiro;
+    float goleiro_nota=0;
+    for(i=0;i<10;i++)
+    {
+        if(goleiros[i].controle==1)
+        {
+            if(goleiros[i].media_notas>goleiro_nota)
+            {
+                melhor_goleiro=goleiros[i].uniforme;
+                goleiro_nota=goleiros[i].media_notas;
+            }
+        }
+    }
+
+    // testando as formaçoes: (3-5-2) (4-3-3) (4-4-2)
+
+    int j;
+    int zd,ze,zc,ld,le,pv,sv,arm,me,md,ma,pd,pe,sa,ca;
+
+    // (3-5-2)
+    for(i=0;i<40;i++)
+    {
+        for(j=0;j<18;j++)
+        {
+            if(elenco[i].posicao[j]==1)
+            {
+                zd=elenco[i].uniforme;
+                break;
+            }
+            if(elenco[i].posicao[j]==2)
+            {
+                ze=elenco[i].uniforme;
+                break;
+            }
+            if(elenco[i].posicao[j]==3)
+            {
+                zc=elenco[i].uniforme;
+                break;
+            }
+        }
+    }
+
+    // (4-3-3)
+    //
+
+    // (4-4-2)
+    //
 
     system("pause");
     return 0;
