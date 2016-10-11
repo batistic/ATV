@@ -981,6 +981,7 @@ int inserir_dados(partida **inicio)
                 goleiros[j].media_penaltisP=media_jogador(goleiros[j].total_penaltisP,goleiros[j].uniforme);
 
                 goleiros[j].notas[n]=pontuacao(goleiros[j].uniforme, n);
+                goleiros[i].media_notas=media_jogadorN(goleiros[i].uniforme);
 
                 break;
             }
@@ -1103,6 +1104,7 @@ int inserir_dados(partida **inicio)
                 elenco[j].media_penaltisP=media_jogador(elenco[j].total_penaltisP,elenco[j].uniforme);
 
                 elenco[j].notas[n]=pontuacao(elenco[j].uniforme, n);
+                elenco[i].media_notas=media_jogadorN(elenco[i].uniforme);
 
                 break;
             }
@@ -1351,6 +1353,7 @@ int editar_dados(partida **inicio)
                 goleiros[j].media_penaltisP=media_jogador(goleiros[j].total_penaltisP,goleiros[j].uniforme);
 
                 goleiros[j].notas[n]=pontuacao(goleiros[j].uniforme, n);
+                goleiros[i].media_notas=media_jogadorN(goleiros[i].uniforme);
 
                 break;
             }
@@ -1473,6 +1476,7 @@ int editar_dados(partida **inicio)
                 elenco[j].media_penaltisP=media_jogador(elenco[j].total_penaltisP,elenco[j].uniforme);
 
                 elenco[j].notas[n]=pontuacao(elenco[j].uniforme, n);
+                elenco[i].media_notas=media_jogadorN(elenco[i].uniforme);
 
                 break;
             }
@@ -1753,7 +1757,7 @@ float media_jogador(int total, int num_uniforme)
 float media_jogadorN(int num_uniforme)
 {
     int i,j; // variaveis auxiliares
-    float media,soma; // variavel para armazenar a media requerida
+    float media,soma=0; // variavel para armazenar a media requerida
     for(i=0;i<10;i++)
     {
         if(num_uniforme==goleiros[i].uniforme) // verificando se o uniforme do requerido pertence a um goleiro, e qual
@@ -1985,7 +1989,78 @@ int melhor_escalacao()
 
 int grupo_notas()
 {
+  system("cls");
+  printf("\tEstatisticas de notas do grupo\n\n");
 
+  /*                             N O T A S                                          */
+  /*obtendo a quantidade de jogadores que já jogaram */
+  int i = 0, j = 0;
+  for (i =0; i <40; i++){
+    if(elenco[i].controle == 1){
+      j = j+1;
+    }
+  }
+  for(i = 0; i <10; i++){
+    if(goleiros[i].controle == 1){
+      j = j+1;
+    }
+  }
+  /*criando um vetor (novoNotas[]) apenas com as notas, este vetor é genérico e serve apenas para manipulação (terá seus valores
+  alterados ao longo do código)*/
+  int l = 0, m = -1, novoUniforme[j];
+  float  novoNotas[j];
+  for(l = 0; l < 40; l++){
+    if(elenco[l].controle == 1){
+      m++;
+      novoNotas[m] = elenco[l].media_notas;
+      novoUniforme[m] = elenco[l].uniforme;
+    }
+  }
+  for(l = 0; l < 10; l++){
+    if(goleiros[l].controle == 1){
+      m++;
+      novoNotas[m] = goleiros[l].media_notas;
+      novoUniforme[m] = goleiros[l].uniforme;
+    }
+  }
+  /*os valores obtidos em novoGols[] será agora ordenado de forma decrescente no vetor rankGols[]*/
+  int k = 0, guardaindice, rankUniforme[j];
+  float rankNotas[j], maisNotas = 0.0;
+  printf("Media de notas por jogador na temporada:\n\n");
+
+  while(k < j){
+    /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
+  for(l = 0; l <= m; l ++){
+    if(novoNotas[l] >= maisNotas){
+      maisNotas = novoNotas[l];
+      guardaindice = l;
+    }
+  }
+  /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
+  rankNotas[k] = maisNotas;
+  maisNotas=0;
+  novoNotas[guardaindice] = -1;
+  rankUniforme[k] = novoUniforme[guardaindice];
+  k++;
+  }
+  int x = 0;
+  for(x = 0; x < k; x++){
+    for(l = 0; l < 40; l++){
+      if(rankUniforme[x] == elenco[l].uniforme){
+        printf("%s: %.3f\n",elenco[l].nome, elenco[l].media_notas);
+        break;
+      }
+      if(l < 10){
+        if(rankUniforme[x] == goleiros[l].uniforme){
+          printf("%s: %.3f\n", goleiros[l].nome, goleiros[l].media_notas);
+          break;
+        }
+      }
+    }
+  }
+  printf("\n");
+  system("pause");
+  return 0;
 }
 
 /* Funcao que exibe as estatisticas de gols e finalizacoes do grupo */
@@ -3379,7 +3454,7 @@ int jogador_notas(int num_uniforme, partida *inicio)
             }
             Encontrar_LS (inicio, jogoMaiorNota, &diaD, &mesD, &golsP, &golsC, sgl, adv);
             printf("Maior nota na temporada: %.2f (%d/%d. %d x %d %c%c%c)\n",maiorNota,diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-            //printf("Media de nota por partida: %.2f\n",elenco[i].media_notas);
+            printf("Media de nota por partida: %.2f\n",elenco[i].media_notas);
             printf("Nota por partida:\n\n");
             for(j=0;j<100;j++)
             {
