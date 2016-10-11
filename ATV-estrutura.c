@@ -2250,76 +2250,20 @@ int grupo_PeA()
 
 int grupo_DeP()
 {
-
-      /*                        P E R D A S   DE   P O S S E                                   */
-      /*obtendo a quantidade de jogadores que já jogaram */
-
-      int i = 0, j = 0, f = 0;
-      for (i =0; i <40; i++){
-
-      if(elenco[i].controle == 1){
-        j = j +1;
-        f = f+1;
-        }
-      }
-      for(i = 0; i <10; i++){
-        if(goleiros[i].controle == 1){
-          j = j+1;
-        }
-      }
-      /*criando um vetor (novoGols[]) apenas com os gols, este vetor é genérico e serve apenas para manipulação (terá seus valores
-      alterados ao longo do código)*/
-      int novoPerdas[j], l = 0, m = -1, novoUniforme[j];
-      for(l = 0; l < 40; l++){
-        if(elenco[l].controle == 1){
-          m++;
-          novoPerdas[m] = elenco[l].total_perdas;
-          novoUniforme[m] = elenco[l].uniforme;
-        }
-      }
-      /*os valores obtidos em novoGols[] será agora ordenado de forma decrescente no vetor rankGols[]*/
-      int k = 0, maisPerdas = 0, guardaindice, rankPerdas[j], rankUniforme[j];
-      printf("Perdas de posse por jogador na temporada:\n\n");
-
-      while(k < j){
-        /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
-      for(l = 0; l <= m; l ++){
-        if(novoPerdas[l] >= maisPerdas){
-          maisPerdas = novoPerdas[l];
-          guardaindice = l;
-        }
-      }
-      /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
-      rankPerdas[k] = maisPerdas;
-      maisPerdas=0;
-      novoPerdas[guardaindice] = -1;
-      rankUniforme[k] = novoUniforme[guardaindice];
-      k++;
-      }
-      int x = 0;
-      for(x = 0; x < k; x++){
-        for(l = 0; l < 40; l++){
-          if(rankUniforme[x] == elenco[l].uniforme){
-            printf("%s: %d\n",elenco[l].nome, rankPerdas[x]);
-            break;
-          }
-          }
-        }
-  /*                             D E S A R M E S                                          */
-  /*obtendo a quantidade de jogadores que já jogaram */
   system("cls");
-  i = 0; j = 0; f = 0;
+
+      /*                        D E S A R M E S                                  */
+      /*obtendo a quantidade de jogadores que já jogaram */
+  int i = 0, j = 0;
   for (i =0; i <40; i++){
 
   if(elenco[i].controle == 1){
     j = j +1;
-    f = f+1;
     }
   }
-  /*criando um vetor (novoGols[]) apenas com os gols, este vetor é genérico e serve apenas para manipulação (terá seus valores
+  /*criando um vetor (novoDesarmes[]) apenas com os desarmes, este vetor é genérico e serve apenas para manipulação (terá seus valores
   alterados ao longo do código)*/
-  int novoDesarmes[j], rankDesarmes[j];
-   l = 0; m = -1;
+  int novoDesarmes[j], l = 0, m = -1, novoUniforme[j];
   for(l = 0; l < 40; l++){
     if(elenco[l].controle == 1){
       m++;
@@ -2328,19 +2272,11 @@ int grupo_DeP()
     }
   }
   /*os valores obtidos em novoDesarmes[] será agora ordenado de forma decrescente no vetor rankDesarmes[]*/
-  int maisDesarmes;
-  //int k = 0, maisDesarmes = 0, guardaindice, rankDesarmes[j], rankUniforme[j];
-  k = 0;
-  for(k = 0; k < j; k++){
-    rankDesarmes[k] = 0;
-    rankUniforme[k] = 0;
-  }
-
-
-  printf("Desarmes e perdas de passe por jogador na temporada:\n\n");
+  int k = 0, maisDesarmes = 0, guardaindice, rankDesarmes[j], rankUniforme[j];
+  printf("Desarmes e perdas de posse por jogador na temporada:\n\n");
 
   while(k < j){
-    /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoDesarmes[]*/
+    /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
   for(l = 0; l <= m; l ++){
     if(novoDesarmes[l] >= maisDesarmes){
       maisDesarmes = novoDesarmes[l];
@@ -2354,17 +2290,18 @@ int grupo_DeP()
   rankUniforme[k] = novoUniforme[guardaindice];
   k++;
   }
-  //int x = 0;
+  int x = 0;
   for(x = 0; x < k; x++){
     for(l = 0; l < 40; l++){
       if(rankUniforme[x] == elenco[l].uniforme){
-        printf("%s:   Desarmes: %d    Perdas de posse: %d\n",elenco[l].nome, rankDesarmes[x], elenco[l].total_perdas);
+        printf("%s: Desarmes: %d     Perdas de posse: %d\n",elenco[l].nome, elenco[l].total_desarmes, elenco[l].total_perdas);
         break;
       }
-      }
     }
-system("pause");
-return 0;
+  }
+  printf("\n");
+  system("pause");
+  return 0;
 }
 
 /* Funcao que exibe as estatisticas de defesas do grupo */
