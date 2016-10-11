@@ -894,7 +894,7 @@ int inserir_dados(partida **inicio)
     Inserir_LS(inicio, jogo_adversario, jogo_sigla_adv, jogo_dia, jogo_mes, jogo_gols_pro, jogo_gols_contra, jogo_substituicoes, &n);
     //for(i=0;i<11+jogo_substituicoes;i++) // loop que percorre todos os jogadores que jogaram a partida
     //apagar depois
-    for(i=0;i<1;i++)//apagar depois
+    for(i=0;i<2;i++)//apagar depois
     //apagar depois
     {
         int encontrado=0;
@@ -1570,7 +1570,7 @@ int estatisticas_jogador(partida **inicio)
             printf("1. Dados gerais.\n");
             printf("2. Gols e finalizacoes.\n");
             printf("3. Passes e assistencias.\n");
-            printf("4. Desarmes.\n");
+            printf("4. Desarmes e perda de posse.\n");
             printf("5. Faltas e penaltis.\n");
             printf("6. Impedimentos.\n");
             printf("7. Notas.\n");
@@ -2097,7 +2097,7 @@ int grupo_GeF()
   for(x = 0; x < k; x++){
     for(l = 0; l < 40; l++){
       if(rankUniforme[x] == elenco[l].uniforme){
-        printf("%s: Acertos: %d     Total: %d     Aproveitamento: %.2f%%\n",elenco[l].nome,rankFinalizacoes[x], elenco[l].total_finalizacoesC + elenco[l].total_finalizacoesE,100*((float)elenco[l].total_finalizacoesC)/((float)elenco[l].total_finalizacoesC + (float)elenco[l].total_finalizacoesE));
+        printf("%s: Total: %d     Acertos: %d     Aproveitamento: %.2f%%\n",elenco[l].nome, elenco[l].total_finalizacoesC + elenco[l].total_finalizacoesE,100*((float)elenco[l].total_finalizacoesC)/((float)elenco[l].total_finalizacoesC + (float)elenco[l].total_finalizacoesE)),rankFinalizacoes[x];
         break;
       }
       }
@@ -2112,6 +2112,123 @@ int grupo_GeF()
 
 int grupo_PeA()
 {
+  system("cls");
+  printf("\tEstatisticas de gols e finalizacoes do grupo\n\n");
+
+  /*                             P A S S E S                                          */
+  /*obtendo a quantidade de jogadores que já jogaram */
+  int i = 0, j = 0, f = 0;
+  for (i =0; i <40; i++){
+
+  if(elenco[i].controle == 1){
+    j = j +1;
+    f = f+1;
+    }
+  }
+  for(i = 0; i <10; i++){
+    if(goleiros[i].controle == 1){
+      j = j+1;
+    }
+  }
+  /*criando um vetor (novoPasses[]) apenas com os gols, este vetor é genérico e serve apenas para manipulação (terá seus valores
+  alterados ao longo do código)*/
+  int novoPasses[j], l = 0, m = -1, novoUniforme[j];
+  for(l = 0; l < 40; l++){
+    if(elenco[l].controle == 1){
+      m++;
+      novoPasses[m] = elenco[l].total_passesC;
+      novoUniforme[m] = elenco[l].uniforme;
+    }
+  }
+  for(l = 0; l < 10; l++){
+    if(goleiros[l].controle == 1){
+      m++;
+      novoPasses[m] = goleiros[l].total_passesC;
+      novoUniforme[m] = goleiros[l].uniforme;
+    }
+  }
+  /*os valores obtidos em novoPasses[] será agora ordenado de forma decrescente no vetor rankPasses[]*/
+  int k = 0, maisPasses = 0, guardaindice, rankPasses[j], rankUniforme[j];
+  printf("Passes certos por jogador na temporada:\n\n");
+
+  while(k < j){
+    /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoPasses[]*/
+  for(l = 0; l <= m; l ++){
+    if(novoPasses[l] >= maisPasses){
+      maisPasses = novoPasses[l];
+      guardaindice = l;
+    }
+  }
+  /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
+  rankPasses[k] = maisPasses;
+  maisPasses=0;
+  novoPasses[guardaindice] = -1;
+  rankUniforme[k] = novoUniforme[guardaindice];
+  k++;
+  }
+  int x = 0;
+  for(x = 0; x < k; x++){
+    for(l = 0; l < 40; l++){
+      if(rankUniforme[x] == elenco[l].uniforme){
+        printf("%s: %d\n",elenco[l].nome, rankPasses[x]);
+        break;
+      }
+      if(l < 10){
+        if(rankUniforme[x] == goleiros[l].uniforme){
+          printf("%s: %d\n", goleiros[l].nome, rankPasses[x]);
+          break;
+        }
+      }
+    }
+  }
+
+
+  /*                   A S S I S T Ê N C I A S                                  */
+
+  /*Quantidade de jogadores que já jogaram = 'j'
+  Criando um vetor (novoAssistencias[]) apenas com as finalizações corretas, este vetor é genérico e serve apenas para
+  manipulação (terá seus valores alterados ao longo do código) */
+  int novoAssistencias[f];
+  l = 0;
+  m = -1;
+  for(l = 0; l < 40; l++){
+    if(elenco[l].controle == 1){
+      m++;
+      novoAssistencias[m] = elenco[l].total_assistG;
+      novoUniforme[m] = elenco[l].uniforme;
+    }
+  }
+  /*os valores obtidos em novoAssistencias[] será agora ordenado de forma decrescente no vetor rankAssistencias[]*/
+  int  maisAssistencias = 0, rankAssistencias[f];
+  k = 0;
+  printf("\n\nAssistencias por jogador na temporada:\n\n");
+
+  while(k < f){
+    /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoAssistencias[]*/
+  for(l = 0; l <= m; l ++){
+    if(novoAssistencias[l] >= maisAssistencias){
+      maisAssistencias = novoAssistencias[l];
+      guardaindice = l;
+    }
+  }
+  /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
+  rankAssistencias[k] = maisAssistencias;
+  maisAssistencias=0;
+  novoAssistencias[guardaindice] = -1;
+  rankUniforme[k] = novoUniforme[guardaindice];
+  k++;
+  }
+  for(x = 0; x < k; x++){
+    for(l = 0; l < 40; l++){
+      if(rankUniforme[x] == elenco[l].uniforme){
+        printf("%s: Total: %d     Assist. Gol: %d     Assist. Finalizacao: %d\n",elenco[l].nome,elenco[l].total_assistG + elenco[l].total_assistF, elenco[l].total_assistG, elenco[l].total_assistF);
+        break;
+      }
+      }
+    }
+  printf("\n\n");
+  system("pause");
+  return 0;
 
 
 }
@@ -2121,12 +2238,194 @@ int grupo_PeA()
 int grupo_DeP()
 {
 
+      /*                        P E R D A S   DE   P O S S E                                   */
+      /*obtendo a quantidade de jogadores que já jogaram */
+
+      int i = 0, j = 0, f = 0;
+      for (i =0; i <40; i++){
+
+      if(elenco[i].controle == 1){
+        j = j +1;
+        f = f+1;
+        }
+      }
+      for(i = 0; i <10; i++){
+        if(goleiros[i].controle == 1){
+          j = j+1;
+        }
+      }
+      /*criando um vetor (novoGols[]) apenas com os gols, este vetor é genérico e serve apenas para manipulação (terá seus valores
+      alterados ao longo do código)*/
+      int novoPerdas[j], l = 0, m = -1, novoUniforme[j];
+      for(l = 0; l < 40; l++){
+        if(elenco[l].controle == 1){
+          m++;
+          novoPerdas[m] = elenco[l].total_perdas;
+          novoUniforme[m] = elenco[l].uniforme;
+        }
+      }
+      /*os valores obtidos em novoGols[] será agora ordenado de forma decrescente no vetor rankGols[]*/
+      int k = 0, maisPerdas = 0, guardaindice, rankPerdas[j], rankUniforme[j];
+      printf("Perdas de posse por jogador na temporada:\n\n");
+
+      while(k < j){
+        /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
+      for(l = 0; l <= m; l ++){
+        if(novoPerdas[l] >= maisPerdas){
+          maisPerdas = novoPerdas[l];
+          guardaindice = l;
+        }
+      }
+      /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
+      rankPerdas[k] = maisPerdas;
+      maisPerdas=0;
+      novoPerdas[guardaindice] = -1;
+      rankUniforme[k] = novoUniforme[guardaindice];
+      k++;
+      }
+      int x = 0;
+      for(x = 0; x < k; x++){
+        for(l = 0; l < 40; l++){
+          if(rankUniforme[x] == elenco[l].uniforme){
+            printf("%s: %d\n",elenco[l].nome, rankPerdas[x]);
+            break;
+          }
+          }
+        }
+  /*                             D E S A R M E S                                          */
+  /*obtendo a quantidade de jogadores que já jogaram */
+  system("cls");
+  i = 0; j = 0; f = 0;
+  for (i =0; i <40; i++){
+
+  if(elenco[i].controle == 1){
+    j = j +1;
+    f = f+1;
+    }
+  }
+  /*criando um vetor (novoGols[]) apenas com os gols, este vetor é genérico e serve apenas para manipulação (terá seus valores
+  alterados ao longo do código)*/
+  int novoDesarmes[j], rankDesarmes[j];
+   l = 0; m = -1;
+  for(l = 0; l < 40; l++){
+    if(elenco[l].controle == 1){
+      m++;
+      novoDesarmes[m] = elenco[l].total_desarmes;
+      novoUniforme[m] = elenco[l].uniforme;
+    }
+  }
+  /*os valores obtidos em novoDesarmes[] será agora ordenado de forma decrescente no vetor rankDesarmes[]*/
+  int maisDesarmes;
+  //int k = 0, maisDesarmes = 0, guardaindice, rankDesarmes[j], rankUniforme[j];
+  k = 0;
+  for(k = 0; k < j; k++){
+    rankDesarmes[k] = 0;
+    rankUniforme[k] = 0;
+  }
+
+
+  printf("Desarmes e perdas de passe por jogador na temporada:\n\n");
+
+  while(k < j){
+    /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoDesarmes[]*/
+  for(l = 0; l <= m; l ++){
+    if(novoDesarmes[l] >= maisDesarmes){
+      maisDesarmes = novoDesarmes[l];
+      guardaindice = l;
+    }
+  }
+  /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
+  rankDesarmes[k] = maisDesarmes;
+  maisDesarmes=0;
+  novoDesarmes[guardaindice] = -1;
+  rankUniforme[k] = novoUniforme[guardaindice];
+  k++;
+  }
+  //int x = 0;
+  for(x = 0; x < k; x++){
+    for(l = 0; l < 40; l++){
+      if(rankUniforme[x] == elenco[l].uniforme){
+        printf("%s:   Desarmes: %d    Perdas de posse: %d\n",elenco[l].nome, rankDesarmes[x], elenco[l].total_perdas);
+        break;
+      }
+      }
+    }
+system("pause");
+return 0;
 }
 
 /* Funcao que exibe as estatisticas de defesas do grupo */
 
 int grupo_Def()
 {
+
+  /*                             G O L S                                          */
+  /*obtendo a quantidade de jogadores que já jogaram */
+  int i = 0, j = 0, f = 0;
+  for (i =0; i <40; i++){
+
+  if(elenco[i].controle == 1){
+    j = j +1;
+    f = f+1;
+    }
+  }
+  for(i = 0; i <10; i++){
+    if(goleiros[i].controle == 1){
+      j = j+1;
+    }
+  }
+  /*criando um vetor (novoGols[]) apenas com os gols, este vetor é genérico e serve apenas para manipulação (terá seus valores
+  alterados ao longo do código)*/
+  int novoGols[j], l = 0, m = -1, novoUniforme[j];
+  for(l = 0; l < 40; l++){
+    if(elenco[l].controle == 1){
+      m++;
+      novoGols[m] = elenco[l].total_gols;
+      novoUniforme[m] = elenco[l].uniforme;
+    }
+  }
+  for(l = 0; l < 10; l++){
+    if(goleiros[l].controle == 1){
+      m++;
+      novoGols[m] = goleiros[l].total_golsF;
+      novoUniforme[m] = goleiros[l].uniforme;
+    }
+  }
+  /*os valores obtidos em novoGols[] será agora ordenado de forma decrescente no vetor rankGols[]*/
+  int k = 0, maisGols = 0, guardaindice, rankGols[j], rankUniforme[j];
+  printf("Gols por jogador na temporada:\n\n");
+
+  while(k < j){
+    /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
+  for(l = 0; l <= m; l ++){
+    if(novoGols[l] >= maisGols){
+      maisGols = novoGols[l];
+      guardaindice = l;
+    }
+  }
+  /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
+  rankGols[k] = maisGols;
+  maisGols=0;
+  novoGols[guardaindice] = -1;
+  rankUniforme[k] = novoUniforme[guardaindice];
+  k++;
+  }
+  int x = 0;
+  for(x = 0; x < k; x++){
+    for(l = 0; l < 40; l++){
+      if(rankUniforme[x] == elenco[l].uniforme){
+        printf("%s: %d\n",elenco[l].nome, rankGols[x]);
+        break;
+      }
+      if(l < 10){
+        if(rankUniforme[x] == goleiros[l].uniforme){
+          printf("%s: %d\n", goleiros[l].nome, rankGols[x]);
+          break;
+        }
+      }
+    }
+  }
+
 
 }
 
