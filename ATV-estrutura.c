@@ -2325,7 +2325,7 @@ int jogador_GeF(int num_uniforme, partida *inicio)
                 if(elenco[i].jogou[j]==1)
                 {
                     Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                     for(k=0;k<elenco[i].gols[j];k++)
                         printf("* ");
                     printf("(%d)\n\n",elenco[i].gols[j]);
@@ -2340,7 +2340,7 @@ int jogador_GeF(int num_uniforme, partida *inicio)
                 if(elenco[i].jogou[j]==1)
                 {
                     Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                     for(k=0;k<elenco[i].finalizacoesC[j];k++)
                         printf("* ");
                     printf("(%d)\n\n",elenco[i].finalizacoesC[j]);
@@ -2355,7 +2355,7 @@ int jogador_GeF(int num_uniforme, partida *inicio)
                 if(elenco[i].jogou[j]==1)
                 {
                     Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                     for(k=0;k<(elenco[i].finalizacoesC[j]+elenco[i].finalizacoesE[j]);k++)
                         printf("* ");
                     printf("(%d)\n\n",elenco[i].finalizacoesC[j]+elenco[i].finalizacoesE[j]);
@@ -2395,7 +2395,7 @@ int goleiro_Gols(int num_uniforme, partida *inicio)
                 if(goleiros[i].jogou[j]==1)
                 {
                     Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                     for(k=0;k<goleiros[i].golsF[j];k++)
                         printf("* ");
                     printf("(%d)\n\n\n",goleiros[i].golsF[j]);
@@ -2429,7 +2429,7 @@ int jogador_PeA(int num_uniforme, partida *inicio)
                 if(goleiros[i].jogou[j]==1)
                 {
                     Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                     for(k=0;k<goleiros[i].passesC[j];k++)
                         printf("* ");
                     printf("(%d)\n\n",goleiros[i].passesC[j]);
@@ -2443,7 +2443,7 @@ int jogador_PeA(int num_uniforme, partida *inicio)
                 if(goleiros[i].jogou[j]==1)
                 {
                     Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                     for(k=0;k<goleiros[i].passesC[j]+goleiros[i].passesE[j];k++)
                         printf("* ");
                     printf("(%d)\n\n",goleiros[i].passesC[j]+goleiros[i].passesE[j]);
@@ -2457,7 +2457,7 @@ int jogador_PeA(int num_uniforme, partida *inicio)
                 if(goleiros[i].jogou[j]==1)
                 {
                     Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                     for(k=0;k<goleiros[i].assistG[j];k++)
                         printf("* ");
                     printf("(%d)\n\n",goleiros[i].assistG[j]);
@@ -2471,7 +2471,7 @@ int jogador_PeA(int num_uniforme, partida *inicio)
                 if(goleiros[i].jogou[j]==1)
                 {
                     Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                     for(k=0;k<goleiros[i].assistF[j];k++)
                         printf("* ");
                     printf("(%d)\n\n",goleiros[i].assistF[j]);
@@ -2492,7 +2492,7 @@ int jogador_PeA(int num_uniforme, partida *inicio)
                 if(elenco[i].jogou[j]==1)
                 {
                     Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                     for(k=0;k<elenco[i].passesC[j];k++)
                         printf("* ");
                     printf("(%d)\n\n",elenco[i].passesC[j]);
@@ -2506,7 +2506,7 @@ int jogador_PeA(int num_uniforme, partida *inicio)
                 if(elenco[i].jogou[j]==1)
                 {
                     Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                     for(k=0;k<elenco[i].passesC[j]+elenco[i].passesE[j];k++)
                         printf("* ");
                     printf("(%d)\n\n",elenco[i].passesC[j]+elenco[i].passesE[j]);
@@ -2520,7 +2520,7 @@ int jogador_PeA(int num_uniforme, partida *inicio)
                 if(elenco[i].jogou[j]==1)
                 {
                     Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                     for(k=0;k<elenco[i].assistG[j];k++)
                         printf("* ");
                     printf("(%d)\n\n",elenco[i].assistG[j]);
@@ -2534,7 +2534,7 @@ int jogador_PeA(int num_uniforme, partida *inicio)
                 if(elenco[i].jogou[j]==1)
                 {
                     Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                     for(k=0;k<elenco[i].assistF[j];k++)
                         printf("* ");
                     printf("(%d)\n\n",elenco[i].assistF[j]);
@@ -2571,7 +2571,7 @@ int jogador_DeP(int num_uniforme, partida *inicio)
                 if(elenco[i].jogou[j]==1)
                 {
                     Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                     for(k=0;k<elenco[i].desarmes[j];k++)
                         printf("* ");
                     printf("(%d)\n\n",elenco[i].desarmes[j]);
@@ -2585,7 +2585,7 @@ int jogador_DeP(int num_uniforme, partida *inicio)
                 if(elenco[i].jogou[j]==1)
                 {
                     Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                     for(k=0;k<elenco[i].perdas[j];k++)
                         printf("* ");
                     printf("(%d)\n\n\n",elenco[i].perdas[j]);
@@ -2619,7 +2619,7 @@ int jogador_DeG(int num_uniforme, partida *inicio)
                 if(goleiros[i].jogou[j]==1)
                 {
                     Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                     for(k=0;k<goleiros[i].defesas[j];k++)
                         printf("* ");
                     printf("(%d)\n\n",goleiros[i].defesas[j]);
@@ -2633,7 +2633,7 @@ int jogador_DeG(int num_uniforme, partida *inicio)
                 if(goleiros[i].jogou[j]==1)
                 {
                     Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                     for(k=0;k<goleiros[i].golsS[j];k++)
                         printf("* ");
                     printf("(%d)\n\n",goleiros[i].golsS[j]);
@@ -2668,7 +2668,7 @@ int jogador_FeP(int num_uniforme, partida *inicio)
                 if(goleiros[i].jogou[j]==1)
                 {
                     Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                     for(k=0;k<goleiros[i].faltasC[j];k++)
                         printf("* ");
                     printf("(%d)\n\n",goleiros[i].faltasC[j]);
@@ -2682,7 +2682,7 @@ int jogador_FeP(int num_uniforme, partida *inicio)
                 if(goleiros[i].jogou[j]==1)
                 {
                     Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                     for(k=0;k<goleiros[i].faltasS[j];k++)
                         printf("* ");
                     printf("(%d)\n\n",goleiros[i].faltasS[j]);
@@ -2698,7 +2698,7 @@ int jogador_FeP(int num_uniforme, partida *inicio)
                     if(goleiros[i].jogou[j]==1)
                     {
                         Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                        printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                        printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                         for(k=0;k<goleiros[i].penaltisC[j];k++)
                             printf("* ");
                         printf("(%d)\n\n",goleiros[i].penaltisC[j]);
@@ -2717,7 +2717,7 @@ int jogador_FeP(int num_uniforme, partida *inicio)
                     if(goleiros[i].jogou[j]==1)
                     {
                         Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                        printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                        printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                         for(k=0;k<goleiros[i].penaltisS[j];k++)
                             printf("* ");
                         printf("(%d)\n\n",goleiros[i].penaltisS[j]);
@@ -2736,7 +2736,7 @@ int jogador_FeP(int num_uniforme, partida *inicio)
                     if(goleiros[i].jogou[j]==1)
                     {
                         Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                        printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                        printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                         for(k=0;k<goleiros[i].penaltisD[j];k++)
                             printf("* ");
                         printf("(%d)\n\n",goleiros[i].penaltisD[j]);
@@ -2755,7 +2755,7 @@ int jogador_FeP(int num_uniforme, partida *inicio)
                     if(goleiros[i].jogou[j]==1)
                     {
                         Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                        printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                        printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                         for(k=0;k<goleiros[i].penaltisP[j];k++)
                             printf("* ");
                         printf("(%d)\n\n\n",goleiros[i].penaltisP[j]);
@@ -2779,7 +2779,7 @@ int jogador_FeP(int num_uniforme, partida *inicio)
                 if(elenco[i].jogou[j]==1)
                 {
                     Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                     for(k=0;k<elenco[i].faltasC[j];k++)
                         printf("* ");
                     printf("(%d)\n\n",elenco[i].faltasC[j]);
@@ -2793,7 +2793,7 @@ int jogador_FeP(int num_uniforme, partida *inicio)
                 if(elenco[i].jogou[j]==1)
                 {
                     Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                     for(k=0;k<elenco[i].faltasS[j];k++)
                         printf("* ");
                     printf("(%d)\n\n",elenco[i].faltasS[j]);
@@ -2809,7 +2809,7 @@ int jogador_FeP(int num_uniforme, partida *inicio)
                     if(elenco[i].jogou[j]==1)
                     {
                         Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                        printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                        printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                         for(k=0;k<elenco[i].penaltisC[j];k++)
                             printf("* ");
                         printf("(%d)\n\n",elenco[i].penaltisC[j]);
@@ -2828,7 +2828,7 @@ int jogador_FeP(int num_uniforme, partida *inicio)
                     if(elenco[i].jogou[j]==1)
                     {
                         Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                        printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                        printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                         for(k=0;k<elenco[i].penaltisS[j];k++)
                             printf("* ");
                         printf("(%d)\n\n",elenco[i].penaltisS[j]);
@@ -2847,7 +2847,7 @@ int jogador_FeP(int num_uniforme, partida *inicio)
                     if(elenco[i].jogou[j]==1)
                     {
                         Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                        printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                        printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                         for(k=0;k<elenco[i].penaltisP[j];k++)
                             printf("* ");
                         printf("(%d)\n\n\n",elenco[i].penaltisP[j]);
@@ -2885,7 +2885,7 @@ int jogador_Imp(int num_uniforme, partida *inicio)
                 if(goleiros[i].jogou[j]==1)
                 {
                     Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                     for(k=0;k<goleiros[i].imped[j];k++)
                         printf("* ");
                     printf("(%d)\n\n\n",goleiros[i].imped[j]);
@@ -2907,7 +2907,7 @@ int jogador_Imp(int num_uniforme, partida *inicio)
                 if(elenco[i].jogou[j]==1)
                 {
                     Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                     for(k=0;k<elenco[i].imped[j];k++)
                         printf("* ");
                     printf("(%d)\n\n\n",elenco[i].imped[j]);
@@ -2955,7 +2955,7 @@ int jogador_notas(int num_uniforme, partida *inicio)
                 if(goleiros[i].jogou[j]==1)
                 {
                     Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                     for(k=0;k<(int)goleiros[i].notas[j];k++)
                         printf("* ");
                     printf("(%.2f)\n\n\n",goleiros[i].notas[j]);
@@ -2988,7 +2988,7 @@ int jogador_notas(int num_uniforme, partida *inicio)
                 if(elenco[i].jogou[j]==1)
                 {
                     Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %s: ",diaD,mesD,golsP,golsC,sgl);
+                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
                     for(k=0;k<(int)elenco[i].notas[j];k++)
                         printf("* ");
                     printf("(%.2f)\n\n\n",elenco[i].notas[j]);
@@ -3094,7 +3094,9 @@ int Encontrar_LS (partida *inicio, int i, int *diaD, int *mesD, int *golsP, int 
     *golsP = percorre->gols_pro;
     *golsC = percorre->gols_contra;
     strcpy(adv, percorre->adversario);
-    strcpy(sgl, percorre->sigla_adv);
+    sgl[0] = percorre->sigla_adv[0];
+    sgl[1] = percorre->sigla_adv[1];
+    sgl[2] = percorre->sigla_adv[2];
 
     return 0;
 }
