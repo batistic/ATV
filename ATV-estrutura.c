@@ -2364,6 +2364,7 @@ int grupo_Def()
 
 int grupo_FeP()
 {
+  system("cls");
   /*                   P Ê N A L T I S                                  */
 
   int i = 0, j = 0, f = 0;
@@ -2381,37 +2382,37 @@ int grupo_FeP()
   }
   /*criando um vetor (novoGols[]) apenas com os gols, este vetor é genérico e serve apenas para manipulação (terá seus valores
   alterados ao longo do código)*/
-  int novoGols[j], l = 0, m = -1, novoUniforme[j];
+  int novoFaltas[j], l = 0, m = -1, novoUniforme[j];
   for(l = 0; l < 40; l++){
     if(elenco[l].controle == 1){
       m++;
-      novoGols[m] = elenco[l].total_gols;
+      novoFaltas[m] = elenco[l].total_faltasC;
       novoUniforme[m] = elenco[l].uniforme;
     }
   }
   for(l = 0; l < 10; l++){
     if(goleiros[l].controle == 1){
       m++;
-      novoGols[m] = goleiros[l].total_golsF;
+      novoFaltas[m] = goleiros[l].total_faltasC;
       novoUniforme[m] = goleiros[l].uniforme;
     }
   }
   /*os valores obtidos em novoGols[] será agora ordenado de forma decrescente no vetor rankGols[]*/
-  int k = 0, maisGols = 0, guardaindice, rankGols[j], rankUniforme[j];
-  printf("Gols por jogador na temporada:\n\n");
+  int k = 0, maisFaltas = 0, guardaindice, rankFaltas[j], rankUniforme[j];
+  printf("Faltas por jogador na temporada:\n\n");
 
   while(k < j){
     /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
   for(l = 0; l <= m; l ++){
-    if(novoGols[l] >= maisGols){
-      maisGols = novoGols[l];
+    if(novoFaltas[l] >= maisFaltas){
+      maisFaltas = novoFaltas[l];
       guardaindice = l;
     }
   }
   /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
-  rankGols[k] = maisGols;
-  maisGols=0;
-  novoGols[guardaindice] = -1;
+  rankFaltas[k] = maisFaltas;
+  maisFaltas=0;
+  novoFaltas[guardaindice] = -1;
   rankUniforme[k] = novoUniforme[guardaindice];
   k++;
   }
@@ -2419,12 +2420,12 @@ int grupo_FeP()
   for(x = 0; x < k; x++){
     for(l = 0; l < 40; l++){
       if(rankUniforme[x] == elenco[l].uniforme){
-        printf("%s: %d\n",elenco[l].nome, rankGols[x]);
+        printf("%s: Faltas cometidas: %d   Faltas sofridas: %d\n",elenco[l].nome, rankFaltas[x], elenco[l].total_faltasS);
         break;
       }
       if(l < 10){
         if(rankUniforme[x] == goleiros[l].uniforme){
-          printf("%s: %d\n", goleiros[l].nome, rankGols[x]);
+          printf("%s: Faltas cometidas: %d   Faltas sofridas: \n", goleiros[l].nome, rankFaltas[x], goleiros[l].total_faltasS);
           break;
         }
       }
@@ -2450,7 +2451,7 @@ int grupo_FeP()
   /*os valores obtidos em novoFinalizacoes[] será agora ordenado de forma decrescente no vetor rankFinalizacoes[]*/
   int  maisPenaltisC = 0, rankPenaltisC[f];
   k = 0;
-  printf("\n\nFinalizacoes por jogador na temporada:\n\n");
+  printf("\n\nPenaltis por jogador na temporada:\n\n");
 
   while(k < f){
     /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
@@ -2470,7 +2471,7 @@ int grupo_FeP()
   for(x = 0; x < k; x++){
     for(l = 0; l < 40; l++){
       if(rankUniforme[x] == elenco[l].uniforme){
-        printf("%s: Penal. cometidos: %d     Penal. perdidos: %d     Penal. sofridos: %d\n",elenco[l].nome, elenco[l].total_penaltisC,elenco[l].total_penaltisP,elenco[i].penaltisS);
+        printf("%s: Penal. cometidos: %d     Penal. perdidos: %d     Penal. sofridos: %d \n",elenco[l].nome, elenco[l].total_penaltisC,elenco[l].total_penaltisP, elenco[l].total_penaltisS);
         break;
       }
       }
