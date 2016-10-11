@@ -2980,7 +2980,8 @@ int jogador_notas(int num_uniforme, partida *inicio)
                     }
                 }
             }
-            printf("Maior nota na temporada: %.2f (%d/%d. %d x %d %s)\n",maiorNota,jogo[jogoMaiorNota].dia,jogo[jogoMaiorNota].mes,jogo[jogoMaiorNota].gols_pro,jogo[jogoMaiorNota].gols_contra,jogo[jogoMaiorNota].sigla_adv);
+            Encontrar_LS (inicio, jogoMaiorNota, &diaD, &mesD, &golsP, &golsC, sgl, adv);
+            printf("Maior nota na temporada: %.2f (%d/%d. %d x %d %c%c%c)\n",maiorNota,diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
             //printf("Media de nota por partida: %.2f\n",elenco[i].media_notas);
             printf("Nota por partida:\n\n");
             for(j=0;j<100;j++)
