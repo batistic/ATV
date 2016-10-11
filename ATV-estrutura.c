@@ -1680,6 +1680,10 @@ int estatisticas_grupo()
             break;
 
         case 7:
+            grupo_FeP();
+            break;
+
+        case 8:
             grupo_Imp();
             break;
 
@@ -2390,7 +2394,58 @@ int grupo_FeP()
 
 int grupo_Imp()
 {
+    system("cls");
 
+      /*                   I M P E D I M E N T O S                 */
+      /*obtendo a quantidade de jogadores que já jogaram */
+  int i = 0, j = 0;
+  for (i =0; i <40; i++){
+
+  if(elenco[i].controle == 1){
+    j = j +1;
+    }
+  }
+  /*criando um vetor (novoImpedimentos[]) apenas com os desarmes, este vetor é genérico e serve apenas para manipulação (terá seus valores
+  alterados ao longo do código)*/
+  int novoImpedimentos[j], l = 0, m = -1, novoUniforme[j];
+  for(l = 0; l < 40; l++){
+    if(elenco[l].controle == 1){
+      m++;
+      novoImpedimentos[m] = elenco[l].total_imped;
+      novoUniforme[m] = elenco[l].uniforme;
+    }
+  }
+  /*os valores obtidos em novoImpedimentos[] será agora ordenado de forma decrescente no vetor rankImpedimentos[]*/
+  int k = 0, maisImpedimentos = 0, guardaindice, rankImpedimentos[j], rankUniforme[j];
+  printf("Impedimentos por jogador na temporada:\n\n");
+
+  while(k < j){
+    /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
+  for(l = 0; l <= m; l ++){
+    if(novoImpedimentos[l] >= maisImpedimentos){
+      maisImpedimentos = novoImpedimentos[l];
+      guardaindice = l;
+    }
+  }
+  /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
+  rankImpedimentos[k] = maisImpedimentos;
+  maisImpedimentos=0;
+  novoImpedimentos[guardaindice] = -1;
+  rankUniforme[k] = novoUniforme[guardaindice];
+  k++;
+  }
+  int x = 0;
+  for(x = 0; x < k; x++){
+    for(l = 0; l < 40; l++){
+      if(rankUniforme[x] == elenco[l].uniforme){
+        printf("%s: %d\n",elenco[l].nome, elenco[l].total_imped);
+        break;
+      }
+    }
+  }
+  printf("\n");
+  system("pause");
+  return 0;
 }
 
 /* Funcao que exibe os dados gerais de um jogador */
