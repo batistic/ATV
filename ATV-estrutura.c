@@ -99,7 +99,7 @@ int Inicializar_LS   (partida **inicio);
 int Inserir_LS       (partida **inicio, char adv[], char sgl[], int diaD, int mesD, int golsP, int golsC, int subs, int *n);
 int Editar_LS        (partida **inicio, int i, char adv[], char sgl[], int diaD, int mesD, int golsP, int golsC, int subs);
 int Listar_LS        (partida *inicio);
-int Encontrar_LS     (partida *inicio, int i, int *diaD, int *mesD, int *golsP, int *golsC, char sgl[3], char adv[100]);
+int Encontrar_LS     (partida *inicio, int i, int *diaD, int *mesD, int *golsP, int *golsC, char sgl[], char adv[]);
 
 /*    Prototipos das funcoes utilizadas    */
 
@@ -3082,7 +3082,7 @@ int Listar_LS (partida *inicio)
     return 0;
 }
 
-int Encontrar_LS (partida *inicio, int i, int *diaD, int *mesD, int *golsP, int *golsC, char sgl[3], char adv[100])
+int Encontrar_LS (partida *inicio, int i, int *diaD, int *mesD, int *golsP, int *golsC, char sgl[], char adv[])
 {
     partida *percorre;
     percorre = inicio;
