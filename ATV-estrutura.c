@@ -148,7 +148,7 @@ int main()
     for(i=0;i<40;i++)
     {
         elenco[i].controle=0; // zerando os controles dos jogadores
-        elenco[i].uniforme=0; // zerando os uniformes dos jogadores
+        elenco[i].uniforme=-1; // zerando os uniformes dos jogadores
         elenco[i].jogos=0;
         for(j=0;j<100;j++) // zerando os jogos dos jogadores
             elenco[i].jogou[j]=0;
@@ -194,7 +194,7 @@ int main()
     for(i=0;i<10;i++)
     {
         goleiros[i].controle=0; // zerando os controles dos goleiros
-        goleiros[i].uniforme=0; // zerando os uniformes dos goleiros
+        goleiros[i].uniforme=-1; // zerando os uniformes dos goleiros
         goleiros[i].jogos=0;
         for(j=0;j<100;j++) // zerando os jogos dos goleiros
             goleiros[i].jogou[j]=0;
@@ -770,7 +770,7 @@ int excluir()
         {
             // zerando todos os dados do goleiro
             goleiros[i].controle=0;
-            goleiros[i].uniforme=0;
+            goleiros[i].uniforme=-1;
             for(j=0;j<100;j++)
                 goleiros[i].jogou[j]=0;
             goleiros[i].media_assistF=0;
@@ -818,7 +818,7 @@ int excluir()
         {
             // zerando todos os dados do jogador
             elenco[i].controle=0;
-            elenco[i].uniforme=0;
+            elenco[i].uniforme=-1;
             for(j=0;j<17;j++)
                 elenco[i].posicao[j]=0;
             for(j=0;j<100;j++)
@@ -900,6 +900,12 @@ int inserir_dados(partida **inicio)
         int encontrado=0;
         printf("\nPara inserir os dados de um jogador na partida, insira o numero de seu uniforme: ");
         scanf("%d",&num_uniforme);
+        if(num_uniforme == -1)
+        {
+            printf("\tDigite o numero de um jogador cadastrado!\n");
+            i--;
+        }
+        else{
         for(j=0;j<10;j++)
         {
             if(num_uniforme==goleiros[j].uniforme) // verifica se o numero do uniforme é de um goleiro, e de qual
@@ -1112,7 +1118,7 @@ int inserir_dados(partida **inicio)
                 i--;
             }
         }
-
+        }
     }
     printf("\n");
     system("PAUSE");
@@ -1270,6 +1276,12 @@ int editar_dados(partida **inicio)
         int encontrado=0;
         printf("\nPara inserir os dados de um jogador na partida, insira o numero de seu uniforme: ");
         scanf("%d",&num_uniforme);
+        if(num_uniforme == -1)
+        {
+            printf("\tDigite o numero de um jogador cadastrado!\n");
+            i--;
+        }
+        else{
         for(j=0;j<10;j++)
         {
             if(num_uniforme==goleiros[j].uniforme) // verifica se o numero do uniforme é de um goleiro, e de qual
@@ -1481,6 +1493,7 @@ int editar_dados(partida **inicio)
                 printf("\tDigite o numero de um jogador cadastrado!\n");
                 i--;
             }
+        }
         }
 
     }
@@ -3397,6 +3410,8 @@ int Encontrar_LS (partida *inicio, int i, int *diaD, int *mesD, int *golsP, int 
     sgl[0] = percorre->sigla_adv[0];
     sgl[1] = percorre->sigla_adv[1];
     sgl[2] = percorre->sigla_adv[2];
+
+    printf("\n\n%c\n\n\n",sgl[3]);
 
     return 0;
 }
