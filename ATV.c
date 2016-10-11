@@ -892,7 +892,7 @@ int inserir_dados()
     scanf("%d",&jogo[n].substituicoes);
     //for(i=0;i<11+jogo[n].substituicoes;i++) // loop que percorre todos os jogadores que jogaram a partida
     //apagar depois
-    for(i=0;i<1;i++)//apagar depois
+    for(i=0;i<2;i++)//apagar depois
     //apagar depois
     {
         int encontrado=0;
@@ -2078,7 +2078,123 @@ int grupo_GeF()
 
 int grupo_PeA()
 {
+  system("cls");
+  printf("\tEstatisticas de gols e finalizacoes do grupo\n\n");
 
+  /*                             P A S S E S                                          */
+  /*obtendo a quantidade de jogadores que já jogaram */
+  int i = 0, j = 0, f = 0;
+  for (i =0; i <40; i++){
+
+  if(elenco[i].controle == 1){
+    j = j +1;
+    f = f+1;
+    }
+  }
+  for(i = 0; i <10; i++){
+    if(goleiros[i].controle == 1){
+      j = j+1;
+    }
+  }
+  /*criando um vetor (novoGols[]) apenas com os gols, este vetor é genérico e serve apenas para manipulação (terá seus valores
+  alterados ao longo do código)*/
+  int novoPasses[j], l = 0, m = -1, novoUniforme[j];
+  for(l = 0; l < 40; l++){
+    if(elenco[l].controle == 1){
+      m++;
+      novoPasses[m] = elenco[l].total_passesC;
+      novoUniforme[m] = elenco[l].uniforme;
+    }
+  }
+  for(l = 0; l < 10; l++){
+    if(goleiros[l].controle == 1){
+      m++;
+      novoPasses[m] = goleiros[l].total_passesC;
+      novoUniforme[m] = goleiros[l].uniforme;
+    }
+  }
+  /*os valores obtidos em novoGols[] será agora ordenado de forma decrescente no vetor rankGols[]*/
+  int k = 0, maisPasses = 0, guardaindice, rankPasses[j], rankUniforme[j];
+  printf("Passes certos por jogador na temporada:\n\n");
+
+  while(k < j){
+    /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
+  for(l = 0; l <= m; l ++){
+    if(novoPasses[l] >= maisPasses){
+      maisPasses = novoPasses[l];
+      guardaindice = l;
+    }
+  }
+  /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
+  rankPasses[k] = maisPasses;
+  maisPasses=0;
+  novoPasses[guardaindice] = -1;
+  rankUniforme[k] = novoUniforme[guardaindice];
+  k++;
+  }
+  int x = 0;
+  for(x = 0; x < k; x++){
+    for(l = 0; l < 40; l++){
+      if(rankUniforme[x] == elenco[l].uniforme){
+        printf("%s: %d\n",elenco[l].nome, rankPasses[x]);
+        break;
+      }
+      if(l < 10){
+        if(rankUniforme[x] == goleiros[l].uniforme){
+          printf("%s: %d\n", goleiros[l].nome, rankPasses[x]);
+          break;
+        }
+      }
+    }
+  }
+
+
+  /*                   F I N A L I Z A Ç Õ E S                                  */
+
+  /*Quantidade de jogadores que já jogaram = 'j'
+  Criando um vetor (novoFinalizacoes[]) apenas com as finalizações corretas, este vetor é genérico e serve apenas para
+  manipulação (terá seus valores alterados ao longo do código) */
+  int novoAssistencias[f];
+  l = 0;
+  m = -1;
+  for(l = 0; l < 40; l++){
+    if(elenco[l].controle == 1){
+      m++;
+      novoAssistencias[m] = elenco[l].total_assistG;
+      novoUniforme[m] = elenco[l].uniforme;
+    }
+  }
+  /*os valores obtidos em novoFinalizacoes[] será agora ordenado de forma decrescente no vetor rankFinalizacoes[]*/
+  int  maisAssistencias = 0, rankAssistencias[f];
+  k = 0;
+  printf("\n\nAssistencias por jogador na temporada:\n\n");
+
+  while(k < f){
+    /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
+  for(l = 0; l <= m; l ++){
+    if(novoAssistencias[l] >= maisAssistencias){
+      maisAssistencias = novoAssistencias[l];
+      guardaindice = l;
+    }
+  }
+  /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
+  rankAssistencias[k] = maisAssistencias;
+  maisAssistencias=0;
+  novoAssistencias[guardaindice] = -1;
+  rankUniforme[k] = novoUniforme[guardaindice];
+  k++;
+  }
+  for(x = 0; x < k; x++){
+    for(l = 0; l < 40; l++){
+      if(rankUniforme[x] == elenco[l].uniforme){
+        printf("%s:     Total: %d\n",elenco[l].nome,rankAssistencias[x]);
+        break;
+      }
+      }
+    }
+  printf("\n\n");
+  system("pause");
+  return 0;
 
 }
 
