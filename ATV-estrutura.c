@@ -2352,6 +2352,300 @@ int melhor_escalacao2()
 {
     system("cls");
 
+    int i,j,melhor_time[10],contador=0;
+
+    // calculando o melhor goleiro
+    int melhor_goleiro;
+    float goleiro_nota=0;
+    for(i=0;i<10;i++)
+    {
+        if(goleiros[i].controle==1)
+        {
+            if(goleiros[i].media_notas>goleiro_nota)
+            {
+                melhor_goleiro=goleiros[i].uniforme;
+                goleiro_nota=goleiros[i].media_notas;
+            }
+        }
+    }
+    /*  ZAGUEIROS  */
+    float Nz[2],menorNota=11;
+    int Uz[2], indice;
+    for(i=0;i<2;i++)
+    {
+        Nz[i]=-1;
+    }
+    // percorrendo todos os jogadores
+    for(i=0;i<40;i++)
+    {
+        if(elenco[i].controle==1)
+        {
+            if(elenco[i].posicao == 1 || elenco[i].posicao == 2 || elenco[i].posicao == 3)
+            {
+                if(contador == 2)
+                {
+                    if(elenco[i].media_notas>menorNota)
+                    {
+                        Nz[indice] = elenco[i].media_notas;
+                        Uz[indice] = elenco[i].uniforme;
+                    }
+                }
+                for(j=0;j<2;j++)
+                {
+                    if(Nz[j]==-1)
+                    {
+                        Nz[j] = elenco[i].media_notas;
+                        Uz[j] = elenco[i].uniforme;
+                        contador++;
+                        break;
+                    }
+                }
+                for(j=0;j<2;j++)
+                {
+                    if(Nz[j]<menorNota && Nz[j] > 0)
+                    {
+                        menorNota = Nz[j];
+                        indice = j;
+                    }
+                }
+            }
+        }
+    }
+    melhor_time[0]=Uz[0];
+    melhor_time[1]=Uz[1];
+    /* LATERAIS DIREITOS */
+        float Nld=-1;
+        int Uld;
+        contador = 0;
+        for(i=0;i<40;i++)
+        {
+            if(elenco[i].controle==1)
+            {
+                if(elenco[i].posicao == 4 || elenco[i].posicao == 6)
+                {
+                    if(contador == 1)
+                    {
+                        if(elenco[i].media_notas>Nld)
+                        {
+                            Nld = elenco[i].media_notas;
+                            Uld = elenco[i].uniforme;
+                        }
+                    }
+                    if(Nld==-1)
+                    {
+                        Nld = elenco[i].media_notas;
+                        Uld = elenco[i].uniforme;
+                        contador++;
+                        break;
+                    }
+                }
+            }
+        }
+        melhor_time[2]=Uld;
+
+        float Nle=-1;
+    int Ule;
+    contador = 0;
+    for(i=0;i<40;i++)
+    {
+        if(elenco[i].controle==1)
+        {
+            if(elenco[i].posicao == 5 || elenco[i].posicao == 7)
+            {
+                if(contador == 1)
+                {
+                    if(elenco[i].media_notas>Nle)
+                    {
+                        Nle = elenco[i].media_notas;
+                        Ule = elenco[i].uniforme;
+                    }
+                }
+                if(Nle==-1)
+                {
+                    Nle = elenco[i].media_notas;
+                    Ule = elenco[i].uniforme;
+                    contador++;
+                    break;
+                }
+            }
+        }
+    }
+    melhor_time[3]=Ule;
+    /*      PRIMEIROS VOLANTES     */
+    float Npv=-1;
+    int Upv;
+    contador = 0;
+    for(i=0;i<40;i++)
+    {
+        if(elenco[i].controle==1)
+        {
+            if(elenco[i].posicao == 8)
+            {
+                if(contador == 1)
+                {
+                    if(elenco[i].media_notas>Npv)
+                    {
+                        Npv = elenco[i].media_notas;
+                        Upv = elenco[i].uniforme;
+                    }
+                }
+                if(Npv==-1)
+                {
+                    Npv = elenco[i].media_notas;
+                    Upv = elenco[i].uniforme;
+                    contador++;
+                    break;
+                }
+            }
+        }
+    }
+    melhor_time[4]=Upv;
+    /*      MEIAS DIREITAS      */
+    float Nmd=-1;
+    int Umd;
+    contador = 0;
+    for(i=0;i<40;i++)
+    {
+        if(elenco[i].controle==1)
+        {
+            if(elenco[i].posicao == 11 || elenco[i].posicao == 13)
+            {
+                if(contador == 1)
+                {
+                    if(elenco[i].media_notas>Nmd)
+                    {
+                        Nmd = elenco[i].media_notas;
+                        Umd = elenco[i].uniforme;
+                    }
+                }
+                if(Nmd==-1)
+                {
+                    Nmd = elenco[i].media_notas;
+                    Umd = elenco[i].uniforme;
+                    contador++;
+                    break;
+                }
+            }
+        }
+    }
+    melhor_time[5]=Umd;
+    /*      MEIAS ESQUERDAS    */
+    float Nme=-1;
+    int Ume;
+    contador = 0;
+    for(i=0;i<40;i++)
+    {
+        if(elenco[i].controle==1)
+        {
+            if(elenco[i].posicao == 12 || elenco[i].posicao == 13)
+            {
+                if(contador == 1)
+                {
+                    if(elenco[i].media_notas>Nme)
+                    {
+                        Nme = elenco[i].media_notas;
+                        Ume = elenco[i].uniforme;
+                    }
+                }
+                if(Nme==-1)
+                {
+                    Nme = elenco[i].media_notas;
+                    Ume = elenco[i].uniforme;
+                    contador++;
+                    break;
+                }
+            }
+        }
+    }
+    melhor_time[6]=Ume;
+    /*      PONTAS DIREITAS      */
+    float Npd=-1;
+    int Upd;
+    contador = 0;
+    for(i=0;i<40;i++)
+    {
+        if(elenco[i].controle==1)
+        {
+            if(elenco[i].posicao == 14)
+            {
+                if(contador == 1)
+                {
+                    if(elenco[i].media_notas>Npd)
+                    {
+                        Npd = elenco[i].media_notas;
+                        Upd = elenco[i].uniforme;
+                    }
+                }
+                if(Npd==-1)
+                {
+                    Npd = elenco[i].media_notas;
+                    Upd = elenco[i].uniforme;
+                    contador++;
+                    break;
+                }
+            }
+        }
+    }
+    melhor_time[7]=Upd;
+    /*      PONTAS ESQUERDAS      */
+    float Npe=-1;
+    int Upe;
+    contador = 0;
+    for(i=0;i<40;i++)
+    {
+        if(elenco[i].controle==1)
+        {
+            if(elenco[i].posicao == 15)
+            {
+                if(contador == 1)
+                {
+                    if(elenco[i].media_notas>Npe)
+                    {
+                        Npe = elenco[i].media_notas;
+                        Upe = elenco[i].uniforme;
+                    }
+                }
+                if(Npe==-1)
+                {
+                    Npe = elenco[i].media_notas;
+                    Upe = elenco[i].uniforme;
+                    contador++;
+                    break;
+                }
+            }
+        }
+    }
+    melhor_time[8]=Upe;
+    /*      PONTAS ESQUERDAS      */
+    float Na=-1;
+    int Ua;
+    contador = 0;
+    for(i=0;i<40;i++)
+    {
+        if(elenco[i].controle==1)
+        {
+            if(elenco[i].posicao == 16 || elenco[i].posicao == 17)
+            {
+                if(contador == 1)
+                {
+                    if(elenco[i].media_notas>Na)
+                    {
+                        Na = elenco[i].media_notas;
+                        Ua = elenco[i].uniforme;
+                    }
+                }
+                if(Na==-1)
+                {
+                    Na = elenco[i].media_notas;
+                    Ua = elenco[i].uniforme;
+                    contador++;
+                    break;
+                }
+            }
+        }
+    }
+    melhor_time[9]=Ua;
+
     system("pause");
     return 0;
 }
