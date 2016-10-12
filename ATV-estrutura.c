@@ -2645,6 +2645,43 @@ int melhor_escalacao2()
         }
     }
     melhor_time[9]=Ua;
+    /* IMPRIMINDO */
+    for(i=0;i<10;i++)
+    {
+        if(goleiros[i].uniforme == melhor_goleiro)
+        {
+            printf("Goleiro:          %s.\n", goleiros[i].uniforme);
+        }
+    }
+    for(i=0;i<10;i++)
+    {
+        for(j=0;j<40;j++)
+        {
+            if(elenco[j].uniforme == melhor_time[i])
+            {
+                if(i==0)
+                    printf("Zagueiros:        %s,",elenco[i].uniforme);
+                if(i==1)
+                    printf(" %s.\n",elenco[i].uniforme);
+                if(i==2)
+                    printf("Lateral direito:  %s.\n",elenco[i].uniforme);
+                if(i==3)
+                    printf("Lateral esquerdo: %s.\n",elenco[i].uniforme);
+                if(i==4)
+                    printf("Primeiro volante: %s.\n",elenco[i].uniforme);
+                if(i==5)
+                    printf("Meia direita:     %s.\n",elenco[i].uniforme);
+                if(i==6)
+                    printf("Meia esquerda:    %s.\n",elenco[i].uniforme);
+                if(i==7)
+                    printf("Ponta direita:    %s.\n",elenco[i].uniforme);
+                if(i==8)
+                    printf("Ponta esquerda:   %s.\n",elenco[i].uniforme);
+                if(i==9)
+                    printf("Atacante:         %s.\n",elenco[i].uniforme);
+            }
+        }
+    }
 
     system("pause");
     return 0;
