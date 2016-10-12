@@ -968,7 +968,7 @@ int inserir_dados(partida **inicio)
     Inserir_LS(inicio, jogo_adversario, jogo_sigla_adv, jogo_dia, jogo_mes, jogo_gols_pro, jogo_gols_contra, jogo_substituicoes, &n);
     //for(i=0;i<11+jogo_substituicoes;i++) // loop que percorre todos os jogadores que jogaram a partida
     //apagar depois
-    for(i=0;i<2;i++)//apagar depois
+    for(i=0;i<4;i++)//apagar depois
     //apagar depois
     {
         int encontrado=0;
@@ -1941,6 +1941,8 @@ float pontuacao(int num_uniforme, int n)
             }
         }
     }
+    if(p<0)  {  p = 0;  }
+    if(p>10){  p = 10; }
     return p;
 }
 
@@ -1969,7 +1971,7 @@ int melhor_escalacao()
     system("cls");
 
     float maiorMedia=0;
-    int i,melhor_time[10],formacao[3];
+    int i,j,melhor_time[10],formacao[3];
 
     // calculando o melhor goleiro
     int melhor_goleiro;
@@ -1985,20 +1987,33 @@ int melhor_escalacao()
             }
         }
     }
-
-    // testando as formaçoes: (3-5-2) (4-3-3) (4-4-2)
-
-    int j;
-    int zd,ze,zc,ld,le,pv,sv,arm,me,md,ma,pd,pe,sa,ca;
-
-    // (3-5-2)
-    //
-
-    // (4-3-3)
-    //
-
-    // (4-4-2)
-    //
+    // calculando melhor time
+    float Nz[3];
+    int Uz[3];
+    for(i=0;i<3;i++)
+    {
+        Nz[i]=0;
+    }
+    // percorrendo todos os jogadores
+    for(i=0;i<40;i++)
+    {
+        if(elenco[i].controle==1)
+        {
+            if(elenco[i].posicao == 1 || elenco[i].posicao == 2 || elenco[i].posicao == 3)
+            {
+                for(j=0;j<3;j++)
+                {
+                    if(elenco[i].media_notas > Nz[j])
+                    {
+                        Nz[j] = elenco[i].media_notas;
+                        Uz[j] = elenco[i].uniforme;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    printf("\n\n\n\n%d %d %d\n\n\n\n",Uz[0],Uz[1],Uz[2]);
 
     system("pause");
     return 0;
