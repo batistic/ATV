@@ -2202,7 +2202,7 @@ int melhor_escalacao1()
         }
     }
     melhor_time[5]=Umd;
-    /*      MEIAS DIREITAS ou PONTAS DIREITAS    */
+    /*      MEIAS ESQUERDAS ou PONTAS ESQUERDAS    */
     float Nme=-1;
     int Ume;
     contador = 0;
@@ -2306,6 +2306,7 @@ int melhor_escalacao1()
     }
     melhor_time[8]=Ua[0];
     melhor_time[9]=Ua[1];
+    /* IMPRIMINDO */
     for(i=0;i<10;i++)
     {
         if(goleiros[i].uniforme == melhor_goleiro)
@@ -2328,13 +2329,13 @@ int melhor_escalacao1()
                 if(i==3)
                     printf("Primeiro volante: %s.\n",elenco[i].uniforme);
                 if(i==4)
-                    printf("Segundo volante: %s.\n",elenco[i].uniforme);
+                    printf("Segundo volante:  %s.\n",elenco[i].uniforme);
                 if(i==5)
                     printf("Meia direita:     %s.\n",elenco[i].uniforme);
                 if(i==6)
                     printf("Meia esquerda:    %s.\n",elenco[i].uniforme);
                 if(i==7)
-                    printf("Meia esquerda:    %s.\n",elenco[i].uniforme);
+                    printf("Meia atacante:    %s.\n",elenco[i].uniforme);
                 if(i==8)
                     printf("Atacantes:        %s,",elenco[i].uniforme);
                 if(i==9)
@@ -2359,7 +2360,324 @@ int melhor_escalacao2()
 int melhor_escalacao3()
 {
     system("cls");
+    int i,j,melhor_time[10],contador=0;
 
+    // calculando o melhor goleiro
+    int melhor_goleiro;
+    float goleiro_nota=0;
+    for(i=0;i<10;i++)
+    {
+        if(goleiros[i].controle==1)
+        {
+            if(goleiros[i].media_notas>goleiro_nota)
+            {
+                melhor_goleiro=goleiros[i].uniforme;
+                goleiro_nota=goleiros[i].media_notas;
+            }
+        }
+    }
+    /* ZAGUEIROS */
+    float Nz[2],menorNota=11;
+    int Uz[2], indice;
+    for(i=0;i<2;i++)
+    {
+        Nz[i]=-1;
+    }
+    // percorrendo todos os jogadores
+    for(i=0;i<40;i++)
+    {
+        if(elenco[i].controle==1)
+        {
+            if(elenco[i].posicao == 1 || elenco[i].posicao == 2 || elenco[i].posicao == 3)
+            {
+                if(contador == 3)
+                {
+                    if(elenco[i].media_notas>menorNota)
+                    {
+                        Nz[indice] = elenco[i].media_notas;
+                        Uz[indice] = elenco[i].uniforme;
+                    }
+                }
+                for(j=0;j<2;j++)
+                {
+                    if(Nz[j]==-1)
+                    {
+                        Nz[j] = elenco[i].media_notas;
+                        Uz[j] = elenco[i].uniforme;
+                        contador++;
+                        break;
+                    }
+                }
+                for(j=0;j<2;j++)
+                {
+                    if(Nz[j]<menorNota && Nz[j] > 0)
+                    {
+                        menorNota = Nz[j];
+                        indice = j;
+                    }
+                }
+            }
+        }
+    }
+    melhor_time[0]=Uz[0];
+    melhor_time[1]=Uz[1];
+    /* LATERAIS DIREITOS */
+    float Nld=-1;
+    int Uld;
+    contador = 0;
+    for(i=0;i<40;i++)
+    {
+        if(elenco[i].controle==1)
+        {
+            if(elenco[i].posicao == 4 || elenco[i].posicao == 6)
+            {
+                if(contador == 1)
+                {
+                    if(elenco[i].media_notas>Nld)
+                    {
+                        Nld = elenco[i].media_notas;
+                        Uld = elenco[i].uniforme;
+                    }
+                }
+                if(Nld==-1)
+                {
+                    Nld = elenco[i].media_notas;
+                    Uld = elenco[i].uniforme;
+                    contador++;
+                    break;
+                }
+            }
+        }
+    }
+    melhor_time[2]=Uld;
+    /* LATERAIS ESQUERDOS */
+    float Nle=-1;
+    int Ule;
+    contador = 0;
+    for(i=0;i<40;i++)
+    {
+        if(elenco[i].controle==1)
+        {
+            if(elenco[i].posicao == 5 || elenco[i].posicao == 7)
+            {
+                if(contador == 1)
+                {
+                    if(elenco[i].media_notas>Nle)
+                    {
+                        Nle = elenco[i].media_notas;
+                        Ule = elenco[i].uniforme;
+                    }
+                }
+                if(Nle==-1)
+                {
+                    Nle = elenco[i].media_notas;
+                    Ule = elenco[i].uniforme;
+                    contador++;
+                    break;
+                }
+            }
+        }
+    }
+    melhor_time[3]=Ule;
+    /* PRIMEIROS VOLANTES */
+    float Npv=-1;
+    int Upv;
+    contador = 0;
+    for(i=0;i<40;i++)
+    {
+        if(elenco[i].controle==1)
+        {
+            if(elenco[i].posicao == 8)
+            {
+                if(contador == 1)
+                {
+                    if(elenco[i].media_notas>Npv)
+                    {
+                        Npv = elenco[i].media_notas;
+                        Upv = elenco[i].uniforme;
+                    }
+                }
+                if(Npv==-1)
+                {
+                    Npv = elenco[i].media_notas;
+                    Upv = elenco[i].uniforme;
+                    contador++;
+                    break;
+                }
+            }
+        }
+    }
+    melhor_time[4]=Upv;
+    /* SEGUNDOS VOLANTES */
+    float Nsv=-1;
+    int Usv;
+    contador = 0;
+    for(i=0;i<40;i++)
+    {
+        if(elenco[i].controle==1)
+        {
+            if(elenco[i].posicao == 9 || elenco[i].posicao == 10)
+            {
+                if(contador == 1)
+                {
+                    if(elenco[i].media_notas>Nsv)
+                    {
+                        Nsv = elenco[i].media_notas;
+                        Usv = elenco[i].uniforme;
+                    }
+                }
+                if(Nsv==-1)
+                {
+                    Nsv = elenco[i].media_notas;
+                    Usv = elenco[i].uniforme;
+                    contador++;
+                    break;
+                }
+            }
+        }
+    }
+    melhor_time[5]=Usv;
+    /* MEIA DIREITA */
+    float Nmd=-1;
+    int Umd;
+    contador = 0;
+    for(i=0;i<40;i++)
+    {
+        if(elenco[i].controle==1)
+        {
+            if(elenco[i].posicao == 11 || elenco[i].posicao == 14)
+            {
+                if(contador == 1)
+                {
+                    if(elenco[i].media_notas>Nmd)
+                    {
+                        Nmd = elenco[i].media_notas;
+                        Umd = elenco[i].uniforme;
+                    }
+                }
+                if(Nmd==-1)
+                {
+                    Nmd = elenco[i].media_notas;
+                    Umd = elenco[i].uniforme;
+                    contador++;
+                    break;
+                }
+            }
+        }
+    }
+    melhor_time[6]=Umd;
+    /* MEIA ESQUERDA */
+    float Nme=-1;
+    int Ume;
+    contador = 0;
+    for(i=0;i<40;i++)
+    {
+        if(elenco[i].controle==1)
+        {
+            if(elenco[i].posicao == 12 || elenco[i].posicao == 15)
+            {
+                if(contador == 1)
+                {
+                    if(elenco[i].media_notas>Nme)
+                    {
+                        Nme = elenco[i].media_notas;
+                        Ume = elenco[i].uniforme;
+                    }
+                }
+                if(Nme==-1)
+                {
+                    Nme = elenco[i].media_notas;
+                    Ume = elenco[i].uniforme;
+                    contador++;
+                    break;
+                }
+            }
+        }
+    }
+    melhor_time[7]=Ume;
+    /* ATACANTES */
+    float Na[2];
+    menorNota=11;
+    int Ua[2];
+    for(i=0;i<2;i++)
+    {
+        Na[i]=-1;
+    }
+    // percorrendo todos os jogadores
+    for(i=0;i<40;i++)
+    {
+        if(elenco[i].controle==1)
+        {
+            if(elenco[i].posicao == 16 || elenco[i].posicao == 17)
+            {
+                if(contador == 2)
+                {
+                    if(elenco[i].media_notas>menorNota)
+                    {
+                        Na[indice] = elenco[i].media_notas;
+                        Ua[indice] = elenco[i].uniforme;
+                    }
+                }
+                for(j=0;j<2;j++)
+                {
+                    if(Na[j]==-1)
+                    {
+                        Na[j] = elenco[i].media_notas;
+                        Ua[j] = elenco[i].uniforme;
+                        contador++;
+                        break;
+                    }
+                }
+                for(j=0;j<2;j++)
+                {
+                    if(Na[j]<menorNota && Na[j] > 0)
+                    {
+                        menorNota = Na[j];
+                        indice = j;
+                    }
+                }
+            }
+        }
+    }
+    melhor_time[8]=Ua[0];
+    melhor_time[9]=Ua[1];
+    /* IMPRIMINDO */
+    for(i=0;i<10;i++)
+    {
+        if(goleiros[i].uniforme == melhor_goleiro)
+        {
+            printf("Goleiro:          %s.\n", goleiros[i].uniforme);
+        }
+    }
+    for(i=0;i<10;i++)
+    {
+        for(j=0;j<40;j++)
+        {
+            if(elenco[j].uniforme == melhor_time[i])
+            {
+                if(i==0)
+                    printf("Zagueiros:        %s,",elenco[i].uniforme);
+                if(i==1)
+                    printf(" %s.\n",elenco[i].uniforme);
+                if(i==2)
+                    printf("Lateral direito:  %s.\n",elenco[i].uniforme);
+                if(i==3)
+                    printf("Lateral esquerdo: %s.\n",elenco[i].uniforme);
+                if(i==4)
+                    printf("Primeiro volante: %s.\n",elenco[i].uniforme);
+                if(i==5)
+                    printf("Segundo volante:  %s.\n",elenco[i].uniforme);
+                if(i==6)
+                    printf("Meia direita:     %s.\n",elenco[i].uniforme);
+                if(i==7)
+                    printf("Meia esquerda:    %s.\n",elenco[i].uniforme);
+                if(i==8)
+                    printf("Atacantes:        %s,",elenco[i].uniforme);
+                if(i==9)
+                    printf(" %s.\n",elenco[i].uniforme);
+            }
+        }
+    }
     system("pause");
     return 0;
 }
