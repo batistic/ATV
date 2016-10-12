@@ -117,7 +117,10 @@ float media_jogadorN(int num_jogador); //calcula a media de notas de um jogador
 float pontuacao(int num_uniforme, int n); //calcula a pontuação do jogador na partida
 //int rankingI(int indicador); //exibe o ranking dos jogadores por um indicador //acredito que não será utilizada
 //int rankingF(float indicador); //exibe o ranking dos jogadores por um indicador //acredito que não será utilizada
-int melhor_escalacao();//exibe a melhor escalação baseado nas melhores notas por posição //todo
+int melhor_escalacao();//exibe a melhor escalação baseado nas melhores notas por posição
+int melhor_escalacao1();
+int melhor_escalacao2();
+int melhor_escalacao3();
 int grupo_notas(); //exibe as estatísticas de nota do grupo //todo
 int grupo_GeF(); //exibe as estatísticas de gol e finalização do grupo //da pra melhorar
 int grupo_PeA();//exibe as estatísticas de passes e assistências do grupo //todo
@@ -1875,7 +1878,12 @@ float pontuacao(int num_uniforme, int n)
         // caso o jogador seja um goleiro
         if(num_uniforme==goleiros[i].uniforme)
         {
-            p=(5*((float)goleiros[i].passesC[n]/((float)goleiros[i].passesC[n]+(float)goleiros[i].passesE[n])));
+            if(goleiros[i].passesC[n]+goleiros[i].passesE[n] == 0){
+                p=5*(0.5);
+            }
+            else{
+                p=(5*((float)goleiros[i].passesC[n]/((float)goleiros[i].passesC[n]+(float)goleiros[i].passesE[n])));
+            }
             p+=(0.5*goleiros[i].defesas[n]);
             if(goleiros[i].defesas[n]%5==0)
                 p+=(0.5*((float)goleiros[i].defesas[n]/5)); // ganha um bonus de meio ponto a cada 5 defesas feitas
@@ -1892,8 +1900,18 @@ float pontuacao(int num_uniforme, int n)
             // caso o jogador tenha jogado como ZD, ZC, ZC, LDD ou LED
             if(elenco[i].pos[n]>=1 && elenco[i].pos[n]<=5)
             {
-                p=(5.25*((float)elenco[i].passesC[n]/((float)elenco[i].passesC[n]+(float)elenco[i].passesE[n])));
-                p+=(1.25*((float)elenco[i].finalizacoesC[n]/((float)elenco[i].finalizacoesC[n]+(float)elenco[i].finalizacoesE[n])));
+                if(elenco[i].passesC[n]+elenco[i].passesE[n] == 0){
+                    p=5.25*(0.5);
+                }
+                else{
+                    p=(5.25*((float)elenco[i].passesC[n]/((float)elenco[i].passesC[n]+(float)elenco[i].passesE[n])));
+                }
+                if(elenco[i].finalizacoesC[n]+elenco[i].finalizacoesE[n] == 0){
+                    p+=1.25*(0.5);
+                }
+                else{
+                    p+=(1.25*((float)elenco[i].finalizacoesC[n]/((float)elenco[i].finalizacoesC[n]+(float)elenco[i].finalizacoesE[n])));
+                }
                 p+=elenco[i].gols[n]-elenco[i].golsC[n]+(0.4*elenco[i].desarmes[n])-(0.3*elenco[i].perdas[n]);
                 p+=(0.1*elenco[i].faltasS[n])-(0.2*elenco[i].faltasC[n])-(0.1*elenco[i].imped[n]);
                 p+=(0.5*elenco[i].assistG[n])+(0.1*elenco[i].assistF[n]);
@@ -1902,8 +1920,18 @@ float pontuacao(int num_uniforme, int n)
             // caso o jogador tenha jogado como LDO, LEO ou PV
             if(elenco[i].pos[n]>=6 && elenco[i].pos[n]<=8)
             {
-                p=(4.75*((float)elenco[i].passesC[n]/((float)elenco[i].passesC[n]+(float)elenco[i].passesE[n])));
-                p+=(1.75*((float)elenco[i].finalizacoesC[n]/((float)elenco[i].finalizacoesC[n]+(float)elenco[i].finalizacoesE[n])));
+                if(elenco[i].passesC[n]+elenco[i].passesE[n] == 0){
+                    p=4.75*(0.5);
+                }
+                else{
+                    p=(4.75*((float)elenco[i].passesC[n]/((float)elenco[i].passesC[n]+(float)elenco[i].passesE[n])));
+                }
+                if(elenco[i].finalizacoesC[n]+elenco[i].finalizacoesE[n] == 0){
+                    p+=1.75*(0.5);
+                }
+                else{
+                    p+=(1.75*((float)elenco[i].finalizacoesC[n]/((float)elenco[i].finalizacoesC[n]+(float)elenco[i].finalizacoesE[n])));
+                }
                 p+=elenco[i].gols[n]-elenco[i].golsC[n]+(0.2*elenco[i].desarmes[n])-(0.3*elenco[i].perdas[n]);
                 p+=(0.1*elenco[i].faltasS[n])-(0.1*elenco[i].faltasC[n])-(0.1*elenco[i].imped[n]);
                 p+=(0.55*elenco[i].assistG[n])+(0.15*elenco[i].assistF[n]);
@@ -1912,8 +1940,18 @@ float pontuacao(int num_uniforme, int n)
             // caso o jogador tenha jogado como SV ou ARM
             if(elenco[i].pos[n]==9 || elenco[i].pos[n]==10)
             {
-                p=(4.25*((float)elenco[i].passesC[n]/((float)elenco[i].passesC[n]+(float)elenco[i].passesE[n])));
-                p+=(2.25*((float)elenco[i].finalizacoesC[n]/((float)elenco[i].finalizacoesC[n]+(float)elenco[i].finalizacoesE[n])));
+                if(elenco[i].passesC[n]+elenco[i].passesE[n] == 0){
+                    p=4.25*(0.5);
+                }
+                else{
+                    p=(4.25*((float)elenco[i].passesC[n]/((float)elenco[i].passesC[n]+(float)elenco[i].passesE[n])));
+                }
+                if(elenco[i].finalizacoesC[n]+elenco[i].finalizacoesE[n] == 0){
+                    p+=2.25*(0.5);
+                }
+                else{
+                    p+=(2.25*((float)elenco[i].finalizacoesC[n]/((float)elenco[i].finalizacoesC[n]+(float)elenco[i].finalizacoesE[n])));
+                }
                 p+=elenco[i].gols[n]-elenco[i].golsC[n]+(0.1*elenco[i].desarmes[n])-(0.3*elenco[i].perdas[n]);
                 p+=(0.1*elenco[i].faltasS[n])-(0.1*elenco[i].faltasC[n])-(0.1*elenco[i].imped[n]);
                 p+=(0.6*elenco[i].assistG[n])+(0.2*elenco[i].assistF[n]);
@@ -1922,8 +1960,18 @@ float pontuacao(int num_uniforme, int n)
             // caso o jogador tenha jogado como MD, ME, MA, PD, PE ou SA
             if(elenco[i].pos[n]>=11 && elenco[i].pos[n]<=16)
             {
-                p=(2*((float)elenco[i].passesC[n]/((float)elenco[i].passesC[n]+(float)elenco[i].passesE[n])));
-                p+=(4.25*((float)elenco[i].finalizacoesC[n]/((float)elenco[i].finalizacoesC[n]+(float)elenco[i].finalizacoesE[n])));
+                if(elenco[i].passesC[n]+elenco[i].passesE[n] == 0){
+                    p=2*(0.5);
+                }
+                else{
+                    p=(2*((float)elenco[i].passesC[n]/((float)elenco[i].passesC[n]+(float)elenco[i].passesE[n])));
+                }
+                if(elenco[i].finalizacoesC[n]+elenco[i].finalizacoesE[n] == 0){
+                    p+=4.25*(0.5);
+                }
+                else{
+                    p+=(4.25*((float)elenco[i].finalizacoesC[n]/((float)elenco[i].finalizacoesC[n]+(float)elenco[i].finalizacoesE[n])));
+                }
                 p+=elenco[i].gols[n]-elenco[i].golsC[n]+(0.1*elenco[i].desarmes[n])-(0.2*elenco[i].perdas[n]);
                 p+=(0.2*elenco[i].faltasS[n])-(0.1*elenco[i].faltasC[n])-(0.5*elenco[i].imped[n]);
                 p+=(0.65*elenco[i].assistG[n])+(0.25*elenco[i].assistF[n]);
@@ -1932,8 +1980,18 @@ float pontuacao(int num_uniforme, int n)
             // caso o jogador tenha jogado como CA
             if(elenco[i].pos[n]==17)
             {
-                p=(1*((float)elenco[i].passesC[n]/((float)elenco[i].passesC[n]+(float)elenco[i].passesE[n])));
-                p+=(5.5*((float)elenco[i].finalizacoesC[n]/((float)elenco[i].finalizacoesC[n]+(float)elenco[i].finalizacoesE[n])));
+                if(elenco[i].passesC[n]+elenco[i].passesE[n] == 0){
+                    p=1*(0.5);
+                }
+                else{
+                    p=(1*((float)elenco[i].passesC[n]/((float)elenco[i].passesC[n]+(float)elenco[i].passesE[n])));
+                }
+                if(elenco[i].finalizacoesC[n]+elenco[i].finalizacoesE[n] == 0){
+                    p+=5.5*(0.5);
+                }
+                else{
+                    p+=(5.5*((float)elenco[i].finalizacoesC[n]/((float)elenco[i].finalizacoesC[n]+(float)elenco[i].finalizacoesE[n])));
+                }
                 p+=elenco[i].gols[n]-elenco[i].golsC[n]+(0.1*elenco[i].desarmes[n])-(0.1*elenco[i].perdas[n]);
                 p+=(0.3*elenco[i].faltasS[n])-(0.1*elenco[i].faltasC[n])-(0.1*elenco[i].imped[n]);
                 p+=(0.5*elenco[i].assistG[n])+(0.1*elenco[i].assistF[n]);
@@ -1941,7 +1999,7 @@ float pontuacao(int num_uniforme, int n)
             }
         }
     }
-    if(p<0)  {  p = 0;  }
+    if(p<0) {  p = 0;  }
     if(p>10){  p = 10; }
     return p;
 }
@@ -1969,9 +2027,33 @@ int rankingF(float indicador)
 int melhor_escalacao()
 {
     system("cls");
+    printf("1. 3-5-2\n");
+    printf("2. 4-3-3\n");
+    printf("3. 4-4-2\n");
+    printf("0. Voltar\n");
+    printf("\n-> ");
+    int opc;
+    scanf("%d",&opc);
+    switch(opc)
+    {
+        case 1: melhor_escalacao1();
+                break;
+        case 2: melhor_escalacao2();
+                break;
+        case 3: melhor_escalacao3();
+                break;
+        case 0: break;
+        default: printf("Digite uma opcao valida\n");
+    }
 
-    float maiorMedia=0;
-    int i,j,melhor_time[10],formacao[3];
+    return 0;
+}
+/*      3 - 5 - 2     */
+int melhor_escalacao1()
+{
+    system("cls");
+
+    int i,j,melhor_time[10],contador=0;
 
     // calculando o melhor goleiro
     int melhor_goleiro;
@@ -1987,12 +2069,12 @@ int melhor_escalacao()
             }
         }
     }
-    // calculando melhor time
-    float Nz[3];
-    int Uz[3];
+    /*  ZAGUEIROS  */
+    float Nz[3],menorNota=11;
+    int Uz[3], indice;
     for(i=0;i<3;i++)
     {
-        Nz[i]=0;
+        Nz[i]=-1;
     }
     // percorrendo todos os jogadores
     for(i=0;i<40;i++)
@@ -2001,19 +2083,282 @@ int melhor_escalacao()
         {
             if(elenco[i].posicao == 1 || elenco[i].posicao == 2 || elenco[i].posicao == 3)
             {
+                if(contador == 3)
+                {
+                    if(elenco[i].media_notas>menorNota)
+                    {
+                        Nz[indice] = elenco[i].media_notas;
+                        Uz[indice] = elenco[i].uniforme;
+                    }
+                }
                 for(j=0;j<3;j++)
                 {
-                    if(elenco[i].media_notas > Nz[j])
+                    if(Nz[j]==-1)
                     {
                         Nz[j] = elenco[i].media_notas;
                         Uz[j] = elenco[i].uniforme;
+                        contador++;
                         break;
+                    }
+                }
+                for(j=0;j<3;j++)
+                {
+                    if(Nz[j]<menorNota && Nz[j] > 0)
+                    {
+                        menorNota = Nz[j];
+                        indice = j;
                     }
                 }
             }
         }
     }
-    printf("\n\n\n\n%d %d %d\n\n\n\n",Uz[0],Uz[1],Uz[2]);
+    melhor_time[0]=Uz[0];
+    melhor_time[1]=Uz[1];
+    melhor_time[2]=Uz[2];
+    /*      PRIMEIROS VOLANTES     */
+    float Npv=-1;
+    int Upv;
+    contador = 0;
+    for(i=0;i<40;i++)
+    {
+        if(elenco[i].controle==1)
+        {
+            if(elenco[i].posicao == 8)
+            {
+                if(contador == 1)
+                {
+                    if(elenco[i].media_notas>Npv)
+                    {
+                        Npv = elenco[i].media_notas;
+                        Upv = elenco[i].uniforme;
+                    }
+                }
+                if(Npv==-1)
+                {
+                    Npv = elenco[i].media_notas;
+                    Upv = elenco[i].uniforme;
+                    contador++;
+                    break;
+                }
+            }
+        }
+    }
+    melhor_time[3]=Upv;
+    /*      SEGUNDOS VOLANTES ou ARMADOR    */
+    float Nsv=-1;
+    int Usv;
+    contador = 0;
+    for(i=0;i<40;i++)
+    {
+        if(elenco[i].controle==1)
+        {
+            if(elenco[i].posicao == 9 || elenco[i].posicao == 10)
+            {
+                if(contador == 1)
+                {
+                    if(elenco[i].media_notas>Nsv)
+                    {
+                        Nsv = elenco[i].media_notas;
+                        Usv = elenco[i].uniforme;
+                    }
+                }
+                if(Nsv==-1)
+                {
+                    Nsv = elenco[i].media_notas;
+                    Usv = elenco[i].uniforme;
+                    contador++;
+                    break;
+                }
+            }
+        }
+    }
+    melhor_time[4]=Usv;
+    /*      MEIAS DIREITAS ou PONTAS DIREITAS    */
+    float Nmd=-1;
+    int Umd;
+    contador = 0;
+    for(i=0;i<40;i++)
+    {
+        if(elenco[i].controle==1)
+        {
+            if(elenco[i].posicao == 11 || elenco[i].posicao == 14)
+            {
+                if(contador == 1)
+                {
+                    if(elenco[i].media_notas>Nmd)
+                    {
+                        Nmd = elenco[i].media_notas;
+                        Umd = elenco[i].uniforme;
+                    }
+                }
+                if(Nmd==-1)
+                {
+                    Nmd = elenco[i].media_notas;
+                    Umd = elenco[i].uniforme;
+                    contador++;
+                    break;
+                }
+            }
+        }
+    }
+    melhor_time[5]=Umd;
+    /*      MEIAS DIREITAS ou PONTAS DIREITAS    */
+    float Nme=-1;
+    int Ume;
+    contador = 0;
+    for(i=0;i<40;i++)
+    {
+        if(elenco[i].controle==1)
+        {
+            if(elenco[i].posicao == 12 || elenco[i].posicao == 15)
+            {
+                if(contador == 1)
+                {
+                    if(elenco[i].media_notas>Nme)
+                    {
+                        Nme = elenco[i].media_notas;
+                        Ume = elenco[i].uniforme;
+                    }
+                }
+                if(Nme==-1)
+                {
+                    Nme = elenco[i].media_notas;
+                    Ume = elenco[i].uniforme;
+                    contador++;
+                    break;
+                }
+            }
+        }
+    }
+    melhor_time[6]=Ume;
+    /*      MEIAS ATACANTES    */
+    float Nma=-1;
+    int Uma;
+    contador = 0;
+    for(i=0;i<40;i++)
+    {
+        if(elenco[i].controle==1)
+        {
+            if(elenco[i].posicao == 13)
+            {
+                if(contador == 1)
+                {
+                    if(elenco[i].media_notas>Nma)
+                    {
+                        Nma = elenco[i].media_notas;
+                        Uma = elenco[i].uniforme;
+                    }
+                }
+                if(Nma==-1)
+                {
+                    Nma = elenco[i].media_notas;
+                    Uma = elenco[i].uniforme;
+                    contador++;
+                    break;
+                }
+            }
+        }
+    }
+    melhor_time[7]=Uma;
+    /*  ATACANTES  */
+    float Na[2];
+    menorNota=11;
+    int Ua[2];
+    for(i=0;i<2;i++)
+    {
+        Na[i]=-1;
+    }
+    // percorrendo todos os jogadores
+    for(i=0;i<40;i++)
+    {
+        if(elenco[i].controle==1)
+        {
+            if(elenco[i].posicao == 16 || elenco[i].posicao == 17)
+            {
+                if(contador == 2)
+                {
+                    if(elenco[i].media_notas>menorNota)
+                    {
+                        Na[indice] = elenco[i].media_notas;
+                        Ua[indice] = elenco[i].uniforme;
+                    }
+                }
+                for(j=0;j<2;j++)
+                {
+                    if(Na[j]==-1)
+                    {
+                        Na[j] = elenco[i].media_notas;
+                        Ua[j] = elenco[i].uniforme;
+                        contador++;
+                        break;
+                    }
+                }
+                for(j=0;j<2;j++)
+                {
+                    if(Na[j]<menorNota && Na[j] > 0)
+                    {
+                        menorNota = Na[j];
+                        indice = j;
+                    }
+                }
+            }
+        }
+    }
+    melhor_time[8]=Ua[0];
+    melhor_time[9]=Ua[1];
+    for(i=0;i<10;i++)
+    {
+        if(goleiros[i].uniforme == melhor_goleiro)
+        {
+            printf("Goleiro:          %s.\n", goleiros[i].uniforme);
+        }
+    }
+    for(i=0;i<10;i++)
+    {
+        for(j=0;j<40;j++)
+        {
+            if(elenco[j].uniforme == melhor_time[i])
+            {
+                if(i==0)
+                    printf("Zagueiros:        %s,",elenco[i].uniforme);
+                if(i==1)
+                    printf(" %s,",elenco[i].uniforme);
+                if(i==2)
+                    printf(" %s.\n",elenco[i].uniforme);
+                if(i==3)
+                    printf("Primeiro volante: %s.\n",elenco[i].uniforme);
+                if(i==4)
+                    printf("Segundo volante: %s.\n",elenco[i].uniforme);
+                if(i==5)
+                    printf("Meia direita:     %s.\n",elenco[i].uniforme);
+                if(i==6)
+                    printf("Meia esquerda:    %s.\n",elenco[i].uniforme);
+                if(i==7)
+                    printf("Meia esquerda:    %s.\n",elenco[i].uniforme);
+                if(i==8)
+                    printf("Atacantes:        %s,",elenco[i].uniforme);
+                if(i==9)
+                    printf(" %s.\n",elenco[i].uniforme);
+            }
+        }
+    }
+    system("pause");
+    return 0;
+}
+
+/*      4 - 3 - 3     */
+int melhor_escalacao2()
+{
+    system("cls");
+
+    system("pause");
+    return 0;
+}
+
+/*      4 - 4 - 2     */
+int melhor_escalacao3()
+{
+    system("cls");
 
     system("pause");
     return 0;
