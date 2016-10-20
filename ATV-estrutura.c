@@ -115,19 +115,17 @@ int editar_dados(partida **inicio); //edita os dados de uma partida que já ocor
 float media_jogador(int total, int num_jogador); //calcula a media de um jogador
 float media_jogadorN(int num_jogador); //calcula a media de notas de um jogador
 float pontuacao(int num_uniforme, int n); //calcula a pontuação do jogador na partida
-//int rankingI(int indicador); //exibe o ranking dos jogadores por um indicador //acredito que não será utilizada
-//int rankingF(float indicador); //exibe o ranking dos jogadores por um indicador //acredito que não será utilizada
 int melhor_escalacao();//exibe a melhor escalação baseado nas melhores notas por posição
-int melhor_escalacao1();
-int melhor_escalacao2();
-int melhor_escalacao3();
-int grupo_notas(); //exibe as estatísticas de nota do grupo //todo
+int melhor_escalacao1();//exibe a melhor escalação com a formacao 3-5-2
+int melhor_escalacao2();//exibe a melhor escalação com a formacao 4-3-3
+int melhor_escalacao3();//exibe a melhor escalação com a formacao 4-4-2
+int grupo_notas(); //exibe as estatísticas de nota do grupo
 int grupo_GeF(); //exibe as estatísticas de gol e finalização do grupo //da pra melhorar
-int grupo_PeA();//exibe as estatísticas de passes e assistências do grupo //todo
-int grupo_DeP();//exibe as estatísticas de desarme e de perdas de posse de bola do grupo //todo
-int grupo_Def();//exibe as estatísticas de defesa do grupo //todo
-int grupo_FeP();//exibe as estatísticas de faltas e pênaltis do grupo //todo
-int grupo_Imp();//exibe as estatísticas de impedimentos do grupo //todo
+int grupo_PeA();//exibe as estatísticas de passes e assistências do grupo
+int grupo_DeP();//exibe as estatísticas de desarme e de perdas de posse de bola do grupo
+int grupo_Def();//exibe as estatísticas de defesa do grupo
+int grupo_FeP();//exibe as estatísticas de faltas e pênaltis do grupo
+int grupo_Imp();//exibe as estatísticas de impedimentos do grupo
 int jogador_dados(int num_uniforme);//mostra os dados gerais do jogador
 int jogador_GeF(int num_uniforme, partida *inicio);//exibe as estatísticas de gol e finalização do jogador
 int goleiro_Gols(int num_uniforme, partida *inicio);//exibe as estatísticas de gols sofridos e convertidos do goleiro
@@ -408,146 +406,6 @@ int cadastrar()
             elenco[n].posicao=16;
         if(strcmp(p,"CA")==0 || strcmp(p,"ca")==0)
             elenco[n].posicao=17;
-        /*
-        char ch; // variavel para fazer a leitura caractere por caractere
-        i=0;   // zerando variavel auxiliar
-        setbuf(stdin, NULL);
-        do
-        {
-            ch=getchar(); // lendo caractere por caractere
-            if(ch!=' ') // quando o usuario digita espaço ou enter
-            {
-                if((ch>64 && ch<91) || (ch>96 && ch<123))
-                {
-                    if(ch=='Z' || ch=='z')
-                    {
-                        ch=getchar();
-                        if(ch=='D' || ch=='d')
-                        {
-                            elenco[n].posicao[i]=1;
-                            i++;
-                        }
-                        if(ch=='E' || ch=='e')
-                        {
-                            elenco[n].posicao[i]=2;
-                            i++;
-                        }
-                        if(ch=='C' || ch=='c')
-                        {
-                            elenco[n].posicao[i]=3;
-                            i++;
-                        }
-                    }
-                    if(ch=='L' || ch=='l')
-                    {
-                        ch=getchar();
-                        if(ch=='D' || ch=='d')
-                        {
-                            ch=getchar();
-                            if(ch=='D' || ch=='d')
-                            {
-                                elenco[n].posicao[i]=4;
-                                i++;
-                            }
-                            if(ch=='O' || ch=='o')
-                            {
-                                elenco[n].posicao[i]=6;
-                                i++;
-                            }
-                        }
-                        if(ch=='E' || ch=='e')
-                        {
-                            ch=getchar();
-                            if(ch=='D' || ch=='d')
-                            {
-                                elenco[n].posicao[i]=5;
-                                i++;
-                            }
-                            if(ch=='O' || ch=='o')
-                            {
-                                elenco[n].posicao[i]=7;
-                                i++;
-                            }
-                        }
-                    }
-                    if(ch=='P' || ch=='p')
-                    {
-                        ch=getchar();
-                        if(ch=='V' || ch=='v')
-                        {
-                            elenco[n].posicao[i]=8;
-                            i++;
-                        }
-                        if(ch=='D' || ch=='d')
-                        {
-                            elenco[n].posicao[i]=14;
-                            i++;
-                        }
-                        if(ch=='E' || ch=='e')
-                        {
-                            elenco[n].posicao[i]=15;
-                            i++;
-                        }
-                    }
-                    if(ch=='S' || ch=='s')
-                    {
-                        ch=getchar();
-                        if(ch=='V' || ch=='v')
-                        {
-                            elenco[n].posicao[i]=9;
-                            i++;
-                        }
-                        if(ch=='A' || ch=='a')
-                        {
-                            elenco[n].posicao[i]=16;
-                            i++;
-                        }
-                    }
-                    if(ch=='A' || ch=='a')
-                    {
-                        ch=getchar();
-                        if(ch=='R' || ch=='r')
-                        {
-                            ch=getchar();
-                            if(ch=='M' || ch=='m')
-                            {
-                                elenco[n].posicao[i]=10;
-                                i++;
-                            }
-                        }
-                    }
-                    if(ch=='M' || ch=='m')
-                    {
-                        ch=getchar();
-                        if(ch=='D' || ch=='d')
-                        {
-                            elenco[n].posicao[i]=11;
-                            i++;
-                        }
-                        if(ch=='E' || ch=='e')
-                        {
-                            elenco[n].posicao[i]=12;
-                            i++;
-                        }
-                        if(ch=='A' || ch=='a')
-                        {
-                            elenco[n].posicao[i]=13;
-                            i++;
-                        }
-                    }
-                    if(ch=='C' || ch=='c')
-                    {
-                        ch=getchar();
-                        if(ch=='A' || ch=='a')
-                        {
-                            elenco[n].posicao[i]=17;
-                            i++;
-                        }
-                    }
-                }
-            }
-        }while(ch != '\n'); // caso o usuario de enter, o loop é encerrado
-        */
     }
     if(pos==2)//caso entrada seja 2) Goleiro
     {
@@ -710,66 +568,6 @@ int editar()
                 elenco[n].posicao=16;
             if(strcmp(p,"CA")==0 || strcmp(p,"ca")==0)
                 elenco[n].posicao=17;
-            /*
-            char ch; // variavel para fazer a leitura caractere por caractere
-            int j=0;
-            i=0;   // variaveis auxiliares
-            char p[4]; // string que serao armazenadas as posições do jogador
-            setbuf(stdin, NULL);
-            do
-            {
-                ch=getchar(); // lendo caractere por caractere
-                if(ch==' ' || ch=='\n') // quando o usuario digita espaço ou enter
-                {
-                    p[i]='\0'; // tornando a ultima posição da string um caractere nulo
-                    i=0;
-                    // comparando a string com as posições possiveis, e armazenando por numeros
-                    if(strcmp(p,"ZD")==0 || strcmp(p,"zd")==0)
-                        elenco[n].posicao[j]=1;
-                    if(strcmp(p,"ZE")==0 || strcmp(p,"ze")==0)
-                        elenco[n].posicao[j]=2;
-                    if(strcmp(p,"ZC")==0 || strcmp(p,"zc")==0)
-                        elenco[n].posicao[j]=3;
-                    if(strcmp(p,"LDD")==0 || strcmp(p,"ldd")==0)
-                        elenco[n].posicao[j]=4;
-                    if(strcmp(p,"LED")==0 || strcmp(p,"led")==0)
-                        elenco[n].posicao[j]=5;
-                    if(strcmp(p,"LDO")==0 || strcmp(p,"ldo")==0)
-                        elenco[n].posicao[j]=6;
-                    if(strcmp(p,"LEO")==0 || strcmp(p,"leo")==0)
-                        elenco[n].posicao[j]=7;
-                    if(strcmp(p,"PV")==0 || strcmp(p,"pv")==0)
-                        elenco[n].posicao[j]=8;
-                    if(strcmp(p,"SV")==0 || strcmp(p,"sv")==0)
-                        elenco[n].posicao[j]=9;
-                    if(strcmp(p,"ARM")==0 || strcmp(p,"arm")==0)
-                        elenco[n].posicao[j]=10;
-                    if(strcmp(p,"MD")==0 || strcmp(p,"md")==0)
-                        elenco[n].posicao[j]=11;
-                    if(strcmp(p,"ME")==0 || strcmp(p,"me")==0)
-                        elenco[n].posicao[j]=12;
-                    if(strcmp(p,"MA")==0 || strcmp(p,"ma")==0)
-                        elenco[n].posicao[j]=13;
-                    if(strcmp(p,"PD")==0 || strcmp(p,"pd")==0)
-                        elenco[n].posicao[j]=14;
-                    if(strcmp(p,"PE")==0 || strcmp(p,"pe")==0)
-                        elenco[n].posicao[j]=15;
-                    if(strcmp(p,"SA")==0 || strcmp(p,"sa")==0)
-                        elenco[n].posicao[j]=16;
-                    if(strcmp(p,"CA")==0 || strcmp(p,"ca")==0)
-                        elenco[n].posicao[j]=17;
-                    j++;
-                }
-                if((ch>64 && ch<91) || (ch>96 && ch<123))
-                {
-                    p[i]=ch; // caso seja uma letra maiucula, armazena o caractere na string p
-                    i++;
-                }
-            }while(ch != '\n'); // caso o usuario digite enter, o loop é encerrado
-
-            encontrado++;
-            break;
-            */
         }
     }
     for(n=0;n<10;n++) // percorrendo todos os goleiros possiveis
@@ -969,10 +767,7 @@ int inserir_dados(partida **inicio)
     printf("Substituicoes feitas na partida: ");
     scanf("%d",&jogo_substituicoes);
     Inserir_LS(inicio, jogo_adversario, jogo_sigla_adv, jogo_dia, jogo_mes, jogo_gols_pro, jogo_gols_contra, jogo_substituicoes, &n);
-    //for(i=0;i<11+jogo_substituicoes;i++) // loop que percorre todos os jogadores que jogaram a partida
-    //apagar depois
-    for(i=0;i<4;i++)//apagar depois
-    //apagar depois
+    for(i=0;i<11+jogo_substituicoes;i++) // loop que percorre todos os jogadores que jogaram a partida
     {
         int encontrado=0;
         printf("\nPara inserir os dados de um jogador na partida, insira o numero de seu uniforme: ");
@@ -1341,10 +1136,7 @@ int editar_dados(partida **inicio)
     printf("Substituicoes feitas na partida: ");
     scanf("%d",&jogo_substituicoes);
     Editar_LS(inicio, n, jogo_adversario, jogo_sigla_adv, jogo_dia, jogo_mes, jogo_gols_pro, jogo_gols_contra, jogo_substituicoes);
-    //for(i=0;i<11+jogo[n].substituicoes;i++) // loop que percorre todos os jogadores que jogaram a partida
-    //apagar depois
-    for(i=0;i<3;i++)//apagar depois
-    //apagar depois
+    for(i=0;i<11+jogo_substituicoes;i++) // loop que percorre todos os jogadores que jogaram a partida
     {
         int encontrado=0;
         printf("\nPara inserir os dados de um jogador na partida, insira o numero de seu uniforme: ");
@@ -2003,24 +1795,6 @@ float pontuacao(int num_uniforme, int n)
     if(p>10){  p = 10; }
     return p;
 }
-
-/* Acredito que não serão usadas
-
-/* Funcao que exibe o ranking de jogadores sob um indicador
-
-int rankingI(int indicador)
-{
-
-}
-
-/* Funcao que exibe o ranking de jogadores sob um indicador
-
-int rankingF(float indicador)
-{
-
-}
-
-*/
 
 /* Funcao que exibe a melhor escalacao baseado nas melhores notas por posicao */
 
@@ -3468,7 +3242,7 @@ int grupo_Def()
 int grupo_FeP()
 {
   system("cls");
-  /*                   P Ê N A L T I S                                  */
+  /*                   F A L T A S                                  */
 
   int i = 0, j = 0, f = 0;
   for (i =0; i <40; i++){
