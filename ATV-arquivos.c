@@ -103,16 +103,16 @@ int excluir(char *time); // exclui o cadastro de um jogador
 int lista_jogadores(char *time); //lista todos os jogadores do grupo
 int lista_jogos(char *time); // lista todos os jogos ocorridos
 int estatisticas_jogador(char *time); //exibe as estatísticas de um jogador
-int estatisticas_grupo(); //exibe as estatisticas do grupo
+int estatisticas_grupo(char *time); //exibe as estatisticas do grupo
 int inserir_dados(char *time); //insere os dados de uma partida
 int editar_dados(char *time); //edita os dados de uma partida que já ocorreu
 float media_jogador(int total, int jogos); //calcula a media de um jogador
 float media_jogadorN(int num_jogador, char *time); //calcula a media de notas de um jogador
 float pontuacao(int num_uniforme, int n, char *time); //calcula a pontuação do jogador na partida
-int melhor_escalacao();//exibe a melhor escalação baseado nas melhores notas por posição
-int melhor_escalacao1();//exibe a melhor escalação com a formacao 3-5-2
-int melhor_escalacao2();//exibe a melhor escalação com a formacao 4-3-3
-int melhor_escalacao3();//exibe a melhor escalação com a formacao 4-4-2
+int melhor_escalacao(char *time);//exibe a melhor escalação baseado nas melhores notas por posição
+int melhor_escalacao1(char *time);//exibe a melhor escalação com a formacao 3-5-2
+int melhor_escalacao2(char *time);//exibe a melhor escalação com a formacao 4-3-3
+int melhor_escalacao3(char *time);//exibe a melhor escalação com a formacao 4-4-2
 int grupo_notas(); //exibe as estatísticas de nota do grupo
 int grupo_GeF(); //exibe as estatísticas de gol e finalização do grupo //da pra melhorar
 int grupo_PeA();//exibe as estatísticas de passes e assistências do grupo
@@ -183,7 +183,7 @@ int main()
                 break;
 
             case 7:
-                estatisticas_grupo(); // entra na função que exibe as estatisticas do grupo
+                estatisticas_grupo(time); // entra na função que exibe as estatisticas do grupo
                 break;
 
             case 0:
@@ -1793,7 +1793,7 @@ int estatisticas_jogador(char *time)
 
 /* Funcao que exibe as estatisticas do grupo */
 
-int estatisticas_grupo()
+int estatisticas_grupo(char *time)
 {
     system("cls");
     printf("\tEstatisticas do Grupo.\n\n");
@@ -1817,7 +1817,7 @@ int estatisticas_grupo()
             break;
 
         case 2:
-            melhor_escalacao();
+            melhor_escalacao(time);
             break;
 
         case 3:
@@ -2142,7 +2142,7 @@ float pontuacao(int num_uniforme, int n, char *time)
 
 /* Funcao que exibe a melhor escalacao baseado nas melhores notas por posicao */
 
-int melhor_escalacao()
+int melhor_escalacao(char *time)
 {
     system("cls");
     printf("\tEscolha uma formacao para saber a melhor escalacao:\n")
@@ -2155,11 +2155,11 @@ int melhor_escalacao()
     scanf("%d",&opc);
     switch(opc)
     {
-        case 1: melhor_escalacao1();
+        case 1: melhor_escalacao1(time);
                 break;
-        case 2: melhor_escalacao2();
+        case 2: melhor_escalacao2(time);
                 break;
-        case 3: melhor_escalacao3();
+        case 3: melhor_escalacao3(time);
                 break;
         case 0: break;
         default: printf("Opcao invalida\n");
@@ -2167,218 +2167,254 @@ int melhor_escalacao()
 
     return 0;
 }
+
 /*      3 - 5 - 2     */
-int melhor_escalacao1()
+int melhor_escalacao1(char *time)
 {
     system("cls");
 
+    FILE *arqJ;
+    FILE *arqG;
+    char arqJogadores[120], arqGoleiros[120];
+    strcpy(arqJogadores,time);
+    strcat(arqJogadores,"/jogadores.dat");
+    strcpy(arqGoleiros,time);
+    strcat(arqGoleiros,"/goleiros.dat");
+    arqJ = fopen(arqJogadores,"ab+");
+    arqG = fopen(arqGoleiros,"ab+");
+    goleiro goleiros;
+    jogadores elenco;
+
     int i,j,melhor_time[10],contador=0;
+    float media=0.0;
 
     // calculando o melhor goleiro
     int melhor_goleiro;
     float goleiro_nota=0;
-    for(i=0;i<10;i++)
-    {
-        if(goleiros[i].controle==1)
+
+    fread(&goleiros,sizeof(goleiro),1,arqG);
+    while(!feof(arqG)){
+        if(goleiros.media_notas>goleiro_nota)
         {
-            if(goleiros[i].media_notas>goleiro_nota)
-            {
-                melhor_goleiro=goleiros[i].uniforme;
-                goleiro_nota=goleiros[i].media_notas;
-            }
+            melhor_goleiro=goleiros.uniforme;
+            goleiro_nota=goleiros.media_notas;
         }
+        fread(&goleiros,sizeof(goleiro),1,arqG);
     }
-    /*  ZAGUEIROS  */
+    media += goleiro_nota;
+    rewind(arqG);
+
+    /*    ZAGUEIROS    */
+
     float Nz[3],menorNota=11;
     int Uz[3], indice;
     for(i=0;i<3;i++)
     {
         Nz[i]=-1;
     }
-    // percorrendo todos os jogadores
-    for(i=0;i<40;i++)
-    {
-        if(elenco[i].controle==1)
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        if(elenco.posicao == 1 || elenco.posicao == 2 || elenco.posicao == 3)
         {
-            if(elenco[i].posicao == 1 || elenco[i].posicao == 2 || elenco[i].posicao == 3)
+            if(contador == 3)
             {
-                if(contador == 3)
+                if(elenco.media_notas>menorNota)
                 {
-                    if(elenco[i].media_notas>menorNota)
-                    {
-                        Nz[indice] = elenco[i].media_notas;
-                        Uz[indice] = elenco[i].uniforme;
-                    }
+                    Nz[indice] = elenco.media_notas;
+                    Uz[indice] = elenco.uniforme;
                 }
+            }
+            else
+            {
                 for(j=0;j<3;j++)
                 {
                     if(Nz[j]==-1)
                     {
-                        Nz[j] = elenco[i].media_notas;
-                        Uz[j] = elenco[i].uniforme;
+                        Nz[j] = elenco.media_notas;
+                        Uz[j] = elenco.uniforme;
                         contador++;
                         break;
                     }
                 }
-                for(j=0;j<3;j++)
+            }
+            for(j=0;j<3;j++)
+            {
+                if(Nz[j]<menorNota && Nz[j] > 0)
                 {
-                    if(Nz[j]<menorNota && Nz[j] > 0)
-                    {
-                        menorNota = Nz[j];
-                        indice = j;
-                    }
+                    menorNota = Nz[j];
+                    indice = j;
                 }
             }
         }
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
     melhor_time[0]=Uz[0];
     melhor_time[1]=Uz[1];
     melhor_time[2]=Uz[2];
+
+    media += Nz[0];
+    media += Nz[1];
+    media += Nz[2];
+
+    rewind(arqJ);
+
     /*      PRIMEIROS VOLANTES     */
     float Npv=-1;
     int Upv;
     contador = 0;
-    for(i=0;i<40;i++)
-    {
-        if(elenco[i].controle==1)
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        if(elenco.posicao == 8)
         {
-            if(elenco[i].posicao == 8)
+            if(contador == 1)
             {
-                if(contador == 1)
+                if(elenco.media_notas>Npv)
                 {
-                    if(elenco[i].media_notas>Npv)
-                    {
-                        Npv = elenco[i].media_notas;
-                        Upv = elenco[i].uniforme;
-                    }
-                }
-                if(Npv==-1)
-                {
-                    Npv = elenco[i].media_notas;
-                    Upv = elenco[i].uniforme;
-                    contador++;
-                    break;
+                    Npv = elenco.media_notas;
+                    Upv = elenco.uniforme;
                 }
             }
+            if(Npv==-1)
+            {
+                Npv = elenco.media_notas;
+                Upv = elenco.uniforme;
+                contador++;
+                break;
+            }
         }
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
     melhor_time[3]=Upv;
+    rewind(arqJ);
+
     /*      SEGUNDOS VOLANTES ou ARMADOR    */
     float Nsv=-1;
     int Usv;
     contador = 0;
-    for(i=0;i<40;i++)
-    {
-        if(elenco[i].controle==1)
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        if(elenco.posicao == 9 || elenco.posicao == 10)
         {
-            if(elenco[i].posicao == 9 || elenco[i].posicao == 10)
+            if(contador == 1)
             {
-                if(contador == 1)
+                if(elenco.media_notas>Nsv)
                 {
-                    if(elenco[i].media_notas>Nsv)
-                    {
-                        Nsv = elenco[i].media_notas;
-                        Usv = elenco[i].uniforme;
-                    }
-                }
-                if(Nsv==-1)
-                {
-                    Nsv = elenco[i].media_notas;
-                    Usv = elenco[i].uniforme;
-                    contador++;
-                    break;
+                    Nsv = elenco.media_notas;
+                    Usv = elenco.uniforme;
                 }
             }
+            if(Nsv==-1)
+            {
+                Nsv = elenco.media_notas;
+                Usv = elenco.uniforme;
+                contador++;
+                break;
+            }
         }
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
     melhor_time[4]=Usv;
+
+    media += Nsv;
+
+    rewind(arqJ);
+
     /*      MEIAS DIREITAS ou PONTAS DIREITAS    */
     float Nmd=-1;
     int Umd;
     contador = 0;
-    for(i=0;i<40;i++)
-    {
-        if(elenco[i].controle==1)
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        if(elenco.posicao == 11 || elenco.posicao == 14)
         {
-            if(elenco[i].posicao == 11 || elenco[i].posicao == 14)
+            if(contador == 1)
             {
-                if(contador == 1)
+                if(elenco.media_notas>Nmd)
                 {
-                    if(elenco[i].media_notas>Nmd)
-                    {
-                        Nmd = elenco[i].media_notas;
-                        Umd = elenco[i].uniforme;
-                    }
-                }
-                if(Nmd==-1)
-                {
-                    Nmd = elenco[i].media_notas;
-                    Umd = elenco[i].uniforme;
-                    contador++;
-                    break;
+                    Nmd = elenco.media_notas;
+                    Umd = elenco.uniforme;
                 }
             }
+            if(Nmd==-1)
+            {
+                Nmd = elenco.media_notas;
+                Umd = elenco.uniforme;
+                contador++;
+                break;
+            }
         }
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
     melhor_time[5]=Umd;
+
+    media += Nmd;
+
+    rewind(arqJ);
+
     /*      MEIAS ESQUERDAS ou PONTAS ESQUERDAS    */
     float Nme=-1;
     int Ume;
     contador = 0;
-    for(i=0;i<40;i++)
-    {
-        if(elenco[i].controle==1)
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        if(elenco.posicao == 12 || elenco.posicao == 15)
         {
-            if(elenco[i].posicao == 12 || elenco[i].posicao == 15)
+            if(contador == 1)
             {
-                if(contador == 1)
+                if(elenco.media_notas>Nme)
                 {
-                    if(elenco[i].media_notas>Nme)
-                    {
-                        Nme = elenco[i].media_notas;
-                        Ume = elenco[i].uniforme;
-                    }
-                }
-                if(Nme==-1)
-                {
-                    Nme = elenco[i].media_notas;
-                    Ume = elenco[i].uniforme;
-                    contador++;
-                    break;
+                    Nme = elenco.media_notas;
+                    Ume = elenco.uniforme;
                 }
             }
+            if(Nme==-1)
+            {
+                Nme = elenco.media_notas;
+                Ume = elenco.uniforme;
+                contador++;
+                break;
+            }
         }
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
     melhor_time[6]=Ume;
+
+    media += Nme;
+
+    rewind(arqJ);
+
     /*      MEIAS ATACANTES    */
     float Nma=-1;
     int Uma;
     contador = 0;
-    for(i=0;i<40;i++)
-    {
-        if(elenco[i].controle==1)
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        if(elenco.posicao == 13)
         {
-            if(elenco[i].posicao == 13)
+            if(contador == 1)
             {
-                if(contador == 1)
+                if(elenco.media_notas>Nma)
                 {
-                    if(elenco[i].media_notas>Nma)
-                    {
-                        Nma = elenco[i].media_notas;
-                        Uma = elenco[i].uniforme;
-                    }
-                }
-                if(Nma==-1)
-                {
-                    Nma = elenco[i].media_notas;
-                    Uma = elenco[i].uniforme;
-                    contador++;
-                    break;
+                    Nma = elenco.media_notas;
+                    Uma = elenco.uniforme;
                 }
             }
+            if(Nma==-1)
+            {
+                Nma = elenco.media_notas;
+                Uma = elenco.uniforme;
+                contador++;
+                break;
+            }
         }
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
     melhor_time[7]=Uma;
+
+    media += Nma;
+
+    rewind(arqJ);
+
     /*  ATACANTES  */
     float Na[2];
     menorNota=11;
@@ -2387,106 +2423,171 @@ int melhor_escalacao1()
     {
         Na[i]=-1;
     }
-    // percorrendo todos os jogadores
-    for(i=0;i<40;i++)
-    {
-        if(elenco[i].controle==1)
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        if(elenco.posicao == 16 || elenco.posicao == 17)
         {
-            if(elenco[i].posicao == 16 || elenco[i].posicao == 17)
+            if(contador == 2)
             {
-                if(contador == 2)
+                if(elenco.media_notas>menorNota)
                 {
-                    if(elenco[i].media_notas>menorNota)
-                    {
-                        Na[indice] = elenco[i].media_notas;
-                        Ua[indice] = elenco[i].uniforme;
-                    }
+                    Na[indice] = elenco.media_notas;
+                    Ua[indice] = elenco.uniforme;
                 }
-                for(j=0;j<2;j++)
+            }
+            for(j=0;j<2;j++)
+            {
+                if(Na[j]==-1)
                 {
-                    if(Na[j]==-1)
-                    {
-                        Na[j] = elenco[i].media_notas;
-                        Ua[j] = elenco[i].uniforme;
-                        contador++;
-                        break;
-                    }
+                    Na[j] = elenco.media_notas;
+                    Ua[j] = elenco.uniforme;
+                    contador++;
+                    break;
                 }
-                for(j=0;j<2;j++)
+            }
+            for(j=0;j<2;j++)
+            {
+                if(Na[j]<menorNota && Na[j] > 0)
                 {
-                    if(Na[j]<menorNota && Na[j] > 0)
-                    {
-                        menorNota = Na[j];
-                        indice = j;
-                    }
+                    menorNota = Na[j];
+                    indice = j;
                 }
             }
         }
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
     melhor_time[8]=Ua[0];
     melhor_time[9]=Ua[1];
+
+    media += Na[0];
+    media += Na[1];
+
+    rewind(arqJ);
+
+    media = media / 11;
+
     /* IMPRIMINDO */
-    for(i=0;i<10;i++)
-    {
-        if(goleiros[i].uniforme == melhor_goleiro)
+
+    printf(" _______________________\n|\t\t\t|\n");
+    if(melhor_time[9] < 10)
+        printf("|\t0%d    ",melhor_time[9]);
+    else
+        printf("|\t%d    ",melhor_time[9]);
+    if(melhor_time[8] < 10)
+        printf("0%d\t|\n|\t\t\t|\n",melhor_time[8]);
+    else
+        printf("%d\t|\n|\t\t\t|\n",melhor_time[8]);
+    if(melhor_time[7] < 10)
+        printf("|\t   0%d   \t|\n|\t\t\t|\n",melhor_time[7]);
+    else
+        printf("|\t   %d   \t|\n|\t\t\t|\n",melhor_time[7]);
+    if(melhor_time[6] < 10)
+        printf("|  0%d\t",melhor_time[6]);
+    else
+        printf("|  %d\t",melhor_time[6]);
+    if(melhor_time[5] < 10)
+        printf("\t    0%d  |\n|\t\t\t|\n",melhor_time[5]);
+    else
+        printf("\t    %d  |\n|\t\t\t|\n",melhor_time[5]);
+    if(melhor_time[4] < 10)
+        printf("|       0%d\t\t|\n",melhor_time[4]);
+    else
+        printf("|       %d\t\t|\n",melhor_time[4]);
+    if(melhor_time[3] < 10)
+        printf("|\t     0%d\t\t|\n|\t\t\t|\n",melhor_time[3]);
+    else
+        printf("|\t     %d\t\t|\n|\t\t\t|\n",melhor_time[3]);
+    if(melhor_time[2] < 10)
+        printf("|    0%d\t\t",melhor_time[2]);
+    else
+        printf("|    %d\t\t",melhor_time[2]);
+    if(melhor_time[1] < 10)
+        printf("0%d\t|\n|\t\t\t|\n",melhor_time[1]);
+    else
+        printf("%d\t|\n|\t\t\t|\n",melhor_time[1]);
+    if(melhor_time[0] < 10)
+        printf("|\t   0%d   \t|\n|\t\t\t|\n",melhor_time[0]);
+    else
+        printf("|\t   %d   \t|\n|\t\t\t|\n",melhor_time[0]);
+    if(melhor_goleiro < 10)
+        printf("|\t\t\t|\n|\t   0%d\t\t|\n|\t\t\t|\n",melhor_goleiro);
+    else
+        printf("|\t\t\t|\n|\t   %d\t\t|\n|\t\t\t|\n",melhor_goleiro);
+    printf("|_______________________|\n");
+
+    fread(&goleiros,sizeof(goleiro),1,arqG);
+    while((!feof(arqG)) && goleiros.uniforme != melhor_goleiro){
+        if(goleiros.uniforme != melhor_goleiro)
         {
-            printf("Goleiro:          %s.\n", goleiros[i].uniforme);
+            printf("\nGoleiro:          %s.\n", goleiros.uniforme);
         }
+        fread(&goleiros,sizeof(goleiro),1,arqG);
     }
-    for(i=0;i<10;i++)
-    {
-        for(j=0;j<40;j++)
+    fclose(arqG);
+
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        for(i=0;i<10;i++)
         {
-            if(elenco[j].uniforme == melhor_time[i])
+            if(elenco.uniforme == melhor_time[i])
             {
                 if(i==0)
-                    printf("Zagueiros:        %s,",elenco[i].uniforme);
+                    printf("Zagueiros:        %s,",elenco.uniforme);
                 if(i==1)
-                    printf(" %s,",elenco[i].uniforme);
+                    printf(" %s,",elenco.uniforme);
                 if(i==2)
-                    printf(" %s.\n",elenco[i].uniforme);
+                    printf(" %s.\n",elenco.uniforme);
                 if(i==3)
-                    printf("Primeiro volante: %s.\n",elenco[i].uniforme);
+                    printf("Primeiro volante: %s.\n",elenco.uniforme);
                 if(i==4)
-                    printf("Segundo volante:  %s.\n",elenco[i].uniforme);
+                    printf("Segundo volante:  %s.\n",elenco.uniforme);
                 if(i==5)
-                    printf("Meia direita:     %s.\n",elenco[i].uniforme);
+                    printf("Meia direita:     %s.\n",elenco.uniforme);
                 if(i==6)
-                    printf("Meia esquerda:    %s.\n",elenco[i].uniforme);
+                    printf("Meia esquerda:    %s.\n",elenco.uniforme);
                 if(i==7)
-                    printf("Meia atacante:    %s.\n",elenco[i].uniforme);
+                    printf("Meia atacante:    %s.\n",elenco.uniforme);
                 if(i==8)
-                    printf("Atacantes:        %s,",elenco[i].uniforme);
+                    printf("Atacantes:        %s,",elenco.uniforme);
                 if(i==9)
-                    printf(" %s.\n",elenco[i].uniforme);
+                    printf(" %s.\n",elenco.uniforme);
             }
         }
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
+    fclose(arqJ);
+
+    printf("\nMedia de notas da escalacao: %.3f\n\n",media);
+
     system("pause");
     return 0;
 }
 
 /*      4 - 3 - 3     */
-int melhor_escalacao2()
+int melhor_escalacao2(char *time)
 {
     system("cls");
 
     int i,j,melhor_time[10],contador=0;
+    float media = 0.0;
 
     // calculando o melhor goleiro
     int melhor_goleiro;
     float goleiro_nota=0;
-    for(i=0;i<10;i++)
-    {
-        if(goleiros[i].controle==1)
+
+    fread(&goleiros,sizeof(goleiro),1,arqG);
+    while(!feof(arqG)){
+        if(goleiros.media_notas>goleiro_nota)
         {
-            if(goleiros[i].media_notas>goleiro_nota)
-            {
-                melhor_goleiro=goleiros[i].uniforme;
-                goleiro_nota=goleiros[i].media_notas;
-            }
+            melhor_goleiro=goleiros.uniforme;
+            goleiro_nota=goleiros.media_notas;
         }
+        fread(&goleiros,sizeof(goleiro),1,arqG);
     }
+    rewind(arqG);
+
+    media += goleiro_nota;
+
     /*  ZAGUEIROS  */
     float Nz[2],menorNota=11;
     int Uz[2], indice;
@@ -2494,323 +2595,409 @@ int melhor_escalacao2()
     {
         Nz[i]=-1;
     }
-    // percorrendo todos os jogadores
-    for(i=0;i<40;i++)
-    {
-        if(elenco[i].controle==1)
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arJ)){
+        if(elenco.posicao == 1 || elenco.posicao == 2 || elenco.posicao == 3)
         {
-            if(elenco[i].posicao == 1 || elenco[i].posicao == 2 || elenco[i].posicao == 3)
+            if(contador == 2)
             {
-                if(contador == 2)
+                if(elenco.media_notas>menorNota)
                 {
-                    if(elenco[i].media_notas>menorNota)
-                    {
-                        Nz[indice] = elenco[i].media_notas;
-                        Uz[indice] = elenco[i].uniforme;
-                    }
+                    Nz[indice] = elenco.media_notas;
+                    Uz[indice] = elenco.uniforme;
                 }
+            }
+            else
+            {
                 for(j=0;j<2;j++)
                 {
                     if(Nz[j]==-1)
                     {
-                        Nz[j] = elenco[i].media_notas;
-                        Uz[j] = elenco[i].uniforme;
+                        Nz[j] = elenco.media_notas;
+                        Uz[j] = elenco.uniforme;
                         contador++;
                         break;
                     }
                 }
-                for(j=0;j<2;j++)
+            }
+            for(j=0;j<2;j++)
+            {
+                if(Nz[j]<menorNota && Nz[j] > 0)
                 {
-                    if(Nz[j]<menorNota && Nz[j] > 0)
-                    {
-                        menorNota = Nz[j];
-                        indice = j;
-                    }
+                    menorNota = Nz[j];
+                    indice = j;
                 }
             }
         }
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
     melhor_time[0]=Uz[0];
     melhor_time[1]=Uz[1];
+
+    media += Nz[0];
+    media += Nz[1];
+
+    rewind(arqJ);
+
     /* LATERAIS DIREITOS */
-        float Nld=-1;
-        int Uld;
-        contador = 0;
-        for(i=0;i<40;i++)
+    float Nld=-1;
+    int Uld;
+    contador = 0;
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arJ)){
+        if(elenco.posicao == 4 || elenco.posicao == 6)
         {
-            if(elenco[i].controle==1)
+            if(contador == 1)
             {
-                if(elenco[i].posicao == 4 || elenco[i].posicao == 6)
+                if(elenco.media_notas>Nld)
                 {
-                    if(contador == 1)
-                    {
-                        if(elenco[i].media_notas>Nld)
-                        {
-                            Nld = elenco[i].media_notas;
-                            Uld = elenco[i].uniforme;
-                        }
-                    }
-                    if(Nld==-1)
-                    {
-                        Nld = elenco[i].media_notas;
-                        Uld = elenco[i].uniforme;
-                        contador++;
-                        break;
-                    }
+                    Nld = elenco.media_notas;
+                    Uld = elenco.uniforme;
                 }
             }
+            if(Nld==-1)
+            {
+                Nld = elenco.media_notas;
+                Uld = elenco.uniforme;
+                contador++;
+                break;
+            }
         }
-        melhor_time[2]=Uld;
+        fread(&elenco,sizeof(jogador),1,arqJ);
+    }
+    melhor_time[2]=Uld;
 
-        float Nle=-1;
+    media += Nld;
+
+    rewind(arqJ);
+
+    /* LATERAIS ESQUERDOS */
+    float Nle=-1;
     int Ule;
     contador = 0;
-    for(i=0;i<40;i++)
-    {
-        if(elenco[i].controle==1)
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arJ)){
+        if(elenco.posicao == 5 || elenco.posicao == 7)
         {
-            if(elenco[i].posicao == 5 || elenco[i].posicao == 7)
+            if(contador == 1)
             {
-                if(contador == 1)
+                if(elenco.media_notas>Nle)
                 {
-                    if(elenco[i].media_notas>Nle)
-                    {
-                        Nle = elenco[i].media_notas;
-                        Ule = elenco[i].uniforme;
-                    }
-                }
-                if(Nle==-1)
-                {
-                    Nle = elenco[i].media_notas;
-                    Ule = elenco[i].uniforme;
-                    contador++;
-                    break;
+                    Nle = elenco.media_notas;
+                    Ule = elenco.uniforme;
                 }
             }
+            if(Nle==-1)
+            {
+                Nle = elenco.media_notas;
+                Ule = elenco.uniforme;
+                contador++;
+                break;
+            }
         }
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
     melhor_time[3]=Ule;
+
+    media += Nle;
+
+    rewind(arqJ);
+
     /*      PRIMEIROS VOLANTES     */
     float Npv=-1;
     int Upv;
     contador = 0;
-    for(i=0;i<40;i++)
-    {
-        if(elenco[i].controle==1)
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arJ)){
+        if(elenco.posicao == 8)
         {
-            if(elenco[i].posicao == 8)
+            if(contador == 1)
             {
-                if(contador == 1)
+                if(elenco.media_notas>Npv)
                 {
-                    if(elenco[i].media_notas>Npv)
-                    {
-                        Npv = elenco[i].media_notas;
-                        Upv = elenco[i].uniforme;
-                    }
+                    Npv = elenco.media_notas;
+                    Upv = elenco.uniforme;
                 }
-                if(Npv==-1)
-                {
-                    Npv = elenco[i].media_notas;
-                    Upv = elenco[i].uniforme;
-                    contador++;
-                    break;
-                }
+            }
+            if(Npv==-1)
+            {
+                Npv = elenco.media_notas;
+                Upv = elenco.uniforme;
+                contador++;
+                break;
             }
         }
     }
     melhor_time[4]=Upv;
+
+    media += Npv;
+
+    rewind(arqJ);
+
     /*      MEIAS DIREITAS      */
     float Nmd=-1;
     int Umd;
     contador = 0;
-    for(i=0;i<40;i++)
-    {
-        if(elenco[i].controle==1)
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arJ)){
+        if(elenco.posicao == 11 || elenco.posicao == 13)
         {
-            if(elenco[i].posicao == 11 || elenco[i].posicao == 13)
+            if(contador == 1)
             {
-                if(contador == 1)
+                if(elenco.media_notas>Nmd)
                 {
-                    if(elenco[i].media_notas>Nmd)
-                    {
-                        Nmd = elenco[i].media_notas;
-                        Umd = elenco[i].uniforme;
-                    }
-                }
-                if(Nmd==-1)
-                {
-                    Nmd = elenco[i].media_notas;
-                    Umd = elenco[i].uniforme;
-                    contador++;
-                    break;
+                    Nmd = elenco.media_notas;
+                    Umd = elenco.uniforme;
                 }
             }
+            if(Nmd==-1)
+            {
+                Nmd = elenco.media_notas;
+                Umd = elenco.uniforme;
+                contador++;
+                break;
+            }
         }
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
     melhor_time[5]=Umd;
+
+    media += Nmd;
+
+    rewind(arqJ);
+
     /*      MEIAS ESQUERDAS    */
     float Nme=-1;
     int Ume;
     contador = 0;
-    for(i=0;i<40;i++)
-    {
-        if(elenco[i].controle==1)
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arJ)){
+        if(elenco.posicao == 12 || elenco.posicao == 13)
         {
-            if(elenco[i].posicao == 12 || elenco[i].posicao == 13)
+            if(contador == 1)
             {
-                if(contador == 1)
+                if(elenco.media_notas>Nme)
                 {
-                    if(elenco[i].media_notas>Nme)
-                    {
-                        Nme = elenco[i].media_notas;
-                        Ume = elenco[i].uniforme;
-                    }
-                }
-                if(Nme==-1)
-                {
-                    Nme = elenco[i].media_notas;
-                    Ume = elenco[i].uniforme;
-                    contador++;
-                    break;
+                    Nme = elenco.media_notas;
+                    Ume = elenco.uniforme;
                 }
             }
+            if(Nme==-1)
+            {
+                Nme = elenco.media_notas;
+                Ume = elenco.uniforme;
+                contador++;
+                break;
+            }
         }
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
     melhor_time[6]=Ume;
+
+    media += Nme;
+
+    rewind(arqJ);
+
     /*      PONTAS DIREITAS      */
     float Npd=-1;
     int Upd;
     contador = 0;
-    for(i=0;i<40;i++)
-    {
-        if(elenco[i].controle==1)
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arJ)){
+        if(elenco.posicao == 14)
         {
-            if(elenco[i].posicao == 14)
+            if(contador == 1)
             {
-                if(contador == 1)
+                if(elenco.media_notas>Npd)
                 {
-                    if(elenco[i].media_notas>Npd)
-                    {
-                        Npd = elenco[i].media_notas;
-                        Upd = elenco[i].uniforme;
-                    }
-                }
-                if(Npd==-1)
-                {
-                    Npd = elenco[i].media_notas;
-                    Upd = elenco[i].uniforme;
-                    contador++;
-                    break;
+                    Npd = elenco.media_notas;
+                    Upd = elenco.uniforme;
                 }
             }
+            if(Npd==-1)
+            {
+                Npd = elenco.media_notas;
+                Upd = elenco.uniforme;
+                contador++;
+                break;
+            }
         }
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
     melhor_time[7]=Upd;
+
+    media += Npd;
+
+    rewind(arqJ);
+
     /*      PONTAS ESQUERDAS      */
     float Npe=-1;
     int Upe;
     contador = 0;
-    for(i=0;i<40;i++)
-    {
-        if(elenco[i].controle==1)
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arJ)){
+        if(elenco.posicao == 15)
         {
-            if(elenco[i].posicao == 15)
+            if(contador == 1)
             {
-                if(contador == 1)
+                if(elenco.media_notas>Npe)
                 {
-                    if(elenco[i].media_notas>Npe)
-                    {
-                        Npe = elenco[i].media_notas;
-                        Upe = elenco[i].uniforme;
-                    }
-                }
-                if(Npe==-1)
-                {
-                    Npe = elenco[i].media_notas;
-                    Upe = elenco[i].uniforme;
-                    contador++;
-                    break;
+                    Npe = elenco.media_notas;
+                    Upe = elenco.uniforme;
                 }
             }
+            if(Npe==-1)
+            {
+                Npe = elenco.media_notas;
+                Upe = elenco.uniforme;
+                contador++;
+                break;
+            }
         }
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
     melhor_time[8]=Upe;
-    /*      PONTAS ESQUERDAS      */
+
+    media += Npe;
+
+    rewind(arqJ);
+
+    /*      ATACANTES      */
     float Na=-1;
     int Ua;
     contador = 0;
-    for(i=0;i<40;i++)
-    {
-        if(elenco[i].controle==1)
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arJ)){
+        if(elenco.posicao == 16 || elenco.posicao == 17)
         {
-            if(elenco[i].posicao == 16 || elenco[i].posicao == 17)
+            if(contador == 1)
             {
-                if(contador == 1)
+                if(elenco.media_notas>Na)
                 {
-                    if(elenco[i].media_notas>Na)
-                    {
-                        Na = elenco[i].media_notas;
-                        Ua = elenco[i].uniforme;
-                    }
-                }
-                if(Na==-1)
-                {
-                    Na = elenco[i].media_notas;
-                    Ua = elenco[i].uniforme;
-                    contador++;
-                    break;
+                    Na = elenco.media_notas;
+                    Ua = elenco.uniforme;
                 }
             }
+            if(Na==-1)
+            {
+                Na = elenco.media_notas;
+                Ua = elenco.uniforme;
+                contador++;
+                break;
+            }
         }
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
     melhor_time[9]=Ua;
+
+    media += Na;
+
+    rewind(arqJ);
+
+    media = media / 11;
+
     /* IMPRIMINDO */
-    for(i=0;i<10;i++)
-    {
-        if(goleiros[i].uniforme == melhor_goleiro)
+    printf(" _______________________\n|\t\t\t|\n");
+    if(melhor_time[9] < 10)
+        printf("|\t   0%d   \t|\n|\t\t\t|\n",melhor_time[9]);
+    else
+        printf("|\t   %d   \t|\n|\t\t\t|\n",melhor_time[9]);
+    if(melhor_time[8] < 10)
+        printf("|  0%d\t",melhor_time[8]);
+    else
+        printf("|  %d\t",melhor_time[8]);
+    if(melhor_time[7] < 10)
+        printf("\t    0%d  |\n|\t\t\t|\n",melhor_time[7]);
+    else
+        printf("\t    %d  |\n|\t\t\t|\n",melhor_time[7]);
+    if(melhor_time[6] < 10)
+        printf("|\t0%d",melhor_time[6]);
+    else
+        printf("|\t%d",melhor_time[6]);
+    if(melhor_time[5] < 10)
+        printf("    0%d\t|\n|\t\t\t|\n",melhor_time[5]);
+    else
+        printf("    %d\t|\n|\t\t\t|\n",melhor_time[5]);
+    if(melhor_time[4] < 10)
+        printf("|\t   0%d   \t|\n|\t\t\t|\n",melhor_time[4]);
+    else
+        printf("|\t   %d   \t|\n|\t\t\t|\n",melhor_time[4]);
+    if(melhor_time[3] < 10)
+        printf("|  0%d\t",melhor_time[3]);
+    else
+        printf("|  %d\t",melhor_time[3]);
+    if(melhor_time[2] < 10)
+        printf("\t    0%d  |\n",melhor_time[2]);
+    else
+        printf("\t    %d  |\n",melhor_time[2]);
+    if(melhor_time[1] < 10)
+        printf("|\t0%d\t",melhor_time[1]);
+    else
+        printf("|\t%d\t",melhor_time[1]);
+    if(melhor_time[0] < 10)
+        printf("0%d\t|\n|\t\t\t|\n",melhor_time[0]);
+    else
+        printf("%d\t|\n|\t\t\t|\n",melhor_time[0]);
+    if(melhor_goleiro < 10)
+        printf("|\t\t\t|\n|\t   0%d\t\t|\n|\t\t\t|\n",melhor_goleiro);
+    else
+        printf("|\t\t\t|\n|\t   %d\t\t|\n|\t\t\t|\n",melhor_goleiro);
+    printf("|_______________________|\n");
+
+    fread(&goleiros,sizeof(goleiro),1,arqG);
+    while((!feof(arqG)) && goleiros.uniforme != melhor_goleiro){
+        if(goleiros.uniforme != melhor_goleiro)
         {
-            printf("Goleiro:          %s.\n", goleiros[i].uniforme);
+            printf("\nGoleiro:          %s.\n", goleiros.uniforme);
         }
+        fread(&goleiros,sizeof(goleiro),1,arqG);
     }
-    for(i=0;i<10;i++)
-    {
-        for(j=0;j<40;j++)
+    fclose(arqG);
+
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        for(i=0;i<10;i++)
         {
-            if(elenco[j].uniforme == melhor_time[i])
+            if(elenco.uniforme == melhor_time[i])
             {
                 if(i==0)
-                    printf("Zagueiros:        %s,",elenco[i].uniforme);
+                    printf("Zagueiros:        %s,",elenco.uniforme);
                 if(i==1)
-                    printf(" %s.\n",elenco[i].uniforme);
+                    printf(" %s.\n",elenco.uniforme);
                 if(i==2)
-                    printf("Lateral direito:  %s.\n",elenco[i].uniforme);
+                    printf("Lateral direito:  %s.\n",elenco.uniforme);
                 if(i==3)
-                    printf("Lateral esquerdo: %s.\n",elenco[i].uniforme);
+                    printf("Lateral esquerdo: %s.\n",elenco.uniforme);
                 if(i==4)
-                    printf("Primeiro volante: %s.\n",elenco[i].uniforme);
+                    printf("Primeiro volante: %s.\n",elenco.uniforme);
                 if(i==5)
-                    printf("Meia direita:     %s.\n",elenco[i].uniforme);
+                    printf("Meia direita:     %s.\n",elenco.uniforme);
                 if(i==6)
-                    printf("Meia esquerda:    %s.\n",elenco[i].uniforme);
+                    printf("Meia esquerda:    %s.\n",elenco.uniforme);
                 if(i==7)
-                    printf("Ponta direita:    %s.\n",elenco[i].uniforme);
+                    printf("Ponta direita:    %s.\n",elenco.uniforme);
                 if(i==8)
-                    printf("Ponta esquerda:   %s.\n",elenco[i].uniforme);
+                    printf("Ponta esquerda:   %s.\n",elenco.uniforme);
                 if(i==9)
-                    printf("Atacante:         %s.\n",elenco[i].uniforme);
+                    printf("Atacante:         %s.\n",elenco.uniforme);
             }
         }
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
+    fclose(arqJ);
+
+    printf("\nMedia de notas da escalacao: %.3f\n\n",media);
 
     system("pause");
     return 0;
 }
 
 /*      4 - 4 - 2     */
-int melhor_escalacao3()
+int melhor_escalacao3(char *time)
 {
     system("cls");
     int i,j,melhor_time[10],contador=0;
+    float media = 0.0;
 
     // calculando o melhor goleiro
     int melhor_goleiro;
