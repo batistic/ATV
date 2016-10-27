@@ -853,7 +853,7 @@ int inserir_dados(partida **inicio)
                 goleiros[j].media_penaltisP=media_jogador(goleiros[j].total_penaltisP,goleiros[j].uniforme);
 
                 goleiros[j].notas[n]=pontuacao(goleiros[j].uniforme, n);
-                goleiros[i].media_notas=media_jogadorN(goleiros[i].uniforme);
+                goleiros[j].media_notas=media_jogadorN(goleiros[j].uniforme);
 
                 break;
             }
@@ -976,7 +976,7 @@ int inserir_dados(partida **inicio)
                 elenco[j].media_penaltisP=media_jogador(elenco[j].total_penaltisP,elenco[j].uniforme);
 
                 elenco[j].notas[n]=pontuacao(elenco[j].uniforme, n);
-                elenco[i].media_notas=media_jogadorN(elenco[i].uniforme);
+                elenco[j].media_notas=media_jogadorN(elenco[j].uniforme);
 
                 break;
             }
