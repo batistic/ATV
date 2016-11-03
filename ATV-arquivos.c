@@ -113,13 +113,13 @@ int melhor_escalacao(char *time);//exibe a melhor escalação baseado nas melhor
 int melhor_escalacao1(char *time);//exibe a melhor escalação com a formacao 3-5-2
 int melhor_escalacao2(char *time);//exibe a melhor escalação com a formacao 4-3-3
 int melhor_escalacao3(char *time);//exibe a melhor escalação com a formacao 4-4-2
-int grupo_notas(); //exibe as estatísticas de nota do grupo
-int grupo_GeF(); //exibe as estatísticas de gol e finalização do grupo //da pra melhorar
-int grupo_PeA();//exibe as estatísticas de passes e assistências do grupo
-int grupo_DeP();//exibe as estatísticas de desarme e de perdas de posse de bola do grupo
-int grupo_Def();//exibe as estatísticas de defesa do grupo
-int grupo_FeP();//exibe as estatísticas de faltas e pênaltis do grupo
-int grupo_Imp();//exibe as estatísticas de impedimentos do grupo
+int grupo_notas(char *time); //exibe as estatísticas de nota do grupo
+int grupo_GeF(char *time); //exibe as estatísticas de gol e finalização do grupo //da pra melhorar
+int grupo_PeA(char *time);//exibe as estatísticas de passes e assistências do grupo
+int grupo_DeP(char *time);//exibe as estatísticas de desarme e de perdas de posse de bola do grupo
+int grupo_Def(char *time);//exibe as estatísticas de defesa do grupo
+int grupo_FeP(char *time);//exibe as estatísticas de faltas e pênaltis do grupo
+int grupo_Imp(char *time);//exibe as estatísticas de impedimentos do grupo
 int jogador_dados(int num_uniforme, char *time);//mostra os dados gerais do jogador
 int jogador_GeF(int num_uniforme, char *time);//exibe as estatísticas de gol e finalização do jogador
 int goleiro_Gols(int num_uniforme, char *time);//exibe as estatísticas de gols sofridos e convertidos do goleiro
@@ -1813,7 +1813,7 @@ int estatisticas_grupo(char *time)
     switch(opc)
     {
         case 1:
-            grupo_notas();
+            grupo_notas(time);
             break;
 
         case 2:
@@ -1821,27 +1821,27 @@ int estatisticas_grupo(char *time)
             break;
 
         case 3:
-            grupo_GeF();
+            grupo_GeF(time);
             break;
 
         case 4:
-            grupo_PeA();
+            grupo_PeA(time);
             break;
 
         case 5:
-            grupo_DeP();
+            grupo_DeP(time);
             break;
 
         case 6:
-            grupo_Def();
+            grupo_Def(time);
             break;
 
         case 7:
-            grupo_FeP();
+            grupo_FeP(time);
             break;
 
         case 8:
-            grupo_Imp();
+            grupo_Imp(time);
             break;
 
         case 0:
@@ -2145,7 +2145,7 @@ float pontuacao(int num_uniforme, int n, char *time)
 int melhor_escalacao(char *time)
 {
     system("cls");
-    printf("\tEscolha uma formacao para saber a melhor escalacao:\n")
+    printf("\tEscolha uma formacao para saber a melhor escalacao:\n");
     printf("1. 3-5-2\n");
     printf("2. 4-3-3\n");
     printf("3. 4-4-2\n");
@@ -2183,7 +2183,7 @@ int melhor_escalacao1(char *time)
     arqJ = fopen(arqJogadores,"ab+"); if(arqJ == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
     arqG = fopen(arqGoleiros,"ab+"); if(arqG == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
     goleiro goleiros;
-    jogadores elenco;
+    jogador elenco;
 
     int i,j,melhor_time[10],contador=0;
     float media=0.0;
@@ -2581,7 +2581,7 @@ int melhor_escalacao2(char *time)
     arqJ = fopen(arqJogadores,"ab+"); if(arqJ == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
     arqG = fopen(arqGoleiros,"ab+"); if(arqG == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
     goleiro goleiros;
-    jogadores elenco;
+    jogador elenco;
 
     int i,j,melhor_time[10],contador=0;
     float media = 0.0;
@@ -2611,7 +2611,7 @@ int melhor_escalacao2(char *time)
         Nz[i]=-1;
     }
     fread(&elenco,sizeof(jogador),1,arqJ);
-    while(!feof(arJ)){
+    while(!feof(arqJ)){
         if(elenco.posicao == 1 || elenco.posicao == 2 || elenco.posicao == 3)
         {
             if(contador == 2)
@@ -2659,7 +2659,7 @@ int melhor_escalacao2(char *time)
     int Uld;
     contador = 0;
     fread(&elenco,sizeof(jogador),1,arqJ);
-    while(!feof(arJ)){
+    while(!feof(arqJ)){
         if(elenco.posicao == 4 || elenco.posicao == 6)
         {
             if(contador == 1)
@@ -2691,7 +2691,7 @@ int melhor_escalacao2(char *time)
     int Ule;
     contador = 0;
     fread(&elenco,sizeof(jogador),1,arqJ);
-    while(!feof(arJ)){
+    while(!feof(arqJ)){
         if(elenco.posicao == 5 || elenco.posicao == 7)
         {
             if(contador == 1)
@@ -2723,7 +2723,7 @@ int melhor_escalacao2(char *time)
     int Upv;
     contador = 0;
     fread(&elenco,sizeof(jogador),1,arqJ);
-    while(!feof(arJ)){
+    while(!feof(arqJ)){
         if(elenco.posicao == 8)
         {
             if(contador == 1)
@@ -2754,7 +2754,7 @@ int melhor_escalacao2(char *time)
     int Umd;
     contador = 0;
     fread(&elenco,sizeof(jogador),1,arqJ);
-    while(!feof(arJ)){
+    while(!feof(arqJ)){
         if(elenco.posicao == 11 || elenco.posicao == 13)
         {
             if(contador == 1)
@@ -2786,7 +2786,7 @@ int melhor_escalacao2(char *time)
     int Ume;
     contador = 0;
     fread(&elenco,sizeof(jogador),1,arqJ);
-    while(!feof(arJ)){
+    while(!feof(arqJ)){
         if(elenco.posicao == 12 || elenco.posicao == 13)
         {
             if(contador == 1)
@@ -2818,7 +2818,7 @@ int melhor_escalacao2(char *time)
     int Upd;
     contador = 0;
     fread(&elenco,sizeof(jogador),1,arqJ);
-    while(!feof(arJ)){
+    while(!feof(arqJ)){
         if(elenco.posicao == 14)
         {
             if(contador == 1)
@@ -2850,7 +2850,7 @@ int melhor_escalacao2(char *time)
     int Upe;
     contador = 0;
     fread(&elenco,sizeof(jogador),1,arqJ);
-    while(!feof(arJ)){
+    while(!feof(arqJ)){
         if(elenco.posicao == 15)
         {
             if(contador == 1)
@@ -2882,7 +2882,7 @@ int melhor_escalacao2(char *time)
     int Ua;
     contador = 0;
     fread(&elenco,sizeof(jogador),1,arqJ);
-    while(!feof(arJ)){
+    while(!feof(arqJ)){
         if(elenco.posicao == 16 || elenco.posicao == 17)
         {
             if(contador == 1)
@@ -3022,7 +3022,7 @@ int melhor_escalacao3(char *time)
     arqJ = fopen(arqJogadores,"ab+"); if(arqJ == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
     arqG = fopen(arqGoleiros,"ab+"); if(arqG == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
     goleiro goleiros;
-    jogadores elenco;
+    jogador elenco;
 
     int i,j,melhor_time[10],contador=0;
     float media = 0.0;
@@ -3052,7 +3052,7 @@ int melhor_escalacao3(char *time)
         Nz[i]=-1;
     }
     fread(&elenco,sizeof(jogador),1,arqJ);
-    while(!feof(arJ)){
+    while(!feof(arqJ)){
         if(elenco.posicao == 1 || elenco.posicao == 2 || elenco.posicao == 3)
         {
             if(contador == 2)
@@ -3100,7 +3100,7 @@ int melhor_escalacao3(char *time)
     int Uld;
     contador = 0;
     fread(&elenco,sizeof(jogador),1,arqJ);
-    while(!feof(arJ)){
+    while(!feof(arqJ)){
         if(elenco.posicao == 4 || elenco.posicao == 6)
         {
             if(contador == 1)
@@ -3132,7 +3132,7 @@ int melhor_escalacao3(char *time)
     int Ule;
     contador = 0;
     fread(&elenco,sizeof(jogador),1,arqJ);
-    while(!feof(arJ)){
+    while(!feof(arqJ)){
         if(elenco.posicao == 5 || elenco.posicao == 7)
         {
             if(contador == 1)
@@ -3437,7 +3437,7 @@ int melhor_escalacao3(char *time)
 
 /* Funcao que exibe as estatisticas de notas do grupo */
 
-int grupo_notas()
+int grupo_notas(char *time)
 {
     system("cls");
     printf("\tEstatisticas de notas do grupo\n\n");
@@ -3549,248 +3549,324 @@ int grupo_notas()
 
 /* Funcao que exibe as estatisticas de gols e finalizacoes do grupo */
 
-int grupo_GeF()
+int grupo_GeF(char *time)
 {
-  system("cls");
-  printf("\tEstatisticas de gols e finalizacoes do grupo\n\n");
+    system("cls");
+    printf("\tEstatisticas de gols e finalizacoes do grupo\n\n");
 
-  /*                             G O L S                                          */
-  /*obtendo a quantidade de jogadores que já jogaram */
-  int i = 0, j = 0, f = 0;
-  for (i =0; i <40; i++){
+    FILE *arqJ;
+    FILE *arqG;
+    char arqJogadores[120], arqGoleiros[120];
+    strcpy(arqJogadores,time);
+    strcat(arqJogadores,"/jogadores.dat");
+    strcpy(arqGoleiros,time);
+    strcat(arqGoleiros,"/goleiros.dat");
+    arqJ = fopen(arqJogadores,"rb+"); if(arqJ == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+    arqG = fopen(arqGoleiros,"rb+"); if(arqG == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+    goleiro goleiros;
+    jogador elenco;
 
-  if(elenco[i].controle == 1){
-    j = j +1;
-    f = f+1;
-    }
-  }
-  for(i = 0; i <10; i++){
-    if(goleiros[i].controle == 1){
-      j = j+1;
-    }
-  }
-  /*criando um vetor (novoGols[]) apenas com os gols, este vetor é genérico e serve apenas para manipulação (terá seus valores
-  alterados ao longo do código)*/
-  int novoGols[j], l = 0, m = -1, novoUniforme[j];
-  for(l = 0; l < 40; l++){
-    if(elenco[l].controle == 1){
-      m++;
-      novoGols[m] = elenco[l].total_gols;
-      novoUniforme[m] = elenco[l].uniforme;
-    }
-  }
-  for(l = 0; l < 10; l++){
-    if(goleiros[l].controle == 1){
-      m++;
-      novoGols[m] = goleiros[l].total_golsF;
-      novoUniforme[m] = goleiros[l].uniforme;
-    }
-  }
-  /*os valores obtidos em novoGols[] será agora ordenado de forma decrescente no vetor rankGols[]*/
-  int k = 0, maisGols = 0, guardaindice, rankGols[j], rankUniforme[j];
-  printf("Gols por jogador na temporada:\n\n");
+    /*                             G O L S                                          */
+    /*obtendo a quantidade de jogadores que já jogaram */
+    int i = 0, j = 0, f = 0;
 
-  while(k < j){
-    /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
-  for(l = 0; l <= m; l ++){
-    if(novoGols[l] >= maisGols){
-      maisGols = novoGols[l];
-      guardaindice = l;
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        j = j +1;
+        f = f+1;
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
-  }
-  /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
-  rankGols[k] = maisGols;
-  maisGols=0;
-  novoGols[guardaindice] = -1;
-  rankUniforme[k] = novoUniforme[guardaindice];
-  k++;
-  }
-  int x = 0;
-  for(x = 0; x < k; x++){
-    for(l = 0; l < 40; l++){
-      if(rankUniforme[x] == elenco[l].uniforme){
-        printf("%s: %d\n",elenco[l].nome, rankGols[x]);
-        break;
-      }
-      if(l < 10){
-        if(rankUniforme[x] == goleiros[l].uniforme){
-          printf("%s: %d\n", goleiros[l].nome, rankGols[x]);
-          break;
+    rewind(arqJ);
+
+    fread(&goleiros,sizeof(goleiro),1,arqG);
+    while(!feof(arqG)){
+        j = j+1;
+        fread(&goleiros,sizeof(goleiro),1,arqG);
+    }
+    rewind(arqG);
+
+    /*criando um vetor (novoGols[]) apenas com os gols, este vetor é genérico e serve apenas para manipulação (terá seus valores
+    alterados ao longo do código)*/
+
+    int novoGols[j], l = 0, m = -1, novoUniforme[j];
+
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        m++;
+        novoGols[m] = elenco.total_gols;
+        novoUniforme[m] = elenco.uniforme;
+        fread(&elenco,sizeof(jogador),1,arqJ);
+    }
+    rewind(arqJ);
+
+    fread(&goleiros,sizeof(goleiro),1,arqG);
+    while(!feof(arqG)){
+        m++;
+        novoGols[m] = goleiros.total_golsF;
+        novoUniforme[m] = goleiros.uniforme;
+        fread(&goleiros,sizeof(goleiro),1,arqG);
+    }
+    rewind(arqG);
+
+    /*os valores obtidos em novoGols[] será agora ordenado de forma decrescente no vetor rankGols[]*/
+    int k = 0, maisGols = 0, guardaindice, rankGols[j], rankUniforme[j];
+    printf("Gols por jogador na temporada:\n\n");
+
+    while(k < j){
+        /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
+        for(l = 0; l <= m; l ++){
+            if(novoGols[l] >= maisGols){
+                maisGols = novoGols[l];
+                guardaindice = l;
+            }
         }
-      }
+
+        /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
+        rankGols[k] = maisGols;
+        maisGols=0;
+        novoGols[guardaindice] = -1;
+        rankUniforme[k] = novoUniforme[guardaindice];
+        k++;
     }
-  }
+    int x = 0;
+    for(x = 0; x < k; x++){
+        fread(&elenco,sizeof(jogador),1,arqJ);
+        while(!feof(arqJ)){
+            if(rankUniforme[x] == elenco.uniforme){
+                printf("%s: %d\n",elenco.nome, rankGols[x]);
+                break;
+            }
+            fread(&elenco,sizeof(jogador),1,arqJ);
+        }
+        rewind(arqJ);
+        fread(&goleiros,sizeof(goleiro),1,arqG);
+        while(!feof(arqG)){
+            if(rankUniforme[x] == goleiros.uniforme){
+              printf("%s: %d\n", goleiros.nome, rankGols[x]);
+              break;
+            }
+            fread(&goleiros,sizeof(goleiro),1,arqG);
+        }
+        rewind(arqG);
 
-
-  /*                   F I N A L I Z A Ç Õ E S                                  */
-
-  /*Quantidade de jogadores que já jogaram = 'j'
-  Criando um vetor (novoFinalizacoes[]) apenas com as finalizações corretas, este vetor é genérico e serve apenas para
-  manipulação (terá seus valores alterados ao longo do código) */
-  int novoFinalizacoes[f];
-  l = 0;
-  m = -1;
-  for(l = 0; l < 40; l++){
-    if(elenco[l].controle == 1){
-      m++;
-      novoFinalizacoes[m] = elenco[l].total_finalizacoesC;
-      novoUniforme[m] = elenco[l].uniforme;
     }
-  }
-  /*os valores obtidos em novoFinalizacoes[] será agora ordenado de forma decrescente no vetor rankFinalizacoes[]*/
-  int  maisFinalizacoes = 0, rankFinalizacoes[f];
-  k = 0;
-  printf("\n\nFinalizacoes por jogador na temporada:\n\n");
 
-  while(k < f){
+
+    /*                   F I N A L I Z A Ç Õ E S                                  */
+
+    /*Quantidade de jogadores que já jogaram = 'j'
+    Criando um vetor (novoFinalizacoes[]) apenas com as finalizações corretas, este vetor é genérico e serve apenas para
+    manipulação (terá seus valores alterados ao longo do código) */
+    int novoFinalizacoes[f];
+    l = 0;
+    m = -1;
+
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        m++;
+        novoFinalizacoes[m] = elenco.total_finalizacoesC;
+        novoUniforme[m] = elenco.uniforme;
+        fread(&elenco,sizeof(jogador),1,arqJ);
+    }
+    rewind(arqJ);
+
+    /*os valores obtidos em novoFinalizacoes[] será agora ordenado de forma decrescente no vetor rankFinalizacoes[]*/
+    int  maisFinalizacoes = 0, rankFinalizacoes[f];
+    k = 0;
+    printf("\n\nFinalizacoes por jogador na temporada:\n\n");
+
+    while(k < f){
     /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
-  for(l = 0; l <= m; l ++){
-    if(novoFinalizacoes[l] >= maisFinalizacoes){
-      maisFinalizacoes = novoFinalizacoes[l];
-      guardaindice = l;
+        for(l = 0; l <= m; l ++){
+            if(novoFinalizacoes[l] >= maisFinalizacoes){
+                maisFinalizacoes = novoFinalizacoes[l];
+                guardaindice = l;
+            }
+        }
+        /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
+        rankFinalizacoes[k] = maisFinalizacoes;
+        maisFinalizacoes=0;
+        novoFinalizacoes[guardaindice] = -1;
+        rankUniforme[k] = novoUniforme[guardaindice];
+        k++;
     }
-  }
-  /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
-  rankFinalizacoes[k] = maisFinalizacoes;
-  maisFinalizacoes=0;
-  novoFinalizacoes[guardaindice] = -1;
-  rankUniforme[k] = novoUniforme[guardaindice];
-  k++;
-  }
-  for(x = 0; x < k; x++){
-    for(l = 0; l < 40; l++){
-      if(rankUniforme[x] == elenco[l].uniforme){
-        printf("%s: Total: %d     Acertos: %d     Aproveitamento: %.2f%%\n",elenco[l].nome, elenco[l].total_finalizacoesC + elenco[l].total_finalizacoesE,100*((float)elenco[l].total_finalizacoesC)/((float)elenco[l].total_finalizacoesC + (float)elenco[l].total_finalizacoesE)),rankFinalizacoes[x];
-        break;
-      }
-      }
+    for(x = 0; x < k; x++){
+        fread(&elenco,sizeof(jogador),1,arqJ);
+        while(!feof(arqJ)){
+            if(rankUniforme[x] == elenco.uniforme){
+                printf("%s: Total: %d     Acertos: %d     Aproveitamento: %.2f%%\n",elenco.nome, elenco.total_finalizacoesC + elenco.total_finalizacoesE,100*((float)elenco.total_finalizacoesC)/((float)elenco.total_finalizacoesC + (float)elenco.total_finalizacoesE)),rankFinalizacoes[x];
+                break;
+            }
+            fread(&elenco,sizeof(jogador),1,arqJ);
+        }
+        rewind(arqJ);
     }
-  printf("\n\n");
-  system("pause");
-  return 0;
+    fclose(arqJ);
+    fclose(arqG);
 
+    printf("\n\n");
+    system("pause");
+    return 0;
 }
 
 /* Funcao que exibe as estatisticas de passes e assistencias do grupo */
 
-int grupo_PeA()
+int grupo_PeA(char *time)
 {
-  system("cls");
-  printf("\tEstatisticas de gols e finalizacoes do grupo\n\n");
+    system("cls");
+    printf("\tEstatisticas de gols e finalizacoes do grupo\n\n");
 
-  /*                             P A S S E S                                          */
-  /*obtendo a quantidade de jogadores que já jogaram */
-  int i = 0, j = 0, f = 0;
-  for (i =0; i <40; i++){
+    FILE *arqJ;
+    FILE *arqG;
+    char arqJogadores[120], arqGoleiros[120];
+    strcpy(arqJogadores,time);
+    strcat(arqJogadores,"/jogadores.dat");
+    strcpy(arqGoleiros,time);
+    strcat(arqGoleiros,"/goleiros.dat");
+    arqJ = fopen(arqJogadores,"rb+"); if(arqJ == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+    arqG = fopen(arqGoleiros,"rb+"); if(arqG == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+    goleiro goleiros;
+    jogador elenco;
 
-  if(elenco[i].controle == 1){
-    j = j +1;
-    f = f+1;
-    }
-  }
-  for(i = 0; i <10; i++){
-    if(goleiros[i].controle == 1){
-      j = j+1;
-    }
-  }
-  /*criando um vetor (novoPasses[]) apenas com os gols, este vetor é genérico e serve apenas para manipulação (terá seus valores
-  alterados ao longo do código)*/
-  int novoPasses[j], l = 0, m = -1, novoUniforme[j];
-  for(l = 0; l < 40; l++){
-    if(elenco[l].controle == 1){
-      m++;
-      novoPasses[m] = elenco[l].total_passesC;
-      novoUniforme[m] = elenco[l].uniforme;
-    }
-  }
-  for(l = 0; l < 10; l++){
-    if(goleiros[l].controle == 1){
-      m++;
-      novoPasses[m] = goleiros[l].total_passesC;
-      novoUniforme[m] = goleiros[l].uniforme;
-    }
-  }
-  /*os valores obtidos em novoPasses[] será agora ordenado de forma decrescente no vetor rankPasses[]*/
-  int k = 0, maisPasses = 0, guardaindice, rankPasses[j], rankUniforme[j];
-  printf("Passes certos por jogador na temporada:\n\n");
+    /*                             P A S S E S                                          */
+    /*obtendo a quantidade de jogadores que já jogaram */
+    int i = 0, j = 0, f = 0;
 
-  while(k < j){
-    /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoPasses[]*/
-  for(l = 0; l <= m; l ++){
-    if(novoPasses[l] >= maisPasses){
-      maisPasses = novoPasses[l];
-      guardaindice = l;
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        j = j +1;
+        f = f+1;
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
-  }
-  /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
-  rankPasses[k] = maisPasses;
-  maisPasses=0;
-  novoPasses[guardaindice] = -1;
-  rankUniforme[k] = novoUniforme[guardaindice];
-  k++;
-  }
-  int x = 0;
-  for(x = 0; x < k; x++){
-    for(l = 0; l < 40; l++){
-      if(rankUniforme[x] == elenco[l].uniforme){
-        printf("%s: %d\n",elenco[l].nome, rankPasses[x]);
-        break;
-      }
-      if(l < 10){
-        if(rankUniforme[x] == goleiros[l].uniforme){
-          printf("%s: %d\n", goleiros[l].nome, rankPasses[x]);
-          break;
+    rewind(arqJ);
+
+    fread(&goleiros,sizeof(goleiro),1,arqG);
+    while(!feof(arqG)){
+        j = j+1;
+        fread(&goleiros,sizeof(goleiro),1,arqG);
+    }
+    rewind(arqG);
+
+    /*criando um vetor (novoPasses[]) apenas com os gols, este vetor é genérico e serve apenas para manipulação (terá seus valores
+    alterados ao longo do código)*/
+    int novoPasses[j], l = 0, m = -1, novoUniforme[j];
+
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        m++;
+        novoPasses[m] = elenco.total_passesC;
+        novoUniforme[m] = elenco.uniforme;
+        fread(&elenco,sizeof(jogador),1,arqJ);
+    }
+    rewind(arqJ);
+
+    fread(&goleiros,sizeof(goleiro),1,arqG);
+    while(!feof(arqG)){
+        m++;
+        novoPasses[m] = goleiros.total_passesC;
+        novoUniforme[m] = goleiros.uniforme;
+        fread(&goleiros,sizeof(goleiro),1,arqG);
+    }
+    rewind(arqG);
+
+    /*os valores obtidos em novoPasses[] será agora ordenado de forma decrescente no vetor rankPasses[]*/
+    int k = 0, maisPasses = 0, guardaindice, rankPasses[j], rankUniforme[j];
+    printf("Passes certos por jogador na temporada:\n\n");
+
+    while(k < j){
+        /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoPasses[]*/
+        for(l = 0; l <= m; l ++){
+            if(novoPasses[l] >= maisPasses){
+                maisPasses = novoPasses[l];
+                guardaindice = l;
+            }
         }
-      }
+        /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
+        rankPasses[k] = maisPasses;
+        maisPasses=0;
+        novoPasses[guardaindice] = -1;
+        rankUniforme[k] = novoUniforme[guardaindice];
+        k++;
     }
-  }
+    int x = 0;
+    for(x = 0; x < k; x++){
+        fread(&elenco,sizeof(jogador),1,arqJ);
+        while(!feof(arqJ)){
+            if(rankUniforme[x] == elenco.uniforme){
+                printf("%s: %d\n",elenco.nome, rankPasses[x]);
+                break;
+            }
+            fread(&elenco,sizeof(jogador),1,arqJ);
+        }
+        rewind(arqJ);
+
+        fread(&goleiros,sizeof(goleiro),1,arqG);
+        while(!feof(arqG)){
+            if(rankUniforme[x] == goleiros.uniforme){
+                printf("%s: %d\n", goleiros.nome, rankPasses[x]);
+                break;
+            }
+            fread(&goleiros,sizeof(goleiro),1,arqG);
+        }
+        rewind(arqG);
+
+    }
 
 
-  /*                   A S S I S T Ê N C I A S                                  */
+    /*                   A S S I S T Ê N C I A S                                  */
 
-  /*Quantidade de jogadores que já jogaram = 'j'
-  Criando um vetor (novoAssistencias[]) apenas com as finalizações corretas, este vetor é genérico e serve apenas para
-  manipulação (terá seus valores alterados ao longo do código) */
-  int novoAssistencias[f];
-  l = 0;
-  m = -1;
-  for(l = 0; l < 40; l++){
-    if(elenco[l].controle == 1){
-      m++;
-      novoAssistencias[m] = elenco[l].total_assistG;
-      novoUniforme[m] = elenco[l].uniforme;
-    }
-  }
-  /*os valores obtidos em novoAssistencias[] será agora ordenado de forma decrescente no vetor rankAssistencias[]*/
-  int  maisAssistencias = 0, rankAssistencias[f];
-  k = 0;
-  printf("\n\nAssistencias por jogador na temporada:\n\n");
+    /*Quantidade de jogadores que já jogaram = 'j'
+    Criando um vetor (novoAssistencias[]) apenas com as finalizações corretas, este vetor é genérico e serve apenas para
+    manipulação (terá seus valores alterados ao longo do código) */
+    int novoAssistencias[f];
+    l = 0;
+    m = -1;
 
-  while(k < f){
-    /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoAssistencias[]*/
-  for(l = 0; l <= m; l ++){
-    if(novoAssistencias[l] >= maisAssistencias){
-      maisAssistencias = novoAssistencias[l];
-      guardaindice = l;
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        m++;
+        novoAssistencias[m] = elenco.total_assistG;
+        novoUniforme[m] = elenco.uniforme;
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
-  }
-  /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
-  rankAssistencias[k] = maisAssistencias;
-  maisAssistencias=0;
-  novoAssistencias[guardaindice] = -1;
-  rankUniforme[k] = novoUniforme[guardaindice];
-  k++;
-  }
-  for(x = 0; x < k; x++){
-    for(l = 0; l < 40; l++){
-      if(rankUniforme[x] == elenco[l].uniforme){
-        printf("%s: Total: %d     Assist. Gol: %d     Assist. Finalizacao: %d\n",elenco[l].nome,elenco[l].total_assistG + elenco[l].total_assistF, elenco[l].total_assistG, elenco[l].total_assistF);
-        break;
-      }
-      }
+    rewind(arqJ);
+
+    /*os valores obtidos em novoAssistencias[] será agora ordenado de forma decrescente no vetor rankAssistencias[]*/
+    int  maisAssistencias = 0, rankAssistencias[f];
+    k = 0;
+    printf("\n\nAssistencias por jogador na temporada:\n\n");
+
+    while(k < f){
+        /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoAssistencias[]*/
+        for(l = 0; l <= m; l ++){
+            if(novoAssistencias[l] >= maisAssistencias){
+                maisAssistencias = novoAssistencias[l];
+                guardaindice = l;
+            }
+        }
+        /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
+        rankAssistencias[k] = maisAssistencias;
+        maisAssistencias=0;
+        novoAssistencias[guardaindice] = -1;
+        rankUniforme[k] = novoUniforme[guardaindice];
+        k++;
     }
-  printf("\n\n");
-  system("pause");
+    for(x = 0; x < k; x++){
+        fread(&elenco,sizeof(jogador),1,arqJ);
+        while(!feof(arqJ)){
+            if(rankUniforme[x] == elenco.uniforme){
+                printf("%s: Total: %d     Assist. Gol: %d     Assist. Finalizacao: %d\n",elenco.nome,elenco.total_assistG + elenco.total_assistF, elenco.total_assistG, elenco.total_assistF);
+                break;
+            }
+            fread(&elenco,sizeof(jogador),1,arqJ);
+        }
+        rewind(arqJ);
+    }
+    fclose(arqJ);
+    fclose(arqG);
+
+    printf("\n\n");
+    system("pause");
   return 0;
 
 
@@ -3798,306 +3874,386 @@ int grupo_PeA()
 
 /* Funcao que exibe as estatisticas de desarmes e de perdas de posse de bola do grupo */
 
-int grupo_DeP()
+int grupo_DeP(char *time)
 {
-  system("cls");
+    system("cls");
 
-      /*                        D E S A R M E S                                  */
-      /*obtendo a quantidade de jogadores que já jogaram */
-  int i = 0, j = 0;
-  for (i =0; i <40; i++){
+    FILE *arqJ;
+    char arqJogadores[120];
+    strcpy(arqJogadores,time);
+    strcat(arqJogadores,"/jogadores.dat");
+    arqJ = fopen(arqJogadores,"rb+"); if(arqJ == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+    jogador elenco;
 
-  if(elenco[i].controle == 1){
-    j = j +1;
-    }
-  }
-  /*criando um vetor (novoDesarmes[]) apenas com os desarmes, este vetor é genérico e serve apenas para manipulação (terá seus valores
-  alterados ao longo do código)*/
-  int novoDesarmes[j], l = 0, m = -1, novoUniforme[j];
-  for(l = 0; l < 40; l++){
-    if(elenco[l].controle == 1){
-      m++;
-      novoDesarmes[m] = elenco[l].total_desarmes;
-      novoUniforme[m] = elenco[l].uniforme;
-    }
-  }
-  /*os valores obtidos em novoDesarmes[] será agora ordenado de forma decrescente no vetor rankDesarmes[]*/
-  int k = 0, maisDesarmes = 0, guardaindice, rankDesarmes[j], rankUniforme[j];
-  printf("Desarmes e perdas de posse por jogador na temporada:\n\n");
+    /*                        D E S A R M E S                                  */
+    /*obtendo a quantidade de jogadores que já jogaram */
+    int i = 0, j = 0;
 
-  while(k < j){
-    /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
-  for(l = 0; l <= m; l ++){
-    if(novoDesarmes[l] >= maisDesarmes){
-      maisDesarmes = novoDesarmes[l];
-      guardaindice = l;
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        j = j +1;
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
-  }
-  /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
-  rankDesarmes[k] = maisDesarmes;
-  maisDesarmes=0;
-  novoDesarmes[guardaindice] = -1;
-  rankUniforme[k] = novoUniforme[guardaindice];
-  k++;
-  }
-  int x = 0;
-  for(x = 0; x < k; x++){
-    for(l = 0; l < 40; l++){
-      if(rankUniforme[x] == elenco[l].uniforme){
-        printf("%s: Desarmes: %d     Perdas de posse: %d\n",elenco[l].nome, elenco[l].total_desarmes, elenco[l].total_perdas);
-        break;
-      }
+    rewind(arqJ);
+
+    /*criando um vetor (novoDesarmes[]) apenas com os desarmes, este vetor é genérico e serve apenas para manipulação (terá seus valores
+    alterados ao longo do código)*/
+    int novoDesarmes[j], l = 0, m = -1, novoUniforme[j];
+
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        m++;
+        novoDesarmes[m] = elenco.total_desarmes;
+        novoUniforme[m] = elenco.uniforme;
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
-  }
-  printf("\n");
-  system("pause");
-  return 0;
+    rewind(arqJ);
+
+    /*os valores obtidos em novoDesarmes[] será agora ordenado de forma decrescente no vetor rankDesarmes[]*/
+    int k = 0, maisDesarmes = 0, guardaindice, rankDesarmes[j], rankUniforme[j];
+    printf("Desarmes e perdas de posse por jogador na temporada:\n\n");
+
+    while(k < j){
+        /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
+        for(l = 0; l <= m; l ++){
+            if(novoDesarmes[l] >= maisDesarmes){
+                maisDesarmes = novoDesarmes[l];
+                guardaindice = l;
+            }
+        }
+        /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
+        rankDesarmes[k] = maisDesarmes;
+        maisDesarmes=0;
+        novoDesarmes[guardaindice] = -1;
+        rankUniforme[k] = novoUniforme[guardaindice];
+        k++;
+    }
+    int x = 0;
+    for(x = 0; x < k; x++){
+        fread(&elenco,sizeof(jogador),1,arqJ);
+        while(!feof(arqJ)){
+            if(rankUniforme[x] == elenco.uniforme){
+                printf("%s: Desarmes: %d     Perdas de posse: %d\n",elenco.nome, elenco.total_desarmes, elenco.total_perdas);
+                break;
+            }
+            fread(&elenco,sizeof(jogador),1,arqJ);
+        }
+        rewind(arqJ);
+
+    }
+    fclose(arqJ);
+
+    printf("\n");
+    system("pause");
+    return 0;
 }
 
 /* Funcao que exibe as estatisticas de defesas do grupo */
 
-int grupo_Def()
+int grupo_Def(char *time)
 {
+    system("cls");
 
-  /*                             D E F E S A S                                          */
-  /*obtendo a quantidade de jogadores que já jogaram */
-  int i = 0, j = 0, f = 0;
-    //f = f+1;
+    FILE *arqG;
+    char arqGoleiros[120];
+    strcpy(arqGoleiros,time);
+    strcat(arqGoleiros,"/goleiros.dat");
+    arqG = fopen(arqGoleiros,"rb+"); if(arqG == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+    goleiro goleiros;
 
-  for(i = 0; i <10; i++){
-    if(goleiros[i].controle == 1){
-      j = j+1;
-    }
-  }
-  /*criando um vetor (novoGols[]) apenas com os gols, este vetor é genérico e serve apenas para manipulação (terá seus valores
-  alterados ao longo do código)*/
-  int novoDefesas[j], l = 0, m = -1, novoUniforme[j];
-  /*for(l = 0; l < 40; l++){
-    if(elenco[l].controle == 1){
-      m++;
-      novoDefesas[m] = elenco[l].total_defesas;
-      novoUniforme[m] = elenco[l].uniforme;
-    }
-  }*/
-  for(l = 0; l < 10; l++){
-    if(goleiros[l].controle == 1){
-      m++;
-      novoDefesas[m] = goleiros[l].total_defesas;
-      novoUniforme[m] = goleiros[l].uniforme;
-    }
-  }
-  /*os valores obtidos em novoGols[] será agora ordenado de forma decrescente no vetor rankGols[]*/
-  int k = 0, maisDefesas = 0, guardaindice, rankDefesas[j], rankUniforme[j];
-  printf("Defesas por goleiro na temporada:\n\n");
+    /*                             D E F E S A S                                          */
+    /*obtendo a quantidade de jogadores que já jogaram */
+    int i = 0, j = 0, f = 0;
 
-  while(k < j){
-    /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
-  for(l = 0; l <= m; l ++){
-    if(novoDefesas[l] >= maisDefesas){
-      maisDefesas = novoDefesas[l];
-      guardaindice = l;
+    fread(&goleiros,sizeof(goleiro),1,arqG);
+    while(!feof(arqG)){
+        j = j+1;
+        fread(&goleiros,sizeof(goleiro),1,arqG);
     }
-  }
-  /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
-  rankDefesas[k] = maisDefesas;
-  maisDefesas=0;
-  novoDefesas[guardaindice] = -1;
-  rankUniforme[k] = novoUniforme[guardaindice];
-  k++;
-  }
-  int x = 0;
-  for(x = 0; x < k; x++){
-    for(l = 0; l < 10; l++){
-        if(rankUniforme[x] == goleiros[l].uniforme){
-          printf("%s: %d\n", goleiros[l].nome, rankDefesas[x]);
-          break;
+    rewind(arqG);
+
+    /*criando um vetor (novoGols[]) apenas com os gols, este vetor é genérico e serve apenas para manipulação (terá seus valores
+    alterados ao longo do código)*/
+    int novoDefesas[j], l = 0, m = -1, novoUniforme[j];
+
+    fread(&goleiros,sizeof(goleiro),1,arqG);
+    while(!feof(arqG)){
+        m++;
+        novoDefesas[m] = goleiros.total_defesas;
+        novoUniforme[m] = goleiros.uniforme;
+        fread(&goleiros,sizeof(goleiro),1,arqG);
+    }
+    rewind(arqG);
+
+    /*os valores obtidos em novoGols[] será agora ordenado de forma decrescente no vetor rankGols[]*/
+    int k = 0, maisDefesas = 0, guardaindice, rankDefesas[j], rankUniforme[j];
+    printf("Defesas por goleiro na temporada:\n\n");
+
+    while(k < j){
+        /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
+        for(l = 0; l <= m; l ++){
+            if(novoDefesas[l] >= maisDefesas){
+                maisDefesas = novoDefesas[l];
+                guardaindice = l;
+            }
         }
+        /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
+        rankDefesas[k] = maisDefesas;
+        maisDefesas=0;
+        novoDefesas[guardaindice] = -1;
+        rankUniforme[k] = novoUniforme[guardaindice];
+        k++;
     }
-  }
+    int x = 0;
+    for(x = 0; x < k; x++){
+        fread(&goleiros,sizeof(goleiro),1,arqG);
+        while(!feof(arqG)){
+            if(rankUniforme[x] == goleiros.uniforme){
+                printf("%s: %d\n", goleiros.nome, rankDefesas[x]);
+                break;
+            }
+            fread(&goleiros,sizeof(goleiro),1,arqG);
+        }
+        rewind(arqG);
+    }
+    fclose(arqG);
 
-      system("pause");
-      return 0;
-    }
+    system("pause");
+    return 0;
+}
 
 /* Funcao que exibe as estatisticas de faltas e penaltis do grupo */
 
-int grupo_FeP()
+int grupo_FeP(char *time)
 {
-  system("cls");
-  /*                   F A L T A S                                  */
+    system("cls");
 
-  int i = 0, j = 0, f = 0;
-  for (i =0; i <40; i++){
+    FILE *arqJ;
+    FILE *arqG;
+    char arqJogadores[120], arqGoleiros[120];
+    strcpy(arqJogadores,time);
+    strcat(arqJogadores,"/jogadores.dat");
+    strcpy(arqGoleiros,time);
+    strcat(arqGoleiros,"/goleiros.dat");
+    arqJ = fopen(arqJogadores,"rb+"); if(arqJ == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+    arqG = fopen(arqGoleiros,"rb+"); if(arqG == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+    goleiro goleiros;
+    jogador elenco;
 
-  if(elenco[i].controle == 1){
-    j = j +1;
-    f = f+1;
-    }
-  }
-  for(i = 0; i <10; i++){
-    if(goleiros[i].controle == 1){
-      j = j+1;
-    }
-  }
-  /*criando um vetor (novoGols[]) apenas com os gols, este vetor é genérico e serve apenas para manipulação (terá seus valores
-  alterados ao longo do código)*/
-  int novoFaltas[j], l = 0, m = -1, novoUniforme[j];
-  for(l = 0; l < 40; l++){
-    if(elenco[l].controle == 1){
-      m++;
-      novoFaltas[m] = elenco[l].total_faltasC;
-      novoUniforme[m] = elenco[l].uniforme;
-    }
-  }
-  for(l = 0; l < 10; l++){
-    if(goleiros[l].controle == 1){
-      m++;
-      novoFaltas[m] = goleiros[l].total_faltasC;
-      novoUniforme[m] = goleiros[l].uniforme;
-    }
-  }
-  /*os valores obtidos em novoGols[] será agora ordenado de forma decrescente no vetor rankGols[]*/
-  int k = 0, maisFaltas = 0, guardaindice, rankFaltas[j], rankUniforme[j];
-  printf("Faltas por jogador na temporada:\n\n");
+    /*                   F A L T A S                                  */
 
-  while(k < j){
-    /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
-  for(l = 0; l <= m; l ++){
-    if(novoFaltas[l] >= maisFaltas){
-      maisFaltas = novoFaltas[l];
-      guardaindice = l;
+    int i = 0, j = 0, f = 0;
+
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        j = j +1;
+        f = f+1;
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
-  }
-  /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
-  rankFaltas[k] = maisFaltas;
-  maisFaltas=0;
-  novoFaltas[guardaindice] = -1;
-  rankUniforme[k] = novoUniforme[guardaindice];
-  k++;
-  }
-  int x = 0;
-  for(x = 0; x < k; x++){
-    for(l = 0; l < 40; l++){
-      if(rankUniforme[x] == elenco[l].uniforme){
-        printf("%s: Faltas cometidas: %d   Faltas sofridas: %d\n",elenco[l].nome, rankFaltas[x], elenco[l].total_faltasS);
-        break;
-      }
-      if(l < 10){
-        if(rankUniforme[x] == goleiros[l].uniforme){
-          printf("%s: Faltas cometidas: %d   Faltas sofridas: \n", goleiros[l].nome, rankFaltas[x], goleiros[l].total_faltasS);
-          break;
+    rewind(arqJ);
+
+    fread(&goleiros,sizeof(goleiro),1,arqG);
+    while(!feof(arqG)){
+        j = j+1;
+        fread(&goleiros,sizeof(goleiro),1,arqG);
+    }
+    rewind(arqG);
+
+    /*criando um vetor (novoGols[]) apenas com os gols, este vetor é genérico e serve apenas para manipulação (terá seus valores
+    alterados ao longo do código)*/
+    int novoFaltas[j], l = 0, m = -1, novoUniforme[j];
+
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        m++;
+        novoFaltas[m] = elenco.total_faltasC;
+        novoUniforme[m] = elenco.uniforme;
+        fread(&elenco,sizeof(jogador),1,arqJ);
+    }
+    rewind(arqJ);
+
+    fread(&goleiros,sizeof(goleiro),1,arqG);
+    while(!feof(arqG)){
+        m++;
+        novoFaltas[m] = goleiros.total_faltasC;
+        novoUniforme[m] = goleiros.uniforme;
+        fread(&goleiros,sizeof(goleiro),1,arqG);
+    }
+    rewind(arqG);
+
+    /*os valores obtidos em novoGols[] será agora ordenado de forma decrescente no vetor rankGols[]*/
+    int k = 0, maisFaltas = 0, guardaindice, rankFaltas[j], rankUniforme[j];
+    printf("Faltas por jogador na temporada:\n\n");
+
+    while(k < j){
+        /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
+        for(l = 0; l <= m; l ++){
+            if(novoFaltas[l] >= maisFaltas){
+                maisFaltas = novoFaltas[l];
+                guardaindice = l;
+            }
         }
-      }
+        /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
+        rankFaltas[k] = maisFaltas;
+        maisFaltas=0;
+        novoFaltas[guardaindice] = -1;
+        rankUniforme[k] = novoUniforme[guardaindice];
+        k++;
     }
-  }
+    int x = 0;
+    for(x = 0; x < k; x++){
+        fread(&elenco,sizeof(jogador),1,arqJ);
+        while(!feof(arqJ)){
+            if(rankUniforme[x] == elenco.uniforme){
+                printf("%s: Faltas cometidas: %d   Faltas sofridas: %d\n",elenco.nome, rankFaltas[x], elenco.total_faltasS);
+                break;
+            }
+            fread(&elenco,sizeof(jogador),1,arqJ);
+        }
+        rewind(arqJ);
 
-
-  /*                   P Ê N A L T I S                                  */
-
-  /*Quantidade de jogadores que já jogaram = 'j'
-  Criando um vetor (novoFinalizacoes[]) apenas com as finalizações corretas, este vetor é genérico e serve apenas para
-  manipulação (terá seus valores alterados ao longo do código) */
-  int novoPenaltisC[f];
-  l = 0;
-  m = -1;
-  for(l = 0; l < 40; l++){
-    if(elenco[l].controle == 1){
-      m++;
-      novoPenaltisC[m] = elenco[l].total_penaltisC;
-      novoUniforme[m] = elenco[l].uniforme;
+        fread(&goleiros,sizeof(goleiro),1,arqG);
+        while(!feof(arqG)){
+            if(rankUniforme[x] == goleiros.uniforme){
+                printf("%s: Faltas cometidas: %d   Faltas sofridas: \n", goleiros.nome, rankFaltas[x], goleiros.total_faltasS);
+                break;
+            }
+            fread(&goleiros,sizeof(goleiro),1,arqG);
+        }
+        rewind(arqG);
     }
-  }
-  /*os valores obtidos em novoFinalizacoes[] será agora ordenado de forma decrescente no vetor rankFinalizacoes[]*/
-  int  maisPenaltisC = 0, rankPenaltisC[f];
-  k = 0;
-  printf("\n\nPenaltis por jogador na temporada:\n\n");
 
-  while(k < f){
-    /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
-  for(l = 0; l <= m; l ++){
-    if(novoPenaltisC[l] >= maisPenaltisC){
-      maisPenaltisC = novoPenaltisC[l];
-      guardaindice = l;
+
+    /*                   P Ê N A L T I S                                  */
+
+    /*Quantidade de jogadores que já jogaram = 'j'
+    Criando um vetor (novoFinalizacoes[]) apenas com as finalizações corretas, este vetor é genérico e serve apenas para
+    manipulação (terá seus valores alterados ao longo do código) */
+    int novoPenaltisC[f];
+    l = 0;
+    m = -1;
+
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        m++;
+        novoPenaltisC[m] = elenco.total_penaltisC;
+        novoUniforme[m] = elenco.uniforme;
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
-  }
-  /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
-  rankPenaltisC[k] = maisPenaltisC;
-  maisPenaltisC=0;
-  novoPenaltisC[guardaindice] = -1;
-  rankUniforme[k] = novoUniforme[guardaindice];
-  k++;
-  }
-  for(x = 0; x < k; x++){
-    for(l = 0; l < 40; l++){
-      if(rankUniforme[x] == elenco[l].uniforme){
-        printf("%s: Penal. cometidos: %d     Penal. perdidos: %d     Penal. sofridos: %d \n",elenco[l].nome, elenco[l].total_penaltisC,elenco[l].total_penaltisP, elenco[l].total_penaltisS);
-        break;
-      }
-      }
+    rewind(arqJ);
+
+    /*os valores obtidos em novoFinalizacoes[] será agora ordenado de forma decrescente no vetor rankFinalizacoes[]*/
+    int  maisPenaltisC = 0, rankPenaltisC[f];
+    k = 0;
+    printf("\n\nPenaltis por jogador na temporada:\n\n");
+
+    while(k < f){
+        /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
+        for(l = 0; l <= m; l ++){
+            if(novoPenaltisC[l] >= maisPenaltisC){
+                maisPenaltisC = novoPenaltisC[l];
+                guardaindice = l;
+            }
+        }
+        /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
+        rankPenaltisC[k] = maisPenaltisC;
+        maisPenaltisC=0;
+        novoPenaltisC[guardaindice] = -1;
+        rankUniforme[k] = novoUniforme[guardaindice];
+        k++;
     }
-  printf("\n\n");
-  system("pause");
-  return 0;
+    for(x = 0; x < k; x++){
+        fread(&elenco,sizeof(jogador),1,arqJ);
+        while(!feof(arqJ)){
+            if(rankUniforme[x] == elenco.uniforme){
+                printf("%s: Penal. cometidos: %d     Penal. perdidos: %d     Penal. sofridos: %d \n",elenco.nome, elenco.total_penaltisC,elenco.total_penaltisP, elenco.total_penaltisS);
+                break;
+            }
+            fread(&elenco,sizeof(jogador),1,arqJ);
+        }
+        rewind(arqJ);
+    }
+    fclose(arqJ);
+    fclose(arqG);
 
-
+    printf("\n\n");
+    system("pause");
+    return 0;
 }
 
 /* Funcao que exibe as estatisticas de impedimentos do grupo */
 
-int grupo_Imp()
+int grupo_Imp(char *time)
 {
     system("cls");
 
-      /*                   I M P E D I M E N T O S                 */
-      /*obtendo a quantidade de jogadores que já jogaram */
-  int i = 0, j = 0;
-  for (i =0; i <40; i++){
+    FILE *arqJ;
+    char arqJogadores[120];
+    strcpy(arqJogadores,time);
+    strcat(arqJogadores,"/jogadores.dat");
+    arqJ = fopen(arqJogadores,"rb+"); if(arqJ == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+    jogador elenco;
 
-  if(elenco[i].controle == 1){
-    j = j +1;
-    }
-  }
-  /*criando um vetor (novoImpedimentos[]) apenas com os desarmes, este vetor é genérico e serve apenas para manipulação (terá seus valores
-  alterados ao longo do código)*/
-  int novoImpedimentos[j], l = 0, m = -1, novoUniforme[j];
-  for(l = 0; l < 40; l++){
-    if(elenco[l].controle == 1){
-      m++;
-      novoImpedimentos[m] = elenco[l].total_imped;
-      novoUniforme[m] = elenco[l].uniforme;
-    }
-  }
-  /*os valores obtidos em novoImpedimentos[] será agora ordenado de forma decrescente no vetor rankImpedimentos[]*/
-  int k = 0, maisImpedimentos = 0, guardaindice, rankImpedimentos[j], rankUniforme[j];
-  printf("Impedimentos por jogador na temporada:\n\n");
+    /*                   I M P E D I M E N T O S                 */
+    /*obtendo a quantidade de jogadores que já jogaram */
+    int i = 0, j = 0;
 
-  while(k < j){
-    /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
-  for(l = 0; l <= m; l ++){
-    if(novoImpedimentos[l] >= maisImpedimentos){
-      maisImpedimentos = novoImpedimentos[l];
-      guardaindice = l;
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        j = j +1;
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
-  }
-  /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
-  rankImpedimentos[k] = maisImpedimentos;
-  maisImpedimentos=0;
-  novoImpedimentos[guardaindice] = -1;
-  rankUniforme[k] = novoUniforme[guardaindice];
-  k++;
-  }
-  int x = 0;
-  for(x = 0; x < k; x++){
-    for(l = 0; l < 40; l++){
-      if(rankUniforme[x] == elenco[l].uniforme){
-        printf("%s: %d\n",elenco[l].nome, elenco[l].total_imped);
-        break;
-      }
+    rewind(arqJ);
+
+    /*criando um vetor (novoImpedimentos[]) apenas com os desarmes, este vetor é genérico e serve apenas para manipulação (terá seus valores
+    alterados ao longo do código)*/
+    int novoImpedimentos[j], l = 0, m = -1, novoUniforme[j];
+
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        m++;
+        novoImpedimentos[m] = elenco.total_imped;
+        novoUniforme[m] = elenco.uniforme;
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
-  }
-  printf("\n");
-  system("pause");
-  return 0;
+    rewind(arqJ);
+
+    /*os valores obtidos em novoImpedimentos[] será agora ordenado de forma decrescente no vetor rankImpedimentos[]*/
+    int k = 0, maisImpedimentos = 0, guardaindice, rankImpedimentos[j], rankUniforme[j];
+    printf("Impedimentos por jogador na temporada:\n\n");
+
+    while(k < j){
+        /*descobrindo o maior número do vetor e guardando seu índice original referente ao vetor novoGols[]*/
+        for(l = 0; l <= m; l ++){
+            if(novoImpedimentos[l] >= maisImpedimentos){
+                maisImpedimentos = novoImpedimentos[l];
+                guardaindice = l;
+            }
+        }
+        /*salvando o maior valor em outra variável e zerando para que no próximo laço ele não seja contabilizado*/
+        rankImpedimentos[k] = maisImpedimentos;
+        maisImpedimentos=0;
+        novoImpedimentos[guardaindice] = -1;
+        rankUniforme[k] = novoUniforme[guardaindice];
+        k++;
+    }
+    int x = 0;
+    for(x = 0; x < k; x++){
+        fread(&elenco,sizeof(jogador),1,arqJ);
+        while(!feof(arqJ)){
+            if(rankUniforme[x] == elenco.uniforme){
+                printf("%s: %d\n",elenco.nome, elenco.total_imped);
+                break;
+            }
+            fread(&elenco,sizeof(jogador),1,arqJ);
+        }
+        rewind(arqJ);
+    }
+    fclose(arqJ);
+
+    printf("\n");
+    system("pause");
+    return 0;
 }
 
 /* Funcao que exibe os dados gerais de um jogador */
@@ -4106,99 +4262,115 @@ int jogador_dados(int num_uniforme, char *time)
 {
     system("cls");
 
-    int i,j,encontrado=0;
-    for(i=0;i<10;i++)
-    {
-        if(num_uniforme==goleiros[i].uniforme)
+    FILE *arqJ;
+    FILE *arqG;
+    char arqJogadores[120], arqGoleiros[120];
+    strcpy(arqJogadores,time);
+    strcat(arqJogadores,"/jogadores.dat");
+    strcpy(arqGoleiros,time);
+    strcat(arqGoleiros,"/goleiros.dat");
+    arqJ = fopen(arqJogadores,"rb+"); if(arqJ == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+    arqG = fopen(arqGoleiros,"rb+"); if(arqG == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+
+    jogador elenco;
+    goleiro goleiros;
+
+    int i,j;
+
+    fread(&goleiros,sizeof(goleiro),1,arqG);
+    while(!feof(arqG)){
+        if(num_uniforme==goleiros.uniforme)
         {
-            printf("\tDados gerais do %s\n\n",goleiros[i].nome);
+            printf("\tDados gerais do %s\n\n",goleiros.nome);
             printf("Posicao: goleiro.\n");
-            printf("Jogos: %d.\nUniforme: %d.\n",goleiros[i].jogos,goleiros[i].uniforme);
-            printf("Idade: %d anos.\n",goleiros[i].idade);
-            printf("Altura: %.2f metros.\nPeso: %.2f quilos.\n",goleiros[i].altura,goleiros[i].peso);
-            if(goleiros[i].pe==1)
+            printf("Jogos: %d.\nUniforme: %d.\n",goleiros.jogos,goleiros.uniforme);
+            printf("Idade: %d anos.\n",goleiros.idade);
+            printf("Altura: %.2f metros.\nPeso: %.2f quilos.\n",goleiros.altura,goleiros.peso);
+            if(goleiros.pe==1)
                 printf("Destro.\n");
-            if(goleiros[i].pe==2)
+            if(goleiros.pe==2)
                 printf("Canhoto.\n");
-            if(goleiros[i].pe==3)
+            if(goleiros.pe==3)
                 printf("Ambidestro.\n");
-            encontrado++;
             break;
         }
+        fread(&goleiros,sizeof(goleiro),1,arqG);
     }
-    for(i=0;i<40;i++)
-    {
-        if(encontrado==1)
-            break;
-        if(num_uniforme==elenco[i].uniforme)
+
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        if(num_uniforme==elenco.uniforme)
         {
             int virgula=0;
-            printf("\tDados gerais do %s\n\n",elenco[i].nome);
+            printf("\tDados gerais do %s\n\n",elenco.nome);
             printf("Posicao do jogador:");
-            if(elenco[i].posicao==1){
+            if(elenco.posicao==1){
                 printf(" zagueiro direito.");
             }
-            if(elenco[i].posicao==2){
+            if(elenco.posicao==2){
                 printf(" zagueiro esquerdo.");
             }
-            if(elenco[i].posicao==3){
+            if(elenco.posicao==3){
                 printf(" zagueiro central.");
             }
-            if(elenco[i].posicao==4){
+            if(elenco.posicao==4){
                 printf(" lateral direito defensivo.");
             }
-            if(elenco[i].posicao==5){
+            if(elenco.posicao==5){
                 printf(" lateral esquerdo defensivo.");
             }
-            if(elenco[i].posicao==6){
+            if(elenco.posicao==6){
                 printf(" lateral direito ofensivo.");
             }
-            if(elenco[i].posicao==7){
+            if(elenco.posicao==7){
                 printf(" lateral esquerdo ofensivo.");
             }
-            if(elenco[i].posicao==8){
+            if(elenco.posicao==8){
                 printf(" primeiro volante.");
             }
-            if(elenco[i].posicao==9){
+            if(elenco.posicao==9){
                 printf(" segundo volante.");
             }
-            if(elenco[i].posicao==10){
+            if(elenco.posicao==10){
                 printf(" armador.");
             }
-            if(elenco[i].posicao==11){
+            if(elenco.posicao==11){
                 printf(" meia direita.");
             }
-            if(elenco[i].posicao==12){
+            if(elenco.posicao==12){
                 printf(" meia esquerda.");
             }
-            if(elenco[i].posicao==13){
+            if(elenco.posicao==13){
                 printf(" meia atacante.");
             }
-            if(elenco[i].posicao==14){
+            if(elenco.posicao==14){
                 printf(" ponta direita.");
             }
-            if(elenco[i].posicao==15){
+            if(elenco.posicao==15){
                 printf(" ponta esquerda.");
             }
-            if(elenco[i].posicao==16){
+            if(elenco.posicao==16){
                 printf(" segundo atacante.");
             }
-            if(elenco[i].posicao==17){
+            if(elenco.posicao==17){
                 printf(" centroavante.");
             }
             printf("\n");
-            printf("Jogos: %d.\nUniforme: %d.\n",elenco[i].jogos,elenco[i].uniforme);
-            printf("Idade: %d anos.\n",elenco[i].idade);
-            printf("Altura: %.2f metros.\nPeso: %.2f quilos.\n",elenco[i].altura,elenco[i].peso);
-            if(elenco[i].pe==1)
+            printf("Jogos: %d.\nUniforme: %d.\n",elenco.jogos,elenco.uniforme);
+            printf("Idade: %d anos.\n",elenco.idade);
+            printf("Altura: %.2f metros.\nPeso: %.2f quilos.\n",elenco.altura,elenco.peso);
+            if(elenco.pe==1)
                 printf("Destro.\n");
-            if(elenco[i].pe==2)
+            if(elenco.pe==2)
                 printf("Canhoto.\n");
-            if(elenco[i].pe==3)
+            if(elenco.pe==3)
                 printf("Ambidestro.\n");
             break;
         }
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
+    fclose(arqJ);
+    fclose(arqG);
 
     printf("\n");
     system("PAUSE");
@@ -4321,30 +4493,53 @@ int goleiro_Gols(int num_uniforme, char *time)
 {
     system("cls");
 
+    FILE *arqG;
+    FILE *arqP;
+    char arqGoleiros[120], arqPartidas[120];
+    strcpy(arqGoleiros,time);
+    strcat(arqGoleiros,"/goleiros.dat");
+    strcpy(arqPartidas,time);
+    strcat(arqPartidas,"/jogos.dat");
+    arqG = fopen(arqGoleiros,"rb+"); if(arqG == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+    arqP = fopen(arqPartidas,"rb+"); if(arqP == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+
+    goleiro goleiros;
+    partida jogo;
+
     int i,j,k;
-    int diaD, mesD, golsP, golsC;
-    char sgl[3], adv[100];
-    for(i=0;i<10;i++)
-    {
-        if(num_uniforme==goleiros[i].uniforme)
+
+    fread(&goleiros,sizeof(goleiro),1,arqG);
+    while(!feof(arqG)){
+        if(num_uniforme==goleiros.uniforme)
         {
-            printf("\tEstatisticas de gols do goleiro %s\n\n", goleiros[i].nome);
-            printf("Gols na temporada: %d\n", goleiros[i].total_golsF);
-            printf("Media de gols por partida: %.2f\n",goleiros[i].media_golsF);
+            printf("\tEstatisticas de gols do goleiro %s\n\n", goleiros.nome);
+            printf("Gols na temporada: %d\n", goleiros.total_golsF);
+            printf("Media de gols por partida: %.2f\n",goleiros.media_golsF);
             printf("Gols por partida:\n\n");
             for(j=0;j<100;j++)
             {
-                if(goleiros[i].jogou[j]==1)
+                if(goleiros.jogou[j]==1)
                 {
-                    Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                    for(k=0;k<goleiros[i].golsF[j];k++)
+                    fread(&jogo,sizeof(partida),1,arqP);
+                    while(!feof(arqP)){
+                        if(jogo.id == j)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                        }
+                        fread(&jogo,sizeof(partida),1,arqP);
+                    }
+                    for(k=0;k<goleiros.golsF[j];k++)
                         printf("* ");
-                    printf("(%d)\n\n\n",goleiros[i].golsF[j]);
+                    printf("(%d)\n\n\n",goleiros.golsF[j]);
                 }
             }
+            break;
         }
+        fread(&goleiros,sizeof(goleiro),1,arqG);
     }
+    fclose(arqG);
+    fclose(arqP);
+
     system("PAUSE");
     return 0;
 }
@@ -4355,137 +4550,221 @@ int jogador_PeA(int num_uniforme, char *time)
 {
     system("cls");
 
+    FILE *arqJ;
+    FILE *arqG;
+    FILE *arqP;
+    char arqJogadores[120], arqGoleiros[120], arqPartidas[120];
+    strcpy(arqJogadores,time);
+    strcat(arqJogadores,"/jogadores.dat");
+    strcpy(arqGoleiros,time);
+    strcat(arqGoleiros,"/goleiros.dat");
+    strcpy(arqPartidas,time);
+    strcat(arqPartidas,"/jogos.dat");
+    arqJ = fopen(arqJogadores,"rb+"); if(arqJ == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+    arqG = fopen(arqGoleiros,"rb+"); if(arqG == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+
+    jogador elenco;
+    goleiro goleiros;
+    partida jogo;
+
     int i,j,k;
-    int diaD, mesD, golsP, golsC;
-    char sgl[3], adv[100];
-    for(i=0;i<10;i++)
-    {
-        if(num_uniforme==goleiros[i].uniforme)
+
+    fread(&goleiros,sizeof(goleiro),1,arqG);
+    while(!feof(arqG)){
+        if(num_uniforme==goleiros.uniforme)
         {
-            printf("\tEstatisticas de passes e assistencias do %s\n\n", goleiros[i].nome);
-            printf("Passes certos na temporada: %d\n", goleiros[i].total_passesC);
-            printf("Media de passes certos por partida: %.2f\n", goleiros[i].media_passesC);
+            printf("\tEstatisticas de passes e assistencias do %s\n\n", goleiros.nome);
+            printf("Passes certos na temporada: %d\n", goleiros.total_passesC);
+            printf("Media de passes certos por partida: %.2f\n", goleiros.media_passesC);
             printf("Passes certos por partida:\n\n");
             for(j=0;j<100;j++)
             {
-                if(goleiros[i].jogou[j]==1)
+                if(goleiros.jogou[j]==1)
                 {
-                    Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                    for(k=0;k<goleiros[i].passesC[j];k++)
+                    fread(&jogo,sizeof(partida),1,arqP);
+                    while(!feof(arqP)){
+                        if(jogo.id == j)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                        }
+                        fread(&jogo,sizeof(partida),1,arqP);
+                    }
+                    rewind(arqP);
+                    for(k=0;k<goleiros.passesC[j];k++)
                         printf("* ");
-                    printf("(%d)\n\n",goleiros[i].passesC[j]);
+                    printf("(%d)\n\n",goleiros.passesC[j]);
                 }
             }
-            printf("\nTotal de passes na temporada: %d\n", goleiros[i].total_passesC+goleiros[i].total_passesE);
-            printf("Media de passes totais por partida: %.2f\n",media_jogador(goleiros[i].total_passesC+goleiros[i].total_passesE, goleiros[i].uniforme));
+            printf("\nTotal de passes na temporada: %d\n", goleiros.total_passesC+goleiros.total_passesE);
+            printf("Media de passes totais por partida: %.2f\n",media_jogador(goleiros.total_passesC+goleiros.total_passesE, goleiros.uniforme));
             printf("Total de passes por partida:\n\n");
             for(j=0;j<100;j++)
             {
-                if(goleiros[i].jogou[j]==1)
+                if(goleiros.jogou[j]==1)
                 {
-                    Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                    for(k=0;k<goleiros[i].passesC[j]+goleiros[i].passesE[j];k++)
+                    fread(&jogo,sizeof(partida),1,arqP);
+                    while(!feof(arqP)){
+                        if(jogo.id == j)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                        }
+                        fread(&jogo,sizeof(partida),1,arqP);
+                    }
+                    rewind(arqP);
+                    for(k=0;k<goleiros.passesC[j]+goleiros.passesE[j];k++)
                         printf("* ");
-                    printf("(%d)\n\n",goleiros[i].passesC[j]+goleiros[i].passesE[j]);
+                    printf("(%d)\n\n",goleiros.passesC[j]+goleiros.passesE[j]);
                 }
             }
-            printf("\nAssistencias para gols na temporada: %d\n", goleiros[i].total_assistG);
-            printf("Media de assistencias para gols por partida: %.2f\n", goleiros[i].media_assistG);
+            printf("\nAssistencias para gols na temporada: %d\n", goleiros.total_assistG);
+            printf("Media de assistencias para gols por partida: %.2f\n", goleiros.media_assistG);
             printf("Assistencias para gols por partida:\n\n");
             for(j=0;j<100;j++)
             {
-                if(goleiros[i].jogou[j]==1)
+                if(goleiros.jogou[j]==1)
                 {
-                    Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                    for(k=0;k<goleiros[i].assistG[j];k++)
+                    fread(&jogo,sizeof(partida),1,arqP);
+                    while(!feof(arqP)){
+                        if(jogo.id == j)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                        }
+                        fread(&jogo,sizeof(partida),1,arqP);
+                    }
+                    rewind(arqP);
+                    for(k=0;k<goleiros.assistG[j];k++)
                         printf("* ");
-                    printf("(%d)\n\n",goleiros[i].assistG[j]);
+                    printf("(%d)\n\n",goleiros.assistG[j]);
                 }
             }
-            printf("\nAssistencias para finalizacoes na temporada: %d\n", goleiros[i].total_assistF);
-            printf("Media de assistencias para finalizacoes por partida: %.2f\n", goleiros[i].media_assistF);
+            printf("\nAssistencias para finalizacoes na temporada: %d\n", goleiros.total_assistF);
+            printf("Media de assistencias para finalizacoes por partida: %.2f\n", goleiros.media_assistF);
             printf("Assistencias para finalizacoes por partida:\n\n");
             for(j=0;j<100;j++)
             {
-                if(goleiros[i].jogou[j]==1)
+                if(goleiros.jogou[j]==1)
                 {
-                    Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                    for(k=0;k<goleiros[i].assistF[j];k++)
+                    fread(&jogo,sizeof(partida),1,arqP);
+                    while(!feof(arqP)){
+                        if(jogo.id == j)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                        }
+                        fread(&jogo,sizeof(partida),1,arqP);
+                    }
+                    rewind(arqP);
+                    for(k=0;k<goleiros.assistF[j];k++)
                         printf("* ");
-                    printf("(%d)\n\n",goleiros[i].assistF[j]);
+                    printf("(%d)\n\n",goleiros.assistF[j]);
                 }
             }
-            printf("\nAproveitamento de passes (passes certos pelo total): %.2f%%\n\n",(100*((float)goleiros[i].total_passesC/((float)goleiros[i].total_passesC+(float)goleiros[i].total_passesE))));
-            printf("Aproveitamento de assistencias (assistencias para gol pelo total): %.2f%%\n\n\n",(100*((float)goleiros[i].total_assistG/((float)goleiros[i].total_assistG+(float)goleiros[i].total_assistF))));
+            printf("\nAproveitamento de passes (passes certos pelo total): %.2f%%\n\n",(100*((float)goleiros.total_passesC/((float)goleiros.total_passesC+(float)goleiros.total_passesE))));
+            printf("Aproveitamento de assistencias (assistencias para gol pelo total): %.2f%%\n\n\n",(100*((float)goleiros.total_assistG/((float)goleiros.total_assistG+(float)goleiros.total_assistF))));
+
+            break;
         }
+        fread(&goleiros,sizeof(goleiro),1,arqG);
     }
-    for(i=0;i<40;i++){
-        if(num_uniforme==elenco[i].uniforme){
-            printf("\tEstatisticas de passes e assistencia do %s\n\n", elenco[i].nome);
-            printf("\nPasses certos na temporada: %d\n", elenco[i].total_passesC);
-            printf("Media de passes certos por partida: %.2f\n", elenco[i].media_passesC);
+
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        if(num_uniforme==elenco.uniforme)
+        {
+            printf("\tEstatisticas de passes e assistencia do %s\n\n", elenco.nome);
+            printf("\nPasses certos na temporada: %d\n", elenco.total_passesC);
+            printf("Media de passes certos por partida: %.2f\n", elenco.media_passesC);
             printf("Passes certos por partida:\n\n");
             for(j=0;j<100;j++)
             {
-                if(elenco[i].jogou[j]==1)
+                if(elenco.jogou[j]==1)
                 {
-                    Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                    for(k=0;k<elenco[i].passesC[j];k++)
+                    fread(&jogo,sizeof(partida),1,arqP);
+                    while(!feof(arqP)){
+                        if(jogo.id == j)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                        }
+                        fread(&jogo,sizeof(partida),1,arqP);
+                    }
+                    rewind(arqP);
+                    for(k=0;k<elenco.passesC[j];k++)
                         printf("* ");
-                    printf("(%d)\n\n",elenco[i].passesC[j]);
+                    printf("(%d)\n\n",elenco.passesC[j]);
                 }
             }
-            printf("\nTotal de passes na temporada: %d\n", elenco[i].total_passesC+elenco[i].total_passesE);
-            printf("Media de passes totais por partida: %.2f\n",media_jogador(elenco[i].total_passesC+elenco[i].total_passesE, elenco[i].uniforme));
+            printf("\nTotal de passes na temporada: %d\n", elenco.total_passesC+elenco.total_passesE);
+            printf("Media de passes totais por partida: %.2f\n",media_jogador(elenco.total_passesC+elenco.total_passesE, elenco.uniforme));
             printf("Total de passes por partida:\n\n");
             for(j=0;j<100;j++)
             {
-                if(elenco[i].jogou[j]==1)
+                if(elenco.jogou[j]==1)
                 {
-                    Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                    for(k=0;k<elenco[i].passesC[j]+elenco[i].passesE[j];k++)
+                    fread(&jogo,sizeof(partida),1,arqP);
+                    while(!feof(arqP)){
+                        if(jogo.id == j)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                        }
+                        fread(&jogo,sizeof(partida),1,arqP);
+                    }
+                    rewind(arqP);
+                    for(k=0;k<elenco.passesC[j]+elenco.passesE[j];k++)
                         printf("* ");
-                    printf("(%d)\n\n",elenco[i].passesC[j]+elenco[i].passesE[j]);
+                    printf("(%d)\n\n",elenco.passesC[j]+elenco.passesE[j]);
                 }
             }
-            printf("\nAssistencias para gols na temporada: %d\n", elenco[i].total_assistG);
-            printf("Media de assistencias para gols por partida: %.2f\n", elenco[i].media_assistG);
+            printf("\nAssistencias para gols na temporada: %d\n", elenco.total_assistG);
+            printf("Media de assistencias para gols por partida: %.2f\n", elenco.media_assistG);
             printf("Assistencias para gols por partida:\n\n");
             for(j=0;j<100;j++)
             {
-                if(elenco[i].jogou[j]==1)
+                if(elenco.jogou[j]==1)
                 {
-                    Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                    for(k=0;k<elenco[i].assistG[j];k++)
+                    fread(&jogo,sizeof(partida),1,arqP);
+                    while(!feof(arqP)){
+                        if(jogo.id == j)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                        }
+                        fread(&jogo,sizeof(partida),1,arqP);
+                    }
+                    rewind(arqP);
+                    for(k=0;k<elenco.assistG[j];k++)
                         printf("* ");
-                    printf("(%d)\n\n",elenco[i].assistG[j]);
+                    printf("(%d)\n\n",elenco.assistG[j]);
                 }
             }
-            printf("\nAssistencias para finalizacoes na temporada: %d\n", elenco[i].total_assistF);
-            printf("Media de assistencias para finalizacoes por partida: %.2f\n", elenco[i].media_assistF);
+            printf("\nAssistencias para finalizacoes na temporada: %d\n", elenco.total_assistF);
+            printf("Media de assistencias para finalizacoes por partida: %.2f\n", elenco.media_assistF);
             printf("Assistencias para finalizacoes por partida:\n\n");
             for(j=0;j<100;j++)
             {
-                if(elenco[i].jogou[j]==1)
+                if(elenco.jogou[j]==1)
                 {
-                    Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                    for(k=0;k<elenco[i].assistF[j];k++)
+                    fread(&jogo,sizeof(partida),1,arqP);
+                    while(!feof(arqP)){
+                        if(jogo.id == j)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                        }
+                        fread(&jogo,sizeof(partida),1,arqP);
+                    }
+                    rewind(arqP);
+                    for(k=0;k<elenco.assistF[j];k++)
                         printf("* ");
-                    printf("(%d)\n\n",elenco[i].assistF[j]);
+                    printf("(%d)\n\n",elenco.assistF[j]);
                 }
             }
-            printf("\nAproveitamento de passes (passes certos pelo total): %.2f%%\n\n",(100*((float)elenco[i].total_passesC/((float)elenco[i].total_passesC+(float)elenco[i].total_passesE))));
-            printf("Aproveitamento de assistencias (assistencias para gol pelo total): %.2f%%\n\n\n",(100*((float)elenco[i].total_assistG/((float)elenco[i].total_assistG+(float)elenco[i].total_assistF))));
+            printf("\nAproveitamento de passes (passes certos pelo total): %.2f%%\n\n",(100*((float)elenco.total_passesC/((float)elenco.total_passesC+(float)elenco.total_passesE))));
+            printf("Aproveitamento de assistencias (assistencias para gol pelo total): %.2f%%\n\n\n",(100*((float)elenco.total_assistG/((float)elenco.total_assistG+(float)elenco.total_assistF))));
+
+            break;
         }
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
+    fclose(arqJ);
+    fclose(arqG);
+    fclose(arqP);
 
     system("PAUSE");
     return 0;
@@ -4497,44 +4776,76 @@ int jogador_DeP(int num_uniforme, char *time)
 {
     system("cls");
 
+    FILE *arqJ;
+    FILE *arqP;
+    char arqJogadores[120], arqPartidas[120];
+    strcpy(arqJogadores,time);
+    strcat(arqJogadores,"/jogadores.dat");
+    strcpy(arqPartidas,time);
+    strcat(arqPartidas,"/jogos.dat");
+    arqJ = fopen(arqJogadores,"rb+"); if(arqJ == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+    arqP = fopen(arqPartidas,"rb+"); if(arqP == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+
+    jogador elenco;
+    partida jogo;
+
     int i,j,k;
-    int diaD, mesD, golsP, golsC;
-    char sgl[3], adv[100];
-    for(i=0;i<40;i++)
-    {
-        if(num_uniforme==elenco[i].uniforme)
+
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        if(num_uniforme==elenco.uniforme)
         {
-            printf("\tEstatisticas de desarmes e perdas de posse do %s\n\n", elenco[i].nome);
-            printf("Desarmes na temporada: %d\n", elenco[i].total_desarmes);
-            printf("Media de desarmes por partida: %.2f\n",elenco[i].media_desarmes);
+            printf("\tEstatisticas de desarmes e perdas de posse do %s\n\n", elenco.nome);
+            printf("Desarmes na temporada: %d\n", elenco.total_desarmes);
+            printf("Media de desarmes por partida: %.2f\n",elenco.media_desarmes);
             printf("Desarmes por partida:\n\n");
             for(j=0;j<100;j++)
             {
-                if(elenco[i].jogou[j]==1)
+                if(elenco.jogou[j]==1)
                 {
-                    Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                    for(k=0;k<elenco[i].desarmes[j];k++)
+                    fread(&jogo,sizeof(partida),1,arqP);
+                    while(!feof(arqP)){
+                        if(jogo.id == j)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                        }
+                        fread(&jogo,sizeof(partida),1,arqP);
+                    }
+                    rewind(arqP);
+                    for(k=0;k<elenco.desarmes[j];k++)
                         printf("* ");
-                    printf("(%d)\n\n",elenco[i].desarmes[j]);
+                    printf("(%d)\n\n",elenco.desarmes[j]);
                 }
             }
-            printf("\nPerdas de posse na temporada: %d\n", elenco[i].total_perdas);
-            printf("Media de perdas de posse por partida: %.2f\n",elenco[i].media_perdas);
+            printf("\nPerdas de posse na temporada: %d\n", elenco.total_perdas);
+            printf("Media de perdas de posse por partida: %.2f\n",elenco.media_perdas);
             printf("Perdas de posse por partida:\n\n");
             for(j=0;j<100;j++)
             {
-                if(elenco[i].jogou[j]==1)
+                if(elenco.jogou[j]==1)
                 {
-                    Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                    for(k=0;k<elenco[i].perdas[j];k++)
+                    fread(&jogo,sizeof(partida),1,arqP);
+                    while(!feof(arqP)){
+                        if(jogo.id == j)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                        }
+                        fread(&jogo,sizeof(partida),1,arqP);
+                    }
+                    rewind(arqP);
+                    for(k=0;k<elenco.perdas[j];k++)
                         printf("* ");
-                    printf("(%d)\n\n\n",elenco[i].perdas[j]);
+                    printf("(%d)\n\n\n",elenco.perdas[j]);
                 }
             }
+
+            break;
         }
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
+    fclose(arqJ);
+    fclose(arqP);
+
     system("PAUSE");
     return 0;
 }
@@ -4545,45 +4856,77 @@ int jogador_DeG(int num_uniforme, char *time)
 {
     system("cls");
 
+    FILE *arqG;
+    FILE *arqP;
+    char arqGoleiros[120], arqPartidas[120];
+    strcpy(arqGoleiros,time);
+    strcat(arqGoleiros,"/goleiros.dat");
+    strcpy(arqPartidas,time);
+    strcat(arqPartidas,"/jogos.dat");
+    arqG = fopen(arqGoleiros,"rb+"); if(arqG == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+    arqP = fopen(arqPartidas,"rb+"); if(arqP == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+
+    goleiro goleiros;
+    partida jogo;
+
     int i,j,k;
-    int diaD, mesD, golsP, golsC;
-    char sgl[3], adv[100];
-    for(i=0;i<10;i++)
-    {
-        if(num_uniforme==goleiros[i].uniforme)
+
+    fread(&goleiros,sizeof(goleiro),1,arqG);
+    while(!feof(arqG)){
+        if(num_uniforme==goleiros.uniforme)
         {
-            printf("\tEstatisticas de defesas e gols sofridos do goleiro %s\n\n", goleiros[i].nome);
-            printf("Defesas na temporada: %d\n", goleiros[i].total_defesas);
-            printf("Media de defesas por partida: %.2f\n",goleiros[i].media_defesas);
+            printf("\tEstatisticas de defesas e gols sofridos do goleiro %s\n\n", goleiros.nome);
+            printf("Defesas na temporada: %d\n", goleiros.total_defesas);
+            printf("Media de defesas por partida: %.2f\n",goleiros.media_defesas);
             printf("Defesas por partida:\n\n");
             for(j=0;j<100;j++)
             {
-                if(goleiros[i].jogou[j]==1)
+                if(goleiros.jogou[j]==1)
                 {
-                    Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                    for(k=0;k<goleiros[i].defesas[j];k++)
+                    fread(&jogo,sizeof(partida),1,arqP);
+                    while(!feof(arqP)){
+                        if(jogo.id == j)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                        }
+                        fread(&jogo,sizeof(partida),1,arqP);
+                    }
+                    rewind(arqP);
+                    for(k=0;k<goleiros.defesas[j];k++)
                         printf("* ");
-                    printf("(%d)\n\n",goleiros[i].defesas[j]);
+                    printf("(%d)\n\n",goleiros.defesas[j]);
                 }
             }
-            printf("\nGols sofridos na temporada: %d\n", goleiros[i].total_golsS);
-            printf("Media de gols sofridos por partida: %.2f\n",goleiros[i].media_golsS);
+            printf("\nGols sofridos na temporada: %d\n", goleiros.total_golsS);
+            printf("Media de gols sofridos por partida: %.2f\n",goleiros.media_golsS);
             printf("Gols sofridos por partida:\n\n");
             for(j=0;j<100;j++)
             {
-                if(goleiros[i].jogou[j]==1)
+                if(goleiros.jogou[j]==1)
                 {
-                    Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                    for(k=0;k<goleiros[i].golsS[j];k++)
+                    fread(&jogo,sizeof(partida),1,arqP);
+                    while(!feof(arqP)){
+                        if(jogo.id == j)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                        }
+                        fread(&jogo,sizeof(partida),1,arqP);
+                    }
+                    rewind(arqP);
+                    for(k=0;k<goleiros.golsS[j];k++)
                         printf("* ");
-                    printf("(%d)\n\n",goleiros[i].golsS[j]);
+                    printf("(%d)\n\n",goleiros.golsS[j]);
                 }
             }
-            printf("\nAproveitamento de defesas (defesas pelo total de chutes recebidos): %.2f%%\n\n\n",100*((float)goleiros[i].total_defesas/((float)goleiros[i].total_defesas+(float)goleiros[i].total_golsS)));
+            printf("\nAproveitamento de defesas (defesas pelo total de chutes recebidos): %.2f%%\n\n\n",100*((float)goleiros.total_defesas/((float)goleiros.total_defesas+(float)goleiros.total_golsS)));
+
+            break;
         }
+        fread(&goleiros,sizeof(goleiro),1,arqG);
     }
+    fclose(arqG);
+    fclose(arqP);
+
     system("PAUSE");
     return 0;
 }
@@ -4594,212 +4937,315 @@ int jogador_FeP(int num_uniforme, char *time)
 {
     system("cls");
 
+    FILE *arqJ;
+    FILE *arqG;
+    FILE *arqP;
+    char arqJogadores[120], arqGoleiros[120], arqPartidas[120];
+    strcpy(arqJogadores,time);
+    strcat(arqJogadores,"/jogadores.dat");
+    strcpy(arqGoleiros,time);
+    strcat(arqGoleiros,"/goleiros.dat");
+    strcpy(arqPartidas,time);
+    strcat(arqPartidas,"/jogos.dat");
+    arqJ = fopen(arqJogadores,"rb+"); if(arqJ == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+    arqG = fopen(arqGoleiros,"rb+"); if(arqG == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+
+    jogador elenco;
+    goleiro goleiros;
+    partida jogo;
+
     int i,j,k;
-    int diaD, mesD, golsP, golsC;
-    char sgl[3], adv[100];
-    for(i=0;i<10;i++)
-    {
-        if(num_uniforme==goleiros[i].uniforme)
+
+    fread(&goleiros,sizeof(goleiro),1,arqG);
+    while(!feof(arqG)){
+        if(num_uniforme==goleiros.uniforme)
         {
-            printf("\tEstatisticas de faltas e penaltis do %s\n\n", goleiros[i].nome);
-            printf("Faltas cometidas na temporada: %d\n", goleiros[i].total_faltasC);
-            printf("Media de faltas cometidas por partida: %.2f\n", goleiros[i].media_faltasC);
+            printf("\tEstatisticas de faltas e penaltis do %s\n\n", goleiros.nome);
+            printf("Faltas cometidas na temporada: %d\n", goleiros.total_faltasC);
+            printf("Media de faltas cometidas por partida: %.2f\n", goleiros.media_faltasC);
             printf("Faltas cometidas por partida:\n\n");
             for(j=0;j<100;j++)
             {
-                if(goleiros[i].jogou[j]==1)
+                if(goleiros.jogou[j]==1)
                 {
-                    Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                    for(k=0;k<goleiros[i].faltasC[j];k++)
+                    fread(&jogo,sizeof(partida),1,arqP);
+                    while(!feof(arqP)){
+                        if(jogo.id == j)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                        }
+                        fread(&jogo,sizeof(partida),1,arqP);
+                    }
+                    rewind(arqP);
+                    for(k=0;k<goleiros.faltasC[j];k++)
                         printf("* ");
-                    printf("(%d)\n\n",goleiros[i].faltasC[j]);
+                    printf("(%d)\n\n",goleiros.faltasC[j]);
                 }
             }
-            printf("\nFaltas sofridas na temporada: %d\n", goleiros[i].total_faltasS);
-            printf("Media de faltas sofridas por partida: %.2f\n",goleiros[i].media_faltasS);
+            printf("\nFaltas sofridas na temporada: %d\n", goleiros.total_faltasS);
+            printf("Media de faltas sofridas por partida: %.2f\n",goleiros.media_faltasS);
             printf("Faltas sofridas por partida:\n\n");
             for(j=0;j<100;j++)
             {
-                if(goleiros[i].jogou[j]==1)
+                if(goleiros.jogou[j]==1)
                 {
-                    Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                    for(k=0;k<goleiros[i].faltasS[j];k++)
+                    fread(&jogo,sizeof(partida),1,arqP);
+                    while(!feof(arqP)){
+                        if(jogo.id == j)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                        }
+                        fread(&jogo,sizeof(partida),1,arqP);
+                    }
+                    rewind(arqP);
+                    for(k=0;k<goleiros.faltasS[j];k++)
                         printf("* ");
-                    printf("(%d)\n\n",goleiros[i].faltasS[j]);
+                    printf("(%d)\n\n",goleiros.faltasS[j]);
                 }
             }
-            printf("\nPenaltis cometidos na temporada: %d\n", goleiros[i].total_penaltisC);
-            if(goleiros[i].total_penaltisC>0)
+            printf("\nPenaltis cometidos na temporada: %d\n", goleiros.total_penaltisC);
+            if(goleiros.total_penaltisC>0)
             {
-                printf("Media de penaltis cometidos por partida: %.2f\n", goleiros[i].media_penaltisC);
+                printf("Media de penaltis cometidos por partida: %.2f\n", goleiros.media_penaltisC);
                 printf("Penaltis cometidos por partida:\n\n");
                 for(j=0;j<100;j++)
                 {
-                    if(goleiros[i].jogou[j]==1)
+                    if(goleiros.jogou[j]==1)
                     {
-                        Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                        printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                        for(k=0;k<goleiros[i].penaltisC[j];k++)
+                        fread(&jogo,sizeof(partida),1,arqP);
+                        while(!feof(arqP)){
+                            if(jogo.id == j)
+                            {
+                                printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                            }
+                            fread(&jogo,sizeof(partida),1,arqP);
+                        }
+                        rewind(arqP);
+                        for(k=0;k<goleiros.penaltisC[j];k++)
                             printf("* ");
-                        printf("(%d)\n\n",goleiros[i].penaltisC[j]);
+                        printf("(%d)\n\n",goleiros.penaltisC[j]);
                     }
                 }
             }
-            if(goleiros[i].total_penaltisC==0)
+            if(goleiros.total_penaltisC==0)
                 printf("\n");
-            printf("\nPenaltis sofridos na temporada: %d\n", goleiros[i].total_penaltisS);
-            if(goleiros[i].total_penaltisS>0)
+            printf("\nPenaltis sofridos na temporada: %d\n", goleiros.total_penaltisS);
+            if(goleiros.total_penaltisS>0)
             {
-                printf("Media de penaltis sofridos por partida: %.2f\n", goleiros[i].media_penaltisS);
+                printf("Media de penaltis sofridos por partida: %.2f\n", goleiros.media_penaltisS);
                 printf("Penaltis sofridos por partida:\n\n");
                 for(j=0;j<100;j++)
                 {
-                    if(goleiros[i].jogou[j]==1)
+                    if(goleiros.jogou[j]==1)
                     {
-                        Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                        printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                        for(k=0;k<goleiros[i].penaltisS[j];k++)
+                        fread(&jogo,sizeof(partida),1,arqP);
+                        while(!feof(arqP)){
+                            if(jogo.id == j)
+                            {
+                                printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                            }
+                            fread(&jogo,sizeof(partida),1,arqP);
+                        }
+                        rewind(arqP);
+                        for(k=0;k<goleiros.penaltisS[j];k++)
                             printf("* ");
-                        printf("(%d)\n\n",goleiros[i].penaltisS[j]);
+                        printf("(%d)\n\n",goleiros.penaltisS[j]);
                     }
                 }
             }
-            if(goleiros[i].total_penaltisS==0)
+            if(goleiros.total_penaltisS==0)
                 printf("\n");
-            printf("\nPenaltis defendidos na temporada: %d\n", goleiros[i].total_penaltisD);
-            if(goleiros[i].total_penaltisD>0)
+            printf("\nPenaltis defendidos na temporada: %d\n", goleiros.total_penaltisD);
+            if(goleiros.total_penaltisD>0)
             {
-                printf("Media de penaltis defendidos por partida: %.2f\n", goleiros[i].media_penaltisD);
+                printf("Media de penaltis defendidos por partida: %.2f\n", goleiros.media_penaltisD);
                 printf("Penaltis defendidos por partida:\n\n");
                 for(j=0;j<100;j++)
                 {
-                    if(goleiros[i].jogou[j]==1)
+                    if(goleiros.jogou[j]==1)
                     {
-                        Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                        printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                        for(k=0;k<goleiros[i].penaltisD[j];k++)
+                        fread(&jogo,sizeof(partida),1,arqP);
+                        while(!feof(arqP)){
+                            if(jogo.id == j)
+                            {
+                                printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                            }
+                            fread(&jogo,sizeof(partida),1,arqP);
+                        }
+                        rewind(arqP);
+                        for(k=0;k<goleiros.penaltisD[j];k++)
                             printf("* ");
-                        printf("(%d)\n\n",goleiros[i].penaltisD[j]);
+                        printf("(%d)\n\n",goleiros.penaltisD[j]);
                     }
                 }
             }
-            if(goleiros[i].total_penaltisD==0)
+            if(goleiros.total_penaltisD==0)
                 printf("\n");
-            printf("\nPenaltis perdidos na temporada: %d\n", goleiros[i].total_penaltisP);
-            if(goleiros[i].total_penaltisP>0)
+            printf("\nPenaltis perdidos na temporada: %d\n", goleiros.total_penaltisP);
+            if(goleiros.total_penaltisP>0)
             {
-                printf("Media de penaltis perdidos por partida: %.2f\n", goleiros[i].media_penaltisP);
+                printf("Media de penaltis perdidos por partida: %.2f\n", goleiros.media_penaltisP);
                 printf("Penaltis perdidos por partida:\n\n");
                 for(j=0;j<100;j++)
                 {
-                    if(goleiros[i].jogou[j]==1)
+                    if(goleiros.jogou[j]==1)
                     {
-                        Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                        printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                        for(k=0;k<goleiros[i].penaltisP[j];k++)
+                        fread(&jogo,sizeof(partida),1,arqP);
+                        while(!feof(arqP)){
+                            if(jogo.id == j)
+                            {
+                                printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                            }
+                            fread(&jogo,sizeof(partida),1,arqP);
+                        }
+                        rewind(arqP);
+                        for(k=0;k<goleiros.penaltisP[j];k++)
                             printf("* ");
-                        printf("(%d)\n\n\n",goleiros[i].penaltisP[j]);
+                        printf("(%d)\n\n\n",goleiros.penaltisP[j]);
                     }
                 }
             }
-            if(goleiros[i].total_penaltisP==0)
+            if(goleiros.total_penaltisP==0)
                 printf("\n\n");
+
+            break;
         }
+        fread(&goleiros,sizeof(goleiro),1,arqG);
     }
-    for(i=0;i<40;i++)
-    {
-        if(num_uniforme==elenco[i].uniforme)
+
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        if(num_uniforme==elenco.uniforme)
         {
-            printf("\tEstatisticas de faltas e penaltis do %s\n\n", elenco[i].nome);
-            printf("Faltas cometidas na temporada: %d\n", elenco[i].total_faltasC);
-            printf("Media de faltas cometidas por partida: %.2f\n", elenco[i].media_faltasC);
+            printf("\tEstatisticas de faltas e penaltis do %s\n\n", elenco.nome);
+            printf("Faltas cometidas na temporada: %d\n", elenco.total_faltasC);
+            printf("Media de faltas cometidas por partida: %.2f\n", elenco.media_faltasC);
             printf("Faltas cometidas por partida:\n\n");
             for(j=0;j<100;j++)
             {
-                if(elenco[i].jogou[j]==1)
+                if(elenco.jogou[j]==1)
                 {
-                    Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                    for(k=0;k<elenco[i].faltasC[j];k++)
+                    fread(&jogo,sizeof(partida),1,arqP);
+                    while(!feof(arqP)){
+                        if(jogo.id == j)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                        }
+                        fread(&jogo,sizeof(partida),1,arqP);
+                    }
+                    rewind(arqP);
+                    for(k=0;k<elenco.faltasC[j];k++)
                         printf("* ");
-                    printf("(%d)\n\n",elenco[i].faltasC[j]);
+                    printf("(%d)\n\n",elenco.faltasC[j]);
                 }
             }
-            printf("\nFaltas sofridas na temporada: %d\n", elenco[i].total_faltasS);
-            printf("Media de faltas sofridas por partida: %.2f\n",elenco[i].media_faltasS);
+            printf("\nFaltas sofridas na temporada: %d\n", elenco.total_faltasS);
+            printf("Media de faltas sofridas por partida: %.2f\n",elenco.media_faltasS);
             printf("Faltas sofridas por partida:\n\n");
             for(j=0;j<100;j++)
             {
-                if(elenco[i].jogou[j]==1)
+                if(elenco.jogou[j]==1)
                 {
-                    Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                    for(k=0;k<elenco[i].faltasS[j];k++)
+                    fread(&jogo,sizeof(partida),1,arqP);
+                    while(!feof(arqP)){
+                        if(jogo.id == j)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                        }
+                        fread(&jogo,sizeof(partida),1,arqP);
+                    }
+                    rewind(arqP);
+                    for(k=0;k<elenco.faltasS[j];k++)
                         printf("* ");
-                    printf("(%d)\n\n",elenco[i].faltasS[j]);
+                    printf("(%d)\n\n",elenco.faltasS[j]);
                 }
             }
-            printf("\nPenaltis cometidos na temporada: %d\n", elenco[i].total_penaltisC);
-            if(elenco[i].total_penaltisC>0)
+            printf("\nPenaltis cometidos na temporada: %d\n", elenco.total_penaltisC);
+            if(elenco.total_penaltisC>0)
             {
-                printf("Media de penaltis cometidos por partida: %.2f\n", elenco[i].media_penaltisC);
+                printf("Media de penaltis cometidos por partida: %.2f\n", elenco.media_penaltisC);
                 printf("Penaltis cometidos por partida:\n\n");
                 for(j=0;j<100;j++)
                 {
-                    if(elenco[i].jogou[j]==1)
+                    if(elenco.jogou[j]==1)
                     {
-                        Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                        printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                        for(k=0;k<elenco[i].penaltisC[j];k++)
+                        fread(&jogo,sizeof(partida),1,arqP);
+                        while(!feof(arqP)){
+                            if(jogo.id == j)
+                            {
+                                printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                            }
+                            fread(&jogo,sizeof(partida),1,arqP);
+                        }
+                        rewind(arqP);
+                        for(k=0;k<elenco.penaltisC[j];k++)
                             printf("* ");
-                        printf("(%d)\n\n",elenco[i].penaltisC[j]);
+                        printf("(%d)\n\n",elenco.penaltisC[j]);
                     }
                 }
             }
-            if(elenco[i].total_penaltisC==0)
+            if(elenco.total_penaltisC==0)
                 printf("\n");
-            printf("\nPenaltis sofridos na temporada: %d\n", elenco[i].total_penaltisS);
-            if(elenco[i].total_penaltisS>0)
+            printf("\nPenaltis sofridos na temporada: %d\n", elenco.total_penaltisS);
+            if(elenco.total_penaltisS>0)
             {
-                printf("Media de penaltis sofridos por partida: %.2f\n", elenco[i].media_penaltisS);
+                printf("Media de penaltis sofridos por partida: %.2f\n", elenco.media_penaltisS);
                 printf("Penaltis sofridos por partida:\n\n");
                 for(j=0;j<100;j++)
                 {
-                    if(elenco[i].jogou[j]==1)
+                    if(elenco.jogou[j]==1)
                     {
-                        Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                        printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                        for(k=0;k<elenco[i].penaltisS[j];k++)
+                        fread(&jogo,sizeof(partida),1,arqP);
+                        while(!feof(arqP)){
+                            if(jogo.id == j)
+                            {
+                                printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                            }
+                            fread(&jogo,sizeof(partida),1,arqP);
+                        }
+                        rewind(arqP);
+                        for(k=0;k<elenco.penaltisS[j];k++)
                             printf("* ");
-                        printf("(%d)\n\n",elenco[i].penaltisS[j]);
+                        printf("(%d)\n\n",elenco.penaltisS[j]);
                     }
                 }
             }
-            if(elenco[i].total_penaltisS==0)
+            if(elenco.total_penaltisS==0)
                 printf("\n");
-            printf("\nPenaltis perdidos na temporada: %d\n", elenco[i].total_penaltisP);
-            if(elenco[i].total_penaltisP>0)
+            printf("\nPenaltis perdidos na temporada: %d\n", elenco.total_penaltisP);
+            if(elenco.total_penaltisP>0)
             {
-                printf("Media de penaltis perdidos por partida: %.2f\n", elenco[i].media_penaltisP);
+                printf("Media de penaltis perdidos por partida: %.2f\n", elenco.media_penaltisP);
                 printf("Penaltis perdidos por partida:\n\n");
                 for(j=0;j<100;j++)
                 {
-                    if(elenco[i].jogou[j]==1)
+                    if(elenco.jogou[j]==1)
                     {
-                        Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                        printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                        for(k=0;k<elenco[i].penaltisP[j];k++)
+                        fread(&jogo,sizeof(partida),1,arqP);
+                        while(!feof(arqP)){
+                            if(jogo.id == j)
+                            {
+                                printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                            }
+                            fread(&jogo,sizeof(partida),1,arqP);
+                        }
+                        rewind(arqP);
+                        for(k=0;k<elenco.penaltisP[j];k++)
                             printf("* ");
-                        printf("(%d)\n\n\n",elenco[i].penaltisP[j]);
+                        printf("(%d)\n\n\n",elenco.penaltisP[j]);
                     }
                 }
             }
-            if(elenco[i].total_penaltisP==0)
+            if(elenco.total_penaltisP==0)
                 printf("\n\n");
+
+            break;
         }
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
+    fclose(arqJ);
+    fclose(arqG);
+    fclose(arqP);
 
     system("PAUSE");
     return 0;
@@ -4811,52 +5257,91 @@ int jogador_Imp(int num_uniforme, char *time)
 {
     system("cls");
 
+    FILE *arqJ;
+    FILE *arqG;
+    FILE *arqP;
+    char arqJogadores[120], arqGoleiros[120], arqPartidas[120];
+    strcpy(arqJogadores,time);
+    strcat(arqJogadores,"/jogadores.dat");
+    strcpy(arqGoleiros,time);
+    strcat(arqGoleiros,"/goleiros.dat");
+    strcpy(arqPartidas,time);
+    strcat(arqPartidas,"/jogos.dat");
+    arqJ = fopen(arqJogadores,"rb+"); if(arqJ == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+    arqG = fopen(arqGoleiros,"rb+"); if(arqG == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+
+    jogador elenco;
+    goleiro goleiros;
+    partida jogo;
+
     int i,j,k;
-    int diaD, mesD, golsP, golsC;
-    char sgl[3], adv[100];
-    for(i=0;i<10;i++)
-    {
-        if(num_uniforme==goleiros[i].uniforme)
+
+    fread(&goleiros,sizeof(goleiro),1,arqG);
+    while(!feof(arqG)){
+        if(num_uniforme==goleiros.uniforme)
         {
-            printf("\tEstatisticas de impedimentos do goleiro %s\n\n", goleiros[i].nome);
-            printf("Impedimentos na temporada: %d\n", goleiros[i].total_imped);
-            printf("Media de impedimentos por partida: %.2f\n",goleiros[i].media_imped);
+            printf("\tEstatisticas de impedimentos do goleiro %s\n\n", goleiros.nome);
+            printf("Impedimentos na temporada: %d\n", goleiros.total_imped);
+            printf("Media de impedimentos por partida: %.2f\n",goleiros.media_imped);
             printf("Impedimentos por partida:\n\n");
             for(j=0;j<100;j++)
             {
-                if(goleiros[i].jogou[j]==1)
+                if(goleiros.jogou[j]==1)
                 {
-                    Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                    for(k=0;k<goleiros[i].imped[j];k++)
+                    fread(&jogo,sizeof(partida),1,arqP);
+                    while(!feof(arqP)){
+                        if(jogo.id == j)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                        }
+                        fread(&jogo,sizeof(partida),1,arqP);
+                    }
+                    rewind(arqP);
+                    for(k=0;k<goleiros.imped[j];k++)
                         printf("* ");
-                    printf("(%d)\n\n\n",goleiros[i].imped[j]);
+                    printf("(%d)\n\n\n",goleiros.imped[j]);
                 }
             }
+
+            break;
         }
+        fread(&goleiros,sizeof(goleiro),1,arqG);
     }
 
-    for(i=0;i<40;i++)
-    {
-        if(num_uniforme==elenco[i].uniforme)
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        if(num_uniforme==elenco.uniforme)
         {
-            printf("\tEstatisticas de impedimentos do %s\n\n", elenco[i].nome);
-            printf("Impedimentos na temporada: %d\n", elenco[i].total_imped);
-            printf("Media de impedimentos por partida: %.2f\n",elenco[i].media_imped);
+            printf("\tEstatisticas de impedimentos do %s\n\n", elenco.nome);
+            printf("Impedimentos na temporada: %d\n", elenco.total_imped);
+            printf("Media de impedimentos por partida: %.2f\n",elenco.media_imped);
             printf("Impedimentos por partida:\n\n");
             for(j=0;j<100;j++)
             {
-                if(elenco[i].jogou[j]==1)
+                if(elenco.jogou[j]==1)
                 {
-                    Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                    for(k=0;k<elenco[i].imped[j];k++)
+                    fread(&jogo,sizeof(partida),1,arqP);
+                    while(!feof(arqP)){
+                        if(jogo.id == j)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                        }
+                        fread(&jogo,sizeof(partida),1,arqP);
+                    }
+                    rewind(arqP);
+                    for(k=0;k<elenco.imped[j];k++)
                         printf("* ");
-                    printf("(%d)\n\n\n",elenco[i].imped[j]);
+                    printf("(%d)\n\n\n",elenco.imped[j]);
                 }
             }
+
+            break;
         }
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
+    fclose(arqJ);
+    fclose(arqG);
+    fclose(arqP);
 
     system("PAUSE");
     return 0;
@@ -4868,77 +5353,131 @@ int jogador_notas(int num_uniforme, char *time)
 {
     system("cls");
 
+    FILE *arqJ;
+    FILE *arqG;
+    FILE *arqP;
+    char arqJogadores[120], arqGoleiros[120], arqPartidas[120];
+    strcpy(arqJogadores,time);
+    strcat(arqJogadores,"/jogadores.dat");
+    strcpy(arqGoleiros,time);
+    strcat(arqGoleiros,"/goleiros.dat");
+    strcpy(arqPartidas,time);
+    strcat(arqPartidas,"/jogos.dat");
+    arqJ = fopen(arqJogadores,"rb+"); if(arqJ == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+    arqG = fopen(arqGoleiros,"rb+"); if(arqG == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+
+    jogador elenco;
+    goleiro goleiros;
+    partida jogo;
+
     int i,j,k,jogoMaiorNota;
     float maiorNota=0;
-    int diaD, mesD, golsP, golsC;
-    char sgl[3], adv[100];
-    for(i=0;i<10;i++)
-    {
-        if(num_uniforme==goleiros[i].uniforme)
+
+    fread(&goleiros,sizeof(goleiro),1,arqG);
+    while(!feof(arqG)){
+        if(num_uniforme==goleiros.uniforme)
         {
-            printf("\tEstatisticas de notas do goleiro %s\n\n", goleiros[i].nome);
-            //printf("Impedimentos na temporada: %d\n", goleiros[i].total_n);
+            printf("\tEstatisticas de notas do goleiro %s\n\n", goleiros.nome);
             for(j=0;j<100;j++)
             {
-                if(goleiros[i].jogou[j]==1)
+                if(goleiros.jogou[j]==1)
                 {
-                    if(goleiros[i].notas[j]>maiorNota)
+                    if(goleiros.notas[j]>maiorNota)
                     {
-                        maiorNota=goleiros[i].notas[j];
+                        maiorNota=goleiros.notas[j];
                         jogoMaiorNota=j;
                     }
                 }
             }
-            printf("Maior nota na temporada: %.2f (%d/%d. %d x %d %s)\n",maiorNota,jogo[jogoMaiorNota].dia,jogo[jogoMaiorNota].mes,jogo[jogoMaiorNota].gols_pro,jogo[jogoMaiorNota].gols_contra,jogo[jogoMaiorNota].sigla_adv);
-            printf("Media de nota por partida: %.2f\n",goleiros[i].media_notas);
+            fread(&jogo,sizeof(partida),1,arqP);
+            while(!feof(arqP)){
+                if(jogo.id == jogoMaiorNota)
+                {
+                    printf("Maior nota na temporada: %.2f (%d/%d. %d x %d %s)\n",maiorNota,jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                }
+                fread(&jogo,sizeof(partida),1,arqP);
+            }
+            rewind(arqP);
+            printf("Media de nota por partida: %.2f\n",goleiros.media_notas);
             printf("Nota por partida:\n\n");
             for(j=0;j<100;j++)
             {
-                if(goleiros[i].jogou[j]==1)
+                if(goleiros.jogou[j]==1)
                 {
-                    Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                    for(k=0;k<(int)goleiros[i].notas[j];k++)
+                    fread(&jogo,sizeof(partida),1,arqP);
+                    while(!feof(arqP)){
+                        if(jogo.id == j)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                        }
+                        fread(&jogo,sizeof(partida),1,arqP);
+                    }
+                    rewind(arqP);
+                    for(k=0;k<(int)goleiros.notas[j];k++)
                         printf("* ");
-                    printf("(%.2f)\n\n\n",goleiros[i].notas[j]);
+                    printf("(%.2f)\n\n\n",goleiros.notas[j]);
                 }
             }
+
+            break;
         }
+        fread(&goleiros,sizeof(goleiro),1,arqG);
     }
 
-    for(i=0;i<40;i++)
-    {
-        if(num_uniforme==elenco[i].uniforme)
+    fread(&elenco,sizeof(jogador),1,arqJ);
+    while(!feof(arqJ)){
+        if(num_uniforme==elenco.uniforme)
         {
-            printf("\tEstatisticas de notas do %s\n\n", elenco[i].nome);
+            printf("\tEstatisticas de notas do %s\n\n", elenco.nome);
             for(j=0;j<100;j++)
             {
-                if(elenco[i].jogou[j]==1)
+                if(elenco.jogou[j]==1)
                 {
-                    if(elenco[i].notas[j]>maiorNota)
+                    if(elenco.notas[j]>maiorNota)
                     {
-                        maiorNota=elenco[i].notas[j];
+                        maiorNota=elenco.notas[j];
                         jogoMaiorNota=j;
                     }
                 }
             }
-            Encontrar_LS (inicio, jogoMaiorNota, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-            printf("Maior nota na temporada: %.2f (%d/%d. %d x %d %c%c%c)\n",maiorNota,diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-            printf("Media de nota por partida: %.2f\n",elenco[i].media_notas);
+            fread(&jogo,sizeof(partida),1,arqP);
+            while(!feof(arqP)){
+                if(jogo.id == jogoMaiorNota)
+                {
+                    printf("Maior nota na temporada: %.2f (%d/%d. %d x %d %s)\n",maiorNota,jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                }
+                fread(&jogo,sizeof(partida),1,arqP);
+            }
+            rewind(arqP);
+            printf("Media de nota por partida: %.2f\n",elenco.media_notas);
             printf("Nota por partida:\n\n");
             for(j=0;j<100;j++)
             {
-                if(elenco[i].jogou[j]==1)
+                if(elenco.jogou[j]==1)
                 {
-                    Encontrar_LS (inicio, j, &diaD, &mesD, &golsP, &golsC, sgl, adv);
-                    printf("%d/%d. %d x %d %c%c%c: ",diaD,mesD,golsP,golsC,sgl[0],sgl[1],sgl[2]);
-                    for(k=0;k<(int)elenco[i].notas[j];k++)
+                    fread(&jogo,sizeof(partida),1,arqP);
+                    while(!feof(arqP)){
+                        if(jogo.id == j)
+                        {
+                            printf("%d/%d. %d x %d %s: ",jogo.dia,jogo.mes,jogo.gols_pro,jogo.gols_contra,jogo.sigla_adv);
+                        }
+                        fread(&jogo,sizeof(partida),1,arqP);
+                    }
+                    rewind(arqP);
+                    for(k=0;k<(int)elenco.notas[j];k++)
                         printf("* ");
-                    printf("(%.2f)\n\n\n",elenco[i].notas[j]);
+                    printf("(%.2f)\n\n\n",elenco.notas[j]);
                 }
             }
+
+            break;
         }
+        fread(&elenco,sizeof(jogador),1,arqJ);
     }
+    fclose(arqJ);
+    fclose(arqG);
+    fclose(arqP);
+
     system("PAUSE");
     return 0;
 }
@@ -5031,6 +5570,7 @@ int login(char *time)
 {
     system("cls");
     FILE *arq;
+    cadastro times;
     arq = fopen("cadastros.dat","rb"); if(arq == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
     printf("\t\t         Login\n");
     printf("\t\t(para voltar, digite 0)\n\n");
@@ -5043,7 +5583,7 @@ int login(char *time)
         while ((!feof(arq)) && (strcmp(times.nome,time))){
             fread(&times,sizeof(cadastro),1,arq);
         }
-        if((strcmp(times.nome,time))
+        if((strcmp(times.nome,time)))
         {
             printf("\tTime nao cadastrado!\n");
         }
