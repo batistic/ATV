@@ -144,7 +144,7 @@ int main()
     do{
         system("cls");  // limpando a tela
         /* Menu de opções */
-        printf("\tA.T.V.\n\n");
+        printf("\t%s\n\n",time);
         printf("1. Cadastrar jogador.\n");
         printf("2. Editar dados de jogador.\n");
         printf("3. Excluir cadastro de um jogador.\n");
@@ -215,9 +215,9 @@ int cadastrar(char *time)
     system("cls");
     jogador elenco, auxiliarJ;
     goleiro goleiros, auxiliarG;
-    arqJ = fopen(arqJogadores,"ab+"); if(arqJ == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
-    arqG = fopen(arqGoleiros,"ab+"); if(arqG == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
-    int pos,n,num_uniforme,j; // variaveis auxiliares
+    arqJ = fopen(arqJogadores,"ab+"); if(arqJ == NULL){    printf("Erro na abertura do arquivo!\n"); system("pause"); return 1;    }
+    arqG = fopen(arqGoleiros,"ab+"); if(arqG == NULL){    printf("Erro na abertura do arquivo!\n"); system("pause"); return 1;    }
+    int pos=-1,n,num_uniforme,j; // variaveis auxiliares
     int erro=1; // variavel para testar se um n. de uniforme ja foi cadastrado
     printf("\tCadastrar jogador.\n\n");
     printf("1. Jogador.\t2. Goleiro.\n0. Voltar\n\n-> ");//solicita que o usuário defina se é goleiro ou não
@@ -234,6 +234,7 @@ int cadastrar(char *time)
         printf("Nome: ");
         setbuf(stdin, NULL);
         scanf("%[^\n]s",elenco.nome);
+        setbuf(stdin, NULL);
         printf("Idade: ");
         scanf("%d",&elenco.idade);
         printf("Altura: ");
@@ -283,7 +284,9 @@ int cadastrar(char *time)
         printf("CA: Centroavante.\n");
         printf("\n-> ");
         char p[3];
+        setbuf(stdin,NULL);
         scanf("%s",p);
+        setbuf(stdin,NULL);
         if(strcmp(p,"ZD")==0 || strcmp(p,"zd")==0)
             elenco.posicao=1;
         if(strcmp(p,"ZE")==0 || strcmp(p,"ze")==0)
@@ -319,7 +322,7 @@ int cadastrar(char *time)
         if(strcmp(p,"CA")==0 || strcmp(p,"ca")==0)
             elenco.posicao=17;
 
-        elenco.jogos=0;
+
         for(j=0;j<100;j++) // zerando os jogos do jogador
             elenco.jogou[j]=0;
         // zerando as medias do jogador
@@ -357,7 +360,10 @@ int cadastrar(char *time)
         elenco.total_penaltisC=0;
         elenco.total_penaltisS=0;
         elenco.total_penaltisP=0;
+        elenco.jogos=0;
 
+        setbuf(stdin, NULL);
+        rewind(arqJ);
         fwrite(&elenco,sizeof(jogador),1,arqJ);
     }
     if(pos==2)//caso entrada seja 2) Goleiro
@@ -366,6 +372,7 @@ int cadastrar(char *time)
         printf("Nome: ");
         setbuf(stdin, NULL);
         scanf("%[^\n]s",goleiros.nome);
+        setbuf(stdin, NULL);
         printf("Idade: ");
         scanf("%d",&goleiros.idade);
         printf("Altura: ");
@@ -440,9 +447,11 @@ int cadastrar(char *time)
         goleiros.total_penaltisS=0;
         goleiros.total_penaltisP=0;
         goleiros.total_penaltisD=0;
-
-        fwrite(&elenco,sizeof(goleiro),1,arqG);
+        setbuf(stdin, NULL);
+        fwrite(&goleiros,sizeof(goleiro),1,arqG);
     }
+    fclose(arqJ);
+    fclose(arqG);
     printf("\n");
     system("PAUSE");
     return 0;
@@ -454,14 +463,16 @@ int editar(char *time)
 {
     system("cls");
     printf("\tEditar cadastro de jogador.\n\n");
-    int n,j,erro,novo_uniforme; // variaveis auxiliares
+    int n,j,erro=1,novo_uniforme; // variaveis auxiliares
     int num_uniforme=lista_jogadores(time); // chama a função que lista todos os jogadores e retorna o numero do uniforme do escolhido pelo usuario
     if(num_uniforme==0)
         return 0;
     FILE *arqJ;
     FILE *arqG;
     FILE *aux;
-    char arqJogadores[120], arqGoleiros[120];
+    char arqJogadores[120], arqGoleiros[120], arqAux[120];
+    strcpy(arqAux,time);
+    strcat(arqAux,"/auxiliar.dat");
     strcpy(arqJogadores,time);
     strcat(arqJogadores,"/jogadores.dat");
     strcpy(arqGoleiros,time);
@@ -470,54 +481,19 @@ int editar(char *time)
     goleiro goleiros, auxiliarG, auxG;
     arqJ = fopen(arqJogadores,"ab+"); if(arqJ == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
     arqG = fopen(arqGoleiros,"ab+"); if(arqG == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+    aux = fopen(arqAux,"wb"); if(aux == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
     while((!feof(arqJ)) && (auxiliarJ.uniforme != num_uniforme)){
         fread(&auxiliarJ, sizeof(jogador), 1, arqJ);
     }
     if(auxiliarJ.uniforme == num_uniforme)
     {
-        elenco.jogos = auxiliarJ.jogos;
-        for(j=0;j<100;j++) // zerando os jogos do jogador
-            elenco.jogou[j] = auxiliarJ.jogou[j];
-        // zerando as medias do jogador
-        elenco.media_assistF = auxiliarJ.media_assistF;
-        elenco.media_assistG = auxiliarJ.media_assistG;
-        elenco.media_desarmes = auxiliarJ.media_desarmes;
-        elenco.media_perdas = auxiliarJ.media_perdas;
-        elenco.media_faltasC = auxiliarJ.media_faltasC;
-        elenco.media_faltasS = auxiliarJ.media_faltasS;
-        elenco.media_gols = auxiliarJ.media_gols;
-        elenco.media_golsC = auxiliarJ.media_golsC;
-        elenco.media_finalizacoesC = auxiliarJ.media_finalizacoesC;
-        elenco.media_finalizacoesE = auxiliarJ.media_finalizacoesE;
-        elenco.media_imped = auxiliarJ.media_imped;
-        elenco.media_notas = auxiliarJ.media_notas;
-        elenco.media_passesC = auxiliarJ.media_passesC;
-        elenco.media_passesE = auxiliarJ.media_passesE;
-        elenco.media_penaltisC = auxiliarJ.media_penaltisC;
-        elenco.media_penaltisS = auxiliarJ.media_penaltisS;
-        elenco.media_penaltisP = auxiliarJ.media_penaltisP;
-        // zerando o total dos indicadores
-        elenco.total_assistF = auxiliarJ.total_assistF;
-        elenco.total_assistG = auxiliarJ.total_assistG;
-        elenco.total_desarmes = auxiliarJ.total_desarmes;
-        elenco.total_perdas = auxiliarJ.total_perdas;
-        elenco.total_faltasC = auxiliarJ.total_faltasC;
-        elenco.total_faltasS = auxiliarJ.total_faltasS;
-        elenco.total_gols = auxiliarJ.total_gols;
-        elenco.total_golsC = auxiliarJ.total_golsC;
-        elenco.total_finalizacoesC = auxiliarJ.total_finalizacoesC;
-        elenco.total_finalizacoesE = auxiliarJ.total_finalizacoesE;
-        elenco.total_imped = auxiliarJ.total_imped;
-        elenco.total_passesC = auxiliarJ.total_passesC;
-        elenco.total_passesE = auxiliarJ.total_passesE;
-        elenco.total_penaltisC = auxiliarJ.total_penaltisC;
-        elenco.total_penaltisS = auxiliarJ.total_penaltisS;
-        elenco.total_penaltisP = auxiliarJ.total_penaltisP;
+        elenco = auxiliarJ;
 
         //leitura de dados do jogador
         printf("Nome: ");
         setbuf(stdin, NULL);
         scanf("%[^\n]s",elenco.nome);
+        setbuf(stdin, NULL);
         printf("Idade: ");
         scanf("%d",&elenco.idade);
         printf("Altura: ");
@@ -577,7 +553,9 @@ int editar(char *time)
         printf("CA: Centroavante.\n");
         printf("\n-> ");
         char p[3];
+        setbuf(stdin, NULL);
         scanf("%s",p);
+        setbuf(stdin, NULL);
         if(strcmp(p,"ZD")==0 || strcmp(p,"zd")==0)
             elenco.posicao=1;
         if(strcmp(p,"ZE")==0 || strcmp(p,"ze")==0)
@@ -613,21 +591,23 @@ int editar(char *time)
         if(strcmp(p,"CA")==0 || strcmp(p,"ca")==0)
             elenco.posicao=17;
 
-        char arqAux[120];
-        strcpy(arqAux,time);
-        strcat(arqAux,"/auxiliar.dat");
-
-        aux = fopen(arqAux,"wb"); if(aux == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
-
         rewind(arqJ);
         fread(&auxJ,sizeof(jogador),1,arqJ);
+        if(auxJ.uniforme != num_uniforme)
+            fwrite(&auxJ,sizeof(jogador),1,aux);
+        else
+            fwrite(&elenco,sizeof(jogador),1,aux);
         while(!feof(arqJ)){
-            if(auxJ.uniforme != num_uniforme)
-                fwrite(&auxJ,sizeof(jogador),1,arqJ);
-            else
-                fwrite(&elenco,sizeof(jogador),1,arqJ);
             fread(&auxJ,sizeof(jogador),1,arqJ);
+            if(feof(arqJ))
+                break;
+            if(auxJ.uniforme != num_uniforme)
+                fwrite(&auxJ,sizeof(jogador),1,aux);
+            else
+                fwrite(&elenco,sizeof(jogador),1,aux);
         }
+        fclose(arqJ);
+        fclose(aux);
         remove(arqJogadores);
         rename(arqAux,arqJogadores);
     }
@@ -640,47 +620,13 @@ int editar(char *time)
         }
         if(auxiliarG.uniforme == num_uniforme)
         {
-            goleiros.jogos = auxiliarG.jogos;
-            for(j=0;j<100;j++) // zerando os jogos do jogador
-                goleiros.jogou[j] = auxiliarG.jogou[j];
-            // zerando as medias do jogador
-            goleiros.media_assistF = auxiliarG.media_assistF;
-            goleiros.media_assistG = auxiliarG.media_assistG;
-            goleiros.media_defesas = auxiliarG.media_defesas;
-            goleiros.media_perdas = auxiliarG.media_perdas;
-            goleiros.media_faltasC = auxiliarG.media_faltasC;
-            goleiros.media_faltasS = auxiliarG.media_faltasS;
-            goleiros.media_golsC = auxiliarG.media_golsC;
-            goleiros.media_golsS = auxiliarG.media_golsS;
-            goleiros.media_imped = auxiliarG.media_imped;
-            goleiros.media_notas = auxiliarG.media_notas;
-            goleiros.media_passesC = auxiliarG.media_passesC;
-            goleiros.media_passesE = auxiliarG.media_passesE;
-            goleiros.media_penaltisC = auxiliarG.media_penaltisC;
-            goleiros.media_penaltisS = auxiliarG.media_penaltisS;
-            goleiros.media_penaltisP = auxiliarG.media_penaltisP;
-            goleiros.media_penaltisD = auxiliarG.media_penaltisD;
-            // zerando o total dos indicadores
-            goleiros.total_assistF = auxiliarG.total_assistF;
-            goleiros.total_assistG = auxiliarG.total_assistG;
-            goleiros.total_defesas = auxiliarG.total_defesas;
-            goleiros.total_perdas = auxiliarG.total_perdas;
-            goleiros.total_faltasC = auxiliarG.total_faltasC;
-            goleiros.total_faltasS = auxiliarG.total_faltasS;
-            goleiros.total_golsS = auxiliarG.total_golsS;
-            goleiros.total_golsC = auxiliarG.total_golsC;
-            goleiros.total_imped = auxiliarG.total_imped;
-            goleiros.total_passesC = auxiliarG.total_passesC;
-            goleiros.total_passesE = auxiliarG.total_passesE;
-            goleiros.total_penaltisC = auxiliarG.total_penaltisC;
-            goleiros.total_penaltisS = auxiliarG.total_penaltisS;
-            goleiros.total_penaltisP = auxiliarG.total_penaltisP;
-            goleiros.total_penaltisD = auxiliarG.total_penaltisD;
+            goleiros = auxiliarG;
 
             //leitura de dados do jogador
             printf("Nome: ");
             setbuf(stdin, NULL);
             scanf("%[^\n]s",goleiros.nome);
+            setbuf(stdin, NULL);
             printf("Idade: ");
             scanf("%d",&goleiros.idade);
             printf("Altura: ");
@@ -729,21 +675,25 @@ int editar(char *time)
                 }
             }
 
-            char arqAux[120];
-            strcpy(arqAux,time);
-            strcat(arqAux,"/auxiliar.dat");
-
-            aux = fopen(arqAux,"wb"); if(aux == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
-
             rewind(arqG);
             fread(&auxG,sizeof(goleiro),1,arqG);
-            while(!feof(arqJ)){
+            if(auxG.uniforme != num_uniforme)
+            {
+                fwrite(&auxG,sizeof(goleiro),1,aux);
+            }
+            else
+                fwrite(&goleiros,sizeof(goleiro),1,aux);
+            while(!feof(arqG)){
+                fread(&auxG,sizeof(goleiro),1,arqG);
+                if(feof(arqG))
+                    break;
                 if(auxG.uniforme != num_uniforme)
                     fwrite(&auxG,sizeof(goleiro),1,aux);
                 else
                     fwrite(&goleiros,sizeof(goleiro),1,aux);
-                fread(&auxG,sizeof(goleiro),1,arqG);
             }
+            fclose(arqG);
+            fclose(aux);
             remove(arqGoleiros);
             rename(arqAux,arqGoleiros);
         }
@@ -752,6 +702,9 @@ int editar(char *time)
             printf("Numero de uniforme nao encontrado!\n");
         }
     }
+    fclose(arqJ);
+    fclose(arqG);
+    fclose(aux);
     printf("\n");
     system("PAUSE");
     return 0;
@@ -763,14 +716,16 @@ int excluir(char *time)
 {
     system("cls");
     printf("\tExcluir cadastro de jogador.\n\n");
-    int n,i,encontrado=0,novo_uniforme; // variaveis auxiliares
+    int n,i,novo_uniforme; // variaveis auxiliares
     int num_uniforme=lista_jogadores(time); // chama a função que lista todos os jogadores e retorna o numero do uniforme do escolhido pelo usuario
     if(num_uniforme==0)
         return 0;
     FILE *arqJ;
     FILE *arqG;
     FILE *aux;
-    char arqJogadores[120], arqGoleiros[120];
+    char arqJogadores[120], arqGoleiros[120], arqAux[120];
+    strcpy(arqAux,time);
+    strcat(arqAux,"/auxiliar.dat");
     strcpy(arqJogadores,time);
     strcat(arqJogadores,"/jogadores.dat");
     strcpy(arqGoleiros,time);
@@ -779,24 +734,24 @@ int excluir(char *time)
     goleiro goleiros, auxiliarG, auxG;
     arqJ = fopen(arqJogadores,"ab+"); if(arqJ == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
     arqG = fopen(arqGoleiros,"ab+"); if(arqG == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+    aux = fopen(arqAux,"wb"); if(aux == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+    fread(&auxiliarJ, sizeof(jogador), 1, arqJ);
     while((!feof(arqJ)) && (auxiliarJ.uniforme != num_uniforme)){
         fread(&auxiliarJ, sizeof(jogador), 1, arqJ);
     }
     if(auxiliarJ.uniforme == num_uniforme)
     {
-        char arqAux[120];
-        strcpy(arqAux,time);
-        strcat(arqAux,"/auxiliar.dat");
-
-        aux = fopen(arqAux,"wb"); if(aux == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
-
         rewind(arqJ);
         fread(&auxJ,sizeof(jogador),1,arqJ);
+        if(auxJ.uniforme != num_uniforme)
+            fwrite(&auxJ,sizeof(jogador),1,aux);
         while(!feof(arqJ)){
-            if(auxJ.uniforme != num_uniforme)
-                fwrite(&auxJ,sizeof(jogador),1,arqJ);
             fread(&auxJ,sizeof(jogador),1,arqJ);
+            if(auxJ.uniforme != num_uniforme)
+                fwrite(&auxJ,sizeof(jogador),1,aux);
         }
+        fclose(arqJ);
+        fclose(aux);
         remove(arqJogadores);
         rename(arqAux,arqJogadores);
     }
@@ -809,19 +764,17 @@ int excluir(char *time)
         }
         if(auxiliarG.uniforme == num_uniforme)
         {
-            char arqAux[120];
-            strcpy(arqAux,time);
-            strcat(arqAux,"/auxiliar.dat");
-
-            aux = fopen(arqAux,"wb"); if(aux == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
-
             rewind(arqG);
             fread(&auxG,sizeof(goleiro),1,arqG);
-            while(!feof(arqJ)){
+            if(auxG.uniforme != num_uniforme)
+                fwrite(&auxG,sizeof(goleiro),1,aux);
+            while(!feof(arqG)){
+                fread(&auxG,sizeof(goleiro),1,arqG);
                 if(auxG.uniforme != num_uniforme)
                     fwrite(&auxG,sizeof(goleiro),1,aux);
-                fread(&auxG,sizeof(goleiro),1,arqG);
             }
+            fclose(arqG);
+            fclose(aux);
             remove(arqGoleiros);
             rename(arqAux,arqGoleiros);
         }
@@ -830,6 +783,9 @@ int excluir(char *time)
             printf("Numero de uniforme nao encontrado!\n");
         }
     }
+    fclose(arqJ);
+    fclose(arqG);
+    fclose(aux);
     printf("\n");
     system("PAUSE");
     return 0;
@@ -1855,6 +1811,7 @@ int estatisticas_grupo(char *time)
 
 int lista_jogadores(char *time)
 {
+    int r=-1;
     FILE *arqJ;
     FILE *arqG;
     char arqJogadores[120], arqGoleiros[120];
@@ -1867,16 +1824,24 @@ int lista_jogadores(char *time)
     arqJ = fopen(arqJogadores,"rb"); if(arqJ == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
     arqG = fopen(arqGoleiros,"rb"); if(arqG == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
     fread(&auxiliarG,sizeof(goleiro),1,arqG);
+    if(auxiliarG.uniforme != 0)
+        printf("%d. %s\n",auxiliarG.uniforme,auxiliarG.nome);
     while((!feof(arqG))){
-        printf("%d. %s",auxiliarG.uniforme,auxiliarG.nome);
+        r = auxiliarG.uniforme;
         fread(&auxiliarG,sizeof(goleiro),1,arqG);
+        if(auxiliarG.uniforme != r)
+            printf("%d. %s\n",auxiliarG.uniforme,auxiliarG.nome);
     }
     fread(&auxiliarJ,sizeof(jogador),1,arqJ);
+    if(auxiliarJ.uniforme != 0)
+        printf("%d. %s\n",auxiliarJ.uniforme,auxiliarJ.nome);
     while((!feof(arqJ))){
-        printf("%d. %s",auxiliarJ.uniforme,auxiliarJ.nome);
+        r = auxiliarJ.uniforme;
         fread(&auxiliarJ,sizeof(jogador),1,arqJ);
+        if(auxiliarJ.uniforme != r)
+            printf("%d. %s\n",auxiliarJ.uniforme,auxiliarJ.nome);
     }
-    printf("0. Voltar.\n");
+    printf("\n0. Voltar.\n");
     printf("\n-> ");
     fclose(arqJ);
     fclose(arqG);
@@ -1897,9 +1862,11 @@ int lista_jogos(char *time)
     partida jogo;
     arqP = fopen(arqPartida,"rb"); if(arqP == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
     fread(&jogo,sizeof(partida),1,arqP);
+    printf("%d. %d x %d %s\n",jogo.id + 1, jogo.gols_pro,jogo.gols_contra,jogo.adversario);
     while(!feof(arqP)){
-        printf("%d. %d x %d %s",jogo.id + 1, jogo.gols_pro,jogo.gols_contra,jogo.adversario);
         fread(&jogo,sizeof(partida),1,arqP);
+        if(!feof(arqP))
+            printf("%d. %d x %d %s\n",jogo.id + 1, jogo.gols_pro,jogo.gols_contra,jogo.adversario);
     }
     fclose(arqP);
     printf("0. Voltar.\n");
@@ -4278,27 +4245,29 @@ int jogador_dados(int num_uniforme, char *time)
     int i,j;
 
     fread(&goleiros,sizeof(goleiro),1,arqG);
-    while(!feof(arqG)){
-        if(num_uniforme==goleiros.uniforme)
-        {
-            printf("\tDados gerais do %s\n\n",goleiros.nome);
-            printf("Posicao: goleiro.\n");
-            printf("Jogos: %d.\nUniforme: %d.\n",goleiros.jogos,goleiros.uniforme);
-            printf("Idade: %d anos.\n",goleiros.idade);
-            printf("Altura: %.2f metros.\nPeso: %.2f quilos.\n",goleiros.altura,goleiros.peso);
-            if(goleiros.pe==1)
-                printf("Destro.\n");
-            if(goleiros.pe==2)
-                printf("Canhoto.\n");
-            if(goleiros.pe==3)
-                printf("Ambidestro.\n");
-            break;
-        }
+    while(!feof(arqG) && num_uniforme!=goleiros.uniforme){
         fread(&goleiros,sizeof(goleiro),1,arqG);
     }
-
-    fread(&elenco,sizeof(jogador),1,arqJ);
-    while(!feof(arqJ)){
+    if(num_uniforme==goleiros.uniforme)
+    {
+        printf("\tDados gerais do %s\n\n",goleiros.nome);
+        printf("Posicao: goleiro.\n");
+        printf("Jogos: %d.\nUniforme: %d.\n",goleiros.jogos,goleiros.uniforme);
+        printf("Idade: %d anos.\n",goleiros.idade);
+        printf("Altura: %.2f metros.\nPeso: %.2f quilos.\n",goleiros.altura,goleiros.peso);
+        if(goleiros.pe==1)
+            printf("Destro.\n");
+        if(goleiros.pe==2)
+            printf("Canhoto.\n");
+        if(goleiros.pe==3)
+            printf("Ambidestro.\n");
+    }
+    else
+    {
+        fread(&elenco,sizeof(jogador),1,arqJ);
+        while(!feof(arqJ) && num_uniforme!=elenco.uniforme){
+            fread(&elenco,sizeof(jogador),1,arqJ);
+        }
         if(num_uniforme==elenco.uniforme)
         {
             int virgula=0;
@@ -4365,9 +4334,7 @@ int jogador_dados(int num_uniforme, char *time)
                 printf("Canhoto.\n");
             if(elenco.pe==3)
                 printf("Ambidestro.\n");
-            break;
         }
-        fread(&elenco,sizeof(jogador),1,arqJ);
     }
     fclose(arqJ);
     fclose(arqG);
@@ -5484,7 +5451,8 @@ int jogador_notas(int num_uniforme, char *time)
 
 int home(char *time)
 {
-    int comando;
+    int comando=-1, erro;
+    printf("\tA.T.V.\n\n");
     printf("1. Login\n");
     printf("2. Cadastro\n");
     printf("0. Sair\n");
@@ -5493,17 +5461,17 @@ int home(char *time)
 
     switch(comando)
     {
-        case 1: login(time);
+        case 1: erro = login(time);
                 break;
 
-        case 2: cadastro_time(time);
+        case 2: erro = cadastro_time(time);
                 break;
 
         case 0: return 1;
 
         default: printf("Digite uma opcao valida\n");
     }
-    return 0;
+    return erro;
 }
 
 int cadastro_time(char *time)
@@ -5516,14 +5484,15 @@ int cadastro_time(char *time)
     printf("\t\t(para voltar, digite 0)\n\n");
     do{
         printf("Nome do time: ");
+        setbuf(stdin,NULL);
         scanf("%[^\n]s",time);
-        if(strcmp(time,"0") == 1)
+        if(strcmp(time,"0") == 0)
         {
-            home(time);
-            return 0;
+            main();
+            return 1;
         }
         fread(&times,sizeof(cadastro),1,arq);
-        while ((!feof(arq)) && (strcmp(times.nome,time))){
+        while ((!feof(arq)) && (strcmp(times.nome,time)) == 1){
             fread(&times,sizeof(cadastro),1,arq);
         }
         if(strcmp(times.nome,time) == 0)
@@ -5571,23 +5540,29 @@ int login(char *time)
     system("cls");
     FILE *arq;
     cadastro times;
-    arq = fopen("cadastros.dat","rb"); if(arq == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+    arq = fopen("cadastros.dat","rb");if(arq == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
     printf("\t\t         Login\n");
     printf("\t\t(para voltar, digite 0)\n\n");
     do{
         printf("Nome do time: ");
+        setbuf(stdin,NULL);
         scanf("%[^\n]s",time);
         if(strcmp(time,"0") == 0)
-            home(time);
+        {
+            main();
+            return 1;
+        }
         fread(&times,sizeof(cadastro),1,arq);
-        while ((!feof(arq)) && (strcmp(times.nome,time))){
+        while ((!feof(arq)) && (strcmp(times.nome,time)) == 1){
             fread(&times,sizeof(cadastro),1,arq);
         }
-        if((strcmp(times.nome,time)))
+        if((strcmp(times.nome,time)) == 1)
         {
             printf("\tTime nao cadastrado!\n");
         }
-    }while(strcmp(time,"0"));
+        else
+            break;
+    }while(1);
     char senha[20],ch;
     int n;
     do
