@@ -226,8 +226,6 @@ int cadastrar(char *time)
         if(pos!=1 && pos!=2 && pos!=0)
             printf("Digite uma opcao valida -> ");
     }
-    if(pos==0)
-        return 0;
     if(pos==1)//caso entrada seja 1) Jogador (que não goleiro)
     {
         //leitura de dados do jogador
@@ -816,9 +814,6 @@ int inserir_dados(char *time)
     char arqAuxiliar[120];
     strcpy(arqAuxiliar,time);
     strcat(arqAuxiliar,"/auxiliar.dat");
-    auxiliar = fopen(arqAuxiliar,"wb"); if(auxiliar == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
-    arqJ = fopen(arqJogadores,"ab+"); if(arqJ == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
-    arqG = fopen(arqGoleiros,"ab+"); if(arqG == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
     arqP = fopen(arqPartidas,"ab+"); if(arqP == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
     int i,n,j,num_uniforme,opc; // variaveis auxiliares
     // variaveis dos dados da partida
@@ -834,8 +829,11 @@ int inserir_dados(char *time)
     printf("Adversario: ");
     setbuf(stdin, NULL);
     scanf("%[^\n]s",jogo.adversario);
+    setbuf(stdin, NULL);
     printf("Sigla do adversario (tres letras): ");
+    setbuf(stdin, NULL);
     scanf("%s",jogo.sigla_adv);
+    setbuf(stdin, NULL);
     printf("Gols feitos: ");
     scanf("%d",&jogo.gols_pro);
     printf("Gols sofridos: ");
@@ -843,27 +841,43 @@ int inserir_dados(char *time)
     printf("Substituicoes feitas na partida: ");
     scanf("%d",&jogo.substituicoes);
 
-    fread(&auxP,sizeof(partida),1,arqP);
     int id = 0;
+    fread(&auxP,sizeof(partida),1,arqP);
     while(!feof(arqP)){
         fread(&auxP,sizeof(partida),1,arqP);
         id++;
     }
     jogo.id = id + 1;
     n = jogo.id;
+
+    setbuf(stdin, NULL);
+    rewind(arqP);
     fwrite(&jogo,sizeof(partida),1,arqP);
+
     for(i=0;i<11+jogo.substituicoes;i++) // loop que percorre todos os jogadores que jogaram a partida
     {
+        auxiliar = fopen(arqAuxiliar,"wb"); if(auxiliar == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+        arqJ = fopen(arqJogadores,"ab+"); if(arqJ == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+        arqG = fopen(arqGoleiros,"ab+"); if(arqG == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
+
         printf("\nPara inserir os dados de um jogador na partida, insira o numero de seu uniforme: ");
         scanf("%d",&num_uniforme);
         fread(&goleiros,sizeof(goleiro),1,arqG);
-        while((!feof(arqG)) && num_uniforme != goleiros.uniforme){
+        while((!feof(arqG)) && (num_uniforme != goleiros.uniforme)){
             fread(&goleiros,sizeof(goleiro),1,arqG);
         }
         if(num_uniforme == goleiros.uniforme)
         {
-            printf("Deseja inserir os dados do %s?\t1. Sim.\t2. Nao\n",goleiros.nome);
-            scanf("%d",&opc);
+            if(goleiros.jogou[n] != 1)
+            {
+                printf("Deseja inserir os dados do %s?\t1. Sim.\t2. Nao\n",goleiros.nome);
+                scanf("%d",&opc);
+            }
+            else
+            {
+                printf("Goleiro ja cadastrado nessa partida!\n");
+                opc = 2;
+            }
             if(opc==1)
             {
                 goleiros.jogos++;
@@ -939,7 +953,18 @@ int inserir_dados(char *time)
 
                 rewind(arqG);
                 fread(&auxG,sizeof(goleiro),1,arqG);
+                if(num_uniforme == auxG.uniforme)
+                {
+                    fwrite(&goleiros,sizeof(goleiro),1,auxiliar);
+                }
+                else
+                {
+                    fwrite(&auxG,sizeof(goleiro),1,auxiliar);
+                }
                 while((!feof(arqG))){
+                    fread(&auxG,sizeof(goleiro),1,arqG);
+                    if(feof(arqG))
+                        break;
                     if(num_uniforme == auxG.uniforme)
                     {
                         fwrite(&goleiros,sizeof(goleiro),1,auxiliar);
@@ -948,16 +973,11 @@ int inserir_dados(char *time)
                     {
                         fwrite(&auxG,sizeof(goleiro),1,auxiliar);
                     }
-                    fread(&auxG,sizeof(goleiro),1,arqG);
                 }
                 fclose(arqG);
                 fclose(auxiliar);
                 remove(arqGoleiros);
                 rename(arqAuxiliar, arqGoleiros);
-
-                arqG = fopen(arqGoleiros,"ab+"); if(arqG == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
-                auxiliar = fopen(arqAuxiliar,"rb"); if(auxiliar == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
-
             }
             else
             {
@@ -967,14 +987,22 @@ int inserir_dados(char *time)
         else
         {
             fread(&elenco,sizeof(jogador),1,arqJ);
-            while((!feof(arqJ)) && num_uniforme != elenco.uniforme){
+            while((!feof(arqJ)) && (num_uniforme != elenco.uniforme)){
                 fread(&elenco,sizeof(jogador),1,arqJ);
             }
             if(num_uniforme == elenco.uniforme)
             {
+                if(elenco.jogou[n] != 1)
+                {
+                    printf("Deseja inserir os dados do %s?\t1. Sim.\t2. Nao\n",elenco.nome);
+                    scanf("%d",&opc);
+                }
+                else
+                {
+                    printf("Jogador ja cadastrado nessa partida!\n");
+                    opc = 2;
+                }
                 char pos[4];
-                printf("Deseja inserir os dados do %s?\t1. Sim.\t2. Nao\n",elenco.nome);
-                scanf("%d",&opc);
                 if(opc==1)
                 {
                     elenco.jogos++;
@@ -1086,7 +1114,18 @@ int inserir_dados(char *time)
 
                     rewind(arqJ);
                     fread(&auxJ,sizeof(jogador),1,arqJ);
+                    if(num_uniforme == auxJ.uniforme)
+                    {
+                        fwrite(&elenco,sizeof(jogador),1,auxiliar);
+                    }
+                    else
+                    {
+                        fwrite(&auxJ,sizeof(jogador),1,auxiliar);
+                    }
                     while((!feof(arqJ))){
+                        fread(&auxJ,sizeof(jogador),1,arqJ);
+                        if(feof(arqJ))
+                            break;
                         if(num_uniforme == auxJ.uniforme)
                         {
                             fwrite(&elenco,sizeof(jogador),1,auxiliar);
@@ -1095,15 +1134,11 @@ int inserir_dados(char *time)
                         {
                             fwrite(&auxJ,sizeof(jogador),1,auxiliar);
                         }
-                        fread(&auxJ,sizeof(jogador),1,arqJ);
                     }
                     fclose(arqJ);
                     fclose(auxiliar);
                     remove(arqJogadores);
                     rename(arqAuxiliar, arqJogadores);
-
-                    arqJ = fopen(arqJogadores,"ab+"); if(arqJ == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
-                    auxiliar = fopen(arqAuxiliar,"rb"); if(auxiliar == NULL){    printf("Erro na abertura do arquivo!\n"); return 1;    }
                 }
                 else
                 {
@@ -1116,12 +1151,24 @@ int inserir_dados(char *time)
                 i--;
             }
         }
+        if(arqJ != NULL)
+            fclose(arqJ);
+        if(arqG != NULL)
+            fclose(arqG);
+        if(auxiliar != NULL)
+            fclose(auxiliar);
     }
     printf("\n");
-    fclose(arqJ);
-    fclose(arqG);
-    fclose(arqP);
-    fclose(auxiliar);
+
+    if(arqJ != NULL)
+        fclose(arqJ);
+    if(arqG != NULL)
+        fclose(arqG);
+    if(auxiliar != NULL)
+        fclose(auxiliar);
+    if(arqP != NULL)
+        fclose(arqP);
+
     system("PAUSE");
     return 0;
 }
