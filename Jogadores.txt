@@ -1,0 +1,59 @@
+__________________________________________
+Goleiros:
+	12. Citron
+	01. Jose Silva
+__________________________________________
+Zagueiros:
+	03. Pepe
+	04. Dennis
+	13. Smile
+	14. MIB
+__________________________________________
+Laterais Direito:
+	02. Macalao
+	22. Adenor
+	45. Mochila Nike
+__________________________________________
+Laterais Esquerdo:
+	06. King Kong
+	51. Nitro Nina
+	27. Cotuba
+__________________________________________
+Primeiros Volantes:
+	07. Vijay
+	15. Com Ka
+__________________________________________
+Segundos Volantes:
+	10. Atihe
+__________________________________________
+Armadores:
+	69. Zambas
+__________________________________________
+Meias Direita:
+	80. Sanduela Mortandic
+	66. Malocoball
+__________________________________________
+Meias Esquerda:
+	16. Adinan
+	70. Zé Bostitta
+__________________________________________
+Meias Atacante:
+	18. Ada
+	40. Pepsi Congela
+__________________________________________
+Pontas Direita:
+	09. Golfo
+	13. Vida Snake
+__________________________________________
+Pontas Esquerda:
+	24. O Madalena
+	17. Bolo Fosforo
+__________________________________________
+Segundos Atacantes:
+	11. Titta
+	19. Deter Gente
+__________________________________________
+Centroavantes:
+	08. Batistic
+	99. Lendaria Sarrada
+__________________________________________

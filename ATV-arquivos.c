@@ -702,9 +702,12 @@ int editar(char *time)
             printf("Numero de uniforme nao encontrado!\n");
         }
     }
-    fclose(arqJ);
-    fclose(arqG);
-    fclose(aux);
+    if(arqJ != NULL)
+        fclose(arqJ);
+    if(arqG != NULL)
+        fclose(arqG);
+    if(aux != NULL)
+        fclose(aux);
     printf("\n");
     system("PAUSE");
     return 0;
@@ -783,9 +786,12 @@ int excluir(char *time)
             printf("Numero de uniforme nao encontrado!\n");
         }
     }
-    fclose(arqJ);
-    fclose(arqG);
-    fclose(aux);
+    if(arqJ != NULL)
+        fclose(arqJ);
+    if(arqG != NULL)
+        fclose(arqG);
+    if(aux != NULL)
+        fclose(aux);
     printf("\n");
     system("PAUSE");
     return 0;
