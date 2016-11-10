@@ -3937,64 +3937,63 @@ int grupo_GeF(char *time)
         while(!feof(arqJ)){
             if(rankUniforme[x] == elenco.uniforme){
 
+                for(tamanho = 0; elenco.nome[tamanho] != '\0'; tamanho ++){
+                    complemento = 30 - tamanho;
+                }
 
-            for(tamanho = 0; elenco.nome[tamanho] != '\0'; tamanho ++){
-                complemento = 30 - tamanho;
-        }
-
-        printf("%s:",elenco.nome);
-        //alinhando nomes com total
-        for(w = 0; w < complemento; w++){
-            printf(" ");
-        }
-        //alinhando total com acertos
-        int total, tamanho1 = 0;
-        char digitos[50];
-        total = elenco.total_finalizacoesC + elenco.total_finalizacoesE;
-        itoa(total,digitos,10);
-        for(tamanho1 = 0; digitos[tamanho1] != '\0'; tamanho1 ++){
-                complemento = 10 - tamanho1;
-        }
-        //alinhando os números referentes ao total
-        if(total< 10){
-            printf("Total: 0%d", total);
-        }
-        else{printf("Total: %d", total);}
-        for (w = 0; w < complemento; w++){
-            printf(" ");
-        }
+                printf("%s:",elenco.nome);
+                //alinhando nomes com total
+                for(w = 0; w < complemento; w++){
+                    printf(" ");
+                }
+                //alinhando total com acertos
+                int total, tamanho1 = 0;
+                char digitos[50];
+                total = elenco.total_finalizacoesC + elenco.total_finalizacoesE;
+                itoa(total,digitos,10);
+                for(tamanho1 = 0; digitos[tamanho1] != '\0'; tamanho1 ++){
+                        complemento = 10 - tamanho1;
+                }
+                //alinhando os números referentes ao total
+                if(total< 10){
+                    printf("Total: 0%d", total);
+                }
+                else{printf("Total: %d", total);}
+                for (w = 0; w < complemento; w++){
+                    printf(" ");
+                }
 
 
-        //alinhando acertos com aproveitamento
-        tamanho1 = 0;
-        strcpy(digitos,"");
-        total = rankFinalizacoes[x];
-        itoa(total,digitos,10);
-        for(tamanho1 = 0; digitos[tamanho1] != '\0'; tamanho1 ++){
-                complemento = 10 - tamanho1;
-        }
-        //alinhando os números referentes aos acertos
-        if(total< 10){
-            printf("Acertos: 0%d", total);
-        }
-        else{printf("Acertos: %d", total);}
-        for (w = 0; w < complemento; w++){
-            printf(" ");
-        }
+                //alinhando acertos com aproveitamento
+                tamanho1 = 0;
+                strcpy(digitos,"");
+                total = rankFinalizacoes[x];
+                itoa(total,digitos,10);
+                for(tamanho1 = 0; digitos[tamanho1] != '\0'; tamanho1 ++){
+                        complemento = 10 - tamanho1;
+                }
+                //alinhando os números referentes aos acertos
+                if(total< 10){
+                    printf("Acertos: 0%d", total);
+                }
+                else{printf("Acertos: %d", total);}
+                for (w = 0; w < complemento; w++){
+                    printf(" ");
+                }
 
-        if((float)elenco.total_finalizacoesC + (float)elenco.total_finalizacoesE == 0){
-            printf("Aproveitamento:   0.00%%\n");
-        }
-        else if(100*((float)elenco.total_finalizacoesC)/((float)elenco.total_finalizacoesC + (float)elenco.total_finalizacoesE) < 100 && 100*((float)elenco.total_finalizacoesC)/((float)elenco.total_finalizacoesC + (float)elenco.total_finalizacoesE) >= 10){
-            printf("Aproveitamento:  %.2f%%\n",100*((float)elenco.total_finalizacoesC)/((float)elenco.total_finalizacoesC + (float)elenco.total_finalizacoesE));
-        }
-        else if(100*((float)elenco.total_finalizacoesC)/((float)elenco.total_finalizacoesC + (float)elenco.total_finalizacoesE) < 10){
-            printf("Aproveitamento:   %.2f%%\n",100*((float)elenco.total_finalizacoesC)/((float)elenco.total_finalizacoesC + (float)elenco.total_finalizacoesE));
-        }
-        else{
-        printf("Aproveitamento: %.2f%%\n",100*((float)elenco.total_finalizacoesC)/((float)elenco.total_finalizacoesC + (float)elenco.total_finalizacoesE));
-        }
-        break;
+                if((float)elenco.total_finalizacoesC + (float)elenco.total_finalizacoesE == 0){
+                    printf("Aproveitamento:   0.00%%\n");
+                }
+                else if(100*((float)elenco.total_finalizacoesC)/((float)elenco.total_finalizacoesC + (float)elenco.total_finalizacoesE) < 100 && 100*((float)elenco.total_finalizacoesC)/((float)elenco.total_finalizacoesC + (float)elenco.total_finalizacoesE) >= 10){
+                    printf("Aproveitamento:  %.2f%%\n",100*((float)elenco.total_finalizacoesC)/((float)elenco.total_finalizacoesC + (float)elenco.total_finalizacoesE));
+                }
+                else if(100*((float)elenco.total_finalizacoesC)/((float)elenco.total_finalizacoesC + (float)elenco.total_finalizacoesE) < 10){
+                    printf("Aproveitamento:   %.2f%%\n",100*((float)elenco.total_finalizacoesC)/((float)elenco.total_finalizacoesC + (float)elenco.total_finalizacoesE));
+                }
+                else{
+                printf("Aproveitamento: %.2f%%\n",100*((float)elenco.total_finalizacoesC)/((float)elenco.total_finalizacoesC + (float)elenco.total_finalizacoesE));
+                }
+                break;
             }
             fread(&elenco,sizeof(jogador),1,arqJ);
         }
@@ -4315,12 +4314,46 @@ int grupo_DeP(char *time)
         rankUniforme[k] = novoUniforme[guardaindice];
         k++;
     }
-    int x = 0;
+    int x = 0, tamanho = 0, complemento = 0, w = 0;
     for(x = 0; x < k; x++){
         fread(&elenco,sizeof(jogador),1,arqJ);
         while(!feof(arqJ)){
             if(rankUniforme[x] == elenco.uniforme){
-                printf("%s: Desarmes: %d     Perdas de posse: %d\n",elenco.nome, elenco.total_desarmes, elenco.total_perdas);
+                for(tamanho = 0; elenco.nome[tamanho] != '\0'; tamanho ++){
+                    complemento = 30 - tamanho;
+                }
+
+                printf("%s:",elenco.nome);
+                //alinhando nomes com desarmes
+                for(w = 0; w < complemento; w++){
+                    printf(" ");
+                }
+                //alinhando desarmes com perdas
+                int total, tamanho1 = 0;
+                char digitos[50];
+                total = elenco.total_desarmes;
+                itoa(total,digitos,10);
+                for(tamanho1 = 0; digitos[tamanho1] != '\0'; tamanho1 ++){
+                        complemento = 10 - tamanho1;
+                }
+                //alinhando os números referentes ao total
+                if(total < 100 && total >= 10)
+                    printf("Total:  %d", total);
+                else if(total< 10){
+                    printf("Total:  0%d", total);
+                }
+                else{printf("Total: %d", total);}
+                for (w = 0; w < complemento; w++){
+                    printf(" ");
+                }
+                if(elenco.total_perdas < 100 && elenco.total_perdas >= 10)
+                    printf("Perdas de posse:  %d\n", elenco.total_perdas);
+                if(elenco.total_perdas < 10){
+                    printf("Perdas de posse:  0%d\n", elenco.total_perdas);
+                }
+                else{
+                    printf("Perdas de posse: %d\n", elenco.total_perdas);
+                }
                 break;
             }
             fread(&elenco,sizeof(jogador),1,arqJ);
@@ -4391,12 +4424,26 @@ int grupo_Def(char *time)
         rankUniforme[k] = novoUniforme[guardaindice];
         k++;
     }
-    int x = 0;
+    int x = 0, tamanho = 0, complemento = 0, w = 0;
     for(x = 0; x < k; x++){
         fread(&goleiros,sizeof(goleiro),1,arqG);
         while(!feof(arqG)){
             if(rankUniforme[x] == goleiros.uniforme){
-                printf("%s: %d\n", goleiros.nome, rankDefesas[x]);
+                for(tamanho = 0; goleiros.nome[tamanho] != '\0'; tamanho ++){
+                    complemento = 30 - tamanho;
+                }
+
+                printf("%s:",goleiros.nome);
+                //alinhando nomes com total
+                for(w = 0; w < complemento; w++){
+                    printf(" ");
+                }
+                if(rankDefesas[x] < 100 && rankDefesas[x] >= 10)
+                    printf(" %d\n", rankDefesas[x]);
+                else if(rankDefesas[x] < 10)
+                    printf(" 0%d\n", rankDefesas[x]);
+                else
+                    printf("%d\n", rankDefesas[x]);
                 break;
             }
             fread(&goleiros,sizeof(goleiro),1,arqG);
@@ -4405,6 +4452,7 @@ int grupo_Def(char *time)
     }
     fclose(arqG);
 
+    printf("\n");
     system("pause");
     return 0;
 }
@@ -4430,6 +4478,9 @@ int grupo_FeP(char *time)
     /*                   F A L T A S                                  */
 
     int i = 0, j = 0, f = 0;
+
+    int total, tamanho1 = 0;
+    char digitos[50];
 
     fread(&elenco,sizeof(jogador),1,arqJ);
     while(!feof(arqJ)){
@@ -4487,12 +4538,48 @@ int grupo_FeP(char *time)
         rankUniforme[k] = novoUniforme[guardaindice];
         k++;
     }
-    int x = 0;
+    int x = 0, tamanho = 0, complemento = 0, w = 0;
     for(x = 0; x < k; x++){
         fread(&elenco,sizeof(jogador),1,arqJ);
         while(!feof(arqJ)){
             if(rankUniforme[x] == elenco.uniforme){
-                printf("%s: Faltas cometidas: %d   Faltas sofridas: %d\n",elenco.nome, rankFaltas[x], elenco.total_faltasS);
+                for(tamanho = 0; elenco.nome[tamanho] != '\0'; tamanho ++){
+                    complemento = 30 - tamanho;
+                }
+
+                printf("%s:",elenco.nome);
+                //alinhando nomes com total
+                for(w = 0; w < complemento; w++){
+                    printf(" ");
+                }
+                //alinhando faltas cometidas e sofridas
+                total = rankFaltas[x];
+                itoa(total,digitos,10);
+                for(tamanho1 = 0; digitos[tamanho1] != '\0'; tamanho1 ++){
+                        complemento = 10 - tamanho1;
+                }
+                //alinhando os números referentes as faltas cometidas
+                if(total < 100 && total >=10)
+                    printf("Faltas cometidas:  %d", total);
+                else if(total < 10){
+                    printf("Faltas cometidas:  0%d", total);
+                }
+                else{
+                    printf("Faltas cometidas: %d", total);
+                }
+                for (w = 0; w < complemento; w++){
+                    printf(" ");
+                }
+                //alinhando os números referentes as faltas sofridas
+                if(elenco.total_faltasS < 100 && elenco.total_faltasS >= 10)
+                    printf("Faltas sofridas:  %d\n",elenco.total_faltasS);
+                if(elenco.total_faltasS < 10){
+                    printf("Faltas sofridas:  0%d\n",elenco.total_faltasS);
+                }
+                else{
+                    printf("Faltas sofridas: %d\n",elenco.total_faltasS);
+                }
+
                 break;
             }
             fread(&elenco,sizeof(jogador),1,arqJ);
@@ -4502,7 +4589,43 @@ int grupo_FeP(char *time)
         fread(&goleiros,sizeof(goleiro),1,arqG);
         while(!feof(arqG)){
             if(rankUniforme[x] == goleiros.uniforme){
-                printf("%s: Faltas cometidas: %d   Faltas sofridas: \n", goleiros.nome, rankFaltas[x], goleiros.total_faltasS);
+                for(tamanho = 0; goleiros.nome[tamanho] != '\0'; tamanho ++){
+                    complemento = 30 - tamanho;
+                }
+
+                printf("%s:",goleiros.nome);
+                //alinhando nomes com total
+                for(w = 0; w < complemento; w++){
+                    printf(" ");
+                }
+                //alinhando faltas cometidas e sofridas
+                total = rankFaltas[x];
+                itoa(total,digitos,10);
+                for(tamanho1 = 0; digitos[tamanho1] != '\0'; tamanho1 ++){
+                        complemento = 10 - tamanho1;
+                }
+                //alinhando os números referentes as faltas cometidas
+                if(total < 100 && total >=10)
+                    printf("Faltas cometidas:  %d", total);
+                else if(total < 10){
+                    printf("Faltas cometidas:  0%d", total);
+                }
+                else{
+                    printf("Faltas cometidas: %d", total);
+                }
+                for (w = 0; w < complemento; w++){
+                    printf(" ");
+                }
+                //alinhando os números referentes as faltas sofridas
+                if(goleiros.total_faltasS < 100 && goleiros.total_faltasS >= 10)
+                    printf("Faltas sofridas:  %d\n",goleiros.total_faltasS);
+                if(goleiros.total_faltasS < 10){
+                    printf("Faltas sofridas:  0%d\n",goleiros.total_faltasS);
+                }
+                else{
+                    printf("Faltas sofridas: %d\n",goleiros.total_faltasS);
+                }
+
                 break;
             }
             fread(&goleiros,sizeof(goleiro),1,arqG);
@@ -4553,7 +4676,62 @@ int grupo_FeP(char *time)
         fread(&elenco,sizeof(jogador),1,arqJ);
         while(!feof(arqJ)){
             if(rankUniforme[x] == elenco.uniforme){
-                printf("%s: Penal. cometidos: %d     Penal. perdidos: %d     Penal. sofridos: %d \n",elenco.nome, elenco.total_penaltisC,elenco.total_penaltisP, elenco.total_penaltisS);
+                for(tamanho = 0; elenco.nome[tamanho] != '\0'; tamanho ++){
+                    complemento = 30 - tamanho;
+                }
+
+                printf("%s:",elenco.nome);
+                //alinhando nomes com total
+                for(w = 0; w < complemento; w++){
+                    printf(" ");
+                }
+                //alinhando penaltis cometidos e perdidos
+                total = rankPenaltisC[x];
+                itoa(total,digitos,10);
+                for(tamanho1 = 0; digitos[tamanho1] != '\0'; tamanho1 ++){
+                        complemento = 10 - tamanho1;
+                }
+                //alinhando os números referentes os penaltis cometidos
+                if(total < 100 && total >=10)
+                    printf("Penal. cometidos:  %d", total);
+                else if(total < 10){
+                    printf("Penal. cometidos:  0%d", total);
+                }
+                else{
+                    printf("Penal. cometidos: %d", total);
+                }
+                for (w = 0; w < complemento; w++){
+                    printf(" ");
+                }
+                //alinhando penaltis perdidos com sofridos
+                strcpy(digitos,"");
+                total = elenco.total_penaltisP;
+                itoa(total,digitos,10);
+                for(tamanho1 = 0; digitos[tamanho1] != '\0'; tamanho1 ++){
+                        complemento = 10 - tamanho1;
+                }
+                //alinhando os números referentes aos acertos
+                if(total < 100 && total >= 10)
+                    printf("Penal. perdidos:  %d",total);
+                if(elenco.total_faltasS < 10){
+                    printf("Penal. perdidos:  0%d",total);
+                }
+                else{
+                    printf("Penal. perdidos: %d",total);
+                }
+                for (w = 0; w < complemento; w++){
+                    printf(" ");
+                }
+                //alinhando os números referentes os penaltis sofridos
+                if(elenco.total_faltasS < 100 && elenco.total_penaltisS >= 10)
+                    printf("Penal. sofridos:  %d\n",elenco.total_penaltisS);
+                if(elenco.total_faltasS < 10){
+                    printf("Penal. sofridos:  0%d\n",elenco.total_penaltisS);
+                }
+                else{
+                    printf("Penal. sofridos: %d\n",elenco.total_penaltisS);
+                }
+
                 break;
             }
             fread(&elenco,sizeof(jogador),1,arqJ);
@@ -4624,12 +4802,26 @@ int grupo_Imp(char *time)
         rankUniforme[k] = novoUniforme[guardaindice];
         k++;
     }
-    int x = 0;
+    int x = 0, tamanho = 0, complemento = 0, w = 0;
     for(x = 0; x < k; x++){
         fread(&elenco,sizeof(jogador),1,arqJ);
         while(!feof(arqJ)){
             if(rankUniforme[x] == elenco.uniforme){
-                printf("%s: %d\n",elenco.nome, elenco.total_imped);
+                for(tamanho = 0; elenco.nome[tamanho] != '\0'; tamanho ++){
+                    complemento = 30 - tamanho;
+                }
+
+                printf("%s:",elenco.nome);
+                //alinhando nomes com total
+                for(w = 0; w < complemento; w++){
+                    printf(" ");
+                }
+                if(elenco.total_imped < 10 && elenco.total_imped >= 10)
+                    printf(" %d\n",elenco.total_imped);
+                else if(elenco.total_imped < 10)
+                    printf(" 0%d\n",elenco.total_imped);
+                else
+                    printf("%d\n",elenco.total_imped);
                 break;
             }
             fread(&elenco,sizeof(jogador),1,arqJ);
