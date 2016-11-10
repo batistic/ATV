@@ -3840,9 +3840,26 @@ int grupo_GeF(char *time)
         while(!feof(arqJ)){
             if(rankUniforme[x] == elenco.uniforme){
 
+            for(tamanho = 0; elenco.nome[tamanho] != '\0'; tamanho ++){
+                complemento = 30 - tamanho;
+        }
+
+        printf("%s:",elenco.nome);
+        //alinhando nomes com passes
+        for(w = 0; w < complemento; w++){
+            printf(" ");
+        }
+
+        if(rankGols[x] < 100 && rankGols[x] >= 10){
+            printf(" %d\n",rankGols[x]);
+        }
+        else if( rankGols[x] <10){
+            printf("  %d\n",rankGols[x]);
+        }
+        else{printf("%d\n",rankGols[x]);}
 
 
-                printf("%s: %d\n",elenco.nome, rankGols[x]);
+                //printf("%s: %d\n",elenco.nome, rankGols[x]);
                 break;
             }
             fread(&elenco,sizeof(jogador),1,arqJ);
@@ -3851,8 +3868,24 @@ int grupo_GeF(char *time)
         fread(&goleiros,sizeof(goleiro),1,arqG);
         while(!feof(arqG)){
             if(rankUniforme[x] == goleiros.uniforme){
-              printf("%s: %d\n", goleiros.nome, rankGols[x]);
-              break;
+            for(tamanho = 0; goleiros.nome[tamanho] != '\0'; tamanho ++){
+                complemento = 30 - tamanho;
+        }
+
+        printf("%s:",goleiros.nome);
+        //alinhando nomes com passes
+        for(w = 0; w < complemento; w++){
+            printf(" ");
+        }
+
+        if(rankGols[x] < 100 && rankGols[x] >= 10){
+            printf(" %d\n",rankGols[x]);
+        }
+        else if( rankGols[x] <10){
+            printf("  %d\n",rankGols[x]);
+        }
+        else{printf("%d\n",rankGols[x]);}
+        break;
             }
             fread(&goleiros,sizeof(goleiro),1,arqG);
         }
@@ -3980,7 +4013,7 @@ int grupo_GeF(char *time)
 int grupo_PeA(char *time)
 {
     system("cls");
-    printf("\tEstatisticas de gols e finalizacoes do grupo\n\n");
+    printf("\tEstatisticas de passes e assistencias do grupo\n\n");
 
     FILE *arqJ;
     FILE *arqG;
@@ -4054,12 +4087,31 @@ int grupo_PeA(char *time)
         rankUniforme[k] = novoUniforme[guardaindice];
         k++;
     }
-    int x = 0;
+    int x = 0, tamanho = 0, complemento = 0, w = 0;
     for(x = 0; x < k; x++){
         fread(&elenco,sizeof(jogador),1,arqJ);
         while(!feof(arqJ)){
             if(rankUniforme[x] == elenco.uniforme){
-                printf("%s: %d\n",elenco.nome, rankPasses[x]);
+
+                   for(tamanho = 0; elenco.nome[tamanho] != '\0'; tamanho ++){
+                complemento = 30 - tamanho;
+        }
+
+        printf("%s:",elenco.nome);
+        //alinhando nomes com passes
+        for(w = 0; w < complemento; w++){
+            printf(" ");
+        }
+
+        if(rankPasses[x] < 100 && rankPasses[x] >= 10){
+            printf(" %d\n",rankPasses[x]);
+        }
+        else if( rankPasses[x] <10){
+            printf("  %d\n",rankPasses[x]);
+        }
+        else{printf("%d\n",rankPasses[x]);}
+
+
                 break;
             }
             fread(&elenco,sizeof(jogador),1,arqJ);
@@ -4069,8 +4121,23 @@ int grupo_PeA(char *time)
         fread(&goleiros,sizeof(goleiro),1,arqG);
         while(!feof(arqG)){
             if(rankUniforme[x] == goleiros.uniforme){
-                printf("%s: %d\n", goleiros.nome, rankPasses[x]);
-                break;
+                   for(tamanho = 0; goleiros.nome[tamanho] != '\0'; tamanho ++){
+                complemento = 30 - tamanho;
+        }
+
+        printf("%s:",goleiros.nome);
+        //alinhando nomes com passes
+        for(w = 0; w < complemento; w++){
+            printf(" ");
+        }
+        if(rankPasses[x] < 100 && rankPasses[x] >= 10){
+            printf(" %d\n",rankPasses[x]);
+        }
+        else if( rankPasses[x] <10){
+            printf("  %d\n",rankPasses[x]);
+        }
+        else{printf("%d\n",rankPasses[x]);}
+        break;
             }
             fread(&goleiros,sizeof(goleiro),1,arqG);
         }
@@ -4121,7 +4188,61 @@ int grupo_PeA(char *time)
         fread(&elenco,sizeof(jogador),1,arqJ);
         while(!feof(arqJ)){
             if(rankUniforme[x] == elenco.uniforme){
-                printf("%s: Total: %d     Assist. Gol: %d     Assist. Finalizacao: %d\n",elenco.nome,elenco.total_assistG + elenco.total_assistF, elenco.total_assistG, elenco.total_assistF);
+
+
+         for(tamanho = 0; elenco.nome[tamanho] != '\0'; tamanho ++){
+         complemento = 30 - tamanho;
+        }
+
+        printf("%s:",elenco.nome);
+        //alinhando nomes com total
+        for(w = 0; w < complemento; w++){
+            printf(" ");
+        }
+        //alinhando total com acertos
+        int total, tamanho1 = 0;
+        char digitos[50];
+        total = elenco.total_assistG + elenco.total_assistF;
+        itoa(total,digitos,10);
+        for(tamanho1 = 0; digitos[tamanho1] != '\0'; tamanho1 ++){
+                complemento = 10 - tamanho1;
+        }
+        //alinhando os números referentes ao total
+        if(total< 10){
+            printf("Total: 0%d", total);
+        }
+        else{printf("Total: %d", total);}
+        for (w = 0; w < complemento; w++){
+            printf(" ");
+        }
+
+         //alinhando acertos com aproveitamento
+        tamanho1 = 0;
+        strcpy(digitos,"");
+        total = elenco.total_assistG;
+        itoa(total,digitos,10);
+        for(tamanho1 = 0; digitos[tamanho1] != '\0'; tamanho1 ++){
+                complemento = 10 - tamanho1;
+        }
+        //alinhando os números referentes aos acertos
+        if(total< 10){
+            printf("Assist. Gol:  0%d", total);
+        }
+        else if(total < 100 && total>=10){
+        printf("Assist. Gol:  %d", total);}
+        else{printf("Assist. Gol: %d", total);}
+        for (w = 0; w < complemento; w++){
+            printf(" ");
+        }
+
+        total = elenco.total_assistF;
+        if(total< 10){
+            printf("Assist. Finalizacao:  0%d\n", total);
+        }
+        else if(total < 100 && total>=10){
+        printf("Assist. Finalizacao:  %d\n", total);}
+        else{printf("Assist. Finalizacao: %d", total);}
+
                 break;
             }
             fread(&elenco,sizeof(jogador),1,arqJ);
