@@ -3834,11 +3834,14 @@ int grupo_GeF(char *time)
         rankUniforme[k] = novoUniforme[guardaindice];
         k++;
     }
-    int x = 0;
+    int x = 0, tamanho = 0, complemento = 0, w = 0;
     for(x = 0; x < k; x++){
         fread(&elenco,sizeof(jogador),1,arqJ);
         while(!feof(arqJ)){
             if(rankUniforme[x] == elenco.uniforme){
+
+
+
                 printf("%s: %d\n",elenco.nome, rankGols[x]);
                 break;
             }
@@ -3900,8 +3903,65 @@ int grupo_GeF(char *time)
         fread(&elenco,sizeof(jogador),1,arqJ);
         while(!feof(arqJ)){
             if(rankUniforme[x] == elenco.uniforme){
-                printf("%s: Total: %d     Acertos: %d     Aproveitamento: %.2f%%\n",elenco.nome, elenco.total_finalizacoesC + elenco.total_finalizacoesE,100*((float)elenco.total_finalizacoesC)/((float)elenco.total_finalizacoesC + (float)elenco.total_finalizacoesE)),rankFinalizacoes[x];
-                break;
+
+
+            for(tamanho = 0; elenco.nome[tamanho] != '\0'; tamanho ++){
+                complemento = 30 - tamanho;
+        }
+
+        printf("%s:",elenco.nome);
+        //alinhando nomes com total
+        for(w = 0; w < complemento; w++){
+            printf(" ");
+        }
+        //alinhando total com acertos
+        int total, tamanho1 = 0;
+        char digitos[50];
+        total = elenco.total_finalizacoesC + elenco.total_finalizacoesE;
+        itoa(total,digitos,10);
+        for(tamanho1 = 0; digitos[tamanho1] != '\0'; tamanho1 ++){
+                complemento = 10 - tamanho1;
+        }
+        //alinhando os números referentes ao total
+        if(total< 10){
+            printf("Total: 0%d", total);
+        }
+        else{printf("Total: %d", total);}
+        for (w = 0; w < complemento; w++){
+            printf(" ");
+        }
+
+
+        //alinhando acertos com aproveitamento
+        tamanho1 = 0;
+        strcpy(digitos,"");
+        total = rankFinalizacoes[x];
+        itoa(total,digitos,10);
+        for(tamanho1 = 0; digitos[tamanho1] != '\0'; tamanho1 ++){
+                complemento = 10 - tamanho1;
+        }
+        //alinhando os números referentes aos acertos
+        if(total< 10){
+            printf("Acertos: 0%d", total);
+        }
+        else{printf("Acertos: %d", total);}
+        for (w = 0; w < complemento; w++){
+            printf(" ");
+        }
+
+        if((float)elenco.total_finalizacoesC + (float)elenco.total_finalizacoesE == 0){
+            printf("Aproveitamento:   0.00%%\n");
+        }
+        else if(100*((float)elenco.total_finalizacoesC)/((float)elenco.total_finalizacoesC + (float)elenco.total_finalizacoesE) < 100 && 100*((float)elenco.total_finalizacoesC)/((float)elenco.total_finalizacoesC + (float)elenco.total_finalizacoesE) >= 10){
+            printf("Aproveitamento:  %.2f%%\n",100*((float)elenco.total_finalizacoesC)/((float)elenco.total_finalizacoesC + (float)elenco.total_finalizacoesE));
+        }
+        else if(100*((float)elenco.total_finalizacoesC)/((float)elenco.total_finalizacoesC + (float)elenco.total_finalizacoesE) < 10){
+            printf("Aproveitamento:   %.2f%%\n",100*((float)elenco.total_finalizacoesC)/((float)elenco.total_finalizacoesC + (float)elenco.total_finalizacoesE));
+        }
+        else{
+        printf("Aproveitamento: %.2f%%\n",100*((float)elenco.total_finalizacoesC)/((float)elenco.total_finalizacoesC + (float)elenco.total_finalizacoesE));
+        }
+        break;
             }
             fread(&elenco,sizeof(jogador),1,arqJ);
         }
